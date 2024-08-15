@@ -7,6 +7,16 @@
 
 import UIKit
 
+//MARK: - Types
+public extension CxjTitledToastContentView {
+	typealias TitleConfiguration = CxjToastTitlesConfiguration.TitledToastConfiguration
+	typealias AttributedTitleConfiguration = CxjToastTitlesConfiguration.TitledToastAttributedConfiguration
+	typealias LabelConfiguration = CxjToastTitlesConfiguration.ToastLabelConfiguration
+	typealias AttributedLabelConfiguration = CxjToastTitlesConfiguration.ToastAttributedLabelConfiguration
+	typealias LabelParams = CxjToastTitlesConfiguration.ToastLabelParams
+}
+
+//MARK: - ContentView
 public final class CxjTitledToastContentView: UIStackView {
 	// MARK: - Subviews
 	private lazy var titleLabel: UILabel = createTitleLabel()
@@ -29,14 +39,14 @@ public final class CxjTitledToastContentView: UIStackView {
 // MARK: - Public
 public extension CxjTitledToastContentView {
 	func configureWith(
-		configuration: TitledToastConfiguration
+		configuration: TitleConfiguration
 	) {
 		configure(label: titleLabel, with: configuration.title)
 		configure(label: subtitleLabel, with: configuration.subtitle)
 	}
 	
 	func configureWith(
-		attributedConfiguration: TitledToastAttributedConfiguration
+		attributedConfiguration: AttributedTitleConfiguration
 	) {
 		configure(label: titleLabel, with: attributedConfiguration.title)
 		configure(label: subtitleLabel, with: attributedConfiguration.subtitle)
@@ -47,7 +57,7 @@ public extension CxjTitledToastContentView {
 private extension CxjTitledToastContentView {
 	func configure(
 		label: UILabel,
-		with config: ToastLabelConfiguration?
+		with config: LabelConfiguration?
 	) {
 		label.isHidden = (config == nil)
 		guard let config = config else { return }
@@ -58,7 +68,7 @@ private extension CxjTitledToastContentView {
 	
 	func configure(
 		label: UILabel,
-		with attributedConfig: ToastAttributedLabelConfiguration?
+		with attributedConfig: AttributedLabelConfiguration?
 	) {
 		label.isHidden = attributedConfig == nil
 		guard let attributedConfig = attributedConfig else { return }
@@ -67,7 +77,7 @@ private extension CxjTitledToastContentView {
 		setup(params: attributedConfig.labelParams, to: label)
 	}
 	
-	func setup(params: ToastLabelParams, to label: UILabel) {
+	func setup(params: LabelParams, to label: UILabel) {
 		label.numberOfLines = params.numberOfLines
 	}
 }
