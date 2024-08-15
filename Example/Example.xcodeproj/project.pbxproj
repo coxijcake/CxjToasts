@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		8425F5CD2C6DE8A10082226D /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8425F5CC2C6DE8A10082226D /* ExampleTests.swift */; };
 		8425F5D72C6DE8A10082226D /* ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8425F5D62C6DE8A10082226D /* ExampleUITests.swift */; };
 		8425F5D92C6DE8A10082226D /* ExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8425F5D82C6DE8A10082226D /* ExampleUITestsLaunchTests.swift */; };
+		8425F5E72C6E08BC0082226D /* CxjToasts in Frameworks */ = {isa = PBXBuildFile; productRef = 8425F5E62C6E08BC0082226D /* CxjToasts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8425F5E72C6E08BC0082226D /* CxjToasts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +145,9 @@
 			dependencies = (
 			);
 			name = Example;
+			packageProductDependencies = (
+				8425F5E62C6E08BC0082226D /* CxjToasts */,
+			);
 			productName = Example;
 			productReference = 8425F5B22C6DE8A00082226D /* Example.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +220,9 @@
 				Base,
 			);
 			mainGroup = 8425F5A92C6DE8A00082226D;
+			packageReferences = (
+				8425F5E52C6E08BC0082226D /* XCLocalSwiftPackageReference "../CxjToasts" */,
+			);
 			productRefGroup = 8425F5B32C6DE8A00082226D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -607,6 +615,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		8425F5E52C6E08BC0082226D /* XCLocalSwiftPackageReference "../CxjToasts" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../CxjToasts;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8425F5E62C6E08BC0082226D /* CxjToasts */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CxjToasts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8425F5AA2C6DE8A00082226D /* Project object */;
 }
