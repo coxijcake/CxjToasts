@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol CxjToastContentView: UIView {
+public protocol CxjToastContentView: UIView {
 	
 }

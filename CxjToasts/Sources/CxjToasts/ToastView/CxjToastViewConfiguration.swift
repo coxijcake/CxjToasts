@@ -8,7 +8,7 @@
 import UIKit
 
 public struct CxjToastViewConfiguration {
-	let constraints: Constraints
+	let constraints: Constraints  //TODO: - Move to full toast config (with animations, spot etc.) in presetner/displayer/coordinator
 	let contentInsets: UIEdgeInsets
 	let colors: Colors
 	let shadow: Shadow
@@ -46,13 +46,13 @@ public extension CxjToastViewConfiguration {
 		public struct Params {
 			let offset: CGSize
 			let color: UIColor
-			let opacity: CGFloat
+			let opacity: Float
 			let radius: CGFloat
 			
 			public init(
 				offset: CGSize,
 				color: UIColor,
-				opacity: CGFloat,
+				opacity: Float,
 				radius: CGFloat
 			) {
 				self.offset = offset
