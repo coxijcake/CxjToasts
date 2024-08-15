@@ -9,6 +9,7 @@ import UIKit
 
 public struct CxjToastViewConfiguration {
 	let constraints: Constraints
+	let contentInsets: UIEdgeInsets
 	let colors: Colors
 	let shadow: Shadow
 	let cornerRadius: CGFloat
@@ -67,5 +68,11 @@ public extension CxjToastViewConfiguration {
 	
 	public struct Colors {
 		let background: UIColor
+		
+		public init(
+			background: UIColor
+		) {
+			self.background = background
+		}
 	}
 }
