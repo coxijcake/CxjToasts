@@ -8,59 +8,62 @@
 import Foundation
 
 public enum CxjToastTitlesConfiguration {
-	public struct TitledToastConfiguration {
-		let title: ToastLabelConfiguration
-		let subtitle: ToastLabelConfiguration?
+    case plain(config: Plain)
+    case attributed(config: Attributed)
+    
+	public struct Plain {
+		let title: PlainLabel
+		let subtitle: PlainLabel?
 		
 		public init(
-			title: ToastLabelConfiguration,
-			subtitle: ToastLabelConfiguration?
+			title: PlainLabel,
+			subtitle: PlainLabel?
 		) {
 			self.title = title
 			self.subtitle = subtitle
 		}
 	}
 	
-	public struct TitledToastAttributedConfiguration {
-		let title: ToastAttributedLabelConfiguration
-		let subtitle: ToastAttributedLabelConfiguration?
+	public struct Attributed {
+		let title: AttributedLabel
+		let subtitle: AttributedLabel?
 		
 		public init(
-			title: ToastAttributedLabelConfiguration,
-			subtitle: ToastAttributedLabelConfiguration?
+			title: AttributedLabel,
+			subtitle: AttributedLabel?
 		) {
 			self.title = title
 			self.subtitle = subtitle
 		}
 	}
 	
-	public struct ToastLabelConfiguration {
+	public struct PlainLabel {
 		public let text: String
-		public let labelParams: ToastLabelParams
+		public let labelParams: LabelParams
 		
 		public init(
 			text: String,
-			labelParams: ToastLabelParams
+			labelParams: LabelParams
 		) {
 			self.text = text
 			self.labelParams = labelParams
 		}
 	}
 	
-	public struct ToastAttributedLabelConfiguration {
+	public struct AttributedLabel {
 		public let text: NSAttributedString
-		public let labelParams: ToastLabelParams
+		public let labelParams: LabelParams
 		
 		public init(
 			text: NSAttributedString,
-			labelParams: ToastLabelParams
+			labelParams: LabelParams
 		) {
 			self.text = text
 			self.labelParams = labelParams
 		}
 	}
 	
-	public struct ToastLabelParams {
+	public struct LabelParams {
 		public let numberOfLines: Int
 		
 		public init(numberOfLines: Int) {

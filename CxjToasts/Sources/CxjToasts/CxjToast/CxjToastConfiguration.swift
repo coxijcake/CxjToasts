@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: - Configuration
 public struct CxjToastConfiguration {
     let constraints: Constraints
     let placement: Placement
@@ -30,7 +31,21 @@ public struct CxjToastConfiguration {
 }
 
 extension CxjToastConfiguration {
+    //MARK: - Constraints
     public struct Constraints {
+        public struct ConstraintValues {
+            let min: CGFloat
+            let max: CGFloat
+            
+            public init(
+                min: CGFloat,
+                max: CGFloat
+            ) {
+                self.min = min
+                self.max = max
+            }
+        }
+        
         let width: ConstraintValues
         let height: ConstraintValues
         
@@ -43,12 +58,14 @@ extension CxjToastConfiguration {
         }
     }
     
+    //MARK: - Placement
     public enum Placement {
         case top, center, bottom
     }
     
-    public enum HidingMethod: String, Hashable, Equatable {
-        public enum SwipeDirection {
+    //MARK: - HidingMethod
+    public enum HidingMethod: Hashable, Equatable {
+        public enum SwipeDirection: String, Hashable {
             case top, bottom, any
         }
         
@@ -57,6 +74,7 @@ extension CxjToastConfiguration {
         case swipe(direction: SwipeDirection)
     }
     
+    //MARK: - Animation
     public struct Animation {
         public enum AnimationType {
             case `default`

@@ -9,9 +9,9 @@ import UIKit
 
 //MARK: - Types
 public extension CxjIconedToastContentView {
-	typealias IconParams = CxjToastIconConfiguration.IconParams
-	typealias TitleConfiguration = CxjToastTitlesConfiguration.TitledToastConfiguration
-	typealias AttributedTitleConfiguration = CxjToastTitlesConfiguration.TitledToastAttributedConfiguration
+	typealias Configuration = CxjIconedToastConfiguration
+    typealias IconParams = Configuration.IconParams
+    typealias TitlesConfiguration = CxjToastTitlesConfiguration
 }
 
 extension CxjIconedToastContentView {
@@ -44,31 +44,29 @@ public final class CxjIconedToastContentView: UIStackView {
 
 // MARK: - Public
 public extension CxjIconedToastContentView {
-	func configureWith(
-		iconConfig: IconParams,
-		titleConfig: TitleConfiguration
-	) {
-		titlesView.configureWith(configuration: titleConfig)
-		configureIcon(with: iconConfig)
-	}
-	
-	func configureWith(
-		iconConfig: IconParams,
-		attributedTitleConfig: AttributedTitleConfiguration
-	) {
-		titlesView.configureWith(attributedConfiguration: attributedTitleConfig)
-		configureIcon(with: iconConfig)
-	}
+    func configureWith(
+        config: Configuration,
+        titlesConfig: TitlesConfiguration
+    ) {
+        configureWith(config: config)
+        titlesView.configureWith(configuration: titlesConfig)
+    }
 }
 
 // MARK: - Main
 private extension CxjIconedToastContentView {
-	func configureIcon(with
-		iconParams: IconParams
-	) {
-		iconImageView.image = iconParams.icon
-		iconImageView.tintColor = iconParams.tintColor
-	}
+    func configureWith(
+        config: Configuration
+    ) {
+        configureIconWith(iconParams: config.params)
+    }
+    
+    func configureIconWith(
+        iconParams: IconParams
+    ) {
+        iconImageView.image = iconParams.icon
+        iconImageView.tintColor = iconParams.tintColor
+    }
 }
 
 // MARK: - Layout

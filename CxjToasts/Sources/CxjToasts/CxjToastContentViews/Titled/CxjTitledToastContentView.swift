@@ -9,11 +9,10 @@ import UIKit
 
 //MARK: - Types
 public extension CxjTitledToastContentView {
-	typealias TitleConfiguration = CxjToastTitlesConfiguration.TitledToastConfiguration
-	typealias AttributedTitleConfiguration = CxjToastTitlesConfiguration.TitledToastAttributedConfiguration
-	typealias LabelConfiguration = CxjToastTitlesConfiguration.ToastLabelConfiguration
-	typealias AttributedLabelConfiguration = CxjToastTitlesConfiguration.ToastAttributedLabelConfiguration
-	typealias LabelParams = CxjToastTitlesConfiguration.ToastLabelParams
+    typealias Configuration = CxjToastTitlesConfiguration
+    typealias PlainLabelConfiguration = Configuration.PlainLabel
+    typealias AttributedLabelConfiguration = Configuration.AttributedLabel
+    typealias LabelParams = Configuration.LabelParams
 }
 
 //MARK: - ContentView
@@ -38,26 +37,23 @@ public final class CxjTitledToastContentView: UIStackView {
 
 // MARK: - Public
 public extension CxjTitledToastContentView {
-	func configureWith(
-		configuration: TitleConfiguration
-	) {
-		configure(label: titleLabel, with: configuration.title)
-		configure(label: subtitleLabel, with: configuration.subtitle)
-	}
-	
-	func configureWith(
-		attributedConfiguration: AttributedTitleConfiguration
-	) {
-		configure(label: titleLabel, with: attributedConfiguration.title)
-		configure(label: subtitleLabel, with: attributedConfiguration.subtitle)
-	}
+    func configureWith(configuration: Configuration) {
+        switch configuration {
+        case .plain(config: let config):
+            configure(label: titleLabel, with: config.title)
+            configure(label: subtitleLabel, with: config.subtitle)
+        case .attributed(config: let config):
+            configure(label: titleLabel, with: config.title)
+            configure(label: subtitleLabel, with: config.subtitle)
+        }
+    }
 }
 
 // MARK: - Main
 private extension CxjTitledToastContentView {
 	func configure(
 		label: UILabel,
-		with config: LabelConfiguration?
+        with config: PlainLabelConfiguration?
 	) {
 		label.isHidden = (config == nil)
 		guard let config = config else { return }

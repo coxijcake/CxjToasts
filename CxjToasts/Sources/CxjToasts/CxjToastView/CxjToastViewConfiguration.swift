@@ -15,19 +15,6 @@ public struct CxjToastViewConfiguration {
 }
 
 public extension CxjToastViewConfiguration {
-	public struct ConstraintValues {
-		let min: CGFloat
-		let max: CGFloat
-		
-		public init(
-			min: CGFloat,
-			max: CGFloat
-		) {
-			self.min = min
-			self.max = max
-		}
-	}
-	
 	public enum Shadow {
 		public struct Params {
 			let offset: CGSize
