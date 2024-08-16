@@ -8,7 +8,6 @@
 import UIKit
 
 public struct CxjToastViewConfiguration {
-	let constraints: Constraints  //TODO: - Move to full toast config (with animations, spot etc.) in presetner/displayer/coordinator
 	let contentInsets: UIEdgeInsets
 	let colors: Colors
 	let shadow: Shadow
@@ -16,19 +15,6 @@ public struct CxjToastViewConfiguration {
 }
 
 public extension CxjToastViewConfiguration {
-	public struct Constraints {
-		let width: ConstraintValues
-		let height: ConstraintValues
-		
-		public init(
-			width: ConstraintValues,
-			height: ConstraintValues
-		) {
-			self.width = width
-			self.height = height
-		}
-	}
-	
 	public struct ConstraintValues {
 		let min: CGFloat
 		let max: CGFloat
