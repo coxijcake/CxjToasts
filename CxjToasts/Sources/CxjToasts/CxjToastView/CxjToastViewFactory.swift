@@ -12,7 +12,7 @@ enum CxjToastViewFactory {
         config: CxjToastViewConfiguration,
         content: CxjToastContentView
     ) -> CxjToastView {
-        let view = CxjToastView(
+        let view = CxjToastContainerView(
             config: config,
             contentView: content
         )

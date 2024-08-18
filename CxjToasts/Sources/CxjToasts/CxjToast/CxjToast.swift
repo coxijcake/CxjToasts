@@ -7,19 +7,24 @@
 
 import UIKit
 
-protocol Toastable {
-    
+@MainActor
+public protocol CxjToast {
+    static func show(
+        _ type: CxjToastType,
+        content: CxjToastContentView
+    )
 }
 
-public extension CxjToast {
+extension CxjCommonToast {
     typealias Toast = CxjToast
+    typealias ToastType = CxjToastType
     typealias ToastView = CxjToastView
     typealias Configuration = CxjToastConfiguration
-    typealias Content = CxjToastContentView
+    typealias ContentView = CxjToastContentView
 }
 
 @MainActor
-public final class CxjToast {
+final class CxjCommonToast {
     //MARK: - Props
     let view: ToastView
     let config: Configuration
@@ -34,16 +39,14 @@ public final class CxjToast {
     }
 }
 
-//MARK: - Public API
-extension CxjToast {
-    public static func show(
-        _ type: ToastType,
-        content: Content
-    ) {
-        let toast: Toast = Factory.createToast(
+extension CxjCommonToast: CxjToast {
+    static func show(_ type: ToastType, content: ContentView) {
+        let toast: Toast = CxjToastFactory.createToast(
             type: type,
             content: content
         )
+        
+        
         
     }
 }

@@ -7,8 +7,7 @@
 
 import UIKit
 
-extension CxjToast {
-    public final class CxjToastPresenter {
-        
-    }
+@MainActor
+protocol CxjToastPresenter {
+    func present(toast: CxjToast)
 }
