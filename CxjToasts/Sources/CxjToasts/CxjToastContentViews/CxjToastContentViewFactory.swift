@@ -7,8 +7,8 @@
 
 import UIKit
 
-enum CxjToastContentViewFactory {
-    static func createContentViewWith(config: CxjToastContentConfiguration) -> CxjToastContentView {
+public enum CxjToastContentViewFactory {
+    public static func createContentViewWith(config: CxjToastContentConfiguration) -> CxjToastContentView {
         switch config {
         case .iconed(config: let config, titlesConfig: let titlesConfig):
             let view: CxjIconedToastContentView = CxjIconedToastContentView()

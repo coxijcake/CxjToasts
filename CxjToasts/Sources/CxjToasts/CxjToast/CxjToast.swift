@@ -8,15 +8,17 @@
 import UIKit
 
 @MainActor
-public protocol CxjToast {
+protocol CxjToastable {
+    var view: CxjToastView { get }
+    var config: CxjToastConfiguration { get }
+    
     static func show(
         _ type: CxjToastType,
-        content: CxjToastContentView
+        with content: CxjToastContentView
     )
 }
 
-extension CxjCommonToast {
-    typealias Toast = CxjToast
+public extension CxjToast {
     typealias ToastType = CxjToastType
     typealias ToastView = CxjToastView
     typealias Configuration = CxjToastConfiguration
@@ -24,7 +26,7 @@ extension CxjCommonToast {
 }
 
 @MainActor
-final class CxjCommonToast {
+public final class CxjToast {
     //MARK: - Props
     let view: ToastView
     let config: Configuration
@@ -39,14 +41,17 @@ final class CxjCommonToast {
     }
 }
 
-extension CxjCommonToast: CxjToast {
-    static func show(_ type: ToastType, content: ContentView) {
-        let toast: Toast = CxjToastFactory.createToast(
+extension CxjToast: CxjToastable {
+    public static func show(
+        _ type: ToastType,
+        with content: ContentView
+    ) {
+        let toast: CxjToastable = CxjToastFactory.toastFor(
             type: type,
             content: content
         )
         
-        
+        CxjToastPresenter.present(toast: toast)
         
     }
 }

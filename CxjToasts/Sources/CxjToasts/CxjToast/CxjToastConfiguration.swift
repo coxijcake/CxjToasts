@@ -5,32 +5,47 @@
 //  Created by Nikita Begletskiy on 16/08/2024.
 //
 
-import Foundation
+import UIKit
 
 //MARK: - Configuration
 public struct CxjToastConfiguration {
-    let constraints: Constraints
-    let placement: Placement
+    let layout: Layout
     let hidingMethods: Set<HidingMethod>
     let presentAnimation: Animation
     let dismissAnimation: Animation
     
+    let sourceView: UIView
+    
     public init(
-        constraints: Constraints,
-        placement: Placement,
+        layout: Layout,
         hidingMethods: Set<HidingMethod>,
         presentAnimation: Animation,
-        dismissAnimation: Animation
+        dismissAnimation: Animation,
+        sourceView: UIView
     ) {
-        self.constraints = constraints
-        self.placement = placement
+        self.layout = layout
         self.hidingMethods = hidingMethods
         self.presentAnimation = presentAnimation
         self.dismissAnimation = dismissAnimation
+        self.sourceView = sourceView
     }
 }
 
 extension CxjToastConfiguration {
+    //MARK: - Layout
+    public struct Layout {
+        let constraints: Constraints
+        let placement: Placement
+        
+        public init(
+            constraints: Constraints,
+            placement: Placement
+        ) {
+            self.constraints = constraints
+            self.placement = placement
+        }
+    }
+    
     //MARK: - Constraints
     public struct Constraints {
         public struct ConstraintValues {

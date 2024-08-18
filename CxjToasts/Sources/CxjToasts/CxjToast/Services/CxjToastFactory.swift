@@ -1,5 +1,5 @@
 //
-//  CxjToast+Factory.swift
+//  CxjToastFactory.swift
 //
 //
 //  Created by Nikita Begletskiy on 16/08/2024.
@@ -12,7 +12,7 @@ enum CxjToastFactory {
     static func toastFor(
         type: CxjToastType,
         content: CxjToastContentView
-    ) -> CxjToast {
+    ) -> CxjToastable {
         let view: CxjToastView = createToastView(
             for: type,
             content: content
@@ -22,7 +22,7 @@ enum CxjToastFactory {
             for: type
         )
         
-        return CxjCommonToast(view: view, config: toastConfig)
+        return CxjToast(view: view, config: toastConfig)
     }
 }
 
@@ -81,17 +81,19 @@ private extension CxjToastFactory {
     //MARK: - Native Config
     static func nativeConfig() -> CxjToastConfiguration {
         return CxjToastConfiguration(
-            constraints: CxjToastConfiguration.Constraints(
-                width: CxjToastConfiguration.Constraints.ConstraintValues(
-                    min: UIScreen.main.bounds.size.width - 100,
-                    max: UIScreen.main.bounds.size.width - 16 * 2
+            layout: CxjToastConfiguration.Layout(
+                constraints: CxjToastConfiguration.Constraints(
+                    width: CxjToastConfiguration.Constraints.ConstraintValues(
+                        min: UIScreen.main.bounds.size.width * 0.65,
+                        max: UIScreen.main.bounds.size.width - 16 * 2
+                    ),
+                    height: CxjToastConfiguration.Constraints.ConstraintValues(
+                        min: 120,
+                        max: 250
+                    )
                 ),
-                height: CxjToastConfiguration.Constraints.ConstraintValues(
-                    min: 120,
-                    max: 250
-                )
+                placement: .top
             ),
-            placement: CxjToastConfiguration.Placement.top,
             hidingMethods: [
                 .swipe(direction: .top),
                 .automatic(time: 3.0)
@@ -103,7 +105,29 @@ private extension CxjToastFactory {
             dismissAnimation: CxjToastConfiguration.Animation(
                 type: .default,
                 duration: 0.25
-            )
+            ),
+            sourceView: keyWindow()! //TODO: - Remove force unwrap
         )
+    }
+}
+
+//TODO: - Move to another place!!!
+func keyWindow() -> UIWindow? {
+    if #available(iOS 13.0, *) {
+        for scene in UIApplication.shared.connectedScenes {
+            guard let windowScene = scene as? UIWindowScene else {
+                continue
+            }
+            if windowScene.windows.isEmpty {
+                continue
+            }
+            guard let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+                continue
+            }
+            return window
+        }
+        return nil
+    } else {
+        return UIApplication.shared.windows.first(where: { $0.isKeyWindow })
     }
 }

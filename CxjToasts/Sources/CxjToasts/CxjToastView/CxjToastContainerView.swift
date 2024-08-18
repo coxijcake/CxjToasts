@@ -57,6 +57,7 @@ private extension CxjToastContainerView {
     
     func configureContentLayout(with insets: UIEdgeInsets) {
         contentView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),

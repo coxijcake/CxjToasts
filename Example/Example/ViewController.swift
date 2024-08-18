@@ -6,14 +6,41 @@
 //
 
 import UIKit
+import CxjToasts
 
 class ViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
+        
+        view.backgroundColor = .gray
 	}
 
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        showToast(after: 1)
+        showToast(after: 5)
+        showToast(after: 10)
+    }
+    
+    
+    private func showToast(after: TimeInterval) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + after) {
+            
+            let contentView: CxjToastContentView = CxjToastContentViewFactory.createContentViewWith(config: CxjToastContentConfiguration.titled(config: CxjToastTitlesConfiguration.plain(config: CxjToastTitlesConfiguration.Plain(title: CxjToastTitlesConfiguration.PlainLabel(text: "Test Toast", labelParams: CxjToastTitlesConfiguration.LabelParams(numberOfLines: 1)), subtitle: nil))))
+            
+            let testConentView = TestContentView()
+            testConentView.backgroundColor = .red
+            
+            CxjToast.show(.native, with: testConentView)
+        }
+    }
 }
 
+
+final class TestContentView: UIView, CxjToastContentView {
+    
+}
