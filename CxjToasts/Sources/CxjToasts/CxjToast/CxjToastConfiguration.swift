@@ -11,20 +11,20 @@ import Foundation
 public struct CxjToastConfiguration {
     let constraints: Constraints
     let placement: Placement
-    let hidingMethod: HidingMethod
+    let hidingMethods: Set<HidingMethod>
     let presentAnimation: Animation
     let dismissAnimation: Animation
     
     public init(
         constraints: Constraints,
         placement: Placement,
-        hidingMethod: HidingMethod,
+        hidingMethods: Set<HidingMethod>,
         presentAnimation: Animation,
         dismissAnimation: Animation
     ) {
         self.constraints = constraints
         self.placement = placement
-        self.hidingMethod = hidingMethod
+        self.hidingMethods = hidingMethods
         self.presentAnimation = presentAnimation
         self.dismissAnimation = dismissAnimation
     }

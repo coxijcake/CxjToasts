@@ -78,6 +78,11 @@ private extension CxjTitledToastContentView {
 	}
 }
 
+//MARK: - CxjToastContentView
+extension CxjTitledToastContentView: CxjToastContentView {
+    
+}
+
 // MARK: - Base Configuration
 private extension CxjTitledToastContentView {
 	func baseConfigure() {
