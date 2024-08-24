@@ -11,22 +11,19 @@ import UIKit
 public struct CxjToastConfiguration {
     let layout: Layout
     let hidingMethods: Set<HidingMethod>
-    let presentAnimation: Animation
-    let dismissAnimation: Animation
+	let animations: Animations
     
     let sourceView: UIView
     
     public init(
         layout: Layout,
         hidingMethods: Set<HidingMethod>,
-        presentAnimation: Animation,
-        dismissAnimation: Animation,
+		animations: Animations,
         sourceView: UIView
     ) {
         self.layout = layout
         self.hidingMethods = hidingMethods
-        self.presentAnimation = presentAnimation
-        self.dismissAnimation = dismissAnimation
+        self.animations = animations
         self.sourceView = sourceView
     }
 }
@@ -34,6 +31,10 @@ public struct CxjToastConfiguration {
 extension CxjToastConfiguration {
     //MARK: - Layout
     public struct Layout {
+		public enum Placement {
+			case top, center, bottom
+		}
+		
         let constraints: Constraints
         let placement: Placement
         
@@ -73,11 +74,6 @@ extension CxjToastConfiguration {
         }
     }
     
-    //MARK: - Placement
-    public enum Placement {
-        case top, center, bottom
-    }
-    
     //MARK: - HidingMethod
     public enum HidingMethod: Hashable, Equatable {
         public enum SwipeDirection: String, Hashable {
@@ -89,13 +85,19 @@ extension CxjToastConfiguration {
         case swipe(direction: SwipeDirection)
     }
     
-    //MARK: - Animation
-    public struct Animation {
-        public enum AnimationType {
-            case `default`
-        }
-        
-        let type: AnimationType
-        let duration: TimeInterval
-    }
+    //MARK: - Animations
+	public struct Animations {
+		public struct Animation {
+			public enum AnimationType {
+				case `default`
+			}
+			
+			let type: AnimationType
+//			let duration: TimeInterval
+			let animator: CxjAnimator
+		}
+		
+		let present: Animation
+		let dismiss: Animation
+	}
 }

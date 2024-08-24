@@ -7,7 +7,6 @@
 
 import UIKit
 
-@MainActor
 protocol CxjToastable {
     var view: CxjToastView { get }
     var config: CxjToastConfiguration { get }
@@ -25,7 +24,6 @@ public extension CxjToast {
     typealias ContentView = CxjToastContentView
 }
 
-@MainActor
 public final class CxjToast {
     //MARK: - Props
     let view: ToastView
@@ -52,6 +50,5 @@ extension CxjToast: CxjToastable {
         )
         
         CxjToastPresenter.present(toast: toast)
-        
     }
 }

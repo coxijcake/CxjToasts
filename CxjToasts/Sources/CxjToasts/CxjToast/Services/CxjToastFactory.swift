@@ -7,7 +7,6 @@
 
 import UIKit
 
-@MainActor
 enum CxjToastFactory {
     static func toastFor(
         type: CxjToastType,
@@ -62,7 +61,12 @@ private extension CxjToastFactory {
     //MARK: - Native configuration
     static func nativeViewConfiguration() -> CxjToastViewConfiguration {
         CxjToastViewConfiguration(
-            contentInsets: .zero,
+			contentInsets: .init(
+				top: 0,
+				left: 16,
+				bottom: 0,
+				right: 16
+			),
             colors: CxjToastViewConfiguration.Colors(
                 background: .white
             ),
@@ -88,7 +92,7 @@ private extension CxjToastFactory {
                         max: UIScreen.main.bounds.size.width - 16 * 2
                     ),
                     height: CxjToastConfiguration.Constraints.ConstraintValues(
-                        min: 120,
+                        min: 60,
                         max: 250
                     )
                 ),
@@ -97,37 +101,18 @@ private extension CxjToastFactory {
             hidingMethods: [
                 .swipe(direction: .top),
                 .automatic(time: 3.0)
-            ],
-            presentAnimation: CxjToastConfiguration.Animation(
-                type: .default,
-                duration: 0.25
-            ),
-            dismissAnimation: CxjToastConfiguration.Animation(
-                type: .default,
-                duration: 0.25
-            ),
-            sourceView: keyWindow()! //TODO: - Remove force unwrap
+			],
+			animations: CxjToastConfiguration.Animations(
+				present: CxjToastConfiguration.Animations.Animation(
+					type: .default,
+					animator: .defaultSpring
+				),
+				dismiss: CxjToastConfiguration.Animations.Animation(
+					type: .default,
+					animator: .defaultSpring
+				)
+			),
+			sourceView: UIApplication.keyWindow ?? UIApplication.topViewController()?.view ?? UIView()
         )
-    }
-}
-
-//TODO: - Move to another place!!!
-func keyWindow() -> UIWindow? {
-    if #available(iOS 13.0, *) {
-        for scene in UIApplication.shared.connectedScenes {
-            guard let windowScene = scene as? UIWindowScene else {
-                continue
-            }
-            if windowScene.windows.isEmpty {
-                continue
-            }
-            guard let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
-                continue
-            }
-            return window
-        }
-        return nil
-    } else {
-        return UIApplication.shared.windows.first(where: { $0.isKeyWindow })
     }
 }
