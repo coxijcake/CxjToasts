@@ -7,16 +7,22 @@
 
 import UIKit
 
-enum CxjToastPresenter {
-    static func present(toast: CxjToastable) {
-		let config: CxjToastConfiguration = toast.config
-		let toastView: CxjToastView = toast.view
-		
-		let animator: ToastAnimator = ToastAnimator(
-			toastView: toastView,
-			config: config
-		)
-		
+final class CxjToastPresenter {
+	let config: CxjToastConfiguration
+	let toastView: CxjToastView
+	let animator: CxjToastAnimator
+	
+	init(
+		config: CxjToastConfiguration,
+		toastView: CxjToastView,
+		animator: CxjToastAnimator
+	) {
+		self.config = config
+		self.toastView = toastView
+		self.animator = animator
+	}
+	
+	func present() {
 		LayoutApplier.apply(
 			layout: config.layout,
 			for: toastView,
@@ -24,23 +30,5 @@ enum CxjToastPresenter {
 		)
 				
 		animator.showAction()
-		
-		let displayingTime: TimeInterval? = {
-			for hidingMethod in config.hidingMethods {
-				switch hidingMethod {
-				case .automatic(let time): return time
-				default: continue
-				}
-			}
-			return nil
-		}()
-		
-		if let displayingTime {
-			DispatchQueue.main.asyncAfter(deadline: .now() + displayingTime) {
-				animator.hideAction { [weak toastView] _ in
-					toastView?.removeFromSuperview()
-				}
-			}
-		}
-    }
+	}
 }

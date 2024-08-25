@@ -1,29 +1,27 @@
 //
-//  File.swift
-//  
+//  CxjToastAnimator.swift
+//
 //
 //  Created by Nikita Begletskiy on 24/08/2024.
 //
 
 import UIKit
 
-extension CxjToastPresenter {
-	struct ToastAnimator {
-		//MARK: - Types
-		typealias Animation = CxjToastConfiguration.Animations.Animation
-		typealias ToastView = CxjToastView
-		typealias ToastConfig = CxjToastConfiguration
-		typealias AnimationsAction = CxjAnimator.Animations
-		typealias AnimationsCompletion = CxjAnimator.Completion
-		
-		//MARK: - Props
-		let toastView: ToastView
-		let config: ToastConfig
-	}
+struct CxjToastAnimator {
+	//MARK: - Types
+	typealias Animation = CxjToastConfiguration.Animations.Animation
+	typealias ToastView = CxjToastView
+	typealias ToastConfig = CxjToastConfiguration
+	typealias AnimationsAction = CxjAnimator.Animations
+	typealias AnimationsCompletion = CxjAnimator.Completion
+	
+	//MARK: - Props
+	let toastView: ToastView
+	let config: ToastConfig
 }
 
 //MARK: - Public API
-extension CxjToastPresenter.ToastAnimator {
+extension CxjToastAnimator {
 	func showAction(completion: AnimationsCompletion? = nil) {
 		setupBeforeDisplayingState(with: config)
 		
@@ -48,7 +46,7 @@ extension CxjToastPresenter.ToastAnimator {
 }
 
 //MARK: - Private
-private extension CxjToastPresenter.ToastAnimator {
+private extension CxjToastAnimator {
 	var showAnimation: Animation {
 		config.animations.present
 	}
