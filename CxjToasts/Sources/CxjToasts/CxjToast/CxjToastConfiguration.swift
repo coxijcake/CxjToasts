@@ -32,7 +32,9 @@ extension CxjToastConfiguration {
     //MARK: - Layout
     public struct Layout {
 		public enum Placement {
-			case top, center, bottom
+			case top(vericalOffset: CGFloat)
+			case center
+			case bottom(verticalOffset: CGFloat)
 		}
 		
         let constraints: Constraints
@@ -93,7 +95,6 @@ extension CxjToastConfiguration {
 			}
 			
 			let type: AnimationType
-//			let duration: TimeInterval
 			let animator: CxjAnimator
 		}
 		

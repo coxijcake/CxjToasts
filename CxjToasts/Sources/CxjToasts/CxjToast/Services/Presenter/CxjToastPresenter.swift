@@ -25,9 +25,21 @@ enum CxjToastPresenter {
 				
 		animator.showAction()
 		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-			animator.hideAction { [weak toastView] _ in
-				toastView?.removeFromSuperview()
+		let displayingTime: TimeInterval? = {
+			for hidingMethod in config.hidingMethods {
+				switch hidingMethod {
+				case .automatic(let time): return time
+				default: continue
+				}
+			}
+			return nil
+		}()
+		
+		if let displayingTime {
+			DispatchQueue.main.asyncAfter(deadline: .now() + displayingTime) {
+				animator.hideAction { [weak toastView] _ in
+					toastView?.removeFromSuperview()
+				}
 			}
 		}
     }

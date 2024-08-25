@@ -25,7 +25,7 @@ extension CxjToastPresenter {
 //MARK: - Public API
 extension CxjToastPresenter.ToastAnimator {
 	func showAction(completion: AnimationsCompletion? = nil) {
-		prepareForShowing(with: config)
+		setupBeforeDisplayingState(with: config)
 		
 		let animations: AnimationsAction = showAnimationAction(for: config)
 		
@@ -57,19 +57,30 @@ private extension CxjToastPresenter.ToastAnimator {
 		config.animations.dismiss
 	}
 	
-	func prepareForShowing(with config: ToastConfig) {
-		switch config.animations.present.type {
-		case .default:
-			toastView.transform = .init(translationX: .zero, y: -200)
+	func setupBeforeDisplayingState(with config: ToastConfig) {
+		let toastSize: CGSize = toastView.bounds.size
+		
+		switch config.layout.placement {
+		case .top(vericalOffset: let verticalOffset):
+			let sourceViewOffset: CGFloat = verticalOffset + config.sourceView.safeAreaInsets.top
+			let translationY: CGFloat = toastSize.height + sourceViewOffset
+			toastView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+				.concatenating(CGAffineTransform(translationX: .zero, y: -translationY))
+		case .bottom(verticalOffset: let verticalOffset):
+			let sourceViewOffset: CGFloat = verticalOffset + config.sourceView.safeAreaInsets.bottom
+			let translationY: CGFloat = toastSize.height + sourceViewOffset
+			toastView.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+				.concatenating(CGAffineTransform(translationX: .zero, y: translationY))
+		case .center:
+			toastView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+			toastView.alpha = .zero
 		}
 	}
 	
 	func showAnimationAction(for config: ToastConfig) -> AnimationsAction {
 		let animations: AnimationsAction = {
-			switch config.animations.present.type {
-			case .default:
-				toastView.transform = .identity
-			}
+			toastView.transform = .identity
+			toastView.alpha = 1.0
 		}
 		
 		return animations
@@ -77,11 +88,7 @@ private extension CxjToastPresenter.ToastAnimator {
 	
 	func hideAnimationAction(for config: ToastConfig) -> AnimationsAction {
 		let animations: AnimationsAction = {
-			switch config.animations.dismiss.type {
-			case .default:
-				toastView.transform = CGAffineTransform(translationX: .zero, y: -300)
-					.concatenating(CGAffineTransform(scaleX: 0.75, y: 0.75))
-			}
+			setupBeforeDisplayingState(with: config)
 		}
 		
 		return animations

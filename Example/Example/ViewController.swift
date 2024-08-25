@@ -21,14 +21,17 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-		showToast(after: 2)
+//		showToast(after: 2)
 //        showToast(after: 5)
 //        showToast(after: 10)
     }
     
-    
-    private func showToast(after: TimeInterval) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + after) {
+	@IBAction func showButtonPressed(_ sender: Any) {
+		showToast()
+	}
+	
+    private func showToast(after: TimeInterval? = nil) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + (after ?? .zero)) {
             
 			let contentView: CxjToastContentView = CxjToastContentViewFactory.createContentViewWith(
 				config: CxjToastContentConfiguration.titled(

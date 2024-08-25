@@ -96,7 +96,9 @@ private extension CxjToastFactory {
                         max: 250
                     )
                 ),
-                placement: .top
+                placement: .top(vericalOffset: 20)
+//				placement: .bottom(verticalOffset: 20)
+//				placement: .center
             ),
             hidingMethods: [
                 .swipe(direction: .top),
@@ -105,14 +107,48 @@ private extension CxjToastFactory {
 			animations: CxjToastConfiguration.Animations(
 				present: CxjToastConfiguration.Animations.Animation(
 					type: .default,
-					animator: .defaultSpring
+					animator: .nativeToastDisplaying
 				),
 				dismiss: CxjToastConfiguration.Animations.Animation(
 					type: .default,
-					animator: .defaultSpring
+					animator: .nativeToastHiding
 				)
 			),
 			sourceView: UIApplication.keyWindow ?? UIApplication.topViewController()?.view ?? UIView()
         )
     }
+}
+
+fileprivate extension CxjAnimator {
+	static let testLong = CxjAnimator { (animations, completion) in
+		UIView.animate(
+			withDuration: 1.0,
+			delay: .zero,
+			options: [.curveLinear, .allowUserInteraction],
+			animations: animations,
+			completion: completion
+		)
+	}
+	
+	static let nativeToastDisplaying = CxjAnimator { (animations, completion) in
+		UIView.animate(
+			withDuration: 1.0,
+			delay: .zero,
+			usingSpringWithDamping: 0.65,
+			initialSpringVelocity: 10.0,
+			options: [.curveEaseOut, .allowUserInteraction],
+			animations: animations,
+			completion: completion
+		)
+	}
+	
+	static let nativeToastHiding = CxjAnimator { (animations, completion) in
+		UIView.animate(
+			withDuration: 0.25,
+			delay: .zero,
+			options: [.curveEaseIn],
+			animations: animations,
+			completion: completion
+		)
+	}
 }
