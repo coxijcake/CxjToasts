@@ -8,6 +8,7 @@
 import UIKit
 
 protocol CxjToastable: AnyObject {
+	var id: UUID { get }
     var view: CxjToastView { get }
     var config: CxjToastConfiguration { get }
 	
@@ -20,6 +21,7 @@ protocol CxjToastable: AnyObject {
     )
 }
 
+//MARK: - Types
 public extension CxjToast {
     typealias ToastType = CxjToastType
     typealias ToastView = CxjToastView
@@ -29,6 +31,7 @@ public extension CxjToast {
 
 public final class CxjToast: CxjToastable {
     //MARK: - Props
+	let id: UUID = UUID()
     let view: ToastView
     let config: Configuration
 	
@@ -45,7 +48,7 @@ public final class CxjToast: CxjToastable {
 	
 	private(set) lazy var dismisser: CxjToastDismisser = CxjToastDismisser(
 		toastView: view,
-		methods: config.hidingMethods,
+		config: config,
 		animator: animator,
 		onDismiss: onDismissAction()
 	)
@@ -66,18 +69,6 @@ public final class CxjToast: CxjToastable {
 	}
 }
 
-//MARK: - Private
-private extension CxjToast {
-	func onDismissAction() -> VoidCompletion {
-		return { [weak self] in
-			guard let self else { return }
-			
-			CxjToast.activeToast.removeLast()
-		}
-	}
-}
-
-
 //MARK: - Public static
 extension CxjToast {
     public static func show(
@@ -94,4 +85,20 @@ extension CxjToast {
 		toast.presenter.present()
 		toast.dismisser.activate()
     }
+}
+
+//MARK: - Private
+private extension CxjToast {
+	func onDismissAction() -> VoidCompletion {
+		return { [weak self] in
+			guard let self else { return }
+			
+			let id: UUID = id
+			
+			self.dismisser.deactivate()
+			self.view.removeFromSuperview()
+			
+			CxjToast.activeToast.removeAll(where: { $0.id == id })
+		}
+	}
 }

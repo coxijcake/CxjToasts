@@ -10,14 +10,14 @@ import UIKit
 //MARK: - Configuration
 public struct CxjToastConfiguration {
     let layout: Layout
-    let hidingMethods: Set<HidingMethod>
+    let hidingMethods: Set<DismissMethod>
 	let animations: Animations
     
     let sourceView: UIView
     
     public init(
         layout: Layout,
-        hidingMethods: Set<HidingMethod>,
+        hidingMethods: Set<DismissMethod>,
 		animations: Animations,
         sourceView: UIView
     ) {
@@ -77,7 +77,7 @@ extension CxjToastConfiguration {
     }
     
     //MARK: - HidingMethod
-    public enum HidingMethod: Hashable, Equatable {
+    public enum DismissMethod: Hashable, Equatable {
         public enum SwipeDirection: String, Hashable {
             case top, bottom, any
         }
