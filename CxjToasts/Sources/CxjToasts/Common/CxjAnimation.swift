@@ -7,8 +7,8 @@
 
 import UIKit
 
-//MARK: - Animator
-struct CxjAnimator {
+//MARK: - Animation
+struct CxjAnimation {
 	typealias Animations = (() -> Void)
 	typealias Completion = ((Bool) -> Void)
 	
@@ -16,13 +16,13 @@ struct CxjAnimator {
 }
 
 //MARK: - Base Animations
-extension CxjAnimator {
-	static let noAnimation = CxjAnimator { (animations, completion) in
+extension CxjAnimation {
+	static let noAnimation = CxjAnimation { (animations, completion) in
 		animations()
 		completion?(true)
 	}
 	
-	static let defaultSpring = CxjAnimator { (animations, completion) in
+	static let defaultSpring = CxjAnimation { (animations, completion) in
 		UIView.animate(
 			withDuration: 0.3,
 			delay: .zero,
@@ -36,9 +36,9 @@ extension CxjAnimator {
 //MARK: - UIView + CxjAnimator
 extension UIView {
 	static func animate(
-		with animator: CxjAnimator,
-		animations: @escaping CxjAnimator.Animations,
-		completion: CxjAnimator.Completion?
+		with animator: CxjAnimation,
+		animations: @escaping CxjAnimation.Animations,
+		completion: CxjAnimation.Completion?
 	) {
 		animator.perform(animations, completion)
 	}

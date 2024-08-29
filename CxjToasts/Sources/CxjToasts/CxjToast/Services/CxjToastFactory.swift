@@ -11,7 +11,7 @@ enum CxjToastFactory {
     static func toastFor(
         type: CxjToastType,
         content: CxjToastContentView
-    ) -> CxjToastable {
+    ) -> CxjToast {
         let view: CxjToastView = createToastView(
             for: type,
             content: content
@@ -106,13 +106,13 @@ private extension CxjToastFactory {
                 .automatic(time: 3.0)
 			],
 			animations: CxjToastConfiguration.Animations(
-				present: CxjToastConfiguration.Animations.Animation(
+				present: CxjToastConfiguration.Animations.AnimationConfig(
 					type: .default,
-					animator: .nativeToastDisplaying
+					animation: .nativeToastDisplaying
 				),
-				dismiss: CxjToastConfiguration.Animations.Animation(
+				dismiss: CxjToastConfiguration.Animations.AnimationConfig(
 					type: .default,
-					animator: .nativeToastHiding
+					animation: .nativeToastHiding
 				)
 			),
 			sourceView: UIApplication.keyWindow ?? UIApplication.topViewController()?.view ?? UIView()
@@ -120,8 +120,8 @@ private extension CxjToastFactory {
     }
 }
 
-fileprivate extension CxjAnimator {
-	static let testLong = CxjAnimator { (animations, completion) in
+fileprivate extension CxjAnimation {
+	static let testLong = CxjAnimation { (animations, completion) in
 		UIView.animate(
 			withDuration: 1.0,
 			delay: .zero,
@@ -131,7 +131,7 @@ fileprivate extension CxjAnimator {
 		)
 	}
 	
-	static let nativeToastDisplaying = CxjAnimator { (animations, completion) in
+	static let nativeToastDisplaying = CxjAnimation { (animations, completion) in
 		UIView.animate(
 			withDuration: 1.0,
 			delay: .zero,
@@ -143,7 +143,7 @@ fileprivate extension CxjAnimator {
 		)
 	}
 	
-	static let nativeToastHiding = CxjAnimator { (animations, completion) in
+	static let nativeToastHiding = CxjAnimation { (animations, completion) in
 		UIView.animate(
 			withDuration: 0.25,
 			delay: .zero,

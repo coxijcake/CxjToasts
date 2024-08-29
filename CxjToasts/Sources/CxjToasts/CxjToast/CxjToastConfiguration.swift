@@ -89,16 +89,16 @@ extension CxjToastConfiguration {
     
     //MARK: - Animations
 	public struct Animations {
-		public struct Animation {
+		public struct AnimationConfig {
 			public enum AnimationType {
 				case `default`
 			}
 			
 			let type: AnimationType
-			let animator: CxjAnimator
+			let animation: CxjAnimation
 		}
 		
-		let present: Animation
-		let dismiss: Animation
+		let present: AnimationConfig
+		let dismiss: AnimationConfig
 	}
 }

@@ -9,36 +9,43 @@ import UIKit
 
 struct CxjToastAnimator {
 	//MARK: - Types
-	typealias Animation = CxjToastConfiguration.Animations.Animation
+	typealias Animation = CxjToastConfiguration.Animations.AnimationConfig
 	typealias ToastView = CxjToastView
 	typealias ToastConfig = CxjToastConfiguration
-	typealias AnimationsAction = CxjAnimator.Animations
-	typealias AnimationsCompletion = CxjAnimator.Completion
+	typealias AnimationsAction = CxjAnimation.Animations
+	typealias AnimationsCompletion = CxjAnimation.Completion
 	
 	//MARK: - Props
 	let toastView: ToastView
 	let config: ToastConfig
 }
 
-//MARK: - Public API
-extension CxjToastAnimator {
-	func showAction(completion: AnimationsCompletion? = nil) {
+//MARK: - Present Animator
+extension CxjToastAnimator: CxjToastPresentAnimator {
+	func showAction(completion: AnimationsCompletion?) {
 		setupBeforeDisplayingState(with: config)
 		
 		let animations: AnimationsAction = showAnimationAction(for: config)
 		
 		UIView.animate(
-			with: showAnimation.animator,
+			with: showAnimation.animation,
 			animations: animations,
 			completion: completion
 		)
 	}
+}
+
+//MARK: - Dismiss Aniamtor
+extension CxjToastAnimator: CxjToastDismissAnimator {
+	var dismissAnimation: CxjAnimation {
+		config.animations.dismiss.animation
+	}
 	
-	func hideAction(completion: AnimationsCompletion? = nil) {
+	func dismissAction(completion: AnimationsCompletion?) {
 		let animations: AnimationsAction = hideAnimationAction(for: config)
 		
 		UIView.animate(
-			with: hideAnimation.animator,
+			with: hideAnimation.animation,
 			animations: animations,
 			completion: completion
 		)

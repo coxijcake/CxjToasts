@@ -11,7 +11,7 @@ extension CxjToastDismisser {
 	final class DismissBySwipeUseCase: ToastDismissUseCase {
 		//MARK: - Types
 		typealias ToastView = CxjToastView
-		typealias Animator = CxjToastAnimator
+		typealias Animator = CxjToastDismissAnimator
 		typealias SwipeDirection = CxjToastConfiguration.DismissMethod.SwipeDirection
 		typealias ToastPlacement = CxjToastConfiguration.Layout.Placement
 		
@@ -100,7 +100,7 @@ extension CxjToastDismisser {
 					delegate?.didFinish(useCase: self)
 				} else {
 					UIView.animate(
-						with: animator.config.animations.present.animator,
+						with: animator.dismissAnimation,
 						animations: { self.toastView.frame.origin.y = self.startY },
 						completion: { [weak self] _ in
 							self?.resume()

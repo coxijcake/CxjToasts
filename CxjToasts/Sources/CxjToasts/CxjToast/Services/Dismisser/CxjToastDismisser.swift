@@ -7,39 +7,45 @@
 
 import UIKit
 
+//MARK: - Delegate
+protocol CxjToastDismisserDelegate: AnyObject {
+	func willDismissToastWith(id: UUID, by dismisser: CxjToastDismisser)
+	func didDismissToastWith(id: UUID, by dismisser: CxjToastDismisser)
+}
+
 //MARK: - Types
 extension CxjToastDismisser {
 	typealias DimissMethod = CxjToastConfiguration.DismissMethod
 	typealias Configuration = CxjToastConfiguration
-	typealias Toast = CxjToastable
+	typealias Toast = CxjToast
 	typealias ToastView = CxjToastView
-	typealias Animator = CxjToastAnimator
+	typealias Animator = CxjToastDismissAnimator
 }
 
 final class CxjToastDismisser {
 	//MARK: - Props
+	private let toastId: UUID
 	private let toastView: ToastView
 	private let config: Configuration
 	private let animator: Animator
-	private let onDismiss: VoidCompletion
+	
+	private weak var delegate: CxjToastDismisserDelegate?
 	
 	private lazy var dismissUseCases: [ToastDismissUseCase] = createDismissUseCases()
 	
 	//MARK: - Lifecycle
 	init(
+		toastId: UUID,
 		toastView: ToastView,
 		config: Configuration,
 		animator: CxjToastAnimator,
-		onDismiss: @escaping VoidCompletion
+		delegate: CxjToastDismisserDelegate?
 	) {
+		self.toastId = toastId
 		self.toastView = toastView
 		self.config = config
 		self.animator = animator
-		self.onDismiss = onDismiss
-	}
-	
-	deinit {
-		print("OMG CxjToastDismisser deinit")
+		self.delegate = delegate
 	}
 }
 
@@ -52,6 +58,16 @@ extension CxjToastDismisser {
 	func deactivate() {
 		dismissUseCases.forEach { $0.activate() }
 		dismissUseCases.removeAll()
+	}
+	
+	func dismiss() {
+		delegate?.willDismissToastWith(id: toastId, by: self)
+		
+		animator.dismissAction { [weak self] _ in
+			guard let self else { return }
+			
+			self.delegate?.didDismissToastWith(id: self.toastId, by: self)
+		}
 	}
 	
 	func pause() {
@@ -85,8 +101,6 @@ extension CxjToastDismisser: ToastDismissUseCaseDelegate {
 	}
 	
 	func didFinish(useCase: any ToastDismissUseCase) {
-		animator.hideAction { [weak self] _ in
-			self?.onDismiss()
-		}
+		dismiss()
 	}
 }

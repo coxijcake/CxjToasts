@@ -10,25 +10,25 @@ import UIKit
 final class CxjToastPresenter {
 	let config: CxjToastConfiguration
 	let toastView: CxjToastView
-	let animator: CxjToastAnimator
+	let animator: CxjToastPresentAnimator
 	
 	init(
 		config: CxjToastConfiguration,
 		toastView: CxjToastView,
-		animator: CxjToastAnimator
+		animator: CxjToastPresentAnimator
 	) {
 		self.config = config
 		self.toastView = toastView
 		self.animator = animator
 	}
 	
-	func present() {
+	func present(completion: BoolCompletion?) {
 		LayoutApplier.apply(
 			layout: config.layout,
 			for: toastView,
 			in: config.sourceView
 		)
 				
-		animator.showAction()
+		animator.showAction(completion: completion)
 	}
 }

@@ -13,7 +13,7 @@ extension CxjToastDismisser {
 		typealias DismissMethod = Configuration.DismissMethod
 		typealias ToastView = CxjToastView
 		typealias Placement = Configuration.Layout.Placement
-		typealias Animator = CxjToastAnimator
+		typealias Animator = CxjToastDismissAnimator
 		
 		static func useCase(
 			for method: DismissMethod,

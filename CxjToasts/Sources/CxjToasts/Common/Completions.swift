@@ -8,3 +8,4 @@
 import Foundation
 
 typealias VoidCompletion = () -> Void
+typealias BoolCompletion = (Bool) -> Void

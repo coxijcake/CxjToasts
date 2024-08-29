@@ -7,20 +7,6 @@
 
 import UIKit
 
-protocol CxjToastable: AnyObject {
-	var id: UUID { get }
-    var view: CxjToastView { get }
-    var config: CxjToastConfiguration { get }
-	
-	var presenter: CxjToastPresenter { get }
-	var dismisser: CxjToastDismisser { get }
-    
-    static func show(
-        _ type: CxjToastType,
-        with content: CxjToastContentView
-    )
-}
-
 //MARK: - Types
 public extension CxjToast {
     typealias ToastType = CxjToastType
@@ -29,11 +15,13 @@ public extension CxjToast {
     typealias ContentView = CxjToastContentView
 }
 
-public final class CxjToast: CxjToastable {
+public final class CxjToast: CxjToastIdentifiable {
     //MARK: - Props
-	let id: UUID = UUID()
+	public let id: UUID = UUID()
     let view: ToastView
     let config: Configuration
+	
+	private static let publisher = CxjMulticastPublisher<CxjToastDelegate>()
 	
 	private(set) lazy var animator: CxjToastAnimator = CxjToastAnimator(
 		toastView: view,
@@ -47,13 +35,14 @@ public final class CxjToast: CxjToastable {
 	)
 	
 	private(set) lazy var dismisser: CxjToastDismisser = CxjToastDismisser(
+		toastId: id,
 		toastView: view,
 		config: config,
 		animator: animator,
-		onDismiss: onDismissAction()
+		delegate: self
 	)
 	
-	private static var activeToast: [CxjToastable] = []
+	private static var activeToasts: Set<CxjToast> = []
 	
     //MARK: - Lifecycle
     init(
@@ -63,42 +52,89 @@ public final class CxjToast: CxjToastable {
         self.view = view
         self.config = config
     }
-	
-	deinit {
-		print("OMG Cxj toast deinit")
-	}
 }
 
-//MARK: - Public static
+//MARK: - Public Presenting
 extension CxjToast {
     public static func show(
         _ type: ToastType,
         with content: ContentView
     ) {
-        let toast: CxjToastable = CxjToastFactory.toastFor(
+        let toast: CxjToast = CxjToastFactory.toastFor(
             type: type,
             content: content
         )
 		
-		activeToast.append(toast)
-        
-		toast.presenter.present()
-		toast.dismisser.activate()
+		activeToasts.insert(toast)
+		publisher.invoke { $0.willPresent(toast: toast) }
+		
+		toast.presenter.present { [weak toast] _ in
+			guard let toast else { return }
+			
+			toast.dismisser.activate()
+			publisher.invoke { $0.didPresent(toast: toast) }
+		}
     }
+}
+
+//MARK: - Dismissing
+extension CxjToast {
+	public static func hideToast(
+		with id: UUID
+	) {
+		guard let toast = CxjToast.firstWith(id: id) else { return }
+		
+		toast.dismisser.dismiss()
+	}
+}
+
+//MARK: - Observing
+extension CxjToast {
+	public static func add(observer: CxjToastDelegate) {
+		publisher.add(observer)
+	}
+	
+	public static func remove(observer: CxjToastDelegate) {
+		publisher.remove(observer)
+	}
 }
 
 //MARK: - Private
 private extension CxjToast {
-	func onDismissAction() -> VoidCompletion {
-		return { [weak self] in
-			guard let self else { return }
-			
-			let id: UUID = id
-			
-			self.dismisser.deactivate()
-			self.view.removeFromSuperview()
-			
-			CxjToast.activeToast.removeAll(where: { $0.id == id })
-		}
+	static func firstWith(id: UUID) -> CxjToast? {
+		activeToasts.first(where: { $0.id == id })
+	}
+}
+
+//MARK: - CxjToastDismisserDelegate
+extension CxjToast: CxjToastDismisserDelegate {
+	func willDismissToastWith(id: UUID, by dismisser: CxjToastDismisser) {
+		guard let toast = CxjToast.firstWith(id: id) else { return }
+		
+		CxjToast.publisher.invoke { $0.willDismiss(toast: toast) }
+	}
+	
+	func didDismissToastWith(id: UUID, by dismisser: CxjToastDismisser) {
+		guard let toast = CxjToast.firstWith(id: id) else { return }
+		
+		dismisser.deactivate()
+		toast.view.removeFromSuperview()
+		
+		CxjToast.activeToasts.remove(toast)
+		CxjToast.publisher.invoke { $0.didDismiss(toast: toast) }
+	}
+}
+
+//MARK: - Equatable
+extension CxjToast: Equatable {
+	public static func ==(lhs: CxjToast, rhs: CxjToast) -> Bool {
+		lhs.id == rhs.id
+	}
+}
+
+//MARK: - Hashable
+extension CxjToast: Hashable {
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(id)
 	}
 }
