@@ -29,6 +29,6 @@ final class CxjToastPresenter {
 			in: config.sourceView
 		)
 				
-		animator.showAction(completion: completion)
+		animator.presentAction(completion: completion)
 	}
 }

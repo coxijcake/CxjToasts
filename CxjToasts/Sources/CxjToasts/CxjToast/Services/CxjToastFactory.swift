@@ -108,11 +108,13 @@ private extension CxjToastFactory {
 			animations: CxjToastConfiguration.Animations(
 				present: CxjToastConfiguration.Animations.AnimationConfig(
 					type: .default,
-					animation: .nativeToastDisplaying
+                    animation: .nativeToastPresenting
+//					animation: .testLong
 				),
 				dismiss: CxjToastConfiguration.Animations.AnimationConfig(
 					type: .default,
-					animation: .nativeToastHiding
+                    animation: .nativeToastDismissing
+//					animation: .testLong
 				)
 			),
 			sourceView: UIApplication.keyWindow ?? UIApplication.topViewController()?.view ?? UIView()
@@ -131,7 +133,7 @@ fileprivate extension CxjAnimation {
 		)
 	}
 	
-	static let nativeToastDisplaying = CxjAnimation { (animations, completion) in
+	static let nativeToastPresenting = CxjAnimation { (animations, completion) in
 		UIView.animate(
 			withDuration: 1.0,
 			delay: .zero,
@@ -143,7 +145,7 @@ fileprivate extension CxjAnimation {
 		)
 	}
 	
-	static let nativeToastHiding = CxjAnimation { (animations, completion) in
+	static let nativeToastDismissing = CxjAnimation { (animations, completion) in
 		UIView.animate(
 			withDuration: 0.25,
 			delay: .zero,
