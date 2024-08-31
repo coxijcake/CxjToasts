@@ -13,6 +13,13 @@ public extension CxjToast {
     typealias ToastView = CxjToastView
     typealias Configuration = CxjToastConfiguration
     typealias ContentView = CxjToastContentView
+    
+    enum DisplayingState: String {
+        case initial
+        case presenting
+        case presented
+        case dismissing
+    }
 }
 
 public final class CxjToast: CxjToastIdentifiable {
@@ -20,6 +27,8 @@ public final class CxjToast: CxjToastIdentifiable {
 	public let id: UUID = UUID()
     let view: ToastView
     let config: Configuration
+    
+    private(set) var displayingState: DisplayingState = .initial
 	
 	private static let publisher = CxjMulticastPublisher<CxjToastDelegate>()
 	
@@ -65,6 +74,7 @@ extension CxjToast {
             content: content
         )
 		
+        toast.displayingState = .presenting
         activeToasts.append(toast)
 		publisher.invoke { $0.willPresent(toast: toast) }
 		
@@ -78,7 +88,8 @@ extension CxjToast {
 		toast.presenter.present { [weak toast] _ in
 			guard let toast else { return }
 			
-			toast.dismisser.activate()
+            toast.displayingState = .presented
+            toast.dismisser.activate()
 			publisher.invoke { $0.didPresent(toast: toast) }
 		}
     }
@@ -119,6 +130,7 @@ extension CxjToast: CxjToastDismisserDelegate {
 		guard let toast = CxjToast.firstWith(id: id) else { return }
 		
         let toastsToUpdate = CxjToast.activeToasts.filter { $0 != toast }
+        toast.displayingState = .dismissing
         
         CxjActiveToastsUpdater.update(
             activeToasts: toastsToUpdate,
@@ -135,6 +147,7 @@ extension CxjToast: CxjToastDismisserDelegate {
 		
 		dismisser.deactivate()
 		toast.view.removeFromSuperview()
+        toast.displayingState = .initial
 		
         CxjToast.activeToasts.removeAll(where: { $0 == toast })
 		CxjToast.publisher.invoke { $0.didDismiss(toast: toast) }

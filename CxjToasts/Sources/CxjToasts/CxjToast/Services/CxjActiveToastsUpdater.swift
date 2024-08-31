@@ -40,7 +40,7 @@ enum CxjActiveToastsUpdater {
                 .enumerated()
                 .forEach { index, toast in
                     update(
-                        toastView: toast.view,
+                        toast: toast,
                         atIndex: index,
                         onPlacement: placement
                     )
@@ -55,10 +55,14 @@ enum CxjActiveToastsUpdater {
     }
     
     private static func update(
-        toastView: ToastView,
+        toast: Toast,
         atIndex index: Int,
         onPlacement placement: Placement
     ) {
+        guard
+            shouldUpdateToastWith(displayingState: toast.displayingState)
+        else { return}
+        
         let yOffset: CGFloat = yOffset(
             for: index,
             multiplier: Multipliers.yOffset,
@@ -74,9 +78,20 @@ enum CxjActiveToastsUpdater {
         let maxVisibleToasts: Int = maxVisibleToasts(for: placement)
         let alpha: CGFloat = (index < maxVisibleToasts) ? 1.0 : 0.0
         
+        let toastView: ToastView = toast.view
+        
         toastView.alpha = alpha
         toastView.transform = CGAffineTransform(scaleX: scale.x, y: scale.y)
             .concatenating(CGAffineTransform(translationX: .zero, y: yOffset))
+    }
+    
+    private static func shouldUpdateToastWith(
+        displayingState: Toast.DisplayingState
+    ) -> Bool {
+        switch displayingState {
+        case .presented, .presenting: true
+        default: false
+        }
     }
 }
 
