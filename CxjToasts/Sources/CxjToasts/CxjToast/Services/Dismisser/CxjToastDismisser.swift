@@ -27,7 +27,7 @@ final class CxjToastDismisser {
 	private let toastId: UUID
 	private let toastView: ToastView
 	private let config: Configuration
-	private let animator: Animator
+	let animator: Animator
 	
 	private weak var delegate: CxjToastDismisserDelegate?
 	

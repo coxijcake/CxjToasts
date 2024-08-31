@@ -22,6 +22,10 @@ struct CxjToastAnimator {
 
 //MARK: - Present Animator
 extension CxjToastAnimator: CxjToastPresentAnimator {
+    var presentAnimation: CxjAnimation {
+        config.animations.present.animation
+    }
+    
 	func showAction(completion: AnimationsCompletion?) {
 		setupBeforeDisplayingState(with: config)
 		

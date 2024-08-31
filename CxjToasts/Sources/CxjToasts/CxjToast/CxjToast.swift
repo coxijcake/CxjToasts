@@ -42,7 +42,7 @@ public final class CxjToast: CxjToastIdentifiable {
 		delegate: self
 	)
 	
-	private static var activeToasts: Set<CxjToast> = []
+    private static var activeToasts: [CxjToast] = []
 	
     //MARK: - Lifecycle
     init(
@@ -65,9 +65,16 @@ extension CxjToast {
             content: content
         )
 		
-		activeToasts.insert(toast)
+        activeToasts.append(toast)
 		publisher.invoke { $0.willPresent(toast: toast) }
 		
+        CxjActiveToastsUpdater.update(
+            activeToasts: activeToasts,
+            on: toast.config.layout.placement,
+            animation: toast.presenter.animator.presentAnimation,
+            completion: nil
+        )
+        
 		toast.presenter.present { [weak toast] _ in
 			guard let toast else { return }
 			
@@ -111,6 +118,15 @@ extension CxjToast: CxjToastDismisserDelegate {
 	func willDismissToastWith(id: UUID, by dismisser: CxjToastDismisser) {
 		guard let toast = CxjToast.firstWith(id: id) else { return }
 		
+        let toastsToUpdate = CxjToast.activeToasts.filter { $0 != toast }
+        
+        CxjActiveToastsUpdater.update(
+            activeToasts: toastsToUpdate,
+            on: toast.config.layout.placement,
+            animation: toast.dismisser.animator.dismissAnimation,
+            completion: nil
+        )
+        
 		CxjToast.publisher.invoke { $0.willDismiss(toast: toast) }
 	}
 	
@@ -120,7 +136,7 @@ extension CxjToast: CxjToastDismisserDelegate {
 		dismisser.deactivate()
 		toast.view.removeFromSuperview()
 		
-		CxjToast.activeToasts.remove(toast)
+        CxjToast.activeToasts.removeAll(where: { $0 == toast })
 		CxjToast.publisher.invoke { $0.didDismiss(toast: toast) }
 	}
 }
