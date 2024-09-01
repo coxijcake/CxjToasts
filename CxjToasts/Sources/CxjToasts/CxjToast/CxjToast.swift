@@ -51,7 +51,7 @@ public final class CxjToast: CxjToastIdentifiable {
 		delegate: self
 	)
 	
-    private static var activeToasts: [CxjToast] = []
+    private(set) static var activeToasts: [CxjToast] = []
 	
     //MARK: - Lifecycle
     init(
@@ -79,7 +79,8 @@ extension CxjToast {
 		publisher.invoke { $0.willPresent(toast: toast) }
 		
         CxjActiveToastsUpdater.update(
-            activeToasts: activeToasts,
+			activeToasts: activeToasts, 
+			progress: 1.0,
             on: toast.config.layout.placement,
             animation: toast.presenter.animator.presentAnimation,
             completion: nil
@@ -133,7 +134,8 @@ extension CxjToast: CxjToastDismisserDelegate {
         toast.displayingState = .dismissing
         
         CxjActiveToastsUpdater.update(
-            activeToasts: toastsToUpdate,
+			activeToasts: toastsToUpdate,
+			progress: 1.0,
             on: toast.config.layout.placement,
             animation: toast.dismisser.animator.dismissAnimation,
             completion: nil

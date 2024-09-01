@@ -12,7 +12,7 @@ struct CxjAnimation {
 	typealias Animations = (() -> Void)
 	typealias Completion = ((Bool) -> Void)
 	
-	let perform: (@escaping Animations, Completion?) -> ()
+	let perform: (@escaping Animations, Completion?) -> Void
 }
 
 //MARK: - Base Animations

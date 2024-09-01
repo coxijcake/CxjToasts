@@ -17,6 +17,7 @@ extension CxjToastDismisser {
 		
 		static func useCase(
 			for method: DismissMethod,
+			toastId: UUID,
 			toastView: ToastView,
 			placement: Placement,
 			animator: Animator,
@@ -35,6 +36,7 @@ extension CxjToastDismisser {
 				)
 			case .swipe(direction: let direction):
 				DismissBySwipeUseCase(
+					toastId: toastId,
 					toastView: toastView,
 					direction: direction,
 					placement: placement,

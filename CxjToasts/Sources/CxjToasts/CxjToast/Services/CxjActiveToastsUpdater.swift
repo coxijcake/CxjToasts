@@ -24,6 +24,7 @@ extension CxjActiveToastsUpdater {
 enum CxjActiveToastsUpdater {
     static func update(
         activeToasts: [Toast],
+		progress: CGFloat,
         on placement: Placement,
         animation: Animation,
         completion: BoolCompletion?
@@ -41,6 +42,7 @@ enum CxjActiveToastsUpdater {
                 .forEach { index, toast in
                     update(
                         toast: toast,
+						progress: progress,
                         atIndex: index,
                         onPlacement: placement
                     )
@@ -59,6 +61,7 @@ enum CxjActiveToastsUpdater {
 private extension CxjActiveToastsUpdater {
 	static func update(
 		toast: Toast,
+		progress: CGFloat,
 		atIndex index: Int,
 		onPlacement placement: Placement
 	) {
@@ -66,26 +69,31 @@ private extension CxjActiveToastsUpdater {
 			shouldUpdateToastWith(displayingState: toast.displayingState)
 		else { return}
 		
-		let yOffset: CGFloat = yOffset(
+		let finalYOffset: CGFloat = yOffset(
 			for: index,
 			multiplier: Multipliers.yOffset,
 			onPlacement: placement
 		)
+		let minYOffset: CGFloat = max(.zero, finalYOffset - Multipliers.yOffset)
 		
-		let scale: CGPoint = scale(
+		let finalXScale: CGFloat = xScale(
 			for: index,
 			multiplier: Multipliers.scale,
 			onPlacement: placement
 		)
+		let minXScale: CGFloat = finalXScale + Multipliers.scale
 		
 		let maxVisibleToasts: Int = maxVisibleToasts(for: placement)
 		let alpha: CGFloat = (index < maxVisibleToasts) ? 1.0 : 0.0
 		
 		let toastView: ToastView = toast.view
 		
+		let yOffset: CGFloat = minYOffset + (finalYOffset - minYOffset) * progress
+		let xScale: CGFloat = minXScale + (finalXScale - minXScale) * progress
+		
 		toastView.alpha = alpha
-		toastView.transform = CGAffineTransform(scaleX: scale.x, y: scale.y)
-			.concatenating(CGAffineTransform(translationX: .zero, y: yOffset))
+		toastView.transform = CGAffineTransform(scaleX: xScale, y: 1.0)
+			.concatenating(CGAffineTransform(translationX: .zero, y: finalYOffset))
 	}
 }
 
@@ -102,15 +110,15 @@ private extension CxjActiveToastsUpdater {
         }
     }
     
-    static func scale(
+    static func xScale(
         for index: Int,
         multiplier: CGFloat,
         onPlacement placement: Placement
-    ) -> CGPoint {
+    ) -> CGFloat {
         switch placement {
         case .top, .bottom, .center:
             let scale: CGFloat = 1.0 - (multiplier * CGFloat(index))
-            return CGPoint(x: scale, y: 1.0)
+            return scale
         }
     }
     

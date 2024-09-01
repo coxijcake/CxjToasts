@@ -16,6 +16,7 @@ extension CxjToastDismisser {
 		typealias ToastPlacement = CxjToastConfiguration.Layout.Placement
 		
 		//MARK: - Props
+		private let toastId: UUID
 		private let toastView: ToastView
 		private let direction: SwipeDirection
 		private let placement: ToastPlacement
@@ -31,19 +32,22 @@ extension CxjToastDismisser {
 			return gesture
 		}()
 		
-		private let thresholdToDismiss = 25.0
+		private let thresholdToDismiss = 20.0
 		
-		private var startY: CGFloat = 0
-		private var startShiftY: CGFloat = 0
+		private var startViewY: CGFloat = 0
+		private var startGestureY: CGFloat = 0
+		private var currentY: CGFloat = .zero
 		
 		//MARK: - Lifecycle
 		init(
+			toastId: UUID,
 			toastView: ToastView,
 			direction: SwipeDirection,
 			placement: ToastPlacement,
 			animator: Animator,
 			delegate: ToastDismissUseCaseDelegate?
 		) {
+			self.toastId = toastId
 			self.toastView = toastView
 			self.direction = direction
 			self.placement = placement
@@ -81,37 +85,54 @@ extension CxjToastDismisser {
 			
 			switch gesture.state {
 			case .began:
-				startY = toastView.frame.origin.y
-				startShiftY = gesture.location(in: toastSuperView).y
+				startViewY = toastView.frame.origin.y
+				startGestureY = gesture.location(in: toastSuperView).y
 				delegate?.didStartInteractive(by: self)
 			case .changed:
-				let delta = gesture.location(in: toastSuperView).y - startShiftY
+				let delta = gesture.location(in: toastSuperView).y - startGestureY
 				
 				guard
 					shouldApply(delta: delta, for: direction, with: placement)
-				else { break }
+				else {
+					animator.dismissAction(progress: .zero, animated: true, completion: nil)
+					break
+				}
 				
-				toastView.frame.origin.y = startY + delta
+				let ammountOfUserDragged = ammountOfUserDragged()
+				let progress = ammountOfUserDragged / startViewY
+				
+				CxjActiveToastsUpdater.update(
+					activeToasts: CxjToast.activeToasts,
+					progress: 1.0 - progress,
+					on: placement,
+					animation: .noAnimation,
+					completion: nil
+				)
+				
+				currentY = startViewY + delta
+				
+				animator.dismissAction(progress: progress, animated: false, completion: nil)
 			case .ended:
-				let ammountOfUserDragged = abs(startY - toastView.frame.origin.y)
+				let ammountOfUserDragged = ammountOfUserDragged()
 				let shouldDismissToast = ammountOfUserDragged > thresholdToDismiss
 				
 				if shouldDismissToast {
 					delegate?.didFinish(useCase: self)
 				} else {
-					UIView.animate(
-						with: animator.dismissAnimation,
-						animations: { self.toastView.frame.origin.y = self.startY },
-						completion: { [weak self] _ in
-							self?.resume()
-						}
-					)
+					animator.dismissAction(progress: .zero, animated: true) { [weak self] _ in
+						self?.resume()
+					}
 				}
 			case .failed, .cancelled:
+				animator.dismissAction(progress: .zero, animated: true, completion: nil)
 				resume()
 			default:
-				break
+				animator.dismissAction(progress: .zero, animated: true, completion: nil)
 			}
+		}
+		
+		private func ammountOfUserDragged() -> CGFloat {
+			abs(startViewY - currentY)
 		}
 		
 		private func resume() {

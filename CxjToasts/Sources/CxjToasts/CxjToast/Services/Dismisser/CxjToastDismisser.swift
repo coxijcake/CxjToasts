@@ -63,11 +63,15 @@ extension CxjToastDismisser {
 	func dismiss() {
 		delegate?.willDismissToastWith(id: toastId, by: self)
 		
-		animator.dismissAction { [weak self] _ in
-			guard let self else { return }
-			
-			self.delegate?.didDismissToastWith(id: self.toastId, by: self)
-		}
+		animator.dismissAction(
+			progress: 1,
+			animated: true,
+			completion: { [weak self] _ in
+				guard let self else { return }
+				
+				self.delegate?.didDismissToastWith(id: self.toastId, by: self)
+			}
+		)
 	}
 	
 	func pause() {
@@ -81,6 +85,7 @@ private extension CxjToastDismisser {
 		config.hidingMethods.compactMap { method in
 			CxjToastDismissUseCaseFactory.useCase(
 				for: method,
+				toastId: toastId,
 				toastView: toastView,
 				placement: config.layout.placement,
 				animator: animator,

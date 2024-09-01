@@ -9,5 +9,5 @@ import Foundation
 
 protocol CxjToastDismissAnimator {
 	var dismissAnimation: CxjAnimation { get }
-	func dismissAction(completion: BoolCompletion?)
+	func dismissAction(progress: CGFloat, animated: Bool, completion: BoolCompletion?)
 }

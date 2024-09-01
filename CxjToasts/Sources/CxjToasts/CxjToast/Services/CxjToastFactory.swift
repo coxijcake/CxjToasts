@@ -68,7 +68,8 @@ private extension CxjToastFactory {
 				right: 16
 			),
             colors: CxjToastViewConfiguration.Colors(
-                background: .white
+//                background: .white
+				background: .random
             ),
             shadow: .enable(
                 params: CxjToastViewConfiguration.Shadow.Params(
@@ -127,7 +128,7 @@ fileprivate extension CxjAnimation {
 		UIView.animate(
 			withDuration: 1.0,
 			delay: .zero,
-			options: [.curveLinear, .allowUserInteraction],
+			options: [.curveLinear, .allowUserInteraction, .beginFromCurrentState],
 			animations: animations,
 			completion: completion
 		)
@@ -139,7 +140,7 @@ fileprivate extension CxjAnimation {
 			delay: .zero,
 			usingSpringWithDamping: 0.65,
 			initialSpringVelocity: 10.0,
-			options: [.curveEaseOut, .allowUserInteraction],
+			options: [.curveEaseOut, .allowUserInteraction, .beginFromCurrentState],
 			animations: animations,
 			completion: completion
 		)
@@ -149,9 +150,20 @@ fileprivate extension CxjAnimation {
 		UIView.animate(
 			withDuration: 0.25,
 			delay: .zero,
-			options: [.curveEaseIn],
+			options: [.curveEaseIn, .beginFromCurrentState],
 			animations: animations,
 			completion: completion
 		)
+	}
+}
+
+
+
+extension UIColor {
+	static var random: UIColor {
+		return UIColor(red: .random(in: 0...1),
+					   green: .random(in: 0...1),
+					   blue: .random(in: 0...1),
+					   alpha: 1.0)
 	}
 }
