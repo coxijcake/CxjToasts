@@ -48,7 +48,7 @@ extension CxjToastAnimator {
     }
 }
 
-struct CxjToastAnimator {
+final class CxjToastAnimator {
 	//MARK: - Props
 	let toastView: ToastView
 	let config: ToastConfig
@@ -118,11 +118,11 @@ private extension CxjToastAnimator {
 	
 	func presentAnimationAction(for config: ToastConfig) -> AnimationsAction {
 		let animations: AnimationsAction = {
-            toastView.transform = initialValues.transform
-            toastView.alpha = initialValues.alpha
-            toastView.layer.cornerRadius = initialValues.cornerRadius
-            toastView.layer.borderWidth = initialValues.borderWidth
-            toastView.layer.borderColor = initialValues.borderColor
+			self.toastView.transform = self.initialValues.transform
+			self.toastView.alpha = self.initialValues.alpha
+			self.toastView.layer.cornerRadius = self.initialValues.cornerRadius
+			self.toastView.layer.borderWidth = self.initialValues.borderWidth
+			self.toastView.layer.borderColor = self.initialValues.borderColor
 		}
 		
 		return animations
@@ -130,7 +130,7 @@ private extension CxjToastAnimator {
 	
 	func dismissAnimationAction(for config: ToastConfig) -> AnimationsAction {
 		let animations: AnimationsAction = {
-			setupBeforeDisplayingState(with: config)
+			self.setupBeforeDisplayingState(with: config)
 		}
 		
 		return animations
