@@ -101,13 +101,7 @@ extension CxjToastDismisser {
 				let ammountOfUserDragged = ammountOfUserDragged()
 				let progress = ammountOfUserDragged / startViewY
 				
-				CxjActiveToastsUpdater.update(
-					activeToasts: CxjToast.activeToasts,
-					progress: 1.0 - progress,
-					on: placement,
-					animation: .noAnimation,
-					completion: nil
-				)
+				updateDislplayingToasts(animated: false, progress: progress)
 				
 				currentY = startViewY + delta
 				
@@ -120,6 +114,7 @@ extension CxjToastDismisser {
 					delegate?.didFinish(useCase: self)
 				} else {
 					animator.dismissAction(progress: .zero, animated: true) { [weak self] _ in
+						self?.updateDislplayingToasts(animated: true, progress: 1.0)
 						self?.resume()
 					}
 				}
@@ -159,6 +154,16 @@ extension CxjToastDismisser {
 					delta <= 0
 				}
 			}
+		}
+		
+		private func updateDislplayingToasts(animated: Bool, progress: CGFloat) {
+			CxjActiveToastsUpdater.update(
+				activeToasts: CxjToast.activeToasts,
+				progress: 1.0 - progress,
+				on: placement,
+				animation: animated ? animator.dismissAnimation : .noAnimation,
+				completion: nil
+			)
 		}
 	}
 }
