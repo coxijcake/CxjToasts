@@ -20,7 +20,7 @@ extension CxjActiveToastsUpdater {
     }
 }
 
-//MARK: - Public update
+//MARK: - Public toasts updating
 enum CxjActiveToastsUpdater {
     static func update(
         activeToasts: [Toast],
@@ -53,46 +53,40 @@ enum CxjActiveToastsUpdater {
             completion: completion
         )
     }
-    
-    private static func update(
-        toast: Toast,
-        atIndex index: Int,
-        onPlacement placement: Placement
-    ) {
-        guard
-            shouldUpdateToastWith(displayingState: toast.displayingState)
-        else { return}
-        
-        let yOffset: CGFloat = yOffset(
-            for: index,
-            multiplier: Multipliers.yOffset,
-            onPlacement: placement
-        )
-        
-        let scale: CGPoint = scale(
-            for: index,
-            multiplier: Multipliers.scale,
-            onPlacement: placement
-        )
-        
-        let maxVisibleToasts: Int = maxVisibleToasts(for: placement)
-        let alpha: CGFloat = (index < maxVisibleToasts) ? 1.0 : 0.0
-        
-        let toastView: ToastView = toast.view
-        
-        toastView.alpha = alpha
-        toastView.transform = CGAffineTransform(scaleX: scale.x, y: scale.y)
-            .concatenating(CGAffineTransform(translationX: .zero, y: yOffset))
-    }
-    
-    private static func shouldUpdateToastWith(
-        displayingState: Toast.DisplayingState
-    ) -> Bool {
-        switch displayingState {
-        case .presented, .presenting: true
-        default: false
-        }
-    }
+}
+
+//MARK: - Single toast updating
+private extension CxjActiveToastsUpdater {
+	static func update(
+		toast: Toast,
+		atIndex index: Int,
+		onPlacement placement: Placement
+	) {
+		guard
+			shouldUpdateToastWith(displayingState: toast.displayingState)
+		else { return}
+		
+		let yOffset: CGFloat = yOffset(
+			for: index,
+			multiplier: Multipliers.yOffset,
+			onPlacement: placement
+		)
+		
+		let scale: CGPoint = scale(
+			for: index,
+			multiplier: Multipliers.scale,
+			onPlacement: placement
+		)
+		
+		let maxVisibleToasts: Int = maxVisibleToasts(for: placement)
+		let alpha: CGFloat = (index < maxVisibleToasts) ? 1.0 : 0.0
+		
+		let toastView: ToastView = toast.view
+		
+		toastView.alpha = alpha
+		toastView.transform = CGAffineTransform(scaleX: scale.x, y: scale.y)
+			.concatenating(CGAffineTransform(translationX: .zero, y: yOffset))
+	}
 }
 
 //MARK: - Private calculations
@@ -126,4 +120,13 @@ private extension CxjActiveToastsUpdater {
         case .center: 3
         }
     }
+	
+	static func shouldUpdateToastWith(
+		displayingState: Toast.DisplayingState
+	) -> Bool {
+		switch displayingState {
+		case .presented, .presenting: true
+		default: false
+		}
+	}
 }

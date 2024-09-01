@@ -101,9 +101,9 @@ private extension CxjToastFactory {
 //				placement: .center
             ),
             hidingMethods: [
-                .swipe(direction: .top),
-				.tap,
-                .automatic(time: 3.0)
+                .swipe(direction: .any),
+				.tap
+//                .automatic(time: 3.0)
 			],
 			animations: CxjToastConfiguration.Animations(
 				present: CxjToastConfiguration.Animations.AnimationConfig(

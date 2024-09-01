@@ -1,5 +1,5 @@
 //
-//  CxjAnimator.swift
+//  CxjAnimation.swift
 //
 //
 //  Created by Nikita Begletskiy on 24/08/2024.
@@ -33,7 +33,7 @@ extension CxjAnimation {
 	}
 }
 
-//MARK: - UIView + CxjAnimator
+//MARK: - UIView + CxjAnimation
 extension UIView {
 	static func animate(
 		with animator: CxjAnimation,
