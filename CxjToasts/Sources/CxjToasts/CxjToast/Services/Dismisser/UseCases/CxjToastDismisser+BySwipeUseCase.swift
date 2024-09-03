@@ -32,7 +32,7 @@ extension CxjToastDismisser {
 			return gesture
 		}()
 		
-		private let thresholdToDismiss = 20.0
+		private let thresholdToDismiss = 15.0
 		
 		private var startViewY: CGFloat = 0
 		private var startGestureY: CGFloat = 0
@@ -101,7 +101,7 @@ extension CxjToastDismisser {
 				let ammountOfUserDragged = ammountOfUserDragged()
 				let progress = ammountOfUserDragged / startViewY
 				
-				updateDislplayingToasts(animated: false, progress: progress)
+				updateDislplayingToasts(animated: false, progress: 1.0 - progress)
 				
 				currentY = startViewY + delta
 				
@@ -159,7 +159,7 @@ extension CxjToastDismisser {
 		private func updateDislplayingToasts(animated: Bool, progress: CGFloat) {
 			CxjActiveToastsUpdater.update(
 				activeToasts: CxjToast.activeToasts,
-				progress: 1.0 - progress,
+				progress: progress,
 				on: placement,
 				animation: animated ? animator.dismissAnimation : .noAnimation,
 				completion: nil

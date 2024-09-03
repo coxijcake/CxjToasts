@@ -86,7 +86,11 @@ extension CxjToastAnimator: CxjToastDismissAnimator {
 		config.animations.dismiss.animation
 	}
 	
-	func dismissAction(progress: CGFloat, animated: Bool, completion: AnimationsCompletion?) {
+	func dismissAction(
+		progress: CGFloat,
+		animated: Bool,
+		completion: AnimationsCompletion?
+	) {
 		let animations: AnimationsAction = dismissAnimationAction(
 			for: config,
 			progress: progress
@@ -113,14 +117,18 @@ private extension CxjToastAnimator {
 			let sourceViewOffset: CGFloat = verticalOffset + config.sourceView.safeAreaInsets.bottom
 			let fullTranslationY: CGFloat = toastSize.height + sourceViewOffset
 			
-			let scale = 0.75 + (0.25 * clampedProgress)
+			let baseScale: CGFloat = 1.0
+			let fullScale: CGFloat = 0.75
+			let scale = fullScale + ((baseScale - fullScale) * clampedProgress)
 			let translationY = fullTranslationY * (1.0 - clampedProgress)
 			let transform = CGAffineTransform(scaleX: scale, y: scale)
 						.concatenating(CGAffineTransform(translationX: .zero, y: translationY))
 			
 			toastView.transform = transform
 		case .center:
-			let scale = 0.5 + (0.5 * clampedProgress)
+			let baseScale: CGFloat = 1.0
+			let fullScale: CGFloat = 0.5
+			let scale = fullScale + ((baseScale - fullScale) * clampedProgress)
 			let alpha = clampedProgress
 			
 			toastView.transform = CGAffineTransform(scaleX: scale, y: scale)
@@ -156,13 +164,15 @@ private extension CxjToastAnimator {
            CxjDynamicIslandHelper.isDynamicIslandEnabled {
 			setupBeforeDisplayingFromTopDynamicIsnandState(
 				verticalOffset: verticalOffset,
-				progress: progress
+				progress: 1.0 - progress
 			)
         } else {
 			let sourceViewOffset: CGFloat = verticalOffset + config.sourceView.safeAreaInsets.top
 			let fullTranslationY: CGFloat = toastView.bounds.size.height + sourceViewOffset
 			
-			let scale = 0.5 + (0.5 * progress)
+			let baseScale: CGFloat = 1.0
+			let fullScale: CGFloat = 0.5
+			let scale = fullScale + ((baseScale - fullScale) * progress)
 			let translationY: CGFloat = -fullTranslationY * (1.0 - progress)
 			let transform: CGAffineTransform = CGAffineTransform(scaleX: scale, y: scale)
 				.concatenating(CGAffineTransform(translationX: .zero, y: translationY))
@@ -172,17 +182,18 @@ private extension CxjToastAnimator {
     }
     
 	func setupBeforeDisplayingFromTopDynamicIsnandState(verticalOffset: CGFloat, progress: CGFloat) {
+		let progress = min(1.0, max(progress, 0.0))
+		
         let toastSize: CGSize = toastView.bounds.size
         let islandWidth: CGFloat = CxjDynamicIslandHelper.minWidth
         let islandHeight: CGFloat = CxjDynamicIslandHelper.estimatedMinHeight
-        
-		let progress = 1.0 - progress
-		
+        		
 		let xScaleStart: CGFloat = min(islandWidth, toastSize.width) / max(islandWidth, toastSize.width)
 		let yScaleStart: CGFloat = min(islandHeight, toastSize.height) / max(islandHeight, toastSize.height)
+		let baseScale: CGFloat = 1.0
 		
-		let xScale: CGFloat = xScaleStart + (1.0 - xScaleStart) * progress
-		let yScale: CGFloat = yScaleStart + (1.0 - yScaleStart) * progress
+		let xScale: CGFloat = xScaleStart + (baseScale - xScaleStart) * progress
+		let yScale: CGFloat = yScaleStart + (baseScale - yScaleStart) * progress
 		
 		let yTranslation: CGFloat = config.sourceView.safeAreaInsets.top
 		+ toastView.bounds.size.height

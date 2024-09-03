@@ -69,6 +69,8 @@ private extension CxjActiveToastsUpdater {
 			shouldUpdateToastWith(displayingState: toast.displayingState)
 		else { return}
 		
+		let clampedProgress = max(0.0, min(1.0, progress))
+		
 		let finalYOffset: CGFloat = yOffset(
 			for: index,
 			multiplier: Multipliers.yOffset,
@@ -88,8 +90,8 @@ private extension CxjActiveToastsUpdater {
 		
 		let toastView: ToastView = toast.view
 		
-		let yOffset: CGFloat = minYOffset + (finalYOffset - minYOffset) * progress
-		let xScale: CGFloat = minXScale + (finalXScale - minXScale) * progress
+		let yOffset: CGFloat = minYOffset + (finalYOffset - minYOffset) * clampedProgress
+		let xScale: CGFloat = minXScale + (finalXScale - minXScale) * clampedProgress
 		
 		toastView.alpha = alpha
 		toastView.transform = CGAffineTransform(scaleX: xScale, y: 1.0)
