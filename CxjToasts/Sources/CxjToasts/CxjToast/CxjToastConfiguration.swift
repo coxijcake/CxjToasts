@@ -32,7 +32,7 @@ extension CxjToastConfiguration {
     //MARK: - Layout
     public struct Layout {
 		public enum Placement {
-			case top(vericalOffset: CGFloat)
+			case top(verticalOffset: CGFloat)
 			case center
 			case bottom(verticalOffset: CGFloat)
 		}

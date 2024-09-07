@@ -97,7 +97,7 @@ private extension CxjToastFactory {
                         max: 250
                     )
                 ),
-                placement: .top(vericalOffset: 20)
+                placement: .top(verticalOffset: 20)
 //				placement: .bottom(verticalOffset: 120)
 //				placement: .center
             ),
