@@ -159,12 +159,14 @@ private extension CxjToastAnimator {
 	func setupBeforeDisplayingFromTopState(verticalOffset: CGFloat, progress: CGFloat) {
         let applicationSafeAreaInsets: UIEdgeInsets = UIApplication.safeAreaInsets
         let sourceViewSafeAreaInsets: UIEdgeInsets = config.sourceView.safeAreaInsets
+		
+		let revertedProgress: CGFloat = 1.0 - progress
         
         if applicationSafeAreaInsets == sourceViewSafeAreaInsets,
            CxjDynamicIslandHelper.isDynamicIslandEnabled {
 			setupBeforeDisplayingFromTopDynamicIsnandState(
 				verticalOffset: verticalOffset,
-				progress: 1.0 - progress
+				progress: revertedProgress
 			)
         } else {
 			let sourceViewOffset: CGFloat = verticalOffset + config.sourceView.safeAreaInsets.top
@@ -172,8 +174,8 @@ private extension CxjToastAnimator {
 			
 			let baseScale: CGFloat = 1.0
 			let fullScale: CGFloat = 0.5
-			let scale = fullScale + ((baseScale - fullScale) * progress)
-			let translationY: CGFloat = -fullTranslationY * (1.0 - progress)
+			let scale = fullScale + ((baseScale - fullScale) * revertedProgress)
+			let translationY: CGFloat = -fullTranslationY * (1.0 - revertedProgress)
 			let transform: CGAffineTransform = CGAffineTransform(scaleX: scale, y: scale)
 				.concatenating(CGAffineTransform(translationX: .zero, y: translationY))
 			
