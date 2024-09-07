@@ -8,15 +8,15 @@
 import UIKit
 
 //MARK: - Animation
-struct CxjAnimation {
-	typealias Animations = (() -> Void)
-	typealias Completion = ((Bool) -> Void)
+public struct CxjAnimation {
+	public typealias Animations = (() -> Void)
+	public typealias Completion = ((Bool) -> Void)
 	
-	let perform: (@escaping Animations, Completion?) -> Void
+	public let perform: (@escaping Animations, Completion?) -> Void
 }
 
 //MARK: - Base Animations
-extension CxjAnimation {
+public extension CxjAnimation {
 	static let noAnimation = CxjAnimation { (animations, completion) in
 		animations()
 		completion?(true)
@@ -35,7 +35,7 @@ extension CxjAnimation {
 
 //MARK: - UIView + CxjAnimation
 extension UIView {
-	static func animate(
+	public static func animate(
 		with animator: CxjAnimation,
 		animations: @escaping CxjAnimation.Animations,
 		completion: CxjAnimation.Completion?

@@ -96,9 +96,25 @@ extension CxjToastConfiguration {
 			
 			let type: AnimationType
 			let animation: CxjAnimation
+			
+			public init(
+				type: AnimationType,
+				animation: CxjAnimation
+			) {
+				self.type = type
+				self.animation = animation
+			}
 		}
 		
 		let present: AnimationConfig
 		let dismiss: AnimationConfig
+		
+		public init(
+			present: AnimationConfig,
+			dismiss: AnimationConfig
+		) {
+			self.present = present
+			self.dismiss = dismiss
+		}
 	}
 }

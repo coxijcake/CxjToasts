@@ -123,7 +123,7 @@ private extension CxjToastFactory {
     }
 }
 
-fileprivate extension CxjAnimation {
+public extension CxjAnimation {
 	static let testLong = CxjAnimation { (animations, completion) in
 		UIView.animate(
 			withDuration: 1.0,

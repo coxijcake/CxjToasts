@@ -12,6 +12,18 @@ public struct CxjToastViewConfiguration {
 	let colors: Colors
 	let shadow: Shadow
 	let cornerRadius: CGFloat
+	
+	public init(
+		contentInsets: UIEdgeInsets,
+		colors: Colors,
+		shadow: Shadow,
+		cornerRadius: CGFloat
+	) {
+		self.contentInsets = contentInsets
+		self.colors = colors
+		self.shadow = shadow
+		self.cornerRadius = cornerRadius
+	}
 }
 
 public extension CxjToastViewConfiguration {
