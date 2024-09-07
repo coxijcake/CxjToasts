@@ -157,7 +157,7 @@ extension CxjToastDismisser {
 		}
 		
 		private func updateDislplayingToasts(animated: Bool, progress: CGFloat) {
-			CxjActiveToastsUpdater.update(
+			CxjActiveToastsUpdater.updateLayout(
 				activeToasts: CxjToast.activeToasts,
 				progress: progress,
 				on: placement,

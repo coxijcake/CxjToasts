@@ -103,8 +103,8 @@ private extension CxjToastFactory {
             ),
             hidingMethods: [
                 .swipe(direction: .any),
-				.tap
-//                .automatic(time: 3.0)
+				.tap,
+                .automatic(time: 3.0)
 			],
 			animations: CxjToastConfiguration.Animations(
 				present: CxjToastConfiguration.Animations.AnimationConfig(

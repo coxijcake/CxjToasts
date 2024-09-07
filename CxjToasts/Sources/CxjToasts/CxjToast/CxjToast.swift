@@ -78,7 +78,7 @@ extension CxjToast {
         activeToasts.append(toast)
 		publisher.invoke { $0.willPresent(toast: toast) }
 		
-        CxjActiveToastsUpdater.update(
+        CxjActiveToastsUpdater.updateLayout(
 			activeToasts: activeToasts, 
 			progress: 1.0,
             on: toast.config.layout.placement,
@@ -91,6 +91,12 @@ extension CxjToast {
 			
             toast.displayingState = .presented
             toast.dismisser.activate()
+			
+			CxjActiveToastsUpdater.updateDisplayingState(
+				activeToasts: activeToasts,
+				on: toast.config.layout.placement
+			)
+			
 			publisher.invoke { $0.didPresent(toast: toast) }
 		}
     }
@@ -133,7 +139,7 @@ extension CxjToast: CxjToastDismisserDelegate {
         let toastsToUpdate = CxjToast.activeToasts.filter { $0 != toast }
         toast.displayingState = .dismissing
         
-        CxjActiveToastsUpdater.update(
+        CxjActiveToastsUpdater.updateLayout(
 			activeToasts: toastsToUpdate,
 			progress: 1.0,
             on: toast.config.layout.placement,
@@ -152,6 +158,12 @@ extension CxjToast: CxjToastDismisserDelegate {
         toast.displayingState = .initial
 		
         CxjToast.activeToasts.removeAll(where: { $0 == toast })
+		
+		CxjActiveToastsUpdater.updateDisplayingState(
+			activeToasts: CxjToast.activeToasts,
+			on: toast.config.layout.placement
+		)
+		
 		CxjToast.publisher.invoke { $0.didDismiss(toast: toast) }
 	}
 }

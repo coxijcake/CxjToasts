@@ -32,12 +32,12 @@ extension CxjToastDismisser {
 		
 		func deactivate() {
 			pausedTime = nil
-			dismissTimer?.invalidate()
+			removeTimer()
 		}
 		
 		func pause() {
 			pausedTime = dismissTimer?.fireDate.timeIntervalSinceNow
-			dismissTimer?.invalidate()
+			removeTimer()
 		}
 		
 		//MARK: - Private
@@ -56,11 +56,19 @@ extension CxjToastDismisser {
 				withTimeInterval: time,
 				repeats: false,
 				block: { [weak self] _ in
-					guard let self else { return }
+					guard
+						let self,
+							self.dismissTimer?.isValid == true
+					else { return }
 					
 					self.delegate?.didFinish(useCase: self)
 				}
 			)
+		}
+		
+		private func removeTimer() {
+			dismissTimer?.invalidate()
+			dismissTimer = nil
 		}
 	}
 }
