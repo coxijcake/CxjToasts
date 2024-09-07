@@ -162,12 +162,18 @@ private extension CxjToastAnimator {
         let sourceViewSafeAreaInsets: UIEdgeInsets = config.sourceView.safeAreaInsets
 		        
         if applicationSafeAreaInsets == sourceViewSafeAreaInsets,
-           CxjDynamicIslandHelper.isDynamicIslandEnabled {
+           CxjDynamicIslandHelper.isDynamicIslandInDefaultPosition {
 			setupBeforeDisplayingFromTopDynamicIsnandState(
 				verticalOffset: verticalOffset,
 				progress: progress
 			)
-        } else {
+        } else if applicationSafeAreaInsets == sourceViewSafeAreaInsets,
+				  CxjNotchHelper.isNotchInDefaultPosition {
+			setupBeforeDisplayinFromTopNotchState(
+				verticalOffset: verticalOffset,
+				progress: progress
+			)
+		} else {
 			let sourceViewOffset: CGFloat = verticalOffset + config.sourceView.safeAreaInsets.top
 			let fullTranslationY: CGFloat = toastView.bounds.size.height + sourceViewOffset
 			
@@ -181,6 +187,36 @@ private extension CxjToastAnimator {
 			toastView.transform = transform
         }
     }
+	
+	func setupBeforeDisplayinFromTopNotchState(verticalOffset: CGFloat, progress: ToastLayoutProgress) {
+		let toastSize: CGSize = toastView.bounds.size
+		let notchSize: CGSize = CxjNotchHelper.notchSize
+		
+		let xScaleStart: CGFloat = min(notchSize.width, toastSize.width)
+		/ max(notchSize.width, toastSize.width)
+		let yScaleStart: CGFloat = min(notchSize.height, toastSize.height)
+		/ max(notchSize.height, toastSize.height)
+		
+		let baseScale: CGFloat = 1.0
+		let xScale: CGFloat = xScaleStart + (baseScale - xScaleStart) * progress.revertedValue
+		let yScale: CGFloat = yScaleStart + (baseScale - yScaleStart) * progress.revertedValue
+		
+		let yTranslation: CGFloat = config.sourceView.safeAreaInsets.top
+		+ toastView.bounds.size.height
+		+ verticalOffset
+		- notchSize.height * 2
+		
+		let interpolatedYTranslation = -yTranslation * progress.value
+		
+		let cornerRadiusStart: CGFloat = CxjNotchHelper.estimatedCornerRadius
+		let cornerRadiusEnd: CGFloat = initialValues.cornerRadius
+		let interpolatedCornerRadius: CGFloat = cornerRadiusStart * progress.value + cornerRadiusEnd * progress.revertedValue
+		
+		toastView.transform = CGAffineTransform(scaleX: xScale, y: yScale)
+			.concatenating(CGAffineTransform(translationX: .zero, y: interpolatedYTranslation))
+		
+		toastView.layer.cornerRadius = interpolatedCornerRadius
+	}
     
 	func setupBeforeDisplayingFromTopDynamicIsnandState(verticalOffset: CGFloat, progress: ToastLayoutProgress) {
         let toastSize: CGSize = toastView.bounds.size
@@ -189,8 +225,8 @@ private extension CxjToastAnimator {
         		
 		let xScaleStart: CGFloat = min(islandWidth, toastSize.width) / max(islandWidth, toastSize.width)
 		let yScaleStart: CGFloat = min(islandHeight, toastSize.height) / max(islandHeight, toastSize.height)
-		let baseScale: CGFloat = 1.0
 		
+		let baseScale: CGFloat = 1.0
 		let xScale: CGFloat = xScaleStart + (baseScale - xScaleStart) * progress.revertedValue
 		let yScale: CGFloat = yScaleStart + (baseScale - yScaleStart) * progress.revertedValue
 		

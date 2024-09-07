@@ -25,6 +25,14 @@ extension UIApplication {
 			return UIApplication.shared.windows.first(where: { $0.isKeyWindow })
 		}
 	}
+	
+	static var interfaceOrientation: UIInterfaceOrientation? {
+		if #available(iOS 13.0, *) {
+			return keyWindow?.windowScene?.interfaceOrientation
+		} else {
+			return shared.statusBarOrientation
+		}
+	}
     
     static var safeAreaInsets: UIEdgeInsets {
         let defaultInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
