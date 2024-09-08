@@ -9,7 +9,6 @@ import UIKit
 
 //MARK: - Types
 extension CxjToastAnimator {
-    typealias Animation = CxjToastConfiguration.Animations.AnimationConfig
     typealias ToastView = CxjToastView
     typealias ToastConfig = CxjToastConfiguration
 	typealias Placement = ToastConfig.Layout.Placement
@@ -55,11 +54,12 @@ final class CxjToastAnimator {
 	private let config: ToastConfig
     private let initialValues: InitialValues
 	
-	private lazy var layoutUseCase: AnimatorLayoutUseCase = LayoutUseCaseFactory.animationLayoutUseCase(
-		for: toastView,
-		with: config,
-		initialValues: initialValues
-	)
+	private lazy var layoutUseCase: AnimatorLayoutUseCase = LayoutUseCaseFactory
+		.animationLayoutUseCase(
+			for: toastView,
+			with: config,
+			initialValues: initialValues
+		)
 	
     init(toastView: ToastView, config: ToastConfig) {
         self.toastView = toastView
@@ -71,7 +71,7 @@ final class CxjToastAnimator {
 //MARK: - Present Animator
 extension CxjToastAnimator: CxjToastPresentAnimator {
     var presentAnimation: CxjAnimation {
-        config.animations.present.animation
+        config.animations.present
     }
     
 	func presentAction(completion: AnimationsCompletion?) {
@@ -93,7 +93,7 @@ extension CxjToastAnimator: CxjToastPresentAnimator {
 //MARK: - Dismiss Aniamtor
 extension CxjToastAnimator: CxjToastDismissAnimator {
 	var dismissAnimation: CxjAnimation {
-		config.animations.dismiss.animation
+		config.animations.dismiss
 	}
 	
 	func dismissAction(

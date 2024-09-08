@@ -60,104 +60,14 @@ private extension CxjToastFactory {
     
     //MARK: - Native configuration
     static func nativeViewConfiguration() -> CxjToastViewConfiguration {
-        CxjToastViewConfiguration(
-			contentInsets: .init(
-				top: 0,
-				left: 16,
-				bottom: 0,
-				right: 16
-			),
-            colors: CxjToastViewConfiguration.Colors(
-//                background: .white
-				background: .random
-            ),
-            shadow: .enable(
-                params: CxjToastViewConfiguration.Shadow.Params(
-                    offset: CGSize(width: 0, height: 4),
-                    color: UIColor.black.withAlphaComponent(0.18),
-                    opacity: 1,
-                    radius: 10
-                )
-            ),
-            cornerRadius: 10
-        )
+		CxjToastTheme.native.toastViewConfig
     }
     
     //MARK: - Native Config
     static func nativeConfig() -> CxjToastConfiguration {
-        return CxjToastConfiguration(
-            layout: CxjToastConfiguration.Layout(
-                constraints: CxjToastConfiguration.Constraints(
-                    width: CxjToastConfiguration.Constraints.ConstraintValues(
-                        min: UIScreen.main.bounds.size.width * 0.65,
-                        max: UIScreen.main.bounds.size.width - 16 * 2
-                    ),
-                    height: CxjToastConfiguration.Constraints.ConstraintValues(
-                        min: 60,
-                        max: 250
-                    )
-                ),
-                placement: .top(verticalOffset: 20)
-//				placement: .bottom(verticalOffset: 120)
-//				placement: .center
-            ),
-            hidingMethods: [
-                .swipe(direction: .any),
-				.tap,
-                .automatic(time: 3.0)
-			],
-			animations: CxjToastConfiguration.Animations(
-				present: CxjToastConfiguration.Animations.AnimationConfig(
-					type: .default,
-                    animation: .nativeToastPresenting
-//					animation: .testLong
-				),
-				dismiss: CxjToastConfiguration.Animations.AnimationConfig(
-					type: .default,
-                    animation: .nativeToastDismissing
-//					animation: .testLong
-				)
-			),
-			sourceView: UIApplication.keyWindow ?? UIApplication.topViewController()?.view ?? UIView()
-        )
+		CxjToastTheme.native.toastConfig
     }
 }
-
-public extension CxjAnimation {
-	static let testLong = CxjAnimation { (animations, completion) in
-		UIView.animate(
-			withDuration: 1.0,
-			delay: .zero,
-			options: [.curveLinear, .allowUserInteraction, .beginFromCurrentState],
-			animations: animations,
-			completion: completion
-		)
-	}
-	
-	static let nativeToastPresenting = CxjAnimation { (animations, completion) in
-		UIView.animate(
-			withDuration: 1.0,
-			delay: .zero,
-			usingSpringWithDamping: 0.65,
-			initialSpringVelocity: 10.0,
-			options: [.curveEaseOut, .allowUserInteraction, .beginFromCurrentState],
-			animations: animations,
-			completion: completion
-		)
-	}
-	
-	static let nativeToastDismissing = CxjAnimation { (animations, completion) in
-		UIView.animate(
-			withDuration: 0.25,
-			delay: .zero,
-			options: [.curveEaseIn, .beginFromCurrentState],
-			animations: animations,
-			completion: completion
-		)
-	}
-}
-
-
 
 extension UIColor {
 	static var random: UIColor {

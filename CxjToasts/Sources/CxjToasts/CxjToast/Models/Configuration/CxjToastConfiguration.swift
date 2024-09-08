@@ -9,22 +9,21 @@ import UIKit
 
 //MARK: - Configuration
 public struct CxjToastConfiguration {
+	let sourceView: UIView
     let layout: Layout
-    let hidingMethods: Set<DismissMethod>
+    let dismissMethods: Set<DismissMethod>
 	let animations: Animations
     
-    let sourceView: UIView
-    
     public init(
+		sourceView: UIView,
         layout: Layout,
-        hidingMethods: Set<DismissMethod>,
-		animations: Animations,
-        sourceView: UIView
+        dismissMethods: Set<DismissMethod>,
+		animations: Animations
     ) {
+		self.sourceView = sourceView
         self.layout = layout
-        self.hidingMethods = hidingMethods
+        self.dismissMethods = dismissMethods
         self.animations = animations
-        self.sourceView = sourceView
     }
 }
 
@@ -51,7 +50,7 @@ extension CxjToastConfiguration {
     
     //MARK: - Constraints
     public struct Constraints {
-        public struct ConstraintValues {
+        public struct Values {
             let min: CGFloat
             let max: CGFloat
             
@@ -64,19 +63,19 @@ extension CxjToastConfiguration {
             }
         }
         
-        let width: ConstraintValues
-        let height: ConstraintValues
+        let width: Values
+        let height: Values
         
         public init(
-            width: ConstraintValues,
-            height: ConstraintValues
+            width: Values,
+            height: Values
         ) {
             self.width = width
             self.height = height
         }
     }
     
-    //MARK: - HidingMethod
+    //MARK: - DismissMethod
     public enum DismissMethod: Hashable, Equatable {
         public enum SwipeDirection: String, Hashable {
             case top, bottom, any
@@ -89,29 +88,12 @@ extension CxjToastConfiguration {
     
     //MARK: - Animations
 	public struct Animations {
-		public struct AnimationConfig {
-			public enum AnimationType {
-				case `default`
-			}
-			
-			let type: AnimationType
-			let animation: CxjAnimation
-			
-			public init(
-				type: AnimationType,
-				animation: CxjAnimation
-			) {
-				self.type = type
-				self.animation = animation
-			}
-		}
-		
-		let present: AnimationConfig
-		let dismiss: AnimationConfig
+		let present: CxjAnimation
+		let dismiss: CxjAnimation
 		
 		public init(
-			present: AnimationConfig,
-			dismiss: AnimationConfig
+			present: CxjAnimation,
+			dismiss: CxjAnimation
 		) {
 			self.present = present
 			self.dismiss = dismiss

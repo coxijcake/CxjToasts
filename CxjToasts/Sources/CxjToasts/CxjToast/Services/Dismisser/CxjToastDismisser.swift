@@ -82,7 +82,7 @@ extension CxjToastDismisser {
 //MARK: - Private
 private extension CxjToastDismisser {
 	func createDismissUseCases() -> [ToastDismissUseCase] {
-		config.hidingMethods.compactMap { method in
+		config.dismissMethods.compactMap { method in
 			CxjToastDismissUseCaseFactory.useCase(
 				for: method,
 				toastId: toastId,

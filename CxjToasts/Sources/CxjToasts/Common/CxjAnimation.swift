@@ -31,6 +31,16 @@ public extension CxjAnimation {
 			completion: completion
 		)
 	}
+	
+	static let testSlow = CxjAnimation { (animations, completion) in
+		UIView.animate(
+			withDuration: 1.0,
+			delay: .zero,
+			options: [.curveLinear, .allowUserInteraction, .beginFromCurrentState],
+			animations: animations,
+			completion: completion
+		)
+	}
 }
 
 //MARK: - UIView + CxjAnimation

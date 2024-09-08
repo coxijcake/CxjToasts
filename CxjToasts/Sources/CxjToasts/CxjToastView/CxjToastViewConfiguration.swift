@@ -24,6 +24,28 @@ public struct CxjToastViewConfiguration {
 		self.shadow = shadow
 		self.cornerRadius = cornerRadius
 	}
+	
+	//MARK: - Base
+	static var base: CxjToastViewConfiguration {
+		CxjToastViewConfiguration(
+			contentInsets: UIEdgeInsets(
+				top: 8,
+				left: 16,
+				bottom: 8,
+				right: 16
+			),
+			colors: Colors(background: .white),
+			shadow: Shadow.enable(
+				params: Shadow.Params(
+					offset: CGSize(width: 0, height: 4),
+					color: UIColor.black.withAlphaComponent(0.18),
+					opacity: 1,
+					radius: 10
+				)
+			),
+			cornerRadius: 10
+		)
+	}
 }
 
 public extension CxjToastViewConfiguration {

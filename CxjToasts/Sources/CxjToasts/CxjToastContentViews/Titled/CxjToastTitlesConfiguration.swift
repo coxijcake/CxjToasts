@@ -5,7 +5,7 @@
 //  Created by Nikita Begletskiy on 15/08/2024.
 //
 
-import Foundation
+import UIKit
 
 public enum CxjToastTitlesConfiguration {
     case plain(config: Plain)
@@ -65,9 +65,14 @@ public enum CxjToastTitlesConfiguration {
 	
 	public struct LabelParams {
 		public let numberOfLines: Int
+		public let textAligment: NSTextAlignment
 		
-		public init(numberOfLines: Int) {
+		public init(
+			numberOfLines: Int,
+			textAligment: NSTextAlignment
+		) {
 			self.numberOfLines = numberOfLines
+			self.textAligment = textAligment
 		}
 	}
 }
