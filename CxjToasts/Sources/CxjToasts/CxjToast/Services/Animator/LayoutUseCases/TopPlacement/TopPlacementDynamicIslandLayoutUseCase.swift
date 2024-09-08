@@ -54,14 +54,19 @@ extension CxjToastAnimator {
 			let xScale: CGFloat = xScaleStart + (baseScale - xScaleStart) * progress.revertedValue
 			let yScale: CGFloat = yScaleStart + (baseScale - yScaleStart) * progress.revertedValue
 			
-			let yTranslation: CGFloat = sourceView.safeAreaInsets.top
-			+ toastView.bounds.size.height
-			+ verticalOffset
-			- CxjDynamicIslandHelper.topOffset
-			- CxjDynamicIslandHelper.estimatedMinHeight
+            let yTranslation: CGFloat =
+            verticalOffset
+            + CxjDynamicIslandHelper.estimatedMinHeight
+            + CxjDynamicIslandHelper.estimatedBottomOffset
+            
+            let originalHeight = toastSize.height
+            let scaledHeight = originalHeight * yScale
 			
-			let interpolatedYTranslation = -yTranslation * progress.value
-			
+			let interpolatedYTranslation =
+            -yTranslation
+            * progress.value
+            - ((originalHeight - scaledHeight) / 2)
+            
 			let cornerRadiusStart: CGFloat = CxjDynamicIslandHelper.cornerRadius
 			let cornerRadiusEnd: CGFloat = initialValues.cornerRadius
 			let interpolatedCornerRadius: CGFloat = cornerRadiusStart * progress.value + cornerRadiusEnd * progress.revertedValue

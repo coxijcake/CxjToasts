@@ -59,6 +59,8 @@ enum CxjToastConfigurator {
         switch theme {
         case .native:
             Config.Constraints.Values(
+//                min: 140,
+//                max: 140
                 min: 40,
                 max: 70
             )
@@ -90,12 +92,14 @@ enum CxjToastConfigurator {
     }
     
     static func presentAnimation(for theme: Theme) -> CxjAnimation {
+//        return .testSlow
         switch theme {
         case .native: .nativeToastPresenting
         }
     }
     
     static func dismissAnimation(for theme: Theme) -> CxjAnimation {
+//        return .testSlow
         switch theme {
         case .native: .nativeToastDismissing
         }

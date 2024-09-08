@@ -10,8 +10,9 @@ import UIKit
 // https://developer.apple.com/design/human-interface-guidelines/live-activities
 public enum CxjDynamicIslandHelper {
 	public static let requiredSafeAreaHeight: CGFloat = 59
-    public static let topOffset: CGFloat = 27
     public static let estimatedMinHeight: CGFloat = 37
+    public static let topOffset: CGFloat = 12
+    public static let estimatedBottomOffset: CGFloat = 10
     public static let minWidth: CGFloat = 126
     public static let cornerRadius: CGFloat = 44
     public static let backgroundColor: UIColor = .black
