@@ -1,0 +1,54 @@
+//
+//  CxjToastViewConfigurator.swift
+//  
+//
+//  Created by Nikita Begletskiy on 08/09/2024.
+//
+
+import UIKit
+
+enum CxjToastViewConfigurator {
+    typealias Theme = CxjToastTheme
+    typealias Config = CxjToastViewConfiguration
+    
+    static func config(for theme: Theme) -> Config {
+        Config(
+            contentInsets: contentInsets(for: theme),
+            colors: colors(for: theme),
+            shadow: shadow(for: theme),
+            cornerRadius: cornerRadius(for: theme)
+        )
+    }
+    
+    static func contentInsets(for theme: Theme) -> UIEdgeInsets {
+        switch theme {
+        case .native:
+            UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        }
+    }
+    
+    static func colors(for theme: Theme) -> Config.Colors {
+        switch theme {
+        case .native: Config.Colors(background: .white)
+        }
+    }
+    
+    static func shadow(for theme: Theme) -> Config.Shadow {
+        switch theme {
+        case .native:
+                .enable(params: CxjToastViewConfiguration.Shadow.Params(
+                    offset: CGSize(width: 0, height: 4),
+                    color: .black.withAlphaComponent(0.28),
+                    opacity: 1.0,
+                    radius: 10
+                )
+                )
+        }
+    }
+    
+    static func cornerRadius(for theme: Theme) -> CGFloat {
+        switch theme {
+        case .native: 10.0
+        }
+    }
+}
