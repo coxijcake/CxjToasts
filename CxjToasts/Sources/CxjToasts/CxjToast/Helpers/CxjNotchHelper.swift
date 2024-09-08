@@ -12,7 +12,7 @@ public enum CxjNotchHelper {
 	public static let afterNotchModelSafeAreaHeight: CGFloat = 59 // dynamic island
 	
 	public static let notchSize: CGSize = CGSize(width: 209, height: 26)
-	public static let estimatedCornerRadius: CGFloat = 20
+	public static let estimatedBottomCornerRadius: CGFloat = 30
 	public static let backgroundColor: UIColor = .black
 	
 	public static var isNotchInDefaultPosition: Bool {

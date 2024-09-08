@@ -53,14 +53,14 @@ extension CxjToastAnimator {
 			let baseScale: CGFloat = 1.0
 			let xScale: CGFloat = xScaleStart + (baseScale - xScaleStart) * progress.revertedValue
 			let yScale: CGFloat = yScaleStart + (baseScale - yScaleStart) * progress.revertedValue
+            
+            let originalHeight = toastSize.height
+            let scaledHeight = originalHeight * yScale
 			
             let yTranslation: CGFloat =
             verticalOffset
             + CxjDynamicIslandHelper.estimatedMinHeight
             + CxjDynamicIslandHelper.estimatedBottomOffset
-            
-            let originalHeight = toastSize.height
-            let scaledHeight = originalHeight * yScale
 			
 			let interpolatedYTranslation =
             -yTranslation

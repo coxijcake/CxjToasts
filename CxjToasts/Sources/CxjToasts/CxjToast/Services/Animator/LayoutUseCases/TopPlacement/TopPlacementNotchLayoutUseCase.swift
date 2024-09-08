@@ -42,29 +42,41 @@ extension CxjToastAnimator {
 		
 		func dismissLayout(progress: ToastLayoutProgress) {
 			let toastSize: CGSize = toastView.bounds.size
-			let notchSize: CGSize = CxjNotchHelper.notchSize
+            let adjustedNotchSize: CGSize = CGSize(
+                width: CxjNotchHelper.notchSize.width,
+                height: CxjNotchHelper.notchSize.height + 6
+            )
 			
-			let xScaleStart: CGFloat = min(notchSize.width, toastSize.width)
-			/ max(notchSize.width, toastSize.width)
-			let yScaleStart: CGFloat = min(notchSize.height, toastSize.height)
-			/ max(notchSize.height, toastSize.height)
+			let xScaleStart: CGFloat =
+            min(adjustedNotchSize.width, toastSize.width)
+			/ max(adjustedNotchSize.width, toastSize.width)
+            
+			let yScaleStart: CGFloat =
+            min(adjustedNotchSize.height, toastSize.height)
+			/ max(adjustedNotchSize.height, toastSize.height)
 			
 			let baseScale: CGFloat = 1.0
+            let additionalYScale: CGFloat = 0.0
 			let xScale: CGFloat = xScaleStart + (baseScale - xScaleStart) * progress.revertedValue
-			let yScale: CGFloat = yScaleStart + (baseScale - yScaleStart) * progress.revertedValue
+			let yScale: CGFloat = (yScaleStart + (baseScale - yScaleStart) * progress.revertedValue) + additionalYScale
+            
+            let originalHeight = toastSize.height
+            let scaledHeight = originalHeight * yScale
 			
-			let yTranslation: CGFloat = sourceView.safeAreaInsets.top
-			+ toastView.bounds.size.height
-			+ verticalOffset
-			- notchSize.height * 2
+            let yTranslation: CGFloat =
+            verticalOffset
+            + sourceView.safeAreaInsets.top
 			
-			let interpolatedYTranslation = -yTranslation * progress.value
+			let interpolatedYTranslation = 
+            -yTranslation
+            * progress.value
+            - ((originalHeight - scaledHeight) / 2)
 			
-			let cornerRadiusStart: CGFloat = CxjNotchHelper.estimatedCornerRadius
+			let cornerRadiusStart: CGFloat = CxjNotchHelper.estimatedBottomCornerRadius
 			let cornerRadiusEnd: CGFloat = initialValues.cornerRadius
 			let interpolatedCornerRadius: CGFloat = cornerRadiusStart * progress.value + cornerRadiusEnd * progress.revertedValue
 			
-			let transitionAlphaStart: CGFloat = 0.75
+			let transitionAlphaStart: CGFloat = 1.0
 			let transitionViewAlphaEnd: CGFloat = 0.0
 			let interpolatedTransitionViewAlpha: CGFloat = transitionAlphaStart * progress.value + transitionViewAlphaEnd * progress.revertedValue
 			
