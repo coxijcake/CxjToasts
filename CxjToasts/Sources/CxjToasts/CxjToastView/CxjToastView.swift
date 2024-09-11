@@ -8,5 +8,8 @@
 import UIKit
 
 public protocol CxjToastView: UIView {
+    typealias Configuration = CxjToastViewConfiguration
     
+    //TODO: - Better naming
+    func prepareToDisplay()
 }

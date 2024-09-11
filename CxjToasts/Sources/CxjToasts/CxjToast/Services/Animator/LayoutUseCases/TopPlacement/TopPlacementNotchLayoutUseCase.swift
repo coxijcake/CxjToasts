@@ -11,7 +11,7 @@ extension CxjToastAnimator {
 	final class TopPlacementNotchLayoutUseCase: TopPlacementAnimatorLayoutUseCase {
 		let toastView: ToastView
 		let sourceView: UIView
-		let initialValues: InitialValues
+		let toastViewDefaultValues: ToastViewDefaultValues
 		let verticalOffset: CGFloat
 		
 		private var transitionAnimationDimmedView: UIView?
@@ -19,12 +19,12 @@ extension CxjToastAnimator {
 		init(
 			toastView: ToastView,
 			sourceView: UIView,
-			initialValues: InitialValues,
+            toastViewDefaultValues: ToastViewDefaultValues,
 			verticalOffset: CGFloat
 		) {
 			self.toastView = toastView
 			self.sourceView = sourceView
-			self.initialValues = initialValues
+			self.toastViewDefaultValues = toastViewDefaultValues
 			self.verticalOffset = verticalOffset
 		}
 		
@@ -34,9 +34,9 @@ extension CxjToastAnimator {
 		}
 		
 		func presentingLayout() {
-			toastView.transform = initialValues.transform
-			toastView.alpha = initialValues.alpha
-			toastView.layer.cornerRadius = initialValues.cornerRadius
+			toastView.transform = toastViewDefaultValues.transform
+			toastView.alpha = toastViewDefaultValues.alpha
+			toastView.layer.cornerRadius = toastViewDefaultValues.cornerRadius
 			transitionAnimationDimmedView?.alpha = .zero
 		}
 		
@@ -73,7 +73,7 @@ extension CxjToastAnimator {
             - ((originalHeight - scaledHeight) / 2)
 			
 			let cornerRadiusStart: CGFloat = CxjNotchHelper.estimatedBottomCornerRadius
-			let cornerRadiusEnd: CGFloat = initialValues.cornerRadius
+			let cornerRadiusEnd: CGFloat = toastViewDefaultValues.cornerRadius
 			let interpolatedCornerRadius: CGFloat = cornerRadiusStart * progress.value + cornerRadiusEnd * progress.revertedValue
 			let safeCornerRadius: CGFloat = min(toastSize.height * 0.5, interpolatedCornerRadius)
 			

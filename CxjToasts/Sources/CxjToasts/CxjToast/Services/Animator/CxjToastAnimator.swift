@@ -15,7 +15,7 @@ extension CxjToastAnimator {
     typealias AnimationsAction = CxjAnimation.Animations
     typealias AnimationsCompletion = CxjAnimation.Completion
     
-    struct InitialValues {
+    struct ToastViewDefaultValues {
         let alpha: CGFloat
         let transform: CGAffineTransform
         let cornerRadius: CGFloat
@@ -45,6 +45,16 @@ extension CxjToastAnimator {
                 borderColor: toastView.layer.borderColor
             )
         }
+        
+        static var base: ToastViewDefaultValues {
+            ToastViewDefaultValues(
+                alpha: 1.0,
+                transform: .identity,
+                cornerRadius: .zero,
+                borderWidth: .zero,
+                borderColor: nil
+            )
+        }
     }
 }
 
@@ -52,19 +62,18 @@ final class CxjToastAnimator {
 	//MARK: - Props
 	private let toastView: ToastView
 	private let config: ToastConfig
-    private let initialValues: InitialValues
+    private var toastViewDefaultValues: ToastViewDefaultValues = .base
 	
 	private lazy var layoutUseCase: AnimatorLayoutUseCase = LayoutUseCaseFactory
 		.animationLayoutUseCase(
 			for: toastView,
 			with: config,
-			initialValues: initialValues
+            toastViewDefaultValues: toastViewDefaultValues
 		)
 	
     init(toastView: ToastView, config: ToastConfig) {
         self.toastView = toastView
         self.config = config
-        self.initialValues = InitialValues(toastView: toastView)
     }
 }
 
@@ -75,7 +84,9 @@ extension CxjToastAnimator: CxjToastPresentAnimator {
     }
     
 	func presentAction(completion: AnimationsCompletion?) {
-		let fullProgress: ToastLayoutProgress = ToastLayoutProgress(value: 1.0)
+        let fullProgress: ToastLayoutProgress = ToastLayoutProgress(value: 1.0)
+        
+        toastViewDefaultValues = ToastViewDefaultValues(toastView: toastView)
 		layoutUseCase.beforeDisplayingLayout(progress: fullProgress)
 		
 		let animations: AnimationsAction = {

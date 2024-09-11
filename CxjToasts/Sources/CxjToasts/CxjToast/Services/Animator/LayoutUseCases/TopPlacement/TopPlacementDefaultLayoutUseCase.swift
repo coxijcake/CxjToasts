@@ -11,18 +11,18 @@ extension CxjToastAnimator {
 	final class TopPlacementDefaultLayoutUseCase: TopPlacementAnimatorLayoutUseCase {
 		let toastView: ToastView
 		let sourceView: UIView
-		let initialValues: InitialValues
+		let toastViewDefaultValues: ToastViewDefaultValues
 		let verticalOffset: CGFloat
 		
 		init(
 			toastView: ToastView,
 			sourceView: UIView,
-			initialValues: InitialValues,
+            toastViewDefaultValues: ToastViewDefaultValues,
 			verticalOffset: CGFloat
 		) {
 			self.toastView = toastView
 			self.sourceView = sourceView
-			self.initialValues = initialValues
+			self.toastViewDefaultValues = toastViewDefaultValues
 			self.verticalOffset = verticalOffset
 		}
 		
@@ -31,7 +31,7 @@ extension CxjToastAnimator {
 		}
 		
 		func presentingLayout() {
-			toastView.transform = initialValues.transform
+			toastView.transform = toastViewDefaultValues.transform
 		}
 		
 		func dismissLayout(progress: ToastLayoutProgress) {

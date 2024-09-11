@@ -28,6 +28,8 @@ final class CxjToastPresenter {
 			for: toastView,
 			in: config.sourceView
 		)
+        
+        toastView.prepareToDisplay()
 				
 		animator.presentAction(completion: completion)
 	}

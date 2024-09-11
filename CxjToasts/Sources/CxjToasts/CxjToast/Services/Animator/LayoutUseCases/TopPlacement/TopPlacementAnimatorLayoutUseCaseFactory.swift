@@ -12,7 +12,7 @@ extension CxjToastAnimator {
 		static func useCase(
 			for toastView: ToastView,
 			with config: ToastConfig,
-			initialValues: InitialValues,
+            toastViewDefaultValues: ToastViewDefaultValues,
 			verticalOffset: CGFloat
 		) -> TopPlacementAnimatorLayoutUseCase {
 			let applicationSafeAreaInsets: UIEdgeInsets = UIApplication.safeAreaInsets
@@ -24,7 +24,7 @@ extension CxjToastAnimator {
 				TopPlacementDynamicIslandLayoutUseCase(
 					toastView: toastView,
 					sourceView: config.sourceView,
-					initialValues: initialValues,
+					toastViewDefaultValues: toastViewDefaultValues,
 					verticalOffset: verticalOffset
 				)
 			} else if isSourceSafeAreaEqulWindowSafeArea,
@@ -32,14 +32,14 @@ extension CxjToastAnimator {
 				TopPlacementNotchLayoutUseCase(
 					toastView: toastView,
 					sourceView: config.sourceView,
-					initialValues: initialValues,
+                    toastViewDefaultValues: toastViewDefaultValues,
 					verticalOffset: verticalOffset
 				)
 			} else {
 				TopPlacementDefaultLayoutUseCase(
 					toastView: toastView,
 					sourceView: config.sourceView,
-					initialValues: initialValues,
+                    toastViewDefaultValues: toastViewDefaultValues,
 					verticalOffset: verticalOffset
 				)
 			}

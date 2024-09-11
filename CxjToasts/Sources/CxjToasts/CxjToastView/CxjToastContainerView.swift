@@ -9,9 +9,7 @@ import UIKit
 
 //MARK: - Types
 extension CxjToastContainerView {
-    typealias Configuration = CxjToastViewConfiguration
-    typealias ShadowConfiguration = Configuration.Shadow
-    typealias ColorsConfiguration = Configuration.Colors
+    
 }
 
 final class CxjToastContainerView: UIView {
@@ -31,7 +29,6 @@ final class CxjToastContainerView: UIView {
         super.init(frame: .zero)
         
         baseConfigure()
-        configureUI(with: config)
 	}
     
     required init?(coder: NSCoder) {
@@ -41,7 +38,9 @@ final class CxjToastContainerView: UIView {
 
 //MARK: - CxjToastView
 extension CxjToastContainerView: CxjToastView {
-    
+    func prepareToDisplay() {
+        configureUI(with: config)
+    }
 }
 
 //MARK: - Configuration
@@ -50,7 +49,7 @@ private extension CxjToastContainerView {
         configureContentLayout(with: config.contentInsets)
         configureColors(with: config.colors)
         configureShadow(with: config.shadow)
-		configureCornes(with: config.corners)
+        configureCornes(with: config.corners)
     }
     
     func configureContentLayout(with insets: UIEdgeInsets) {
@@ -64,11 +63,11 @@ private extension CxjToastContainerView {
         ])
     }
     
-    func configureColors(with config: ColorsConfiguration) {
+    func configureColors(with config: Configuration.Colors) {
         backgroundColor = config.background
     }
     
-    func configureShadow(with config: ShadowConfiguration) {
+    func configureShadow(with config: Configuration.Shadow) {
         switch config {
         case .enable(params: let params):
 //            layer.masksToBounds = false

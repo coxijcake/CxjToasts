@@ -12,27 +12,27 @@ extension CxjToastAnimator {
 		static func animationLayoutUseCase(
 			for toastView: ToastView,
 			with config: ToastConfig,
-			initialValues: InitialValues
+            toastViewDefaultValues: ToastViewDefaultValues
 		) -> AnimatorLayoutUseCase {
 			switch config.layout.placement {
 			case .top(verticalOffset: let verticalOffset):
 				TopPlacementAnimatorLayoutUseCaseFactory.useCase(
 					for: toastView,
 					with: config,
-					initialValues: initialValues,
+                    toastViewDefaultValues: toastViewDefaultValues,
 					verticalOffset: verticalOffset
 				)
 			case .center:
 				CenterPlacementAnimatorUseCase(
 					toastView: toastView,
 					sourceView: config.sourceView,
-					initialValues: initialValues
+                    toastViewDefaultValues: toastViewDefaultValues
 				)
 			case .bottom(verticalOffset: let verticalOffset):
 				BottomPlacementAnimatorUseCase(
 					toastView: toastView,
 					sourceView: config.sourceView,
-					initialValues: initialValues,
+                    toastViewDefaultValues: toastViewDefaultValues,
 					verticalOffset: verticalOffset
 				)
 			}
