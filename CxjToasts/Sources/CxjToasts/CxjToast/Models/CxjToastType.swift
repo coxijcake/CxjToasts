@@ -8,6 +8,10 @@
 import Foundation
 
 public enum CxjToastType {
-    case custom(config: CxjToastConfiguration, viewConfig: CxjToastViewConfiguration)
-    case native
+	case template(theme: CxjToastTheme)
+	case custom(
+		config: CxjToastConfiguration,
+		viewConfig: CxjToastViewConfiguration,
+		content: CxjToastContentView
+	)
 }

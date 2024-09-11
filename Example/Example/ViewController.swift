@@ -33,18 +33,21 @@ class ViewController: UIViewController {
 	private func showToast(after: TimeInterval? = nil) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + (after ?? .zero)) {
 			
-			let contentView: CxjToastContentView = self.customCxjToastContentView()
+			let customContentView: CxjToastContentView = self.customCxjToastContentView()
 			
 			let testConentView = TestContentView()
 			testConentView.backgroundColor = .red
 			
-//			CxjToast.show(.native, with: contentView)
 			CxjToast.show(
-				.custom(
-					config: self.customToastConfig(),
-					viewConfig: self.customToastViewConfog()
-				),
-				with: contentView
+				.template(
+					theme: .native(
+						data: CxjToastTheme.NativeToastData(
+							title: "Test Toast Toast Toast",
+							subtitle: "some description",
+							icon: UIImage.checkmark
+						)
+					)
+				)
 			)
 		}
 	}
@@ -71,24 +74,6 @@ class ViewController: UIViewController {
 					)
 				)
 			)
-		)
-	}
-	
-	private func customToastConfig() -> CxjToastConfiguration {
-		CxjToastConfiguration(
-			sourceView: CxjToastTheme.native.sourceView,
-			layout: CxjToastTheme.native.layout,
-			dismissMethods: CxjToastTheme.native.dismissMethods,
-			animations: CxjToastTheme.native.animations
-		)
-	}
-	
-	private func customToastViewConfog(sourceView: UIView = CxjToastTheme.native.sourceView) -> CxjToastViewConfiguration {
-		CxjToastViewConfiguration(
-			contentInsets: CxjToastTheme.native.viewContentInsets,
-			colors: CxjToastTheme.native.viewColors,
-			shadow: CxjToastTheme.native.viewShadow,
-			cornerRadius: CxjToastTheme.native.viewCornerRadius
 		)
 	}
 }

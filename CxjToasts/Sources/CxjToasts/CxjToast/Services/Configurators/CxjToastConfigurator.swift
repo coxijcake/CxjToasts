@@ -49,7 +49,7 @@ enum CxjToastConfigurator {
         return switch theme {
         case .native:
             Config.Constraints.Values(
-                min: sourceView.bounds.size.width * 0.65,
+                min: sourceView.bounds.size.width * 0.5,
                 max: sourceView.bounds.size.width - 16 * 2
             )
         }
@@ -61,7 +61,7 @@ enum CxjToastConfigurator {
             Config.Constraints.Values(
 //                min: 140,
 //                max: 140
-                min: 40,
+                min: 50,
                 max: 70
             )
         }
@@ -78,7 +78,6 @@ enum CxjToastConfigurator {
         case .native:
             [
                 .automatic(time: 3.0),
-                .tap,
                 .swipe(direction: .top)
             ]
         }

@@ -66,12 +66,10 @@ public final class CxjToast: CxjToastIdentifiable {
 //MARK: - Public Presenting
 extension CxjToast {
     public static func show(
-        _ type: ToastType,
-        with content: ContentView
+        _ type: ToastType
     ) {
         let toast: CxjToast = CxjToastFactory.toastFor(
-            type: type,
-            content: content
+            type: type
         )
 		
         toast.displayingState = .presenting

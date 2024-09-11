@@ -50,9 +50,7 @@ private extension CxjToastContainerView {
         configureContentLayout(with: config.contentInsets)
         configureColors(with: config.colors)
         configureShadow(with: config.shadow)
-        
-        clipsToBounds = true
-        layer.cornerRadius = config.cornerRadius
+		configureCornes(with: config.corners)
     }
     
     func configureContentLayout(with insets: UIEdgeInsets) {
@@ -73,7 +71,7 @@ private extension CxjToastContainerView {
     func configureShadow(with config: ShadowConfiguration) {
         switch config {
         case .enable(params: let params):
-            layer.masksToBounds = false
+//            layer.masksToBounds = false
             layer.shadowOffset = params.offset
             layer.shadowColor = params.color.cgColor
             layer.shadowOpacity = params.opacity
@@ -82,11 +80,21 @@ private extension CxjToastContainerView {
             return
         }
     }
+	
+	func configureCornes(with corners: Configuration.Corners) {
+		switch corners {
+		case .straight: break
+		case .capsule: layer.cornerRadius = bounds.size.height * 0.5
+		case .rounded(value: let value): layer.cornerRadius = value
+		}
+	}
 }
 
 //MARK: - Base Configuration
 private extension CxjToastContainerView {
     func baseConfigure() {
+		clipsToBounds = true
+		
         addSubview(contentView)
     }
 }

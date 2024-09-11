@@ -9,12 +9,10 @@ import UIKit
 
 enum CxjToastFactory {
     static func toastFor(
-        type: CxjToastType,
-        content: CxjToastContentView
+        type: CxjToastType
     ) -> CxjToast {
         let view: CxjToastView = createToastView(
-            for: type,
-            content: content
+            for: type
         )
         
         let toastConfig: CxjToastConfiguration = config(
@@ -28,20 +26,21 @@ enum CxjToastFactory {
 private extension CxjToastFactory {
     //MARK: - ToastView
     static func createToastView(
-        for type: CxjToastType,
-        content: CxjToastContentView
+        for type: CxjToastType
     ) -> CxjToastView {
         switch type {
-        case .custom(_, let viewConfig):
+        case .custom(_, let viewConfig, let content):
             return CxjToastViewFactory.createViewWith(
                 config: viewConfig,
                 content: content
             )
-        case .native:
-            let viewConfig = nativeViewConfiguration()
+        case .template(theme: let theme):
+			let viewConfig = CxjToastViewConfigurator.config(for: theme)
+			let content = CxjTemplatedToastContentConfigurator.configuredContent(for: theme)
+			
             return CxjToastViewFactory.createViewWith(
                 config: viewConfig,
-                content: content
+				content: content
             )
         }
     }
@@ -51,20 +50,10 @@ private extension CxjToastFactory {
         for type: CxjToastType
     ) -> CxjToastConfiguration {
         switch type {
-        case .custom(let config, _):
+        case .custom(let config, _, _):
             return config
-        case .native:
-            return nativeConfig()
+		case .template(theme: let theme):
+			return CxjToastConfigurator.config(for: theme)
         }
-    }
-    
-    //MARK: - Native configuration
-    static func nativeViewConfiguration() -> CxjToastViewConfiguration {
-		CxjToastTheme.native.toastViewConfig
-    }
-    
-    //MARK: - Native Config
-    static func nativeConfig() -> CxjToastConfiguration {
-		CxjToastTheme.native.toastConfig
     }
 }

@@ -11,40 +11,18 @@ public struct CxjToastViewConfiguration {
 	let contentInsets: UIEdgeInsets
 	let colors: Colors
 	let shadow: Shadow
-	let cornerRadius: CGFloat
+	let corners: Corners
 	
 	public init(
 		contentInsets: UIEdgeInsets,
 		colors: Colors,
 		shadow: Shadow,
-		cornerRadius: CGFloat
+		corners: Corners
 	) {
 		self.contentInsets = contentInsets
 		self.colors = colors
 		self.shadow = shadow
-		self.cornerRadius = cornerRadius
-	}
-	
-	//MARK: - Base
-	static var base: CxjToastViewConfiguration {
-		CxjToastViewConfiguration(
-			contentInsets: UIEdgeInsets(
-				top: 8,
-				left: 16,
-				bottom: 8,
-				right: 16
-			),
-			colors: Colors(background: .white),
-			shadow: Shadow.enable(
-				params: Shadow.Params(
-					offset: CGSize(width: 0, height: 4),
-					color: UIColor.black.withAlphaComponent(0.18),
-					opacity: 1,
-					radius: 10
-				)
-			),
-			cornerRadius: 10
-		)
+		self.corners = corners
 	}
 }
 
@@ -81,5 +59,11 @@ public extension CxjToastViewConfiguration {
 		) {
 			self.background = background
 		}
+	}
+	
+	public enum Corners {
+		case straight
+		case capsule
+		case rounded(value: CGFloat)
 	}
 }

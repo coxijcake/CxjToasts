@@ -16,14 +16,14 @@ enum CxjToastViewConfigurator {
             contentInsets: contentInsets(for: theme),
             colors: colors(for: theme),
             shadow: shadow(for: theme),
-            cornerRadius: cornerRadius(for: theme)
+            corners: corners(for: theme)
         )
     }
     
     static func contentInsets(for theme: Theme) -> UIEdgeInsets {
         switch theme {
         case .native:
-            UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+            UIEdgeInsets(top: 10, left: 24, bottom: 10, right: 24)
         }
     }
     
@@ -46,9 +46,9 @@ enum CxjToastViewConfigurator {
         }
     }
     
-    static func cornerRadius(for theme: Theme) -> CGFloat {
-        switch theme {
-        case .native: 10.0
-        }
+	static func corners(for theme: Theme) -> Config.Corners {
+		switch theme {
+		case .native: .capsule
+		}
     }
 }

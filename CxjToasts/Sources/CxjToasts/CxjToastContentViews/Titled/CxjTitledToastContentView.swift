@@ -37,7 +37,7 @@ public final class CxjTitledToastContentView: UIStackView {
 
 // MARK: - Public
 public extension CxjTitledToastContentView {
-    func configureWith(configuration: Configuration) {
+	func configureWith(configuration: Configuration) {
         switch configuration {
         case .plain(config: let config):
             configure(label: titleLabel, with: config.title)
@@ -94,7 +94,7 @@ private extension CxjTitledToastContentView {
 	func configureStackProps() {
 		axis = .vertical
 		distribution = .fillEqually
-		alignment = .center
+		alignment = .fill
 		spacing = 2
 	}
 	
