@@ -30,26 +30,31 @@ class ViewController: UIViewController {
 		showToast()
 	}
 	
-	private func showToast(after: TimeInterval? = nil) {
-		DispatchQueue.main.asyncAfter(deadline: .now() + (after ?? .zero)) {
-			
-			let customContentView: CxjToastContentView = self.customCxjToastContentView()
-			
-			let testConentView = TestContentView()
-			testConentView.backgroundColor = .red
-			
-			CxjToast.show(
-				.template(
-					theme: .native(
-						data: CxjToastTheme.NativeToastData(
-							title: "Test Toast Toast Toast",
-							subtitle: "some description",
-							icon: UIImage.checkmark
-						)
-					)
-				)
-			)
-		}
+	private func showToast() {
+        let customContentView: CxjToastContentView = self.customCxjToastContentView()
+        
+        let testConentView = TestContentView()
+        testConentView.backgroundColor = .red
+        
+//        CxjToast.show(
+//            .custom(
+//                config: self.customCxjTostConfig(),
+//                viewConfig: self.customCxjToastViewConfig(),
+//                content: self.customCxjToastContentView()
+//            )
+//        )
+        
+        CxjToast.show(
+            .template(
+                theme: .native(
+                    data: CxjToastTheme.NativeToastData(
+                        title: "Test Toast Toast Toast",
+                        subtitle: "some description",
+                        icon: UIImage.checkmark
+                    )
+                )
+            )
+        )
 	}
 	
 	private func customCxjToastContentView() -> CxjToastContentView {
@@ -76,6 +81,39 @@ class ViewController: UIViewController {
 			)
 		)
 	}
+    
+    private func customCxjTostConfig() -> CxjToastConfiguration {
+        CxjToastConfiguration(
+            sourceView: self.view,
+            layout: CxjToastConfiguration.Layout(
+                constraints: CxjToastConfiguration.Constraints(
+                    width: CxjToastConfiguration.Constraints.Values(
+                        min: UIScreen.main.bounds.size.width,
+                        max: UIScreen.main.bounds.size.width
+                    ),
+                    height: CxjToastConfiguration.Constraints.Values(
+                        min: 100,
+                        max: 150
+                    )
+                ),
+                placement: .top(verticalOffset: .zero)
+            ),
+            dismissMethods: [.tap, .automatic(time: 5.0)],
+            animations: CxjToastConfiguration.Animations(
+                present: .defaultSpring,
+                dismiss: .defaultSpring
+            )
+        )
+    }
+    
+    private func customCxjToastViewConfig() -> CxjToastViewConfiguration {
+        CxjToastViewConfiguration(
+            contentInsets: .init(top: 20, left: 16, bottom: 20, right: 16),
+            colors: CxjToastViewConfiguration.Colors(background: .white),
+            shadow: .disable,
+            corners: .straight
+        )
+    }
 }
 
 
