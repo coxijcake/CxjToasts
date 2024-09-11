@@ -75,6 +75,7 @@ extension CxjToastAnimator {
 			let cornerRadiusStart: CGFloat = CxjNotchHelper.estimatedBottomCornerRadius
 			let cornerRadiusEnd: CGFloat = initialValues.cornerRadius
 			let interpolatedCornerRadius: CGFloat = cornerRadiusStart * progress.value + cornerRadiusEnd * progress.revertedValue
+			let safeCornerRadius: CGFloat = min(toastSize.height * 0.5, interpolatedCornerRadius)
 			
 			let transitionAlphaStart: CGFloat = 1.0
 			let transitionViewAlphaEnd: CGFloat = 0.0
@@ -86,7 +87,7 @@ extension CxjToastAnimator {
 			toastView.transform = CGAffineTransform(scaleX: xScale, y: yScale)
 				.concatenating(CGAffineTransform(translationX: .zero, y: interpolatedYTranslation))
 			
-			toastView.layer.cornerRadius = interpolatedCornerRadius
+			toastView.layer.cornerRadius = safeCornerRadius
 		}
 		
 		private func addTransitionDimmedView() {
