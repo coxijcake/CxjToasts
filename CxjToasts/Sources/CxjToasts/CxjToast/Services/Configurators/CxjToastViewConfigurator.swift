@@ -38,7 +38,7 @@ enum CxjToastViewConfigurator {
         case .native:
                 .enable(params: CxjToastViewConfiguration.Shadow.Params(
                     offset: CGSize(width: 0, height: 4),
-                    color: .black.withAlphaComponent(0.28),
+                    color: .black.withAlphaComponent(0.4),
                     opacity: 1.0,
                     radius: 10
                 )

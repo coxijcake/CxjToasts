@@ -70,7 +70,7 @@ extension CxjToastAnimator {
 			let cornerRadiusStart: CGFloat = CxjDynamicIslandHelper.cornerRadius
 			let cornerRadiusEnd: CGFloat = toastViewDefaultValues.cornerRadius
 			let interpolatedCornerRadius: CGFloat = cornerRadiusStart * progress.value + cornerRadiusEnd * progress.revertedValue
-			let safeCornerRadius: CGFloat = min(toastSize.height * 0.5, interpolatedCornerRadius)
+            let safeCornerRadius: CGFloat = min(toastViewDefaultValues.cornerRadius, interpolatedCornerRadius)
 			
 			let borderAlphaStart: CGFloat = 1.0
 			let borderAlphaEnd: CGFloat = 0.0
@@ -79,16 +79,17 @@ extension CxjToastAnimator {
 			let transitionAlphaStart: CGFloat = 0.75
 			let transitionViewAlphaEnd: CGFloat = 0.0
 			let interpolatedTransitionViewAlpha: CGFloat = transitionAlphaStart * progress.value + transitionViewAlphaEnd * progress.revertedValue
-			
-			transitionAnimationDimmedView?.backgroundColor = CxjDynamicIslandHelper.backgroundColor
-			transitionAnimationDimmedView?.alpha = interpolatedTransitionViewAlpha
-			
+						
 			toastView.transform = CGAffineTransform(scaleX: xScale, y: yScale)
 				.concatenating(CGAffineTransform(translationX: .zero, y: interpolatedYTranslation))
 			
 			toastView.layer.cornerRadius = safeCornerRadius
 			toastView.layer.borderColor = CxjDynamicIslandHelper.backgroundColor.withAlphaComponent(interpolatedBorderAlpha).cgColor
 			toastView.layer.borderWidth = 2
+            
+            transitionAnimationDimmedView?.backgroundColor = CxjDynamicIslandHelper.backgroundColor
+            transitionAnimationDimmedView?.alpha = interpolatedTransitionViewAlpha
+            transitionAnimationDimmedView?.layer.cornerRadius = safeCornerRadius
 		}
 		
 		private func addTransitionDimmedView() {
