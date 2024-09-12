@@ -17,32 +17,35 @@ extension CxjToastAnimator {
 		) -> TopPlacementAnimatorLayoutUseCase {
 			let applicationSafeAreaInsets: UIEdgeInsets = UIApplication.safeAreaInsets
 			let sourceViewSafeAreaInsets: UIEdgeInsets = config.sourceView.safeAreaInsets
+            //TODO: - Think about removing
 			let isSourceSafeAreaEqulWindowSafeArea: Bool = applicationSafeAreaInsets == sourceViewSafeAreaInsets
 			
-			return if isSourceSafeAreaEqulWindowSafeArea,
-					  CxjDynamicIslandHelper.isDynamicIslandInDefaultPosition {
-				TopPlacementDynamicIslandLayoutUseCase(
-					toastView: toastView,
-					sourceView: config.sourceView,
-					toastViewDefaultValues: toastViewDefaultValues,
-					verticalOffset: verticalOffset
-				)
-			} else if isSourceSafeAreaEqulWindowSafeArea,
-					  CxjNotchHelper.isNotchInDefaultPosition {
-				TopPlacementNotchLayoutUseCase(
-					toastView: toastView,
-					sourceView: config.sourceView,
+            return if config.animations.nativeViewsIncluding.contains(.dynamicIsland),
+                      isSourceSafeAreaEqulWindowSafeArea,
+                      CxjDynamicIslandHelper.isDynamicIslandInDefaultPosition {
+                TopPlacementDynamicIslandLayoutUseCase(
+                    toastView: toastView,
+                    sourceView: config.sourceView,
                     toastViewDefaultValues: toastViewDefaultValues,
-					verticalOffset: verticalOffset
-				)
-			} else {
-				TopPlacementDefaultLayoutUseCase(
-					toastView: toastView,
-					sourceView: config.sourceView,
+                    verticalOffset: verticalOffset
+                )
+            } else if config.animations.nativeViewsIncluding.contains(.notch),
+                      isSourceSafeAreaEqulWindowSafeArea,
+                      CxjNotchHelper.isNotchInDefaultPosition {
+                TopPlacementNotchLayoutUseCase(
+                    toastView: toastView,
+                    sourceView: config.sourceView,
                     toastViewDefaultValues: toastViewDefaultValues,
-					verticalOffset: verticalOffset
-				)
-			}
+                    verticalOffset: verticalOffset
+                )
+            } else {
+                TopPlacementDefaultLayoutUseCase(
+                    toastView: toastView,
+                    sourceView: config.sourceView,
+                    toastViewDefaultValues: toastViewDefaultValues,
+                    verticalOffset: verticalOffset
+                )
+            }
 		}
 	}
 }

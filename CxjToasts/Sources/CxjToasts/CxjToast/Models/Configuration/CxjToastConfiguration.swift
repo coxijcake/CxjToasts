@@ -86,17 +86,30 @@ extension CxjToastConfiguration {
         case swipe(direction: SwipeDirection)
     }
     
-    //MARK: - Animations
-	public struct Animations {
-		let present: CxjAnimation
-		let dismiss: CxjAnimation
-		
-		public init(
-			present: CxjAnimation,
-			dismiss: CxjAnimation
-		) {
-			self.present = present
-			self.dismiss = dismiss
-		}
-	}
+    public struct Animations {
+        public enum TopPlacementNativeView {
+            case notch, dynamicIsland
+        }
+        
+        public enum Changes: String, Hashable, CaseIterable {
+            case alpha, scale, translation, shadowOverlay
+        }
+        
+        let present: CxjAnimation
+        let dismiss: CxjAnimation
+        let changes: Set<Changes>
+        let nativeViewsIncluding: Set<TopPlacementNativeView>
+        
+        public init(
+            present: CxjAnimation,
+            dismiss: CxjAnimation,
+            changes: Set<Changes>,
+            nativeViewsIncluding: Set<TopPlacementNativeView>
+        ) {
+            self.present = present
+            self.dismiss = dismiss
+            self.changes = changes
+            self.nativeViewsIncluding = nativeViewsIncluding
+        }
+    }
 }

@@ -86,7 +86,9 @@ enum CxjToastConfigurator {
     static func animations(for theme: Theme) -> Config.Animations {
         Config.Animations(
             present: presentAnimation(for: theme),
-            dismiss: dismissAnimation(for: theme)
+            dismiss: dismissAnimation(for: theme),
+            changes: [.scale, .shadowOverlay, .translation],
+            nativeViewsIncluding: [.dynamicIsland, .notch]
         )
     }
     
