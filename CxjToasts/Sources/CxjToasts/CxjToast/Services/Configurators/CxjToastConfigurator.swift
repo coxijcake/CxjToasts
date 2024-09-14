@@ -77,7 +77,7 @@ enum CxjToastConfigurator {
         switch theme {
         case .native:
             [
-//                .automatic(time: 3.0),
+                .automatic(time: 2.0),
                 .swipe(direction: .top)
             ]
         }

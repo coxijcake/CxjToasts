@@ -86,14 +86,14 @@ extension CxjToast {
         
 		toast.presenter.present { [weak toast] _ in
 			guard let toast else { return }
+            
+            CxjActiveToastsUpdater.updateDisplayingState(
+                activeToasts: activeToasts,
+                on: toast.config.layout.placement
+            )
 			
             toast.displayingState = .presented
             toast.dismisser.activate()
-			
-			CxjActiveToastsUpdater.updateDisplayingState(
-				activeToasts: activeToasts,
-				on: toast.config.layout.placement
-			)
 			
 			publisher.invoke { $0.didPresent(toast: toast) }
 		}

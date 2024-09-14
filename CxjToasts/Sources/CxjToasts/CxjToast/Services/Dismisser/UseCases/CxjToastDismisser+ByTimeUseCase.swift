@@ -52,6 +52,8 @@ extension CxjToastDismisser {
 		private func setupTimer(
 			for time: TimeInterval
 		) {
+            removeTimer()
+            
 			dismissTimer = Timer.scheduledTimer(
 				withTimeInterval: time,
 				repeats: false,

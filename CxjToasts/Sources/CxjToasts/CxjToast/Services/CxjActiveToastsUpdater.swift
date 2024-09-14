@@ -119,6 +119,10 @@ private extension CxjActiveToastsUpdater {
 		toast: Toast,
 		at index: Int
 	) {
+//        guard
+//            toast.displayingState != .presenting
+//        else { return }
+//            
 		let shouldPauseDismissing: Bool = index != 0
 		
 		shouldPauseDismissing
