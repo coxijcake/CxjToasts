@@ -1,6 +1,6 @@
 //
-//  CxjToastAnimator+CenterPlacementAnimatorUseCase.swift
-//  
+//  CxjToastAnimator+CenterLayoutUC.swift
+//
 //
 //  Created by Nikita Begletskiy on 07/09/2024.
 //
@@ -8,7 +8,7 @@
 import UIKit
 
 extension CxjToastAnimator {
-	final class CenterPlacementAnimatorUseCase: BaseLayoutUseCase, AnimatorLayoutUseCase {
+	final class CenterLayoutUseCase: BaseLayoutUseCase, LayoutUseCase {
 		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
 			dismissLayout(progress: progress)
 		}

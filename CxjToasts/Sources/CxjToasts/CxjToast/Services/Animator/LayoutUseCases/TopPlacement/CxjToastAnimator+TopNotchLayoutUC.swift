@@ -1,5 +1,5 @@
 //
-//  TopPlacementNotchLayoutUseCase.swift
+//  CxjToastAnimator+TopNotchLayoutUC.swift
 //
 //
 //  Created by Nikita Begletskiy on 07/09/2024.
@@ -8,7 +8,7 @@
 import UIKit
 
 extension CxjToastAnimator {
-	final class TopPlacementNotchLayoutUseCase: BaseLayoutUseCase, TopPlacementAnimatorLayoutUseCase {
+	final class TopNotchLayoutUseCase: BaseLayoutUseCase, TopLayoutUseCase {
 		let verticalOffset: CGFloat
 		
 		init(

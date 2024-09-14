@@ -1,5 +1,5 @@
 //
-//  TopPlacementDynamicIslandLayoutUseCase.swift
+//  CxjToastAnimator+TopDynamicIslandLayoutUC.swift
 //
 //
 //  Created by Nikita Begletskiy on 07/09/2024.
@@ -8,7 +8,7 @@
 import UIKit
 
 extension CxjToastAnimator {
-	final class TopPlacementDynamicIslandLayoutUseCase: BaseLayoutUseCase, TopPlacementAnimatorLayoutUseCase {
+	final class TopDynamicIslandLayoutUseCase: BaseLayoutUseCase, TopLayoutUseCase {
 		let verticalOffset: CGFloat
 		
 		init(

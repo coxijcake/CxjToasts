@@ -56,7 +56,7 @@ final class CxjToastAnimator {
 	private let config: ToastConfig
     private var toastViewDefaultValues: ToastViewDefaultValues = .base
 	
-	private lazy var layoutUseCase: AnimatorLayoutUseCase = LayoutUseCaseFactory
+	private lazy var layoutUseCase: LayoutUseCase = LayoutUseCaseFactory
 		.animationLayoutUseCase(
 			for: toastView,
 			with: config,

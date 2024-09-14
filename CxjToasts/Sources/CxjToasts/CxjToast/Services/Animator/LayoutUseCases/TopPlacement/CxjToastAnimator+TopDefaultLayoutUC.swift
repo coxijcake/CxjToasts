@@ -1,6 +1,6 @@
 //
-//  TopPlacementDefaultLayoutUseCase.swift
-//  
+//  CxjToastAnimator+TopDefaultLayoutUC.swift
+//
 //
 //  Created by Nikita Begletskiy on 07/09/2024.
 //
@@ -8,7 +8,7 @@
 import UIKit
 
 extension CxjToastAnimator {
-	final class TopPlacementDefaultLayoutUseCase: BaseLayoutUseCase, TopPlacementAnimatorLayoutUseCase {
+	final class TopDefaultLayoutUseCase: BaseLayoutUseCase, TopLayoutUseCase {
 		let verticalOffset: CGFloat
 		
 		init(

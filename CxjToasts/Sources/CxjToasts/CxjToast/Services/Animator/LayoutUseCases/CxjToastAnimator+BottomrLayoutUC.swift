@@ -1,6 +1,6 @@
 //
-//  CxjToastAnimator+BottomPlacementAnimatorUseCase.swift
-//  
+//  CxjToastAnimator+BottomrLayoutUC.swift
+//
 //
 //  Created by Nikita Begletskiy on 07/09/2024.
 //
@@ -8,7 +8,7 @@
 import UIKit
 
 extension CxjToastAnimator {
-	final class BottomPlacementAnimatorUseCase: BaseLayoutUseCase, AnimatorLayoutUseCase {
+	final class BottomLayoutUseCase: BaseLayoutUseCase, LayoutUseCase {
 		let verticalOffset: CGFloat
 		
 		init(
