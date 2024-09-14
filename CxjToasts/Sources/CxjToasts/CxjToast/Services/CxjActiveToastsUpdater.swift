@@ -118,15 +118,11 @@ private extension CxjActiveToastsUpdater {
 	static func updateDismissMethodsFor(
 		toast: Toast,
 		at index: Int
-	) {
-//        guard
-//            toast.displayingState != .presenting
-//        else { return }
-//            
+	) { 
 		let shouldPauseDismissing: Bool = index != 0
 		
 		shouldPauseDismissing
-		? toast.dismisser.pause()
+		? toast.dismisser.deactivate()
 		: toast.dismisser.activate()
 	}
 }

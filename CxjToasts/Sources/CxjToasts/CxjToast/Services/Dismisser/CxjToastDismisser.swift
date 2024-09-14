@@ -56,13 +56,13 @@ extension CxjToastDismisser {
 	}
 	
 	func deactivate() {
-		dismissUseCases.forEach { $0.activate() }
-		dismissUseCases.removeAll()
+		dismissUseCases.forEach { $0.deactivate() }
 	}
 	
 	func dismiss() {
-		delegate?.willDismissToastWith(id: toastId, by: self)
-		
+        deactivate()
+        delegate?.willDismissToastWith(id: toastId, by: self)
+        
 		animator.dismissAction(
 			progress: 1,
 			animated: true,
