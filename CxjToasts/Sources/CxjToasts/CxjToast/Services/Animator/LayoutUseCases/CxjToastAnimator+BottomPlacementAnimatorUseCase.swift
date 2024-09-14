@@ -8,22 +8,21 @@
 import UIKit
 
 extension CxjToastAnimator {
-	final class BottomPlacementAnimatorUseCase: AnimatorLayoutUseCase {
-		let toastView: ToastView
-		let sourceView: UIView
-		let toastViewDefaultValues: ToastViewDefaultValues
+	final class BottomPlacementAnimatorUseCase: BaseLayoutUseCase, AnimatorLayoutUseCase {
 		let verticalOffset: CGFloat
 		
 		init(
 			toastView: ToastView,
-			sourceView: UIView,
+            config: ToastConfig,
             toastViewDefaultValues: ToastViewDefaultValues,
 			verticalOffset: CGFloat
 		) {
-			self.toastView = toastView
-			self.sourceView = sourceView
-			self.toastViewDefaultValues = toastViewDefaultValues
 			self.verticalOffset = verticalOffset
+            super.init(
+                toastView: toastView,
+                config: config,
+                toastViewDefaultValues: toastViewDefaultValues
+            )
 		}
 		
 		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
@@ -31,11 +30,11 @@ extension CxjToastAnimator {
 		}
 		
 		func presentingLayout() {
-			toastView.transform = toastViewDefaultValues.transform
-			toastView.alpha = toastViewDefaultValues.alpha
+			setDefaultToastViewValues()
 		}
 		
 		func dismissLayout(progress: ToastLayoutProgress) {
+            let sourceView: UIView = config.sourceView
 			let toastSize: CGSize = toastView.bounds.size
 			let sourceViewOffset: CGFloat = verticalOffset + sourceView.safeAreaInsets.bottom
 			let fullTranslationY: CGFloat = toastSize.height + sourceViewOffset

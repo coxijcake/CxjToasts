@@ -8,10 +8,7 @@
 import UIKit
 
 extension CxjToastAnimator {
-	final class TopPlacementDefaultLayoutUseCase: TopPlacementAnimatorLayoutUseCase {
-		let toastView: ToastView
-        let config: ToastConfig
-		let toastViewDefaultValues: ToastViewDefaultValues
+	final class TopPlacementDefaultLayoutUseCase: BaseLayoutUseCase, TopPlacementAnimatorLayoutUseCase {
 		let verticalOffset: CGFloat
 		
 		init(
@@ -20,10 +17,12 @@ extension CxjToastAnimator {
             toastViewDefaultValues: ToastViewDefaultValues,
 			verticalOffset: CGFloat
 		) {
-			self.toastView = toastView
-            self.config = config
-			self.toastViewDefaultValues = toastViewDefaultValues
 			self.verticalOffset = verticalOffset
+            super.init(
+                toastView: toastView,
+                config: config,
+                toastViewDefaultValues: toastViewDefaultValues
+            )
 		}
 		
 		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
@@ -31,7 +30,7 @@ extension CxjToastAnimator {
 		}
 		
 		func presentingLayout() {
-			toastView.transform = toastViewDefaultValues.transform
+            setDefaultToastViewValues()
 		}
         
         func dismissLayout(progress: ToastLayoutProgress) {
@@ -84,6 +83,12 @@ extension CxjToastAnimator {
         private func translationY(for progress: ToastLayoutProgress) -> CGFloat {
             let sourceView = config.sourceView
             let sourceViewOffset: CGFloat = verticalOffset + sourceView.safeAreaInsets.top
+//            let sourceViewOffset: CGFloat = switch config.layout.placement {
+//            case .top(verticalOffset: let offset): offset + sourceView.safeAreaInsets.top
+//            case .center: .zero
+//            case .bottom(verticalOffset: let offset): offset + sourceView.safeAreaInsets.bottom
+//            }
+            
             let fullTranslationY: CGFloat = toastView.bounds.size.height + sourceViewOffset
             let translationY: CGFloat = -fullTranslationY * progress.value
             

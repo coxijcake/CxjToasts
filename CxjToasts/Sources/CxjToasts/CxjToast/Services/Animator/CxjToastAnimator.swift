@@ -21,30 +21,22 @@ extension CxjToastAnimator {
         let alpha: CGFloat
         let transform: CGAffineTransform
         let cornerRadius: CGFloat
-        let borderWidth: CGFloat
-        let borderColor: CGColor?
         
         init(
             alpha: CGFloat,
             transform: CGAffineTransform,
-            cornerRadius: CGFloat,
-            borderWidth: CGFloat,
-            borderColor: CGColor?
+            cornerRadius: CGFloat
         ) {
             self.alpha = alpha
             self.transform = transform
             self.cornerRadius = cornerRadius
-            self.borderWidth = borderWidth
-            self.borderColor = borderColor
         }
         
         init(toastView: ToastView) {
             self.init(
                 alpha: toastView.alpha,
                 transform: toastView.transform,
-                cornerRadius: toastView.layer.cornerRadius,
-                borderWidth: toastView.layer.borderWidth,
-                borderColor: toastView.layer.borderColor
+                cornerRadius: toastView.layer.cornerRadius
             )
         }
         
@@ -52,9 +44,7 @@ extension CxjToastAnimator {
             ToastViewDefaultValues(
                 alpha: 1.0,
                 transform: .identity,
-                cornerRadius: .zero,
-                borderWidth: .zero,
-                borderColor: nil
+                cornerRadius: .zero
             )
         }
     }

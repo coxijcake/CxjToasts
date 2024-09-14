@@ -25,13 +25,13 @@ extension CxjToastAnimator {
 			case .center:
 				CenterPlacementAnimatorUseCase(
 					toastView: toastView,
-					sourceView: config.sourceView,
+                    config: config,
                     toastViewDefaultValues: toastViewDefaultValues
 				)
 			case .bottom(verticalOffset: let verticalOffset):
 				BottomPlacementAnimatorUseCase(
 					toastView: toastView,
-					sourceView: config.sourceView,
+                    config: config,
                     toastViewDefaultValues: toastViewDefaultValues,
 					verticalOffset: verticalOffset
 				)

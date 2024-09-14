@@ -8,24 +8,21 @@
 import UIKit
 
 extension CxjToastAnimator {
-	final class TopPlacementDynamicIslandLayoutUseCase: TopPlacementAnimatorLayoutUseCase {
-		let toastView: ToastView
-		let sourceView: UIView
-		let toastViewDefaultValues: ToastViewDefaultValues
+	final class TopPlacementDynamicIslandLayoutUseCase: BaseLayoutUseCase, TopPlacementAnimatorLayoutUseCase {
 		let verticalOffset: CGFloat
-		
-		private var transitionAnimationDimmedView: UIView?
 		
 		init(
 			toastView: ToastView,
-			sourceView: UIView,
+            config: ToastConfig,
             toastViewDefaultValues: ToastViewDefaultValues,
 			verticalOffset: CGFloat
 		) {
-			self.toastView = toastView
-			self.sourceView = sourceView
-			self.toastViewDefaultValues = toastViewDefaultValues
 			self.verticalOffset = verticalOffset
+            super.init(
+                toastView: toastView,
+                config: config,
+                toastViewDefaultValues: toastViewDefaultValues
+            )
 		}
 		
 		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
@@ -34,12 +31,7 @@ extension CxjToastAnimator {
 		}
 		
 		func presentingLayout() {
-			toastView.transform = toastViewDefaultValues.transform
-			toastView.alpha = toastViewDefaultValues.alpha
-			toastView.layer.cornerRadius = toastViewDefaultValues.cornerRadius
-			toastView.layer.borderWidth = toastViewDefaultValues.borderWidth
-			toastView.layer.borderColor = toastViewDefaultValues.borderColor
-			transitionAnimationDimmedView?.alpha = .zero
+			setDefaultToastViewValues()
 		}
 		
 		func dismissLayout(progress: ToastLayoutProgress) {
@@ -76,7 +68,7 @@ extension CxjToastAnimator {
 			let borderAlphaEnd: CGFloat = 0.0
 			let interpolatedBorderAlpha: CGFloat = borderAlphaStart * progress.value + borderAlphaEnd * progress.revertedValue
 			
-			let transitionAlphaStart: CGFloat = 0.75
+            let transitionAlphaStart: CGFloat = 1.0
 			let transitionViewAlphaEnd: CGFloat = 0.0
 			let interpolatedTransitionViewAlpha: CGFloat = transitionAlphaStart * progress.value + transitionViewAlphaEnd * progress.revertedValue
 						
@@ -84,23 +76,10 @@ extension CxjToastAnimator {
 				.concatenating(CGAffineTransform(translationX: .zero, y: interpolatedYTranslation))
 			
 			toastView.layer.cornerRadius = safeCornerRadius
-			toastView.layer.borderColor = CxjDynamicIslandHelper.backgroundColor.withAlphaComponent(interpolatedBorderAlpha).cgColor
-			toastView.layer.borderWidth = 2
             
             transitionAnimationDimmedView?.backgroundColor = CxjDynamicIslandHelper.backgroundColor
             transitionAnimationDimmedView?.alpha = interpolatedTransitionViewAlpha
             transitionAnimationDimmedView?.layer.cornerRadius = safeCornerRadius
-		}
-		
-		private func addTransitionDimmedView() {
-			let view: UIView = .init(frame: toastView.bounds)
-			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-			view.isUserInteractionEnabled = false
-			view.backgroundColor = .clear
-			view.alpha = 1.0
-			
-			toastView.addSubview(view)
-			self.transitionAnimationDimmedView = view
 		}
 	}
 }

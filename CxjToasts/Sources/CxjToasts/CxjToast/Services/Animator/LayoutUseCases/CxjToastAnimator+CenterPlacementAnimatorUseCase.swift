@@ -8,28 +8,13 @@
 import UIKit
 
 extension CxjToastAnimator {
-	final class CenterPlacementAnimatorUseCase: AnimatorLayoutUseCase {
-		let toastView: ToastView
-		let sourceView: UIView
-		let toastViewDefaultValues: ToastViewDefaultValues
-		
-		init(
-			toastView: ToastView,
-			sourceView: UIView,
-            toastViewDefaultValues: ToastViewDefaultValues
-		) {
-			self.toastView = toastView
-			self.sourceView = sourceView
-			self.toastViewDefaultValues = toastViewDefaultValues
-		}
-		
+	final class CenterPlacementAnimatorUseCase: BaseLayoutUseCase, AnimatorLayoutUseCase {
 		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
 			dismissLayout(progress: progress)
 		}
 		
 		func presentingLayout() {
-			toastView.transform = toastViewDefaultValues.transform
-			toastView.alpha = toastViewDefaultValues.alpha
+			setDefaultToastViewValues()
 		}
 		
 		func dismissLayout(progress: ToastLayoutProgress) {

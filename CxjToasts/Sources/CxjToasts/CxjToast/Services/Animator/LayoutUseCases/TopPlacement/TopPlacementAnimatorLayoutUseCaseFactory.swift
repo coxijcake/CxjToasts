@@ -25,7 +25,7 @@ extension CxjToastAnimator {
                       CxjDynamicIslandHelper.isDynamicIslandInDefaultPosition {
                 TopPlacementDynamicIslandLayoutUseCase(
                     toastView: toastView,
-                    sourceView: config.sourceView,
+                    config: config,
                     toastViewDefaultValues: toastViewDefaultValues,
                     verticalOffset: verticalOffset
                 )
@@ -34,7 +34,7 @@ extension CxjToastAnimator {
                       CxjNotchHelper.isNotchInDefaultPosition {
                 TopPlacementNotchLayoutUseCase(
                     toastView: toastView,
-                    sourceView: config.sourceView,
+                    config: config,
                     toastViewDefaultValues: toastViewDefaultValues,
                     verticalOffset: verticalOffset
                 )

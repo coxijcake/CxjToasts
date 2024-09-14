@@ -1,5 +1,5 @@
 //
-//  CxjToastAnimator+AnimatorLayoutUseCase.swift
+//  CxjToastAnimator+AnimatorLayoutUC.swift
 //  
 //
 //  Created by Nikita Begletskiy on 07/09/2024.
