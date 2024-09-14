@@ -15,8 +15,8 @@ extension CxjActiveToastsUpdater {
     typealias Animation = CxjAnimation
     
     enum Multipliers {
-        static let yOffset: CGFloat = 10.0
-        static let scale: CGFloat = 0.05
+        static let yOffset: CGFloat = 3.0
+        static let scale: CGFloat = 0.02
     }
 }
 
