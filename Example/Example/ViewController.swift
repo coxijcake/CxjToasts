@@ -70,7 +70,7 @@ class ViewController: UIViewController {
 							)
 						),
 						subtitle: .init(
-							text: "Teat Toast subtitle longlonglonglonglonglong \n longlonglonglonglonglong \ntext",
+							text: "Teat Toast subtitle longlonglonglonglonglong \n longlonglonglonglonglong",
 							labelParams: .init(
 								numberOfLines: .zero,
 								textAligment: .center
@@ -92,16 +92,16 @@ class ViewController: UIViewController {
                         max: UIScreen.main.bounds.size.width
                     ),
                     height: CxjToastConfiguration.Constraints.Values(
-                        min: 100,
-                        max: 150
+                        min: 60,
+                        max: 100
                     )
                 ),
                 placement: .top(verticalOffset: .zero)
             ),
-            dismissMethods: [.tap, .automatic(time: 5.0)],
+            dismissMethods: [.swipe(direction: .top), .tap, .automatic(time: 3.0)],
             animations: CxjToastConfiguration.Animations(
-                present: .defaultSpring,
-                dismiss: .defaultSpring,
+                present: .nativeToastPresenting,
+                dismiss: .nativeToastDismissing,
                 changes: [.translation],
                 nativeViewsIncluding: []
             )

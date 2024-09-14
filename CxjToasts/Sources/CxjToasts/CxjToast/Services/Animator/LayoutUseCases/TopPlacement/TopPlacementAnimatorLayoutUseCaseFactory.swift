@@ -41,7 +41,7 @@ extension CxjToastAnimator {
             } else {
                 TopPlacementDefaultLayoutUseCase(
                     toastView: toastView,
-                    sourceView: config.sourceView,
+                    config: config,
                     toastViewDefaultValues: toastViewDefaultValues,
                     verticalOffset: verticalOffset
                 )
