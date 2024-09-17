@@ -9,22 +9,22 @@ import UIKit
 
 extension CxjToastAnimator {
 	final class CenterLayoutUseCase: BaseLayoutUseCase, LayoutUseCase {
+        override var dismissedStateAnimatingProps: AnimatingProperties {
+            AnimatingProperties(
+                alpha: .zero,
+                scale: CxjToastAnimator.AnimatingProperties.Scale(x: 0.5, y: 0.5),
+                translationY: .zero,
+                cornerRadius: .zero,
+                shadowIntensity: .zero
+            )
+        }
+        
 		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
 			dismissLayout(progress: progress)
 		}
 		
 		func presentingLayout() {
 			setDefaultToastViewValues()
-		}
-		
-		func dismissLayout(progress: ToastLayoutProgress) {
-			let baseScale: CGFloat = 1.0
-			let fullScale: CGFloat = 0.5
-			let scale: CGFloat = fullScale + ((baseScale - fullScale) * progress.revertedValue)
-			let alpha: CGFloat = progress.revertedValue
-			
-			toastView.transform = CGAffineTransform(scaleX: scale, y: scale)
-			toastView.alpha = alpha
 		}
 	}
 }

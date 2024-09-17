@@ -10,6 +10,16 @@ import UIKit
 extension CxjToastAnimator {
 	final class BottomLayoutUseCase: BaseLayoutUseCase, LayoutUseCase {
 		let verticalOffset: CGFloat
+        
+        override var dismissedStateAnimatingProps: AnimatingProperties {
+            AnimatingProperties(
+                alpha: 1.0,
+                scale: .initial,
+                translationY: dismissedTranslationY(),
+                cornerRadius: .zero,
+                shadowIntensity: .zero
+            )
+        }
 		
 		init(
 			toastView: ToastView,
@@ -32,21 +42,15 @@ extension CxjToastAnimator {
 		func presentingLayout() {
 			setDefaultToastViewValues()
 		}
-		
-		func dismissLayout(progress: ToastLayoutProgress) {
-            let sourceView: UIView = config.sourceView
-			let toastSize: CGSize = toastView.bounds.size
-			let sourceViewOffset: CGFloat = verticalOffset + sourceView.safeAreaInsets.bottom
-			let fullTranslationY: CGFloat = toastSize.height + sourceViewOffset
-			
-			let baseScale: CGFloat = 1.0
-			let fullScale: CGFloat = 0.75
-			let scale = fullScale + ((baseScale - fullScale) * progress.revertedValue)
-			let translationY = fullTranslationY * progress.value
-			let transform = CGAffineTransform(scaleX: scale, y: scale)
-						.concatenating(CGAffineTransform(translationX: .zero, y: translationY))
-			
-			toastView.transform = transform
-		}
+        
+        private func dismissedTranslationY() -> CGFloat {
+            let sourceView = config.sourceView
+            let translationY: CGFloat =
+            verticalOffset
+            + sourceView.safeAreaInsets.bottom
+            + toastView.bounds.size.height
+            
+            return translationY
+        }
 	}
 }

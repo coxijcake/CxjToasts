@@ -102,13 +102,14 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
             }
             
             let ammountOfUserDragged = ammountOfUserDragged()
-            let progress = ammountOfUserDragged / startViewY
+            let progressValue: CGFloat = ammountOfUserDragged / startViewY
+            let progress: ToastLayoutProgress = ToastLayoutProgress(value: progressValue)
             
-            updateDislplayingToasts(animated: false, progress: 1.0 - progress)
+            updateDislplayingToasts(animated: false, progress: progress.revertedValue)
             
             currentY = startViewY + delta
             
-            animator.dismissAction(progress: progress, animated: false, completion: nil)
+            animator.dismissAction(progress: progress.value, animated: false, completion: nil)
         case .ended:
             let ammountOfUserDragged = ammountOfUserDragged()
             let shouldDismissToast = ammountOfUserDragged > thresholdToDismiss
