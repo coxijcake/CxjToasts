@@ -34,8 +34,8 @@ extension CxjToastDismisser {
             return gesture
         }()
         
-        private lazy var dissmisedStateYPoint: CGFloat = {
-            animator.dismissedStateYTranslation
+        private lazy var dissmisedStateYTranslation: CGFloat = {
+            max(animator.dismissedStateYTranslation, toastView.bounds.size.height)
         }()
         
         private var startViewY: CGFloat = 0
@@ -137,7 +137,7 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
     
     func draggedProgress() -> CGFloat {
         let ammountOfDragged: CGFloat = ammountOfUserDragged()
-        let destination: CGFloat = abs(dissmisedStateYPoint)
+        let destination: CGFloat = abs(dissmisedStateYTranslation)
         let progress: CGFloat = ammountOfDragged / destination
         
         return progress
@@ -151,21 +151,11 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
         delta: CGFloat,
         for direction: SwipeDirection,
         with placement: ToastPlacement
-    ) -> Bool {
+    ) -> Bool {        
         switch direction {
-        case .top:
-            return delta <= 0
-        case .bottom:
-            return delta >= 0
-        case .any:
-            switch placement {
-            case .top:
-                return delta <= 0
-            case .bottom:
-                return delta >= 0
-            case .center:
-                return delta <= 0
-            }
+        case .top: delta <= 0
+        case .bottom: delta >= 0
+        case .any: true
         }
     }
     
