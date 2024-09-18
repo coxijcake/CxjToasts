@@ -26,14 +26,27 @@
                                     <action selector="showButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="td1-gh-cgC"/>
                                 </connections>
                             </button>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xL4-w0-W9h">
+                                <rect key="frame" x="49" y="119" width="295" height="639"/>
+                                <color key="backgroundColor" systemColor="underPageBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="295" id="dlO-aG-RcJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="u9r-DZ-R9e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TWb-aZ-FJU"/>
                             <constraint firstItem="u9r-DZ-R9e" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Ti4-MS-VMC"/>
+                            <constraint firstItem="xL4-w0-W9h" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.75" id="UO4-HH-tAq"/>
+                            <constraint firstItem="xL4-w0-W9h" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="fEn-QP-8Jy"/>
+                            <constraint firstItem="xL4-w0-W9h" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="iGo-k9-U4y"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="containerView" destination="xL4-w0-W9h" id="EyZ-LS-K8P"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -41,8 +54,8 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="underPageBackgroundColor">
+            <color red="0.70980392156862748" green="0.71764705882352942" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
