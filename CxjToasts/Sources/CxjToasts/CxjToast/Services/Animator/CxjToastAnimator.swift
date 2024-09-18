@@ -98,6 +98,10 @@ extension CxjToastAnimator: CxjToastDismissAnimator {
 	var dismissAnimation: CxjAnimation {
 		config.animations.dismiss
 	}
+    
+    var dismissedStateYTranslation: CGFloat {
+        layoutUseCase.dismissedStateYTranslation
+    }
 	
 	func dismissAction(
 		progress: CGFloat,

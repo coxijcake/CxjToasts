@@ -9,6 +9,8 @@ import Foundation
 
 extension CxjToastAnimator {
 	protocol LayoutUseCase {
+        var dismissedStateYTranslation: CGFloat { get }
+        
 		func beforeDisplayingLayout(progress: ToastLayoutProgress)
 		func presentingLayout()
 		func dismissLayout(progress: ToastLayoutProgress)

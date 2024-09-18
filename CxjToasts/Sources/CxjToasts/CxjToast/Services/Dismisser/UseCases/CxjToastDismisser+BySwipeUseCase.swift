@@ -17,26 +17,30 @@ extension CxjToastDismisser {
 		
 		//MARK: - Props
 		private let toastId: UUID
-		private let toastView: ToastView
+        private let toastView: ToastView
 		private let direction: SwipeDirection
 		private let placement: ToastPlacement
 		private let animator: Animator
 		private weak var delegate: ToastDismissUseCaseDelegate?
 		
-		private lazy var swipeGesture: UIPanGestureRecognizer = {
-			let gesture: UIPanGestureRecognizer = UIPanGestureRecognizer(
-				target: self,
-				action: #selector(handleToastSwipe)
-			)
-			
-			return gesture
-		}()
-		
-		private let thresholdToDismiss = 10.0
-		
-		private var startViewY: CGFloat = 0
-		private var startGestureY: CGFloat = 0
-		private var currentY: CGFloat = .zero
+        private let thresholdToDismiss = 10.0
+        
+        private lazy var swipeGesture: UIPanGestureRecognizer = {
+            let gesture: UIPanGestureRecognizer = UIPanGestureRecognizer(
+                target: self,
+                action: #selector(handleToastSwipe)
+            )
+            
+            return gesture
+        }()
+        
+        private lazy var dissmisedStateYPoint: CGFloat = {
+            animator.dismissedStateYTranslation
+        }()
+        
+        private var startViewY: CGFloat = 0
+        private var startGestureY: CGFloat = 0
+        private var currentY: CGFloat = .zero
 		
 		//MARK: - Lifecycle
 		init(
@@ -93,7 +97,7 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
             delegate?.didStartInteractive(by: self)
         case .changed:
             let delta = gesture.location(in: toastSuperView).y - startGestureY
-            
+                        
             guard
                 shouldApply(delta: delta, for: direction, with: placement)
             else {
@@ -101,14 +105,11 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
                 break
             }
             
-            let ammountOfUserDragged = ammountOfUserDragged()
-            let progressValue: CGFloat = ammountOfUserDragged / startViewY
+            currentY = startViewY + delta
+            let progressValue: CGFloat = draggedProgress()
             let progress: ToastLayoutProgress = ToastLayoutProgress(value: progressValue)
             
             updateDislplayingToasts(animated: false, progress: progress.revertedValue)
-            
-            currentY = startViewY + delta
-            
             animator.dismissAction(progress: progress.value, animated: false, completion: nil)
         case .ended:
             let ammountOfUserDragged = ammountOfUserDragged()
@@ -134,6 +135,14 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
         abs(startViewY - currentY)
     }
     
+    func draggedProgress() -> CGFloat {
+        let ammountOfDragged: CGFloat = ammountOfUserDragged()
+        let destination: CGFloat = abs(dissmisedStateYPoint)
+        let progress: CGFloat = ammountOfDragged / destination
+        
+        return progress
+    }
+    
     func resume() {
         delegate?.didEndInteractive(by: self)
     }
@@ -145,17 +154,17 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
     ) -> Bool {
         switch direction {
         case .top:
-            delta <= 0
+            return delta <= 0
         case .bottom:
-            delta >= 0
+            return delta >= 0
         case .any:
             switch placement {
             case .top:
-                delta <= 0
+                return delta <= 0
             case .bottom:
-                delta >= 0
+                return delta >= 0
             case .center:
-                delta <= 0
+                return delta <= 0
             }
         }
     }

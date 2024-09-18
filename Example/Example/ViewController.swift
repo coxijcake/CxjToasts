@@ -36,25 +36,25 @@ class ViewController: UIViewController {
         let testConentView = TestContentView()
         testConentView.backgroundColor = .red
         
-        CxjToast.show(
-            .custom(
-                config: self.customCxjTostConfig(),
-                viewConfig: self.customCxjToastViewConfig(),
-                content: self.customCxjToastContentView()
-            )
-        )
-        
 //        CxjToast.show(
-//            .template(
-//                theme: .native(
-//                    data: CxjToastTheme.NativeToastData(
-//                        title: "Test Toast Toast Toast",
-//                        subtitle: "some description",
-//                        icon: UIImage.checkmark
-//                    )
-//                )
+//            .custom(
+//                config: self.customCxjTostConfig(),
+//                viewConfig: self.customCxjToastViewConfig(),
+//                content: self.customCxjToastContentView()
 //            )
 //        )
+        
+        CxjToast.show(
+            .template(
+                theme: .native(
+                    data: CxjToastTheme.NativeToastData(
+                        title: "Test Toast Toast Toast",
+                        subtitle: "some description",
+                        icon: UIImage.checkmark
+                    )
+                )
+            )
+        )
 	}
 	
 	private func customCxjToastContentView() -> CxjToastContentView {
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
                         max: 100
                     )
                 ),
-//                placement: .top(verticalOffset: .zero)
+//                placement: .top(verticalOffset: 100)
                 placement: .bottom(verticalOffset: 100)
             ),
             dismissMethods: [.swipe(direction: .bottom), .tap, .automatic(time: 3.0)],

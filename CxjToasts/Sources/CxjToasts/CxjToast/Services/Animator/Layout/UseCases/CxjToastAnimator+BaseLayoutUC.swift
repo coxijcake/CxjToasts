@@ -22,6 +22,10 @@ extension CxjToastAnimator {
             initialAnimatingProperties
         }
         
+        var dismissedStateYTranslation: CGFloat {
+            dismissLayoutCalculatedProperties(for: .init(value: 1.0)).translationY
+        }
+        
         //MARK: - Lifecycle
         init(
             toastView: ToastView,
@@ -48,7 +52,9 @@ extension CxjToastAnimator {
                 toastSize: toastView.bounds.size
             )
             
-            let properties: AnimatingProperties = calculator.properties(for: progress)
+            let properties: AnimatingProperties = dismissLayoutCalculatedProperties(
+                for: progress
+            )
             
             updateToastWith(animatingPropsValues: properties)
         }
@@ -73,6 +79,16 @@ extension CxjToastAnimator {
             
             toastView.addSubview(view)
             self.transitionAnimationDimmedView = view
+        }
+        
+        final func dismissLayoutCalculatedProperties(for progress: ToastLayoutProgress) -> AnimatingProperties {
+            let calculator: LayoutCalculator = LayoutCalculator(
+                initialStateProps: initialAnimatingProperties,
+                dismissedStateProps: dismissedStateAnimatingProps,
+                toastSize: toastView.bounds.size
+            )
+            
+            return calculator.properties(for: progress)
         }
         
         //MARK: - Private Methods
