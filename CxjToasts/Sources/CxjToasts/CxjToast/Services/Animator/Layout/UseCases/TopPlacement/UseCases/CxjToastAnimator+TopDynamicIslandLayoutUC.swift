@@ -24,14 +24,14 @@ extension CxjToastAnimator {
 		init(
 			toastView: ToastView,
             config: ToastConfig,
-            toastViewDefaultValues: ToastViewDefaultValues,
+//            toastViewDefaultValues: ToastViewDefaultValues,
 			verticalOffset: CGFloat
 		) {
 			self.verticalOffset = verticalOffset
             super.init(
                 toastView: toastView,
-                config: config,
-                toastViewDefaultValues: toastViewDefaultValues
+                config: config
+//                toastViewDefaultValues: toastViewDefaultValues
             )
 		}
 		

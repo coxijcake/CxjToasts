@@ -11,28 +11,24 @@ extension CxjToastAnimator {
 	enum LayoutUseCaseFactory {
 		static func animationLayoutUseCase(
 			for toastView: ToastView,
-			with config: ToastConfig,
-            toastViewDefaultValues: ToastViewDefaultValues
+			with config: ToastConfig
 		) -> LayoutUseCase {
 			switch config.layout.placement {
 			case .top(verticalOffset: let verticalOffset):
 				TopLayoutUseCaseFactory.useCase(
 					for: toastView,
 					with: config,
-                    toastViewDefaultValues: toastViewDefaultValues,
 					verticalOffset: verticalOffset
 				)
 			case .center:
 				CenterLayoutUseCase(
 					toastView: toastView,
-                    config: config,
-                    toastViewDefaultValues: toastViewDefaultValues
+                    config: config
 				)
 			case .bottom(verticalOffset: let verticalOffset):
 				BottomLayoutUseCase(
 					toastView: toastView,
                     config: config,
-                    toastViewDefaultValues: toastViewDefaultValues,
 					verticalOffset: verticalOffset
 				)
 			}

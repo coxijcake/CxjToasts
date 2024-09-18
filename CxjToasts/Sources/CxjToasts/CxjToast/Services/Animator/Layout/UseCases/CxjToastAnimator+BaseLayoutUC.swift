@@ -12,7 +12,6 @@ extension CxjToastAnimator {
         //MARK: - Props
         let toastView: ToastView
         let config: ToastConfig
-        let toastViewDefaultValues: ToastViewDefaultValues
         let initialAnimatingProperties: AnimatingProperties
         
         private(set) var transitionAnimationDimmedView: UIView?
@@ -29,12 +28,10 @@ extension CxjToastAnimator {
         //MARK: - Lifecycle
         init(
             toastView: ToastView,
-            config: ToastConfig,
-            toastViewDefaultValues: ToastViewDefaultValues
+            config: ToastConfig
         ) {
             self.toastView = toastView
             self.config = config
-            self.toastViewDefaultValues = toastViewDefaultValues
             self.initialAnimatingProperties = AnimatingProperties(
                 alpha: toastView.alpha,
                 scale: .initial,
@@ -61,13 +58,7 @@ extension CxjToastAnimator {
         
         //MARK: - Final methods
         final func setDefaultToastViewValues() {
-            updateToastWith(
-                animatingPropsValues: initialAnimatingProperties
-            )
-//            toastView.transform = toastViewDefaultValues.transform
-//            toastView.alpha = toastViewDefaultValues.alpha
-//            toastView.layer.cornerRadius = toastViewDefaultValues.cornerRadius
-//            transitionAnimationDimmedView?.alpha = .zero
+            updateToastWith(animatingPropsValues: initialAnimatingProperties)
         }
         
         final func addTransitionDimmedView(dimColor: UIColor) {
@@ -81,7 +72,9 @@ extension CxjToastAnimator {
             self.transitionAnimationDimmedView = view
         }
         
-        final func dismissLayoutCalculatedProperties(for progress: ToastLayoutProgress) -> AnimatingProperties {
+        final func dismissLayoutCalculatedProperties(
+            for progress: ToastLayoutProgress
+        ) -> AnimatingProperties {
             let calculator: LayoutCalculator = LayoutCalculator(
                 initialStateProps: initialAnimatingProperties,
                 dismissedStateProps: dismissedStateAnimatingProps,
