@@ -15,12 +15,24 @@ extension CxjToastAnimator {
         let initialAnimatingProperties: AnimatingProperties
         
         private(set) var transitionAnimationDimmedView: UIView?
+		
+		private lazy var dismissedStateAnimatingProps: AnimatingProperties = {
+			switch config.animations.behaviour {
+			case .default:
+				dismissedStateDefaultAnimatingProps
+			case .custom(let changes):
+				dismissedAnimatingCustomProps(
+					for: changes,
+					initialProps: initialAnimatingProperties
+				)
+			}
+		}()
         
         //MARK: - Props to override
-        var dismissedStateAnimatingProps: AnimatingProperties {
-            initialAnimatingProperties
-        }
-        
+		var dismissedStateDefaultAnimatingProps: AnimatingProperties {
+			initialAnimatingProperties
+		}
+		
         var dismissedStateYTranslation: CGFloat {
             dismissLayoutCalculatedProperties(for: .init(value: 1.0)).translationY
         }
@@ -40,15 +52,31 @@ extension CxjToastAnimator {
                 shadowIntensity: .zero
             )
         }
+		
+		var shouldAddDimmedView: Bool {
+			switch config.animations.behaviour {
+			case .default: 
+				return false
+			case .custom(let changes):
+				for change in changes {
+					switch change {
+					case .shadow(intensity: _): return true
+					default: continue
+					}
+				}
+				
+				return false
+			}
+		}
         
         //MARK: - No final methods
+		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
+			shouldAddDimmedView ? addTransitionDimmedView(dimColor: .black) : ()
+			
+			dismissLayout(progress: progress)
+		}
+		
         func dismissLayout(progress: ToastLayoutProgress) {
-            let calculator: LayoutCalculator = LayoutCalculator(
-                initialStateProps: initialAnimatingProperties,
-                dismissedStateProps: dismissedStateAnimatingProps,
-                toastSize: toastView.bounds.size
-            )
-            
             let properties: AnimatingProperties = dismissLayoutCalculatedProperties(
                 for: progress
             )
@@ -85,6 +113,30 @@ extension CxjToastAnimator {
         }
         
         //MARK: - Private Methods
+		private func dismissedAnimatingCustomProps(
+			for changes: Set<CxjToastConfiguration.Animations.Behaviour.CustomBehaviourChange>,
+			initialProps: AnimatingProperties
+		) -> AnimatingProperties {
+			let resultAnimatingProperties: AnimatingProperties = initialProps.changing { props in
+				for change in changes {
+					switch change {
+					case .scale(let value):
+						props.scale = .init(x: value.x, y: value.y)
+					case .translation(let value):
+						props.translationY = value.y
+					case .alpha(let intensity):
+						props.alpha = intensity
+					case .shadow(let intensity):
+						props.shadowIntensity = intensity
+					case .corners(let radius):
+						props.cornerRadius = radius
+					}
+				}
+			}
+			
+			return resultAnimatingProperties
+		}
+		
         private final func updateToastWith(animatingPropsValues: AnimatingProperties) {
             let transform: CGAffineTransform = transformFor(changingValues: animatingPropsValues)
             

@@ -11,7 +11,7 @@ extension CxjToastAnimator {
 	final class TopNotchLayoutUseCase: BaseLayoutUseCase, TopLayoutUseCase {
 		let verticalOffset: CGFloat
         
-        override var dismissedStateAnimatingProps: AnimatingProperties {
+        override var dismissedStateDefaultAnimatingProps: AnimatingProperties {
             AnimatingProperties(
                 alpha: 1.0,
                 scale: getDismissedScale(),
@@ -31,11 +31,6 @@ extension CxjToastAnimator {
                 toastView: toastView,
                 config: config
             )
-		}
-		
-		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
-            addTransitionDimmedView(dimColor: CxjNotchHelper.backgroundColor)
-			dismissLayout(progress: progress)
 		}
 		
 		func presentingLayout() {

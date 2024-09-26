@@ -11,10 +11,10 @@ extension CxjToastAnimator {
 	final class BottomLayoutUseCase: BaseLayoutUseCase, LayoutUseCase {
 		let verticalOffset: CGFloat
         
-        override var dismissedStateAnimatingProps: AnimatingProperties {
+        override var dismissedStateDefaultAnimatingProps: AnimatingProperties {
             AnimatingProperties(
-                alpha: 1.0,
-                scale: .initial,
+				alpha: .zero,
+				scale: .initial,
                 translationY: dismissedTranslationY(),
                 cornerRadius: .zero,
                 shadowIntensity: .zero
@@ -31,10 +31,6 @@ extension CxjToastAnimator {
                 toastView: toastView,
                 config: config
             )
-		}
-		
-		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
-			dismissLayout(progress: progress)
 		}
 		
 		func presentingLayout() {

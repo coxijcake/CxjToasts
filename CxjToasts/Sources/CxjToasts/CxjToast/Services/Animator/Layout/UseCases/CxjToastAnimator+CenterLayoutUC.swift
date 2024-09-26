@@ -9,7 +9,7 @@ import UIKit
 
 extension CxjToastAnimator {
 	final class CenterLayoutUseCase: BaseLayoutUseCase, LayoutUseCase {
-        override var dismissedStateAnimatingProps: AnimatingProperties {
+        override var dismissedStateDefaultAnimatingProps: AnimatingProperties {
             AnimatingProperties(
                 alpha: .zero,
                 scale: CxjToastAnimator.AnimatingProperties.Scale(x: 0.5, y: 0.5),
@@ -19,10 +19,6 @@ extension CxjToastAnimator {
             )
         }
         
-		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
-			dismissLayout(progress: progress)
-		}
-		
 		func presentingLayout() {
 			setDefaultToastViewValues()
 		}

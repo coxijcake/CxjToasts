@@ -23,3 +23,15 @@ extension CxjToastAnimator {
         let shadowIntensity: CGFloat
     }
 }
+
+extension CxjToastAnimator.AnimatingProperties: Changeable {
+	init(copy: ChangeableWrapper<Self>) {
+		self.init(
+			alpha: copy.alpha,
+			scale: copy.scale,
+			translationY: copy.translationY,
+			cornerRadius: copy.cornerRadius,
+			shadowIntensity: copy.shadowIntensity
+		)
+	}
+}

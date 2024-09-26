@@ -13,7 +13,7 @@ extension CxjToastAnimator {
     typealias ToastConfig = CxjToastConfiguration
 	typealias Placement = ToastConfig.Layout.Placement
     typealias Animations = ToastConfig.Animations
-    typealias AnimationsChanges = Animations.Changes
+	typealias AnimationBehaviour = Animations.Behaviour
     typealias AnimationsAction = CxjAnimation.Animations
     typealias AnimationsCompletion = CxjAnimation.Completion
 }

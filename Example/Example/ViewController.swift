@@ -97,15 +97,23 @@ class ViewController: UIViewController {
                         max: 70
                     )
                 ),
-                placement: .top(verticalOffset: 0)
+//                placement: .top(verticalOffset: 0)
 //                placement: .bottom(verticalOffset: 0)
-//                placement: .center
+                placement: .center
             ),
             dismissMethods: [.swipe(direction: .top), .tap, .automatic(time: 3.0)],
             animations: CxjToastConfiguration.Animations(
                 present: .nativeToastPresenting,
                 dismiss: .nativeToastDismissing,
-                changes: [.translation, .scale, .alpha],
+//                changes: [.translation, .scale, .alpha],
+				behaviour: .custom(
+					changes: [
+//						.translation(value: .init(x: .zero, y: -100)),
+						.scale(value: .init(x: 0.5, y: 1.0)),
+//						.shadow(intensity: 0.3)
+						.alpha(intensity: 0.5)
+					]
+				),
                 nativeViewsIncluding: []
             )
         )
