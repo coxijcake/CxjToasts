@@ -10,17 +10,30 @@ import UIKit
 extension CxjToastAnimator {
 	final class CommonBehaviourCoordinator: Coordinator {
         //MARK: - Props
-        let toastView: ToastView
-		let animationConfigStrategy: ConfigStrategy
-        let initialAnimatingProperties: AnimatingProperties
-        
-        private(set) var transitionAnimationDimmedView: UIView?
+        private let toastView: ToastView
+		private let animationConfigStrategy: ConfigStrategy
+        private let initialAnimatingProperties: AnimatingProperties
+        		
+		private lazy var dismissedStateAnimatingProps = animationConfigStrategy
+			.dismissedStateAnimatingProperties()
 		
-		private lazy var dismissedStateAnimatingProps = animationConfigStrategy.dismissedStateAnimatingProperties()
+		private lazy var layoutCalculator: LayoutCalculator = LayoutCalculator(
+			initialStateProps: initialAnimatingProperties,
+			dismissedStateProps: dismissedStateAnimatingProps,
+			toastSize: toastView.bounds.size
+		)
 		
-        var dismissedStateYTranslation: CGFloat {
-            dismissLayoutCalculatedProperties(for: .init(value: 1.0)).translationY
-        }
+        private(set) lazy var dismissedStateYTranslation: CGFloat = {
+			layoutCalculator
+				.properties(for: CxjToastAnimator.LayoutCalculator.Progress(value: 1.0))
+				.translationY
+        }()
+		
+		private var transitionAnimationDimmedView: UIView?
+		
+		private var shouldAddDimmedView: Bool {
+			dismissedStateAnimatingProps.shadowIntensity != .zero
+		}
         
         //MARK: - Lifecycle
         init(
@@ -32,13 +45,11 @@ extension CxjToastAnimator {
 			self.initialAnimatingProperties = initialAnimatingProperties
 			self.animationConfigStrategy = animationConfigStrategy
         }
-		
-		var shouldAddDimmedView: Bool {
-			dismissedStateAnimatingProps.shadowIntensity != .zero
-		}
         
 		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
-			shouldAddDimmedView ? addTransitionDimmedView(dimColor: .black) : ()
+			shouldAddDimmedView
+			? addTransitionDimmedView(dimColor: .black)
+			: ()
 			
 			dismissLayout(progress: progress)
 		}
@@ -48,9 +59,7 @@ extension CxjToastAnimator {
 		}
 		
         func dismissLayout(progress: ToastLayoutProgress) {
-            let properties: AnimatingProperties = dismissLayoutCalculatedProperties(
-                for: progress
-            )
+			let properties: AnimatingProperties = layoutCalculator.properties(for: progress)
             
             updateToastWith(animatingPropsValues: properties)
         }
@@ -65,18 +74,6 @@ extension CxjToastAnimator {
 			
 			toastView.addSubview(view)
 			self.transitionAnimationDimmedView = view
-		}
-		
-		private func dismissLayoutCalculatedProperties(
-			for progress: ToastLayoutProgress
-		) -> AnimatingProperties {
-			let calculator: LayoutCalculator = LayoutCalculator(
-				initialStateProps: initialAnimatingProperties,
-				dismissedStateProps: dismissedStateAnimatingProps,
-				toastSize: toastView.bounds.size
-			)
-			
-			return calculator.properties(for: progress)
 		}
 		
         private final func updateToastWith(animatingPropsValues: AnimatingProperties) {
