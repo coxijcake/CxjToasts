@@ -45,17 +45,17 @@ class ViewController: UIViewController {
             )
         )
         
-//        CxjToast.show(
-//            .template(
-//                theme: .native(
-//                    data: CxjToastTheme.NativeToastData(
-//                        title: "Test Toast Toast Toast",
-//                        subtitle: "some description",
-//                        icon: UIImage.checkmark
-//                    )
-//                )
-//            )
-//        )
+        CxjToast.show(
+            .template(
+                theme: .native(
+                    data: CxjToastTheme.NativeToastData(
+                        title: "Test Toast Toast Toast",
+                        subtitle: "some description",
+                        icon: UIImage.checkmark
+                    )
+                )
+            )
+        )
 	}
 	
 	private func customCxjToastContentView() -> CxjToastContentView {

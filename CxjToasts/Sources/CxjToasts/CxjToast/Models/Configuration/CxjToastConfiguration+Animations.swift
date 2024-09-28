@@ -14,6 +14,8 @@ extension CxjToastConfiguration {
 		}
 		
 		public enum Behaviour {
+			public typealias CustomBehaviourChanges = Set<CustomBehaviourChange>
+			
 			public enum CustomBehaviourChange: Hashable {
 				public struct Scale {
 					let x: CGFloat
@@ -61,7 +63,7 @@ extension CxjToastConfiguration {
 			}
 			
 			case `default`
-			case custom(changes: Set<CustomBehaviourChange>)
+			case custom(changes: CustomBehaviourChanges)
 		}
 		
 		let present: CxjAnimation

@@ -18,6 +18,7 @@ extension CxjToastAnimator {
         
         let toastSize: CGSize
         
+		//MARK: - Public API
         func properties(for progress: Progress) -> AnimatingProperties {
 			let alpha: CGFloat = alpha(for: progress)
 			let scale: Scale = scale(for: progress)
@@ -34,6 +35,7 @@ extension CxjToastAnimator {
             )
         }
 		
+		//MARK: - Private
 		private func alpha(for progress: Progress) -> CGFloat {
 			let initialAlpha: CGFloat = initialStateProps.alpha
 			

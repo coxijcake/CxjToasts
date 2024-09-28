@@ -23,11 +23,10 @@ final class CxjToastAnimator {
 	private let toastView: ToastView
 	private let config: ToastConfig
 	
-	private lazy var layoutUseCase: LayoutUseCase = LayoutUseCaseFactory
-		.animationLayoutUseCase(
-			for: toastView,
-			with: config
-		)
+	private lazy var coordinator: Coordinator = CoordinatorConfigurator.coordinator(
+		for: toastView,
+		with: config
+	)
 	
     init(toastView: ToastView, config: ToastConfig) {
         self.toastView = toastView
@@ -44,10 +43,10 @@ extension CxjToastAnimator: CxjToastPresentAnimator {
 	func presentAction(completion: AnimationsCompletion?) {
         let fullProgress: ToastLayoutProgress = ToastLayoutProgress(value: 1.0)
         
-		layoutUseCase.beforeDisplayingLayout(progress: fullProgress)
+		coordinator.beforeDisplayingLayout(progress: fullProgress)
 		
 		let animations: AnimationsAction = {
-			self.layoutUseCase.presentingLayout()
+			self.coordinator.presentingLayout()
 		}
 		
 		UIView.animate(
@@ -65,7 +64,7 @@ extension CxjToastAnimator: CxjToastDismissAnimator {
 	}
     
     var dismissedStateYTranslation: CGFloat {
-        layoutUseCase.dismissedStateYTranslation
+		coordinator.dismissedStateYTranslation
     }
 	
 	func dismissAction(
@@ -75,7 +74,7 @@ extension CxjToastAnimator: CxjToastDismissAnimator {
 	) {
 		let progress: ToastLayoutProgress = ToastLayoutProgress(value: progress)
 		let animations: AnimationsAction = {
-			self.layoutUseCase.dismissLayout(progress: progress)
+			self.coordinator.dismissLayout(progress: progress)
 		}
 		
 		UIView.animate(
