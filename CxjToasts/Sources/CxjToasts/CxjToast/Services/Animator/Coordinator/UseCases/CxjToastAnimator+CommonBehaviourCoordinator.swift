@@ -32,7 +32,7 @@ extension CxjToastAnimator {
 		private var transitionAnimationDimmedView: UIView?
 		
 		private var shouldAddDimmedView: Bool {
-			dismissedStateAnimatingProps.shadowIntensity != .zero
+			dismissedStateAnimatingProps.shadowIntensity.value != .zero
 		}
         
         //MARK: - Lifecycle
@@ -80,10 +80,10 @@ extension CxjToastAnimator {
             let transform: CGAffineTransform = transformFor(changingValues: animatingPropsValues)
             
             toastView.transform = transform
-            toastView.alpha = animatingPropsValues.alpha
+			toastView.alpha = animatingPropsValues.alpha.value
             toastView.layer.cornerRadius = animatingPropsValues.cornerRadius
             
-            transitionAnimationDimmedView?.alpha = animatingPropsValues.shadowIntensity
+			transitionAnimationDimmedView?.alpha = animatingPropsValues.shadowIntensity.value
             transitionAnimationDimmedView?.layer.cornerRadius = animatingPropsValues.cornerRadius
         }
         

@@ -28,19 +28,19 @@ extension CxjToastAnimator {
 			let shadowAlpha: CGFloat = shadowAlpha(for: progress)
             
             return AnimatingProperties(
-                alpha: alpha,
+				alpha: .init(value: alpha),
                 scale: scale,
                 translation: translation,
                 cornerRadius: cornerRadius,
-                shadowIntensity: shadowAlpha
+				shadowIntensity: .init(value: shadowAlpha)
             )
         }
 		
 		//MARK: - Private
 		private func alpha(for progress: Progress) -> CGFloat {
-			let initialAlpha: CGFloat = presentedStateProps.alpha
+			let initialAlpha: CGFloat = presentedStateProps.alpha.value
 			
-			let finalAlpha: CGFloat = dismissedStateProps.alpha
+			let finalAlpha: CGFloat = dismissedStateProps.alpha.value
 			let alpha: CGFloat = finalAlpha * progress.value + initialAlpha * progress.revertedValue
 			
 			return alpha
@@ -116,9 +116,9 @@ extension CxjToastAnimator {
 		}
 		
 		private func shadowAlpha(for progress: Progress) -> CGFloat {
-			let initialShadowAlpha: CGFloat = presentedStateProps.shadowIntensity
+			let initialShadowAlpha: CGFloat = presentedStateProps.shadowIntensity.value
 			
-			let finalShadowAlpha: CGFloat = dismissedStateProps.shadowIntensity
+			let finalShadowAlpha: CGFloat = dismissedStateProps.shadowIntensity.value
 			let shadowAlpha: CGFloat = finalShadowAlpha
 			* progress.value
 			+ initialShadowAlpha

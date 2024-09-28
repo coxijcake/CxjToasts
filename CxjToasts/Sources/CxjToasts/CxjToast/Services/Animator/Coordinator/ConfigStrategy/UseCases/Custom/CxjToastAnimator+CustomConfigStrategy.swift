@@ -24,9 +24,9 @@ extension CxjToastAnimator {
 						case .translation(let value):
 							props.translation = .init(x: value.x, y: value.y)
 						case .alpha(let intensity):
-							props.alpha = intensity
+							props.alpha = .init(value: intensity)
 						case .shadow(let intensity):
-							props.shadowIntensity = intensity
+							props.shadowIntensity = .init(value: intensity)
 						case .corners(let radius):
 							props.cornerRadius = radius
 						}

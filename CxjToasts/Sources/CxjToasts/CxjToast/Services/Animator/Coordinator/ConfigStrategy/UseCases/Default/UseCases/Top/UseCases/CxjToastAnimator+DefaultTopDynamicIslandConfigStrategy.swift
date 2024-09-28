@@ -16,11 +16,11 @@ extension CxjToastAnimator {
 			let yTranslation: CGFloat = dismissYTranslation()
 			
 			return AnimatingProperties(
-				alpha: 1.0,
+				alpha: .max,
 				scale: dissmisScale(),
 				translation: .init(x: .zero, y: yTranslation),
 				cornerRadius: CxjDynamicIslandHelper.cornerRadius,
-				shadowIntensity: 1.0
+				shadowIntensity: .max
 			)
 		}
 		

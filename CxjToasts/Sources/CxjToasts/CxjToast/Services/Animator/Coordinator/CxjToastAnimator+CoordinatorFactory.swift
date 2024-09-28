@@ -14,11 +14,11 @@ extension CxjToastAnimator {
 			with config: ToastConfig
 		) -> Coordinator {
 			let presentedStateAnimatingProperties: AnimatingProperties =  AnimatingProperties(
-				alpha: toastView.alpha,
+				alpha: .init(value: toastView.alpha),
 				scale: .initial,
 				translation: .initial,
 				cornerRadius: toastView.layer.cornerRadius,
-				shadowIntensity: .zero
+				shadowIntensity: .min
 			)
 			
 			let configStrategy: ConfigStrategy = ConfigStrategyFactory.configStrategy(

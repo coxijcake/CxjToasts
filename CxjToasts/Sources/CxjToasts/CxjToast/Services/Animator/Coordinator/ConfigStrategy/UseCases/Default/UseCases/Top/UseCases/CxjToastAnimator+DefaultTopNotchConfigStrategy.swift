@@ -17,11 +17,11 @@ extension CxjToastAnimator {
 			let yTranslation: CGFloat = getDismissedYTranslation()
 			
 			return AnimatingProperties(
-				alpha: 1.0,
+				alpha: .max,
 				scale: getDismissedScale(),
 				translation: .init(x: .zero, y: yTranslation),
 				cornerRadius: CxjNotchHelper.estimatedBottomCornerRadius,
-				shadowIntensity: 1.0
+				shadowIntensity: .max
 			)
 		}
 		

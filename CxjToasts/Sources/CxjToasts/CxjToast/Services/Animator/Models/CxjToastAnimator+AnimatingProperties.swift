@@ -23,11 +23,11 @@ extension CxjToastAnimator {
 			static var initial: Translation = Translation(x: .zero, y: .zero)
 		}
         
-        let alpha: CGFloat
+        let alpha: ClampedAlpha
         let scale: Scale
 		let translation: Translation
         let cornerRadius: CGFloat
-        let shadowIntensity: CGFloat
+        let shadowIntensity: ClampedAlpha
     }
 }
 

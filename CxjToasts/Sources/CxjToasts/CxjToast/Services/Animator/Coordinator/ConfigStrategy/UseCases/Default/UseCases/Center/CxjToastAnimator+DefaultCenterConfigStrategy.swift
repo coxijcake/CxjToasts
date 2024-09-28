@@ -13,11 +13,11 @@ extension CxjToastAnimator {
 		
 		func dismissedStateAnimatingProperties() -> AnimatingProperties {
 			AnimatingProperties(
-				alpha: .zero,
+				alpha: .min,
 				scale: CxjToastAnimator.AnimatingProperties.Scale(x: 0.5, y: 0.5),
 				translation: .initial,
 				cornerRadius: .zero,
-				shadowIntensity: .zero
+				shadowIntensity: .min
 			)
 		}
 	}
