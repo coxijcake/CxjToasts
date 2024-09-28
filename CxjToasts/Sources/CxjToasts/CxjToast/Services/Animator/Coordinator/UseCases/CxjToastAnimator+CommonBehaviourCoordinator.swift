@@ -12,13 +12,13 @@ extension CxjToastAnimator {
         //MARK: - Props
         private let toastView: ToastView
 		private let animationConfigStrategy: ConfigStrategy
-        private let initialAnimatingProperties: AnimatingProperties
+        private let presentedStateAnimatingProperties: AnimatingProperties
         		
 		private lazy var dismissedStateAnimatingProps = animationConfigStrategy
 			.dismissedStateAnimatingProperties()
 		
 		private lazy var layoutCalculator: LayoutCalculator = LayoutCalculator(
-			initialStateProps: initialAnimatingProperties,
+			presentedStateProps: presentedStateAnimatingProperties,
 			dismissedStateProps: dismissedStateAnimatingProps,
 			toastSize: toastView.bounds.size
 		)
@@ -38,11 +38,11 @@ extension CxjToastAnimator {
         //MARK: - Lifecycle
         init(
             toastView: ToastView,
-			initialAnimatingProperties: AnimatingProperties,
+			presentedStateAnimatingProperties: AnimatingProperties,
 			animationConfigStrategy: ConfigStrategy
         ) {
             self.toastView = toastView
-			self.initialAnimatingProperties = initialAnimatingProperties
+			self.presentedStateAnimatingProperties = presentedStateAnimatingProperties
 			self.animationConfigStrategy = animationConfigStrategy
         }
         
@@ -55,7 +55,7 @@ extension CxjToastAnimator {
 		}
 		
 		func presentingLayout() {
-			updateToastWith(animatingPropsValues: initialAnimatingProperties)
+			updateToastWith(animatingPropsValues: presentedStateAnimatingProperties)
 		}
 		
         func dismissLayout(progress: ToastLayoutProgress) {

@@ -13,7 +13,7 @@ extension CxjToastAnimator {
 		typealias Progress = ToastLayoutProgress
 		typealias Scale = AnimatingProperties.Scale
 		
-        let initialStateProps: AnimatingProperties
+        let presentedStateProps: AnimatingProperties
         let dismissedStateProps: AnimatingProperties
         
         let toastSize: CGSize
@@ -37,7 +37,7 @@ extension CxjToastAnimator {
 		
 		//MARK: - Private
 		private func alpha(for progress: Progress) -> CGFloat {
-			let initialAlpha: CGFloat = initialStateProps.alpha
+			let initialAlpha: CGFloat = presentedStateProps.alpha
 			
 			let finalAlpha: CGFloat = dismissedStateProps.alpha
 			let alpha: CGFloat = finalAlpha * progress.value + initialAlpha * progress.revertedValue
@@ -46,18 +46,18 @@ extension CxjToastAnimator {
 		}
 		
 		private func scale(for progress: Progress) -> Scale {
-			let initialScale: AnimatingProperties.Scale = initialStateProps.scale
+			let initialScale: AnimatingProperties.Scale = presentedStateProps.scale
 			
 			let scaleX: CGFloat =
 			dismissedStateProps.scale.x
 			* progress.value
-			+ initialStateProps.scale.x
+			+ presentedStateProps.scale.x
 			* progress.revertedValue
 			
 			let scaleY: CGFloat =
 			dismissedStateProps.scale.y
 			* progress.value
-			+ initialStateProps.scale.y
+			+ presentedStateProps.scale.y
 			* progress.revertedValue
 			
 			let scale: Scale = Scale(
@@ -69,7 +69,7 @@ extension CxjToastAnimator {
 		}
 		
 		private func yTranslation(for progress: Progress, scale: Scale) -> CGFloat {
-			let initialTranslation: CGFloat = initialStateProps.translationY
+			let initialTranslation: CGFloat = presentedStateProps.translationY
 			
 			let toastScaledSizeDifference: CGFloat =
 			((toastSize.height - (toastSize.height * scale.y)) / 2)
@@ -83,7 +83,7 @@ extension CxjToastAnimator {
 		}
 		
 		private func cornerRadius(for progress: Progress) -> CGFloat {
-			let initialCornerRadius: CGFloat = initialStateProps.cornerRadius
+			let initialCornerRadius: CGFloat = presentedStateProps.cornerRadius
 			
 			let finalCornerRadius: CGFloat = dismissedStateProps.cornerRadius
 			let cornerRadius: CGFloat =
@@ -98,7 +98,7 @@ extension CxjToastAnimator {
 		}
 		
 		private func shadowAlpha(for progress: Progress) -> CGFloat {
-			let initialShadowAlpha: CGFloat = initialStateProps.shadowIntensity
+			let initialShadowAlpha: CGFloat = presentedStateProps.shadowIntensity
 			
 			let finalShadowAlpha: CGFloat = dismissedStateProps.shadowIntensity
 			let shadowAlpha: CGFloat = finalShadowAlpha

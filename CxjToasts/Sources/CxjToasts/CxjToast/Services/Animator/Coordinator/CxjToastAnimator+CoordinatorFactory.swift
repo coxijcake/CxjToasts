@@ -29,7 +29,7 @@ extension CxjToastAnimator {
 			
 			return CommonBehaviourCoordinator(
 				toastView: toastView,
-				initialAnimatingProperties: presentedStateAnimatingProperties,
+				presentedStateAnimatingProperties: presentedStateAnimatingProperties,
 				animationConfigStrategy: configStrategy
 			)
 		}
