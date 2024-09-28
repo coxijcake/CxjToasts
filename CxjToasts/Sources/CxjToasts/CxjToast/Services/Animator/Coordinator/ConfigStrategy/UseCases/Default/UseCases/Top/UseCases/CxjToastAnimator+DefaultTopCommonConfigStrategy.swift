@@ -14,10 +14,12 @@ extension CxjToastAnimator {
 		let verticalOffset: CGFloat
 		
 		func dismissedStateAnimatingProperties() -> AnimatingProperties {
-			AnimatingProperties(
+			let yTranslation: CGFloat = dismissedTranslationY()
+			
+			return AnimatingProperties(
 				alpha: 1.0,
 				scale: .initial,
-				translationY: dismissedTranslationY(),
+				translation: .init(x: .zero, y: yTranslation),
 				cornerRadius: .zero,
 				shadowIntensity: .zero
 			)

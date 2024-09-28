@@ -22,7 +22,7 @@ extension CxjToastAnimator {
 						case .scale(let value):
 							props.scale = .init(x: value.x, y: value.y)
 						case .translation(let value):
-							props.translationY = value.y
+							props.translation = .init(x: value.x, y: value.y)
 						case .alpha(let intensity):
 							props.alpha = intensity
 						case .shadow(let intensity):

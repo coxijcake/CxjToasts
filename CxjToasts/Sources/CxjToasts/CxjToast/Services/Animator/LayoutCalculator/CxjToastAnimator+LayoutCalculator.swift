@@ -12,6 +12,7 @@ extension CxjToastAnimator {
     struct LayoutCalculator {
 		typealias Progress = ToastLayoutProgress
 		typealias Scale = AnimatingProperties.Scale
+		typealias Translation = AnimatingProperties.Translation
 		
         let presentedStateProps: AnimatingProperties
         let dismissedStateProps: AnimatingProperties
@@ -22,14 +23,14 @@ extension CxjToastAnimator {
         func properties(for progress: Progress) -> AnimatingProperties {
 			let alpha: CGFloat = alpha(for: progress)
 			let scale: Scale = scale(for: progress)
-			let yTranslation: CGFloat = yTranslation(for: progress, scale: scale)
+			let translation: Translation = translation(for: progress, scale: scale)
 			let cornerRadius: CGFloat = cornerRadius(for: progress)
 			let shadowAlpha: CGFloat = shadowAlpha(for: progress)
             
             return AnimatingProperties(
                 alpha: alpha,
                 scale: scale,
-                translationY: yTranslation,
+                translation: translation,
                 cornerRadius: cornerRadius,
                 shadowIntensity: shadowAlpha
             )
@@ -68,14 +69,31 @@ extension CxjToastAnimator {
 			return scale
 		}
 		
+		private func translation(for progress: Progress, scale: Scale) -> Translation {
+			let xTranslation: CGFloat = xTranslation(for: progress, scale: scale)
+			let yTranslation: CGFloat = yTranslation(for: progress, scale: scale)
+			
+			return Translation(x: xTranslation, y: yTranslation)
+		}
+		
+		private func xTranslation(for progress: Progress, scale: Scale) -> CGFloat {
+			let initialTranslation: CGFloat = presentedStateProps.translation.x
+			
+			let xTranslation: CGFloat =
+			dismissedStateProps.translation.x
+			* progress.value
+			
+			return xTranslation
+		}
+		
 		private func yTranslation(for progress: Progress, scale: Scale) -> CGFloat {
-			let initialTranslation: CGFloat = presentedStateProps.translationY
+			let initialTranslation: CGFloat = presentedStateProps.translation.y
 			
 			let toastScaledSizeDifference: CGFloat =
 			((toastSize.height - (toastSize.height * scale.y)) / 2)
 			
 			let yTranslation: CGFloat =
-			dismissedStateProps.translationY
+			dismissedStateProps.translation.y
 			* progress.value
 			- toastScaledSizeDifference
 			

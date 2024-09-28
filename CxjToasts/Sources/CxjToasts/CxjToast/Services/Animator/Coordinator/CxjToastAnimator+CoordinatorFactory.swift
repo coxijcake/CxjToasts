@@ -16,7 +16,7 @@ extension CxjToastAnimator {
 			let presentedStateAnimatingProperties: AnimatingProperties =  AnimatingProperties(
 				alpha: toastView.alpha,
 				scale: .initial,
-				translationY: .zero,
+				translation: .initial,
 				cornerRadius: toastView.layer.cornerRadius,
 				shadowIntensity: .zero
 			)

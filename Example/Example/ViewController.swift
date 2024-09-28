@@ -108,10 +108,10 @@ class ViewController: UIViewController {
 //                changes: [.translation, .scale, .alpha],
 				behaviour: .custom(
 					changes: [
-//						.translation(value: .init(x: .zero, y: -100)),
+//						.translation(value: .init(x: -100, y: -100)),
 						.scale(value: .init(x: 0.5, y: 1.0)),
-//						.shadow(intensity: 0.3)
-						.alpha(intensity: 0.5)
+						.shadow(intensity: 0.3)
+//						.alpha(intensity: 0.5)
 					]
 				),
                 nativeViewsIncluding: []

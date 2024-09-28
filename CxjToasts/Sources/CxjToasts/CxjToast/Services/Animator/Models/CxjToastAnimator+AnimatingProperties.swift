@@ -15,10 +15,17 @@ extension CxjToastAnimator {
             
             static var initial: Scale = Scale(x: 1.0, y: 1.0)
         }
+		
+		struct Translation {
+			let x: CGFloat
+			let y: CGFloat
+			
+			static var initial: Translation = Translation(x: .zero, y: .zero)
+		}
         
         let alpha: CGFloat
         let scale: Scale
-        let translationY: CGFloat
+		let translation: Translation
         let cornerRadius: CGFloat
         let shadowIntensity: CGFloat
     }
@@ -29,7 +36,7 @@ extension CxjToastAnimator.AnimatingProperties: Changeable {
 		self.init(
 			alpha: copy.alpha,
 			scale: copy.scale,
-			translationY: copy.translationY,
+			translation: copy.translation,
 			cornerRadius: copy.cornerRadius,
 			shadowIntensity: copy.shadowIntensity
 		)

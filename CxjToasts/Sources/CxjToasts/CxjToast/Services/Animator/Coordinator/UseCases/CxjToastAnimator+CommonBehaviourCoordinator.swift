@@ -26,7 +26,7 @@ extension CxjToastAnimator {
         private(set) lazy var dismissedStateYTranslation: CGFloat = {
 			layoutCalculator
 				.properties(for: CxjToastAnimator.LayoutCalculator.Progress(value: 1.0))
-				.translationY
+				.translation.y
         }()
 		
 		private var transitionAnimationDimmedView: UIView?
@@ -88,14 +88,14 @@ extension CxjToastAnimator {
         }
         
         private func transformFor(changingValues: AnimatingProperties) -> CGAffineTransform {
-            let transform: CGAffineTransform = CGAffineTransform(
-                scaleX: changingValues.scale.x,
-                y: changingValues.scale.y
-            ).concatenating(
-                CGAffineTransform(
-                    translationX: .zero,
-                    y: changingValues.translationY
-                )
+			let transform: CGAffineTransform = CGAffineTransform(
+				scaleX: changingValues.scale.x,
+				y: changingValues.scale.y
+			).concatenating(
+				CGAffineTransform(
+					translationX: changingValues.translation.x,
+					y: changingValues.translation.y
+				)
             )
             
             return transform
