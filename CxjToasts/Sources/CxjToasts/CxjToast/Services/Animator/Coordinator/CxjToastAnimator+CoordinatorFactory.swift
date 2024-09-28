@@ -27,7 +27,7 @@ extension CxjToastAnimator {
 				presentedStateAnimatingProperties: presentedStateAnimatingProperties
 			)
 			
-			return AnimationCoordinator(
+			return CommonBehaviourCoordinator(
 				toastView: toastView,
 				initialAnimatingProperties: presentedStateAnimatingProperties,
 				animationConfigStrategy: configStrategy

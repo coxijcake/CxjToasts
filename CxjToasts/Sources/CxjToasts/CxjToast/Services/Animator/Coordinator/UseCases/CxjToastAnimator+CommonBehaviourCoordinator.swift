@@ -8,7 +8,7 @@
 import UIKit
 
 extension CxjToastAnimator {
-	final class AnimationCoordinator: Coordinator {
+	final class CommonBehaviourCoordinator: Coordinator {
         //MARK: - Props
         let toastView: ToastView
 		let animationConfigStrategy: ConfigStrategy
