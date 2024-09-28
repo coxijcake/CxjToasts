@@ -1,6 +1,6 @@
 //
-//  CxjToastAnimator+AnimationCoordinator.swift
-//  
+//  CxjToastAnimator+CommonBehaviourCoordinator.swift
+//
 //
 //  Created by Nikita Begletskiy on 14/09/2024.
 //
