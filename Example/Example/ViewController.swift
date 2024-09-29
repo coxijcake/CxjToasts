@@ -133,7 +133,7 @@ class ViewController: UIViewController {
             contentInsets: .init(top: 20, left: 16, bottom: 20, right: 16),
             colors: CxjToastViewConfiguration.Colors(background: .white),
             shadow: .disable,
-			corners: .straight(mask: .none)
+			corners: .straight(mask: .bottom)
         )
     }
 }

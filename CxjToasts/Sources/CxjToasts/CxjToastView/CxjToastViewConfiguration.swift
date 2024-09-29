@@ -64,6 +64,8 @@ public extension CxjToastViewConfiguration {
 	public enum Corners {
 		public enum CornersMask {
 			case none
+			case top
+			case bottom
 			case all
 			case custom(mask: CACornerMask)
 			
@@ -71,6 +73,16 @@ public extension CxjToastViewConfiguration {
 				switch self {
 				case .none: 
 					[]
+				case .top:
+					[
+						.layerMinXMinYCorner,
+						.layerMaxXMinYCorner
+					]
+				case .bottom:
+					[
+						.layerMinXMaxYCorner,
+						.layerMaxXMaxYCorner
+					]
 				case .all: [
 					.layerMinXMinYCorner,
 					.layerMaxXMinYCorner,
