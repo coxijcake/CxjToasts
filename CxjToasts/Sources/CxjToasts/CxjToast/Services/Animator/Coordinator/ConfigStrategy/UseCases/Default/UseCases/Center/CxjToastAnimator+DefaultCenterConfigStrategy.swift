@@ -16,7 +16,7 @@ extension CxjToastAnimator {
 				alpha: .min,
 				scale: CxjToastAnimator.AnimatingProperties.Scale(x: 0.5, y: 0.5),
 				translation: .initial,
-				cornerRadius: .zero,
+				cornerRadius: input.presentedStateAnimatingProperties.cornerRadius,
 				shadowIntensity: .min
 			)
 		}

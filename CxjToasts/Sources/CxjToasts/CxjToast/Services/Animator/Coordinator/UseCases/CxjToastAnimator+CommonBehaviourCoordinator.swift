@@ -47,10 +47,7 @@ extension CxjToastAnimator {
         }
         
 		func beforeDisplayingLayout(progress: ToastLayoutProgress) {
-			shouldAddDimmedView
-			? addTransitionDimmedView(dimColor: .black)
-			: ()
-			
+			addDimmedViewIfNeeded()
 			dismissLayout(progress: progress)
 		}
 		
@@ -65,12 +62,19 @@ extension CxjToastAnimator {
         }
         
         //MARK: - Private Methods
-		private func addTransitionDimmedView(dimColor: UIColor) {
+		private func addDimmedViewIfNeeded() {
+			guard dismissedStateAnimatingProps.shadowIntensity.value != .zero else { return }
+			
+			addTransitionDimmedView(dimColor: .black, cornersMask: toastView.layer.maskedCorners)
+		}
+		
+		private func addTransitionDimmedView(dimColor: UIColor, cornersMask: CACornerMask) {
 			let view: UIView = .init(frame: toastView.bounds)
 			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			view.isUserInteractionEnabled = false
 			view.backgroundColor = dimColor
 			view.alpha = 1.0
+			view.layer.maskedCorners = cornersMask
 			
 			toastView.addSubview(view)
 			self.transitionAnimationDimmedView = view
@@ -81,10 +85,10 @@ extension CxjToastAnimator {
             
             toastView.transform = transform
 			toastView.alpha = animatingPropsValues.alpha.value
-            toastView.layer.cornerRadius = animatingPropsValues.cornerRadius
+			toastView.layer.cornerRadius = animatingPropsValues.cornerRadius.value
             
 			transitionAnimationDimmedView?.alpha = animatingPropsValues.shadowIntensity.value
-            transitionAnimationDimmedView?.layer.cornerRadius = animatingPropsValues.cornerRadius
+			transitionAnimationDimmedView?.layer.cornerRadius = animatingPropsValues.cornerRadius.value
         }
         
         private func transformFor(changingValues: AnimatingProperties) -> CGAffineTransform {

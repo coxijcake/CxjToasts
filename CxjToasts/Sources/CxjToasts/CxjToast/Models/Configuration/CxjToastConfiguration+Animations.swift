@@ -36,12 +36,32 @@ extension CxjToastConfiguration {
 						self.y = y
 					}
 				}
+								
+				public struct CornerRadius {
+					public enum CornerRadiusType {
+						case screenCornerRadius
+						case custom(value: CGFloat)
+					}
+					
+					public enum Constraint {
+						case none
+						case halfHeigt
+					}
+					
+					let type: CornerRadiusType
+					let constraint: Constraint
+					
+					public init (type: CornerRadiusType, constraint: Constraint) {
+						self.type = type
+						self.constraint = constraint
+					}
+				}
 				
 				case scale(value: Scale)
 				case translation(value: Translation)
 				case alpha(intensity: CGFloat)
 				case shadow(intensity: CGFloat)
-				case corners(radius: CGFloat)
+				case corners(radius: CornerRadius)
 				
 				var compareIdentifier: String {
 					switch self {

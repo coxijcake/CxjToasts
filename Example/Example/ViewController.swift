@@ -45,17 +45,17 @@ class ViewController: UIViewController {
             )
         )
         
-        CxjToast.show(
-            .template(
-                theme: .native(
-                    data: CxjToastTheme.NativeToastData(
-                        title: "Test Toast Toast Toast",
-                        subtitle: "some description",
-                        icon: UIImage.checkmark
-                    )
-                )
-            )
-        )
+//        CxjToast.show(
+//            .template(
+//                theme: .native(
+//                    data: CxjToastTheme.NativeToastData(
+//                        title: "Test Toast Toast Toast",
+//                        subtitle: "some description",
+//                        icon: UIImage.checkmark
+//                    )
+//                )
+//            )
+//        )
 	}
 	
 	private func customCxjToastContentView() -> CxjToastContentView {
@@ -84,22 +84,24 @@ class ViewController: UIViewController {
 	}
     
     private func customCxjTostConfig() -> CxjToastConfiguration {
-        CxjToastConfiguration(
-            sourceView: containerView,
+		let sourceView: UIView = view
+		
+       return CxjToastConfiguration(
+			sourceView: sourceView,
             layout: CxjToastConfiguration.Layout(
                 constraints: CxjToastConfiguration.Constraints(
                     width: CxjToastConfiguration.Constraints.Values(
-                        min: containerView.bounds.size.width,
-                        max: containerView.bounds.size.width
+                        min: sourceView.bounds.size.width,
+                        max: sourceView.bounds.size.width
                     ),
                     height: CxjToastConfiguration.Constraints.Values(
                         min: 40,
                         max: 70
                     )
                 ),
-//                placement: .top(verticalOffset: 0)
+                placement: .top(verticalOffset: 0)
 //                placement: .bottom(verticalOffset: 0)
-                placement: .center
+//                placement: .center
             ),
             dismissMethods: [.swipe(direction: .top), .tap, .automatic(time: 3.0)],
             animations: CxjToastConfiguration.Animations(
@@ -108,9 +110,16 @@ class ViewController: UIViewController {
 //                changes: [.translation, .scale, .alpha],
 				behaviour: .custom(
 					changes: [
-//						.translation(value: .init(x: -100, y: -100)),
-						.scale(value: .init(x: 0.5, y: 1.0)),
-						.shadow(intensity: 0.3)
+						.translation(value: .init(x: .zero, y: -140)),
+//						.scale(value: .init(x: 0.5, y: 1.0)),
+						.shadow(intensity: 0.3),
+//						.corners(radius: .screenCornerRadius)
+						.corners(
+							radius: .init(
+								type: .screenCornerRadius,
+								constraint: .none
+							)
+						)
 //						.alpha(intensity: 0.5)
 					]
 				),
@@ -124,7 +133,7 @@ class ViewController: UIViewController {
             contentInsets: .init(top: 20, left: 16, bottom: 20, right: 16),
             colors: CxjToastViewConfiguration.Colors(background: .white),
             shadow: .disable,
-            corners: .straight
+			corners: .straight(mask: .none)
         )
     }
 }

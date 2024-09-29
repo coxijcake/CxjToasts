@@ -19,6 +19,7 @@ extension CxjToastAnimator {
 				DefaultConfigStrategyFactory.configStrategy(
 					placement: config.layout.placement,
 					input: DefaultConfigStrategyInput(
+						presentedStateAnimatingProperties: presentedStateAnimatingProperties,
 						toastSize: toastSize,
 						sourceViewSafeAreaInsets: config.sourceView.safeAreaInsets
 					)

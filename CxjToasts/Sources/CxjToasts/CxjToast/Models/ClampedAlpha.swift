@@ -18,7 +18,7 @@ struct ClampedAlpha {
 	}
 }
 
-
+//MARK: - Changeable
 extension ClampedAlpha: Changeable {
 	init(copy: ChangeableWrapper<Self>) {
 		self.init(

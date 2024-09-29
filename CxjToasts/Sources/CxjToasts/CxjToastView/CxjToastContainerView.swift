@@ -83,11 +83,18 @@ private extension CxjToastContainerView {
     }
 	
 	func configureCornes(with corners: Configuration.Corners) {
-		switch corners {
-		case .straight: break
-		case .capsule: layer.cornerRadius = bounds.size.height * 0.5
-		case .rounded(value: let value): layer.cornerRadius = value
-		}
+		let cornerRadius: CGFloat = {
+			switch corners {
+			case .straight: .zero
+			case .capsule: bounds.size.height * 0.5
+			case .rounded(value: let value, mask: let mask): value
+			}
+		}()
+		
+		let mask: CACornerMask = corners.mask.layerMask
+		
+		layer.cornerRadius = cornerRadius
+		layer.maskedCorners = mask
 	}
 }
 

@@ -13,6 +13,7 @@ extension CxjToastAnimator {
 		typealias Progress = ToastLayoutProgress
 		typealias Scale = AnimatingProperties.Scale
 		typealias Translation = AnimatingProperties.Translation
+		typealias CornerRadius = AnimatingProperties.CornerRadius
 		
         let presentedStateProps: AnimatingProperties
         let dismissedStateProps: AnimatingProperties
@@ -24,7 +25,7 @@ extension CxjToastAnimator {
 			let alpha: CGFloat = alpha(for: progress)
 			let scale: Scale = scale(for: progress)
 			let translation: Translation = translation(for: progress, scale: scale)
-			let cornerRadius: CGFloat = cornerRadius(for: progress)
+			let cornerRadius: CornerRadius = cornerRadius(for: progress)
 			let shadowAlpha: CGFloat = shadowAlpha(for: progress)
             
             return AnimatingProperties(
@@ -100,19 +101,32 @@ extension CxjToastAnimator {
 			return yTranslation
 		}
 		
-		private func cornerRadius(for progress: Progress) -> CGFloat {
-			let initialCornerRadius: CGFloat = presentedStateProps.cornerRadius
+		private func cornerRadius(for progress: Progress) -> CornerRadius {
+			let initialCornerRadius: CGFloat = presentedStateProps.cornerRadius.value
 			
-			let finalCornerRadius: CGFloat = dismissedStateProps.cornerRadius
-			let cornerRadius: CGFloat =
+			let finalCornerRadius: CGFloat = dismissedStateProps.cornerRadius.value
+			let calculatedCornerRadius: CGFloat =
 			finalCornerRadius
 			* progress.value
 			+ initialCornerRadius
 			* progress.revertedValue
 			
-			let safeCornerRadius: CGFloat = min(initialCornerRadius, cornerRadius)
+			let constraint: CornerRadius.Constraint = dismissedStateProps.cornerRadius.constraint
 			
-			return safeCornerRadius
+			let safeCornerRadius: CGFloat = {
+				switch constraint {
+				case .none:
+					return calculatedCornerRadius
+				case .halfHeight:
+					let maxCornerRadius: CGFloat = toastSize.height * 0.5
+					return min(maxCornerRadius, calculatedCornerRadius)
+				}
+			}()
+			
+			return .init(
+				value: safeCornerRadius,
+				constraint: constraint
+			)
 		}
 		
 		private func shadowAlpha(for progress: Progress) -> CGFloat {

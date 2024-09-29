@@ -62,8 +62,37 @@ public extension CxjToastViewConfiguration {
 	}
 	
 	public enum Corners {
-		case straight
-		case capsule
-		case rounded(value: CGFloat)
+		public enum CornersMask {
+			case none
+			case all
+			case custom(mask: CACornerMask)
+			
+			var layerMask: CACornerMask {
+				switch self {
+				case .none: 
+					[]
+				case .all: [
+					.layerMinXMinYCorner,
+					.layerMaxXMinYCorner,
+					.layerMinXMaxYCorner,
+					.layerMaxXMaxYCorner
+				]
+				case .custom(let mask):
+					mask
+				}
+			}
+		}
+		
+		case straight(mask: CornersMask)
+		case capsule(mask: CornersMask)
+		case rounded(value: CGFloat, mask: CornersMask)
+		
+		var mask: CornersMask {
+			switch self {
+			case .straight(let mask): mask
+			case .capsule(let mask): mask
+			case .rounded(let value, let mask): mask
+			}
+		}
 	}
 }

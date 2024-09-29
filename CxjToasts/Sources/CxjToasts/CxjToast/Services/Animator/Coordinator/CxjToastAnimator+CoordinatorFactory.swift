@@ -17,7 +17,7 @@ extension CxjToastAnimator {
 				alpha: .init(value: toastView.alpha),
 				scale: .initial,
 				translation: .initial,
-				cornerRadius: toastView.layer.cornerRadius,
+				cornerRadius: .init(value: toastView.layer.cornerRadius, constraint: .none),
 				shadowIntensity: .min
 			)
 			

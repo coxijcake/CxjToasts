@@ -19,7 +19,7 @@ extension CxjToastAnimator {
 				alpha: .max,
 				scale: dissmisScale(),
 				translation: .init(x: .zero, y: yTranslation),
-				cornerRadius: CxjDynamicIslandHelper.cornerRadius,
+				cornerRadius: dismissedCornerRadius(),
 				shadowIntensity: .max
 			)
 		}
@@ -49,6 +49,13 @@ extension CxjToastAnimator {
 			+ CxjDynamicIslandHelper.estimatedBottomOffset
 			
 			return -yTranslation
+		}
+		
+		private func dismissedCornerRadius() -> AnimatingProperties.CornerRadius {
+			AnimatingProperties.CornerRadius(
+				value: CxjDynamicIslandHelper.cornerRadius,
+				constraint: .halfHeight
+			)
 		}
 	}
 }

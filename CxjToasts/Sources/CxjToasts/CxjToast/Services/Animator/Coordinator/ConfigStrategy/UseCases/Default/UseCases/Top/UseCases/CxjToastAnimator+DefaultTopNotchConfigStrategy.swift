@@ -20,7 +20,7 @@ extension CxjToastAnimator {
 				alpha: .max,
 				scale: getDismissedScale(),
 				translation: .init(x: .zero, y: yTranslation),
-				cornerRadius: CxjNotchHelper.estimatedBottomCornerRadius,
+				cornerRadius: dismissedCornerRadius(),
 				shadowIntensity: .max
 			)
 		}
@@ -49,6 +49,13 @@ extension CxjToastAnimator {
 			- (topSafeArea - CxjDynamicIslandHelper.estimatedMinHeight)
 			
 			return -yTranslation
+		}
+		
+		private func dismissedCornerRadius() -> AnimatingProperties.CornerRadius {
+			AnimatingProperties.CornerRadius(
+				value: CxjNotchHelper.estimatedBottomCornerRadius,
+				constraint: .halfHeight
+			)
 		}
 	}
 }

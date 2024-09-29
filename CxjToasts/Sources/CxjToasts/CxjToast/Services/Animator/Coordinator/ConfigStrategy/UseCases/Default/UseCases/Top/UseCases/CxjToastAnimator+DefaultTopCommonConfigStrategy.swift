@@ -20,7 +20,7 @@ extension CxjToastAnimator {
 				alpha: .max,
 				scale: .initial,
 				translation: .init(x: .zero, y: yTranslation),
-				cornerRadius: .zero,
+				cornerRadius: input.presentedStateAnimatingProperties.cornerRadius,
 				shadowIntensity: .min
 			)
 		}

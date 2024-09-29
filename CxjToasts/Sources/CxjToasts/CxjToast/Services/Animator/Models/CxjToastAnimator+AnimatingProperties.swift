@@ -22,15 +22,27 @@ extension CxjToastAnimator {
 			
 			static var initial: Translation = Translation(x: .zero, y: .zero)
 		}
+		
+		struct CornerRadius {
+			enum Constraint {
+				case none
+				case halfHeight
+			}
+			
+			let value: CGFloat
+			let constraint: Constraint
+		}
         
         let alpha: ClampedAlpha
         let scale: Scale
 		let translation: Translation
-        let cornerRadius: CGFloat
+		let cornerRadius: CornerRadius
         let shadowIntensity: ClampedAlpha
     }
 }
 
+
+//MARK: - AnimatingProperties + Changeable
 extension CxjToastAnimator.AnimatingProperties: Changeable {
 	init(copy: ChangeableWrapper<Self>) {
 		self.init(
@@ -39,6 +51,16 @@ extension CxjToastAnimator.AnimatingProperties: Changeable {
 			translation: copy.translation,
 			cornerRadius: copy.cornerRadius,
 			shadowIntensity: copy.shadowIntensity
+		)
+	}
+}
+
+//MARK: - AnimatingProperties.CornerRadius + Changeable
+extension CxjToastAnimator.AnimatingProperties.CornerRadius: Changeable {
+	init(copy: ChangeableWrapper<Self>) {
+		self.init(
+			value: copy.value,
+			constraint: copy.constraint
 		)
 	}
 }

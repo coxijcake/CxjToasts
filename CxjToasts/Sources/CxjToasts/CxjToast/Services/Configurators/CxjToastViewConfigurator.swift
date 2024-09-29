@@ -48,7 +48,7 @@ enum CxjToastViewConfigurator {
     
 	static func corners(for theme: Theme) -> Config.Corners {
 		switch theme {
-		case .native: .capsule
+		case .native: .capsule(mask: .all)
 		}
     }
 }

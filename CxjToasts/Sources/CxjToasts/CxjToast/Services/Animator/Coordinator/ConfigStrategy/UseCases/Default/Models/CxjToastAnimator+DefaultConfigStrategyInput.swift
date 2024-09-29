@@ -10,6 +10,7 @@ import UIKit.UIView
 
 extension CxjToastAnimator {
 	struct DefaultConfigStrategyInput {
+		let presentedStateAnimatingProperties: AnimatingProperties
 		let toastSize: CGSize
 		let sourceViewSafeAreaInsets: UIEdgeInsets
 	}

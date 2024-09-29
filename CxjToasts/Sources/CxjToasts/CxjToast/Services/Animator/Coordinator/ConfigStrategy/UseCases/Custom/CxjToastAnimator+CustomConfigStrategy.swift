@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit.UIScreen
 
 extension CxjToastAnimator {
 	struct CustomConfigStrategy: ConfigStrategy {
@@ -28,12 +29,37 @@ extension CxjToastAnimator {
 						case .shadow(let intensity):
 							props.shadowIntensity = .init(value: intensity)
 						case .corners(let radius):
-							props.cornerRadius = radius
+							props.cornerRadius = cornerRadiusValue(
+								for: radius
+							)
 						}
 					}
 				}
 			
 			return resultAnimatingProperties
+		}
+		
+		private func cornerRadiusValue(
+			for cornerRadius: Animations.Behaviour.CustomBehaviourChange.CornerRadius
+		) -> AnimatingProperties.CornerRadius {
+			let constraint: AnimatingProperties.CornerRadius.Constraint = {
+				switch cornerRadius.constraint {
+				case .halfHeigt: .halfHeight
+				case .none: .none
+				}
+			}()
+			
+			let value: CGFloat = {
+				switch cornerRadius.type {
+				case .screenCornerRadius: UIScreen.main.displayCornerRadius
+				case .custom(value: let value): value
+				}
+			}()
+			
+			return AnimatingProperties.CornerRadius(
+				value: value,
+				constraint: constraint
+			)
 		}
 	}
 }
