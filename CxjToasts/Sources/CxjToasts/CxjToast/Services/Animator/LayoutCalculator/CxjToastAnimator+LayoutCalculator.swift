@@ -153,8 +153,6 @@ extension CxjToastAnimator {
 				+ initialShadowAlpha
 				* progress.revertedValue
 				
-				print("initial \(initialShadowAlpha), final \(finalShadowAlpha), progressed: \(progressShadowAlpha) progress: \(progress.value)")
-				
 				return .on(color: color, alpha: .init(value: progressShadowAlpha))
 			}
 		}
