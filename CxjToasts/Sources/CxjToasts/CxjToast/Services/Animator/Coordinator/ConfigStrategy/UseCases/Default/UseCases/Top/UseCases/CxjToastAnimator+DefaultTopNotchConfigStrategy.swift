@@ -21,7 +21,7 @@ extension CxjToastAnimator {
 				scale: getDismissedScale(),
 				translation: .init(x: .zero, y: yTranslation),
 				cornerRadius: dismissedCornerRadius(),
-				shadowIntensity: .max
+				shadow: dismissedShadow()
 			)
 		}
 		
@@ -55,6 +55,13 @@ extension CxjToastAnimator {
 			AnimatingProperties.CornerRadius(
 				value: CxjNotchHelper.estimatedBottomCornerRadius,
 				constraint: .halfHeight
+			)
+		}
+		
+		private func dismissedShadow() -> AnimatingProperties.Shadow {
+			AnimatingProperties.Shadow.on(
+				color: CxjNotchHelper.backgroundColor,
+				alpha: .max
 			)
 		}
 	}

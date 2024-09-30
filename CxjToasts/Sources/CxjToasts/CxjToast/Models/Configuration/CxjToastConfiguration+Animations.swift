@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit.UIColor
 
 extension CxjToastConfiguration {
 	public struct Animations {
@@ -60,7 +61,7 @@ extension CxjToastConfiguration {
 				case scale(value: Scale)
 				case translation(value: Translation)
 				case alpha(intensity: CGFloat)
-				case shadow(intensity: CGFloat)
+				case shadow(color: UIColor, intensity: CGFloat)
 				case corners(radius: CornerRadius)
 				
 				var compareIdentifier: String {

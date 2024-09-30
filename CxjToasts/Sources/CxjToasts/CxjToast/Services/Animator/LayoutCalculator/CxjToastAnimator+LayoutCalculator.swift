@@ -14,6 +14,7 @@ extension CxjToastAnimator {
 		typealias Scale = AnimatingProperties.Scale
 		typealias Translation = AnimatingProperties.Translation
 		typealias CornerRadius = AnimatingProperties.CornerRadius
+		typealias Shadow = AnimatingProperties.Shadow
 		
         let presentedStateProps: AnimatingProperties
         let dismissedStateProps: AnimatingProperties
@@ -26,14 +27,14 @@ extension CxjToastAnimator {
 			let scale: Scale = scaleFor(progress: progress)
 			let translation: Translation = translationFor(progress: progress, scale: scale)
 			let cornerRadius: CornerRadius = cornerRadiusFor(progress: progress)
-			let shadowAlpha: CGFloat = shadowAlphaFor(progress: progress)
+			let shadow: Shadow = shadowFor(progress: progress)
             
             return AnimatingProperties(
 				alpha: .init(value: alpha),
                 scale: scale,
                 translation: translation,
                 cornerRadius: cornerRadius,
-				shadowIntensity: .init(value: shadowAlpha)
+				shadow: shadow
             )
         }
 		
@@ -42,7 +43,11 @@ extension CxjToastAnimator {
 			let initialAlpha: CGFloat = presentedStateProps.alpha.value
 			
 			let finalAlpha: CGFloat = dismissedStateProps.alpha.value
-			let alpha: CGFloat = finalAlpha * progress.value + initialAlpha * progress.revertedValue
+			let alpha: CGFloat = 
+			finalAlpha
+			* progress.value
+			+ initialAlpha 
+			* progress.revertedValue
 			
 			return alpha
 		}
@@ -129,16 +134,29 @@ extension CxjToastAnimator {
 			)
 		}
 		
-		private func shadowAlphaFor(progress: Progress) -> CGFloat {
-			let initialShadowAlpha: CGFloat = presentedStateProps.shadowIntensity.value
+		private func shadowFor(progress: Progress) -> Shadow {
+			let initialShadowAlpha: CGFloat = {
+				switch presentedStateProps.shadow {
+				case .off: ClampedAlpha.min.value
+				case .on(_, alpha: let alpha): alpha.value
+				}
+			}()
 			
-			let finalShadowAlpha: CGFloat = dismissedStateProps.shadowIntensity.value
-			let shadowAlpha: CGFloat = finalShadowAlpha
-			* progress.value
-			+ initialShadowAlpha
-			* progress.revertedValue
-			
-			return shadowAlpha
+			switch dismissedStateProps.shadow {
+			case .off: 
+				return .off
+			case .on(let color, alpha: let alpha):
+				let finalShadowAlpha: CGFloat = alpha.value
+				let progressShadowAlpha: CGFloat =
+				finalShadowAlpha
+				* progress.value
+				+ initialShadowAlpha
+				* progress.revertedValue
+				
+				print("initial \(initialShadowAlpha), final \(finalShadowAlpha), progressed: \(progressShadowAlpha) progress: \(progress.value)")
+				
+				return .on(color: color, alpha: .init(value: progressShadowAlpha))
+			}
 		}
     }
 }

@@ -32,35 +32,27 @@ extension CxjToastAnimator {
 			let value: CGFloat
 			let constraint: Constraint
 		}
+		
+		enum Shadow: Equatable {
+			case off
+			case on(color: UIColor, alpha: ClampedAlpha)
+			
+			static func == (lhs: Shadow, rhs: Shadow) -> Bool {
+				switch (lhs, rhs) {
+				case (.off, .off): 
+					return true
+				case (.on(let lhsColor, let lhsShadow), .on(let rhsColor, let rhsShadow)):
+					return (lhsColor == rhsColor) && (lhsShadow.value == rhsShadow.value)
+				default:
+					return false
+				}
+			}
+		}
         
         let alpha: ClampedAlpha
         let scale: Scale
 		let translation: Translation
 		let cornerRadius: CornerRadius
-        let shadowIntensity: ClampedAlpha
+		let shadow: Shadow
     }
-}
-
-
-//MARK: - AnimatingProperties + Changeable
-extension CxjToastAnimator.AnimatingProperties: Changeable {
-	init(copy: ChangeableWrapper<Self>) {
-		self.init(
-			alpha: copy.alpha,
-			scale: copy.scale,
-			translation: copy.translation,
-			cornerRadius: copy.cornerRadius,
-			shadowIntensity: copy.shadowIntensity
-		)
-	}
-}
-
-//MARK: - AnimatingProperties.CornerRadius + Changeable
-extension CxjToastAnimator.AnimatingProperties.CornerRadius: Changeable {
-	init(copy: ChangeableWrapper<Self>) {
-		self.init(
-			value: copy.value,
-			constraint: copy.constraint
-		)
-	}
 }

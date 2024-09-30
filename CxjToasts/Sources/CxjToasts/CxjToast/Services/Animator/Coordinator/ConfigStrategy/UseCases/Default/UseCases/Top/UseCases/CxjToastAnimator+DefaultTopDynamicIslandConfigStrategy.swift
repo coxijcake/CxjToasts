@@ -20,7 +20,7 @@ extension CxjToastAnimator {
 				scale: dissmisScale(),
 				translation: .init(x: .zero, y: yTranslation),
 				cornerRadius: dismissedCornerRadius(),
-				shadowIntensity: .max
+				shadow: dismissedShadow()
 			)
 		}
 		
@@ -55,6 +55,13 @@ extension CxjToastAnimator {
 			AnimatingProperties.CornerRadius(
 				value: CxjDynamicIslandHelper.cornerRadius,
 				constraint: .halfHeight
+			)
+		}
+		
+		private func dismissedShadow() -> AnimatingProperties.Shadow {
+			AnimatingProperties.Shadow.on(
+				color: CxjDynamicIslandHelper.backgroundColor,
+				alpha: .max
 			)
 		}
 	}

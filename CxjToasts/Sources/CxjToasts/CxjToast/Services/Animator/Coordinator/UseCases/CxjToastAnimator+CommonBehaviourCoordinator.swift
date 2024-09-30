@@ -30,10 +30,6 @@ extension CxjToastAnimator {
         }()
 		
 		private var transitionAnimationDimmedView: UIView?
-		
-		private var shouldAddDimmedView: Bool {
-			dismissedStateAnimatingProps.shadowIntensity.value != .zero
-		}
         
         //MARK: - Lifecycle
         init(
@@ -63,9 +59,16 @@ extension CxjToastAnimator {
         
         //MARK: - Private Methods
 		private func addDimmedViewIfNeeded() {
-			guard dismissedStateAnimatingProps.shadowIntensity.value != .zero else { return }
-			
-			addTransitionDimmedView(dimColor: .black, cornersMask: toastView.layer.maskedCorners)
+			switch dismissedStateAnimatingProps.shadow {
+			case .off:
+				switch presentedStateAnimatingProperties.shadow {
+				case .off: return
+				case .on(let color, _):
+					addTransitionDimmedView(dimColor: color, cornersMask: toastView.layer.maskedCorners)
+				}
+			case .on(let color, _):
+				addTransitionDimmedView(dimColor: color, cornersMask: toastView.layer.maskedCorners)
+			}
 		}
 		
 		private func addTransitionDimmedView(dimColor: UIColor, cornersMask: CACornerMask) {
@@ -73,7 +76,7 @@ extension CxjToastAnimator {
 			view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			view.isUserInteractionEnabled = false
 			view.backgroundColor = dimColor
-			view.alpha = 1.0
+			view.alpha = .zero
 			view.layer.maskedCorners = cornersMask
 			
 			toastView.addSubview(view)
@@ -87,9 +90,19 @@ extension CxjToastAnimator {
 			toastView.alpha = animatingPropsValues.alpha.value
 			toastView.layer.cornerRadius = animatingPropsValues.cornerRadius.value
             
-			transitionAnimationDimmedView?.alpha = animatingPropsValues.shadowIntensity.value
-			transitionAnimationDimmedView?.layer.cornerRadius = animatingPropsValues.cornerRadius.value
+			updateDimmedViewWith(animatingProperties: animatingPropsValues)
         }
+		
+		private func updateDimmedViewWith(animatingProperties: AnimatingProperties) {
+			switch animatingProperties.shadow {
+			case .off:
+				transitionAnimationDimmedView?.alpha = .zero
+			case .on(_, let alpha):
+				transitionAnimationDimmedView?.alpha = alpha.value
+			}
+			
+			transitionAnimationDimmedView?.layer.cornerRadius = animatingProperties.cornerRadius.value
+		}
         
         private func transformFor(changingValues: AnimatingProperties) -> CGAffineTransform {
 			let transform: CGAffineTransform = CGAffineTransform(

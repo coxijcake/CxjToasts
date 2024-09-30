@@ -20,12 +20,3 @@ struct ClampedAlpha {
 		self._value = ClampedProgress(value, ClampedAlpha.minValue...ClampedAlpha.maxValue)
 	}
 }
-
-//MARK: - Changeable
-extension ClampedAlpha: Changeable {
-	init(copy: ChangeableWrapper<Self>) {
-		self.init(
-			value: copy.value
-		)
-	}
-}

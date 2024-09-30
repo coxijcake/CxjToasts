@@ -21,7 +21,7 @@ extension CxjToastAnimator {
 				scale: .initial,
 				translation: .init(x: .zero, y: yTranslation),
 				cornerRadius: input.presentedStateAnimatingProperties.cornerRadius,
-				shadowIntensity: .min
+				shadow: .off
 			)
 		}
 		

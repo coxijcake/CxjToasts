@@ -112,7 +112,7 @@ class ViewController: UIViewController {
 					changes: [
 						.translation(value: .init(x: .zero, y: -140)),
 //						.scale(value: .init(x: 0.5, y: 1.0)),
-						.shadow(intensity: 0.3),
+						.shadow(color: .black, intensity: 0.5),
 //						.corners(radius: .screenCornerRadius)
 						.corners(
 							radius: .init(
