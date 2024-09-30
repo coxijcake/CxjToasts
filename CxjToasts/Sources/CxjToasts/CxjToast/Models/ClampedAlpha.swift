@@ -8,13 +8,16 @@
 import Foundation
 
 struct ClampedAlpha {
+	private static let minValue: CGFloat = .zero
+	private static let maxValue: CGFloat = 1.0
+	
+	static var min: ClampedAlpha { ClampedAlpha(value: minValue) }
+	static var max: ClampedAlpha { ClampedAlpha(value: maxValue) }
+	
 	@ClampedProgress var value: CGFloat
 	
-	static var min: ClampedAlpha { ClampedAlpha(value: .zero) }
-	static var max: ClampedAlpha { ClampedAlpha(value: 1.0) }
-	
 	init(value: CGFloat) {
-		self._value = ClampedProgress(value, 0.0...1.0)
+		self._value = ClampedProgress(value, ClampedAlpha.minValue...ClampedAlpha.maxValue)
 	}
 }
 

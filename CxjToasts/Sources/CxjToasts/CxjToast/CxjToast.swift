@@ -78,7 +78,7 @@ extension CxjToast {
 		
         CxjActiveToastsUpdater.updateLayout(
 			activeToasts: activeToasts, 
-			progress: 1.0,
+			progress: ToastLayoutProgress.max.value,
             on: toast.config.layout.placement,
             animation: toast.presenter.animator.presentAnimation,
             completion: nil
@@ -139,7 +139,7 @@ extension CxjToast: CxjToastDismisserDelegate {
         
         CxjActiveToastsUpdater.updateLayout(
 			activeToasts: toastsToUpdate,
-			progress: 1.0,
+			progress: ToastLayoutProgress.max.value,
             on: toast.config.layout.placement,
             animation: toast.dismisser.animator.dismissAnimation,
             completion: nil

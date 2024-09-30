@@ -119,7 +119,7 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
                 delegate?.didFinish(useCase: self)
             } else {
                 animator.dismissAction(progress: .zero, animated: true) { [weak self] _ in
-                    self?.updateDislplayingToasts(animated: true, progress: 1.0)
+					self?.updateDislplayingToasts(animated: true, progress: ToastLayoutProgress.max.value)
                     self?.resume()
                 }
             }

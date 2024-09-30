@@ -21,12 +21,12 @@ extension CxjToastAnimator {
         let toastSize: CGSize
         
 		//MARK: - Public API
-        func properties(for progress: Progress) -> AnimatingProperties {
-			let alpha: CGFloat = alpha(for: progress)
-			let scale: Scale = scale(for: progress)
-			let translation: Translation = translation(for: progress, scale: scale)
-			let cornerRadius: CornerRadius = cornerRadius(for: progress)
-			let shadowAlpha: CGFloat = shadowAlpha(for: progress)
+        func propertiesFor(progress: Progress) -> AnimatingProperties {
+			let alpha: CGFloat = alphaFor(progress: progress)
+			let scale: Scale = scaleFor(progress: progress)
+			let translation: Translation = translationFor(progress: progress, scale: scale)
+			let cornerRadius: CornerRadius = cornerRadiusFor(progress: progress)
+			let shadowAlpha: CGFloat = shadowAlphaFor(progress: progress)
             
             return AnimatingProperties(
 				alpha: .init(value: alpha),
@@ -38,7 +38,7 @@ extension CxjToastAnimator {
         }
 		
 		//MARK: - Private
-		private func alpha(for progress: Progress) -> CGFloat {
+		private func alphaFor(progress: Progress) -> CGFloat {
 			let initialAlpha: CGFloat = presentedStateProps.alpha.value
 			
 			let finalAlpha: CGFloat = dismissedStateProps.alpha.value
@@ -47,7 +47,7 @@ extension CxjToastAnimator {
 			return alpha
 		}
 		
-		private func scale(for progress: Progress) -> Scale {
+		private func scaleFor(progress: Progress) -> Scale {
 			let initialScale: AnimatingProperties.Scale = presentedStateProps.scale
 			
 			let scaleX: CGFloat =
@@ -70,14 +70,14 @@ extension CxjToastAnimator {
 			return scale
 		}
 		
-		private func translation(for progress: Progress, scale: Scale) -> Translation {
-			let xTranslation: CGFloat = xTranslation(for: progress, scale: scale)
-			let yTranslation: CGFloat = yTranslation(for: progress, scale: scale)
+		private func translationFor(progress: Progress, scale: Scale) -> Translation {
+			let xTranslation: CGFloat = xTranslationFor(progress: progress, scale: scale)
+			let yTranslation: CGFloat = yTranslationFor(progress: progress, scale: scale)
 			
 			return Translation(x: xTranslation, y: yTranslation)
 		}
 		
-		private func xTranslation(for progress: Progress, scale: Scale) -> CGFloat {
+		private func xTranslationFor(progress: Progress, scale: Scale) -> CGFloat {
 			let initialTranslation: CGFloat = presentedStateProps.translation.x
 			
 			let xTranslation: CGFloat =
@@ -87,7 +87,7 @@ extension CxjToastAnimator {
 			return xTranslation
 		}
 		
-		private func yTranslation(for progress: Progress, scale: Scale) -> CGFloat {
+		private func yTranslationFor(progress: Progress, scale: Scale) -> CGFloat {
 			let initialTranslation: CGFloat = presentedStateProps.translation.y
 			
 			let toastScaledSizeDifference: CGFloat =
@@ -101,7 +101,7 @@ extension CxjToastAnimator {
 			return yTranslation
 		}
 		
-		private func cornerRadius(for progress: Progress) -> CornerRadius {
+		private func cornerRadiusFor(progress: Progress) -> CornerRadius {
 			let initialCornerRadius: CGFloat = presentedStateProps.cornerRadius.value
 			
 			let finalCornerRadius: CGFloat = dismissedStateProps.cornerRadius.value
@@ -129,7 +129,7 @@ extension CxjToastAnimator {
 			)
 		}
 		
-		private func shadowAlpha(for progress: Progress) -> CGFloat {
+		private func shadowAlphaFor(progress: Progress) -> CGFloat {
 			let initialShadowAlpha: CGFloat = presentedStateProps.shadowIntensity.value
 			
 			let finalShadowAlpha: CGFloat = dismissedStateProps.shadowIntensity.value

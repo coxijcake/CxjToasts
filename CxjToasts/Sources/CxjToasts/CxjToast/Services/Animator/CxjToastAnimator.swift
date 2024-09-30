@@ -41,7 +41,7 @@ extension CxjToastAnimator: CxjToastPresentAnimator {
     }
     
 	func presentAction(completion: AnimationsCompletion?) {
-        let fullProgress: ToastLayoutProgress = ToastLayoutProgress(value: 1.0)
+		let fullProgress: ToastLayoutProgress = ToastLayoutProgress.max
         
 		coordinator.beforeDisplayingLayout(progress: fullProgress)
 		

@@ -25,7 +25,7 @@ extension CxjToastAnimator {
 		
         private(set) lazy var dismissedStateYTranslation: CGFloat = {
 			layoutCalculator
-				.properties(for: CxjToastAnimator.LayoutCalculator.Progress(value: 1.0))
+				.propertiesFor(progress: .max)
 				.translation.y
         }()
 		
@@ -56,7 +56,7 @@ extension CxjToastAnimator {
 		}
 		
         func dismissLayout(progress: ToastLayoutProgress) {
-			let properties: AnimatingProperties = layoutCalculator.properties(for: progress)
+			let properties: AnimatingProperties = layoutCalculator.propertiesFor(progress: progress)
             
             updateToastWith(animatingPropsValues: properties)
         }
