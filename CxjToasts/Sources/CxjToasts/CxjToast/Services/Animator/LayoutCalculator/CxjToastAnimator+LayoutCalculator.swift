@@ -107,14 +107,16 @@ extension CxjToastAnimator {
 		}
 		
 		private func cornerRadiusFor(progress: Progress) -> CornerRadius {
+			let smoothedProgress: Progress = progress.smoothed(threshold: 0.3)
+			
 			let initialCornerRadius: CGFloat = presentedStateProps.cornerRadius.value
 			
 			let finalCornerRadius: CGFloat = dismissedStateProps.cornerRadius.value
 			let calculatedCornerRadius: CGFloat =
 			finalCornerRadius
-			* progress.value
+			* smoothedProgress.value
 			+ initialCornerRadius
-			* progress.revertedValue
+			* smoothedProgress.revertedValue
 			
 			let constraint: CornerRadius.Constraint = dismissedStateProps.cornerRadius.constraint
 			

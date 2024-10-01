@@ -15,9 +15,19 @@ struct ToastLayoutProgress {
 	static var max: ToastLayoutProgress { ToastLayoutProgress(value: maxValue) }
 	
 	@ClampedProgress var value: CGFloat
+	
 	var revertedValue: CGFloat { _value.upperValue - value }
 	
 	init(value: CGFloat) {
 		self._value = ClampedProgress(value, ToastLayoutProgress.minValue...ToastLayoutProgress.maxValue)
+	}
+	
+	func smoothed(threshold: Float) -> ToastLayoutProgress {
+		let smoothedValue: Float = SmoothProgressCalculator(
+			originalProgress: SmoothProgressCalculator.Value(value),
+			threshold: threshold
+		).smoothedProgress()
+		
+		return .init(value: CGFloat(smoothedValue))
 	}
 }
