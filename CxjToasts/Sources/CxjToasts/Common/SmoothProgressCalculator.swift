@@ -10,14 +10,14 @@ import Foundation
 struct SmoothProgressCalculator {
 	typealias Value = Float
 	
-	private let range: ClosedRange<Value> = (0.0...1.0)
+	private let availableRange: ClosedRange<Value> = (0.0...1.0)
 	
 	@ClampedProgress var originalProgress: Value
 	@ClampedProgress var threshold: Value
 
 	init(originalProgress: Value, threshold: Value) {
-		self._originalProgress = ClampedProgress(originalProgress, range)
-		self._threshold = ClampedProgress(threshold, range)
+		self._originalProgress = ClampedProgress(originalProgress, availableRange)
+		self._threshold = ClampedProgress(threshold, availableRange)
 	}
 	
 	func smoothedProgress() -> Value {
