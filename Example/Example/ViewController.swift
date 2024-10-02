@@ -99,28 +99,24 @@ class ViewController: UIViewController {
                         max: 70
                     )
                 ),
-                placement: .top(verticalOffset: 0)
-//                placement: .bottom(verticalOffset: 0)
-//                placement: .center
+                placement: .center
             ),
             dismissMethods: [.swipe(direction: .top), .tap, .automatic(time: 3.0)],
             animations: CxjToastConfiguration.Animations(
                 present: .nativeToastPresenting,
                 dismiss: .nativeToastDismissing,
-//                changes: [.translation, .scale, .alpha],
 				behaviour: .custom(
 					changes: [
-						.translation(value: .init(x: .zero, y: -140)),
-//						.scale(value: .init(x: 0.5, y: 1.0)),
-						.shadow(color: .black, intensity: 0.5),
-//						.corners(radius: .screenCornerRadius)
+						.translation(type: .outOfSourceViewVerticaly),
+						.scale(value: .init(x: 0.5, y: 0.5)),
+						.shadowOverlay(color: .black, intensity: 0.5),
 						.corners(
 							radius: .init(
 								type: .screenCornerRadius,
-								constraint: .none
+								constraint: .halfHeigt
 							)
 						)
-//						.alpha(intensity: 0.5)
+//						.alpha(intensity: 0.0)
 					]
 				),
                 nativeViewsIncluding: []

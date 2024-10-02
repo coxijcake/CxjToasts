@@ -11,7 +11,7 @@ extension CxjToastAnimator {
 	enum DefaultConfigStrategyFactory {
 		static func configStrategy(
 			placement: CxjToastConfiguration.Layout.Placement,
-			input: DefaultConfigStrategyInput
+			input: ConfigStrategyCommonInput
 		) -> DefaultConfigStrategy {
 			switch placement {
 			case .top(let verticalOffset):

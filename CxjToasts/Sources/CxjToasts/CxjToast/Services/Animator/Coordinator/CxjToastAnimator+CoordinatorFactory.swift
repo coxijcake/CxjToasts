@@ -18,7 +18,7 @@ extension CxjToastAnimator {
 				scale: .initial,
 				translation: .initial,
 				cornerRadius: .init(value: toastView.layer.cornerRadius, constraint: .none),
-				shadow: .off
+				shadowOverlay: .off
 			)
 			
 			let configStrategy: ConfigStrategy = ConfigStrategyFactory.configStrategy(

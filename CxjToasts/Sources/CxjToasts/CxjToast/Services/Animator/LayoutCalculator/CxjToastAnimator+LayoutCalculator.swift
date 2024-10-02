@@ -10,12 +10,14 @@ import UIKit
 
 extension CxjToastAnimator {
     struct LayoutCalculator {
+		//MARK: - Types
 		typealias Progress = ToastLayoutProgress
 		typealias Scale = AnimatingProperties.Scale
 		typealias Translation = AnimatingProperties.Translation
 		typealias CornerRadius = AnimatingProperties.CornerRadius
-		typealias Shadow = AnimatingProperties.Shadow
+		typealias ShadowOverlay = AnimatingProperties.ShadowOverlay
 		
+		//MARK: - Props
         let presentedStateProps: AnimatingProperties
         let dismissedStateProps: AnimatingProperties
         
@@ -27,18 +29,20 @@ extension CxjToastAnimator {
 			let scale: Scale = scaleFor(progress: progress)
 			let translation: Translation = translationFor(progress: progress, scale: scale)
 			let cornerRadius: CornerRadius = cornerRadiusFor(progress: progress)
-			let shadow: Shadow = shadowFor(progress: progress)
+			let shadow: ShadowOverlay = shadowOverlayFor(progress: progress)
+			
+			print(progress.value)
             
             return AnimatingProperties(
 				alpha: .init(value: alpha),
                 scale: scale,
                 translation: translation,
                 cornerRadius: cornerRadius,
-				shadow: shadow
+				shadowOverlay: shadow
             )
         }
 		
-		//MARK: - Private
+		//MARK: - Alpha
 		private func alphaFor(progress: Progress) -> CGFloat {
 			let initialAlpha: CGFloat = presentedStateProps.alpha.value
 			
@@ -52,6 +56,7 @@ extension CxjToastAnimator {
 			return alpha
 		}
 		
+		//MARK: - Scale
 		private func scaleFor(progress: Progress) -> Scale {
 			let initialScale: AnimatingProperties.Scale = presentedStateProps.scale
 			
@@ -75,6 +80,7 @@ extension CxjToastAnimator {
 			return scale
 		}
 		
+		//MARK: - Translation
 		private func translationFor(progress: Progress, scale: Scale) -> Translation {
 			let xTranslation: CGFloat = xTranslationFor(progress: progress, scale: scale)
 			let yTranslation: CGFloat = yTranslationFor(progress: progress, scale: scale)
@@ -106,6 +112,7 @@ extension CxjToastAnimator {
 			return yTranslation
 		}
 		
+		//MARK: - Corner Radius
 		private func cornerRadiusFor(progress: Progress) -> CornerRadius {
 			let smoothedProgress: Progress = progress.smoothed(threshold: 0.3)
 			
@@ -136,15 +143,16 @@ extension CxjToastAnimator {
 			)
 		}
 		
-		private func shadowFor(progress: Progress) -> Shadow {
+		//MARK: - Shadow Overlay
+		private func shadowOverlayFor(progress: Progress) -> ShadowOverlay {
 			let initialShadowAlpha: CGFloat = {
-				switch presentedStateProps.shadow {
+				switch presentedStateProps.shadowOverlay {
 				case .off: ClampedAlpha.min.value
 				case .on(_, alpha: let alpha): alpha.value
 				}
 			}()
 			
-			switch dismissedStateProps.shadow {
+			switch dismissedStateProps.shadowOverlay {
 			case .off: 
 				return .off
 			case .on(let color, alpha: let alpha):

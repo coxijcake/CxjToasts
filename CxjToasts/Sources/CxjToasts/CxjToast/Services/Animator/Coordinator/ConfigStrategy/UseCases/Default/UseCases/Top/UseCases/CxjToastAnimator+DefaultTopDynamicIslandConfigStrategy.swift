@@ -9,7 +9,7 @@ import Foundation
 
 extension CxjToastAnimator {
 	struct DefaultTopDynamicIslandConfigStrategy: DefaultTopConfigStrategy {
-		let input: DefaultConfigStrategyInput
+		let input: ConfigStrategyCommonInput
 		let verticalOffset: CGFloat
 		
 		func dismissedStateAnimatingProperties() -> AnimatingProperties {
@@ -20,12 +20,12 @@ extension CxjToastAnimator {
 				scale: dissmisScale(),
 				translation: .init(x: .zero, y: yTranslation),
 				cornerRadius: dismissedCornerRadius(),
-				shadow: dismissedShadow()
+				shadowOverlay: dismissedShadow()
 			)
 		}
 		
 		private func dissmisScale() -> AnimatingProperties.Scale {
-			let toastSize: CGSize = input.toastSize
+			let toastSize: CGSize = input.toastViewData.size
 			let dynamicIslandAdjustedSize: CGSize = CGSize(
 				width: CxjDynamicIslandHelper.minWidth - 6,
 				height: CxjDynamicIslandHelper.estimatedMinHeight - 4
@@ -58,8 +58,8 @@ extension CxjToastAnimator {
 			)
 		}
 		
-		private func dismissedShadow() -> AnimatingProperties.Shadow {
-			AnimatingProperties.Shadow.on(
+		private func dismissedShadow() -> AnimatingProperties.ShadowOverlay {
+			AnimatingProperties.ShadowOverlay.on(
 				color: CxjDynamicIslandHelper.backgroundColor,
 				alpha: .max
 			)

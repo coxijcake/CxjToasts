@@ -10,7 +10,7 @@ import UIKit.UIView
 
 extension CxjToastAnimator {
 	struct DefaultBottomConfigStrategy: DefaultConfigStrategy {
-		let input: DefaultConfigStrategyInput
+		let input: ConfigStrategyCommonInput
 		let verticalOffset: CGFloat
 		
 		func dismissedStateAnimatingProperties() -> AnimatingProperties {
@@ -21,15 +21,15 @@ extension CxjToastAnimator {
 				scale: .initial,
 				translation: .init(x: .zero, y: yTranslation),
 				cornerRadius: input.presentedStateAnimatingProperties.cornerRadius,
-				shadow: .off
+				shadowOverlay: .off
 			)
 		}
 		
 		private func dismissedTranslationY() -> CGFloat {
 			let translationY: CGFloat =
 			verticalOffset
-			+ input.sourceViewSafeAreaInsets.bottom
-			+ input.toastSize.height
+			+ input.sourceViewData.safeAreaInsets.bottom
+			+ input.toastViewData.size.height
 			
 			return translationY
 		}

@@ -10,7 +10,7 @@ import UIKit.UIView
 
 extension CxjToastAnimator {
 	struct DefaultTopNotchConfigStrategy: DefaultTopConfigStrategy {
-		let input: DefaultConfigStrategyInput
+		let input: ConfigStrategyCommonInput
 		let verticalOffset: CGFloat
 		
 		func dismissedStateAnimatingProperties() -> AnimatingProperties {
@@ -21,12 +21,12 @@ extension CxjToastAnimator {
 				scale: getDismissedScale(),
 				translation: .init(x: .zero, y: yTranslation),
 				cornerRadius: dismissedCornerRadius(),
-				shadow: dismissedShadow()
+				shadowOverlay: dismissedShadow()
 			)
 		}
 		
 		private func getDismissedScale() -> AnimatingProperties.Scale {
-			let toastSize: CGSize = input.toastSize
+			let toastSize: CGSize = input.toastViewData.size
 			let notchSize: CGSize = CxjNotchHelper.notchSize
 			
 			let xScale: CGFloat =
@@ -41,7 +41,7 @@ extension CxjToastAnimator {
 		}
 		
 		private func getDismissedYTranslation() -> CGFloat {
-			let topSafeArea: CGFloat = input.sourceViewSafeAreaInsets.top
+			let topSafeArea: CGFloat = input.sourceViewData.safeAreaInsets.top
 			
 			let yTranslation: CGFloat =
 			verticalOffset
@@ -58,8 +58,8 @@ extension CxjToastAnimator {
 			)
 		}
 		
-		private func dismissedShadow() -> AnimatingProperties.Shadow {
-			AnimatingProperties.Shadow.on(
+		private func dismissedShadow() -> AnimatingProperties.ShadowOverlay {
+			AnimatingProperties.ShadowOverlay.on(
 				color: CxjNotchHelper.backgroundColor,
 				alpha: .max
 			)

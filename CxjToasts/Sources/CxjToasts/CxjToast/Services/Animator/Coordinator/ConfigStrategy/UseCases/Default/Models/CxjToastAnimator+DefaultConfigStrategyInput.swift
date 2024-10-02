@@ -9,9 +9,19 @@ import Foundation
 import UIKit.UIView
 
 extension CxjToastAnimator {
-	struct DefaultConfigStrategyInput {
+	struct ConfigStrategyCommonInput {
+		struct SourceViewData {
+			let frame: CGRect
+			let safeAreaInsets: UIEdgeInsets
+		}
+		
+		struct ToastViewData {
+			let size: CGSize
+			let placement: CxjToastConfiguration.Layout.Placement
+		}
+		
 		let presentedStateAnimatingProperties: AnimatingProperties
-		let toastSize: CGSize
-		let sourceViewSafeAreaInsets: UIEdgeInsets
+		let toastViewData: ToastViewData
+		let sourceViewData: SourceViewData
 	}
 }

@@ -37,6 +37,12 @@ extension CxjToastConfiguration {
 						self.y = y
 					}
 				}
+				
+				public enum TranslationType {
+					/// won't work for .center placement toast
+					case outOfSourceViewVerticaly
+					case custom(value: Translation)
+				}
 								
 				public struct CornerRadius {
 					public enum CornerRadiusType {
@@ -52,16 +58,16 @@ extension CxjToastConfiguration {
 					let type: CornerRadiusType
 					let constraint: Constraint
 					
-					public init (type: CornerRadiusType, constraint: Constraint) {
+					public init (type: CornerRadiusType, constraint: Constraint = .halfHeigt) {
 						self.type = type
 						self.constraint = constraint
 					}
 				}
 				
 				case scale(value: Scale)
-				case translation(value: Translation)
+				case translation(type: TranslationType)
 				case alpha(intensity: CGFloat)
-				case shadow(color: UIColor, intensity: CGFloat)
+				case shadowOverlay(color: UIColor, intensity: CGFloat)
 				case corners(radius: CornerRadius)
 				
 				var compareIdentifier: String {
@@ -69,7 +75,7 @@ extension CxjToastConfiguration {
 					case .scale(let value): return "scale"
 					case .translation(let value): return "tranlsation"
 					case .alpha(let intensity): return "alpha"
-					case .shadow(let intensity): return "shadow"
+					case .shadowOverlay(let intensity): return "shadowOverlay"
 					case .corners(let radius): return "corners"
 					}
 				}

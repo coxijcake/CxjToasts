@@ -11,11 +11,11 @@ import UIKit.UIApplication
 extension CxjToastAnimator {
 	enum DefaultTopConfigStrategyFactory {
 		static func configStrategy(
-			input: DefaultConfigStrategyInput,
+			input: ConfigStrategyCommonInput,
 			verticalOffset: CGFloat
 		) -> DefaultTopConfigStrategy {
 			let applicationSafeAreaInsets: UIEdgeInsets = UIApplication.safeAreaInsets
-			let sourceViewSafeAreaInsets: UIEdgeInsets = input.sourceViewSafeAreaInsets
+			let sourceViewSafeAreaInsets: UIEdgeInsets = input.sourceViewData.safeAreaInsets
 			
 			//TODO: - Add to global toasts settings
 			let isSourceSafeAreaEqulWindowSafeArea: Bool = applicationSafeAreaInsets == sourceViewSafeAreaInsets

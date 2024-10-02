@@ -59,9 +59,9 @@ extension CxjToastAnimator {
         
         //MARK: - Private Methods
 		private func addDimmedViewIfNeeded() {
-			switch dismissedStateAnimatingProps.shadow {
+			switch dismissedStateAnimatingProps.shadowOverlay {
 			case .off:
-				switch presentedStateAnimatingProperties.shadow {
+				switch presentedStateAnimatingProperties.shadowOverlay {
 				case .off: return
 				case .on(let color, _):
 					addTransitionDimmedView(dimColor: color, cornersMask: toastView.layer.maskedCorners)
@@ -89,12 +89,12 @@ extension CxjToastAnimator {
             toastView.transform = transform
 			toastView.alpha = animatingPropsValues.alpha.value
 			toastView.layer.cornerRadius = animatingPropsValues.cornerRadius.value
-            
+			
 			updateDimmedViewWith(animatingProperties: animatingPropsValues)
         }
 		
 		private func updateDimmedViewWith(animatingProperties: AnimatingProperties) {
-			switch animatingProperties.shadow {
+			switch animatingProperties.shadowOverlay {
 			case .off:
 				transitionAnimationDimmedView?.alpha = .zero
 			case .on(_, let alpha):

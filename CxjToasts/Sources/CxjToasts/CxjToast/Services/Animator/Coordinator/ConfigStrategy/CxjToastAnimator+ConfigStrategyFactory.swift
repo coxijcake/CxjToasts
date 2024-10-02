@@ -14,18 +14,27 @@ extension CxjToastAnimator {
 			toastSize: CGSize,
 			presentedStateAnimatingProperties: AnimatingProperties
 		) -> ConfigStrategy {
-			switch config.animations.behaviour {
+			let commonInput: ConfigStrategyCommonInput = ConfigStrategyCommonInput(
+				presentedStateAnimatingProperties: presentedStateAnimatingProperties,
+				toastViewData: CxjToastAnimator.ConfigStrategyCommonInput.ToastViewData(
+					size: toastSize,
+					placement: config.layout.placement
+				),
+				sourceViewData: CxjToastAnimator.ConfigStrategyCommonInput.SourceViewData(
+					frame: config.sourceView.frame,
+					safeAreaInsets: config.sourceView.safeAreaInsets
+				)
+			)
+			
+			return switch config.animations.behaviour {
 			case .default:
 				DefaultConfigStrategyFactory.configStrategy(
 					placement: config.layout.placement,
-					input: DefaultConfigStrategyInput(
-						presentedStateAnimatingProperties: presentedStateAnimatingProperties,
-						toastSize: toastSize,
-						sourceViewSafeAreaInsets: config.sourceView.safeAreaInsets
-					)
+					input: commonInput
 				)
 			case .custom(let changes):
 				CustomConfigStrategy(
+					input: commonInput,
 					presentedStateAnimatingProperties: presentedStateAnimatingProperties,
 					changes: changes
 				)

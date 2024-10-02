@@ -33,11 +33,11 @@ extension CxjToastAnimator {
 			let constraint: Constraint
 		}
 		
-		enum Shadow: Equatable {
+		enum ShadowOverlay: Equatable {
 			case off
 			case on(color: UIColor, alpha: ClampedAlpha)
 			
-			static func == (lhs: Shadow, rhs: Shadow) -> Bool {
+			static func == (lhs: ShadowOverlay, rhs: ShadowOverlay) -> Bool {
 				switch (lhs, rhs) {
 				case (.off, .off): 
 					return true
@@ -53,6 +53,6 @@ extension CxjToastAnimator {
         let scale: Scale
 		let translation: Translation
 		let cornerRadius: CornerRadius
-		let shadow: Shadow
+		let shadowOverlay: ShadowOverlay
     }
 }

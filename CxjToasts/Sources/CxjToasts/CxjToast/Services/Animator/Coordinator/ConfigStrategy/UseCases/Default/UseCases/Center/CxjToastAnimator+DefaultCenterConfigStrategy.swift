@@ -9,7 +9,7 @@ import Foundation
 
 extension CxjToastAnimator {
 	struct DefaultCenterConfigStrategy: DefaultConfigStrategy {
-		let input: DefaultConfigStrategyInput
+		let input: ConfigStrategyCommonInput
 		
 		func dismissedStateAnimatingProperties() -> AnimatingProperties {
 			AnimatingProperties(
@@ -17,7 +17,7 @@ extension CxjToastAnimator {
 				scale: CxjToastAnimator.AnimatingProperties.Scale(x: 0.5, y: 0.5),
 				translation: .initial,
 				cornerRadius: input.presentedStateAnimatingProperties.cornerRadius,
-				shadow: .off
+				shadowOverlay: .off
 			)
 		}
 	}
