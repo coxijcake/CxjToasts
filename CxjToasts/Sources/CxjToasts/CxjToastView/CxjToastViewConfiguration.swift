@@ -27,6 +27,7 @@ public struct CxjToastViewConfiguration {
 }
 
 public extension CxjToastViewConfiguration {
+	//MARK: - Shadow
 	public enum Shadow {
 		public struct Params {
 			let offset: CGSize
@@ -51,6 +52,7 @@ public extension CxjToastViewConfiguration {
 		case disable
 	}
 	
+	//MARK: - Colors
 	public struct Colors {
 		let background: UIColor
 		
@@ -61,6 +63,7 @@ public extension CxjToastViewConfiguration {
 		}
 	}
 	
+	//MARK: - Corners
 	public enum Corners {
 		public enum CornersMask {
 			case none
