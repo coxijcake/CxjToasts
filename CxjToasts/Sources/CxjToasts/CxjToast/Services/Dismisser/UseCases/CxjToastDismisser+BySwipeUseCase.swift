@@ -35,7 +35,7 @@ extension CxjToastDismisser {
         }()
         
         private lazy var dissmisedStateYTranslation: CGFloat = {
-            max(animator.dismissedStateYTranslation, toastView.bounds.size.height)
+            max(abs(animator.dismissedStateYTranslation), toastView.bounds.size.height)
         }()
         
         private var startViewY: CGFloat = 0
