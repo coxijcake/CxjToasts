@@ -17,14 +17,14 @@ extension CxjToastAnimator {
 			
 			return AnimatingProperties(
 				alpha: .max,
-				scale: dissmisScale(),
+				scale: dismissScale(),
 				translation: .init(x: .zero, y: yTranslation),
 				cornerRadius: dismissedCornerRadius(),
 				shadowOverlay: dismissedShadow()
 			)
 		}
 		
-		private func dissmisScale() -> AnimatingProperties.Scale {
+		private func dismissScale() -> AnimatingProperties.Scale {
 			let toastSize: CGSize = input.toastViewData.size
 			let dynamicIslandAdjustedSize: CGSize = CGSize(
 				width: CxjDynamicIslandHelper.minWidth - 6,
