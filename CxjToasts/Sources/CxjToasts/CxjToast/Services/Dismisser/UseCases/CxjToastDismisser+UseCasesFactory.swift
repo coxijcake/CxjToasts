@@ -24,9 +24,10 @@ extension CxjToastDismisser {
 			delegate: ToastDismissUseCaseDelegate?
 		) -> ToastDismissUseCase {
 			switch method {
-			case .tap:
+			case .tap(let actionCompletion):
 				DimissByTouchUseCase(
 					toastView: toastView,
+					tapActionCompletion: actionCompletion,
 					delegate: delegate
 				)
 			case .automatic(time: let time):

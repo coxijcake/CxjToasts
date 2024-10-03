@@ -99,9 +99,13 @@ class ViewController: UIViewController {
                         max: 70
                     )
                 ),
-                placement: .center
+                placement: .top(verticalOffset: 100)
             ),
-            dismissMethods: [.swipe(direction: .top), .tap, .automatic(time: 3.0)],
+            dismissMethods: [
+				.swipe(direction: .top),
+				.tap(actionCompletion: nil),
+				.automatic(time: 3.0)
+			],
             animations: CxjToastConfiguration.Animations(
                 present: .nativeToastPresenting,
                 dismiss: .nativeToastDismissing,
