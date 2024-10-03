@@ -66,12 +66,14 @@ public extension CxjToastViewConfiguration {
 			case none
 			case top
 			case bottom
+			case left
+			case right
 			case all
 			case custom(mask: CACornerMask)
 			
 			var layerMask: CACornerMask {
 				switch self {
-				case .none: 
+				case .none:
 					[]
 				case .top:
 					[
@@ -81,6 +83,16 @@ public extension CxjToastViewConfiguration {
 				case .bottom:
 					[
 						.layerMinXMaxYCorner,
+						.layerMaxXMaxYCorner
+					]
+				case .left:
+					[
+						.layerMinXMinYCorner,
+						.layerMinXMaxYCorner
+					]
+				case .right:
+					[
+						.layerMaxXMinYCorner,
 						.layerMaxXMaxYCorner
 					]
 				case .all: [
