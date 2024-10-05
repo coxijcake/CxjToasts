@@ -60,21 +60,27 @@ class ViewController: UIViewController {
 	
 	private func customCxjToastContentView() -> CxjToastContentView {
 		CxjToastContentViewFactory.createContentViewWith(
-			config: CxjToastContentConfiguration.titled(
-				config: CxjToastTitlesConfiguration.plain(
+			config: CxjToastContentConfiguration.iconed(
+				config: .init(
+					params: .init(
+						icon: .checkmark,
+						fixedSize: .init(width: 20, height: 20)
+					)
+				),
+				titlesConfig: .plain(
 					config: CxjToastTitlesConfiguration.Plain(
 						title: CxjToastTitlesConfiguration.PlainLabel(
-							text: "Test Toast",
+							text: "Teat toast title",
 							labelParams: CxjToastTitlesConfiguration.LabelParams(
-								numberOfLines: 1,
-								textAligment: .center
+								numberOfLines: 3,
+								textAligment: .left
 							)
 						),
 						subtitle: .init(
-							text: "Teat Toast subtitle longlonglonglonglonglong \n longlonglonglonglonglong",
+							text: "Teats toast long long long boring subtitle",
 							labelParams: .init(
 								numberOfLines: .zero,
-								textAligment: .center
+								textAligment: .left
 							)
 						)
 					)
@@ -96,13 +102,13 @@ class ViewController: UIViewController {
                     ),
                     height: CxjToastConfiguration.Constraints.Values(
                         min: 40,
-                        max: 70
+                        max: 150
                     )
                 ),
-                placement: .top(verticalOffset: 100)
+                placement: .bottom(verticalOffset: 6)
             ),
             dismissMethods: [
-				.swipe(direction: .top),
+				.swipe(direction: .bottom),
 				.tap(actionCompletion: nil),
 				.automatic(time: 3.0)
 			],
@@ -111,15 +117,15 @@ class ViewController: UIViewController {
                 dismiss: .nativeToastDismissing,
 				behaviour: .custom(
 					changes: [
-						.translation(type: .outOfSourceViewVerticaly),
-						.scale(value: .init(x: 0.5, y: 0.5)),
-						.shadowOverlay(color: .black, intensity: 0.5),
-						.corners(
-							radius: .init(
-								type: .screenCornerRadius,
-								constraint: .halfHeigt
-							)
-						)
+						.translation(type: .outOfSourceViewVerticaly)
+//						.scale(value: .init(x: 0.5, y: 0.5)),
+//						.shadowOverlay(color: .black, intensity: 0.5),
+//						.corners(
+//							radius: .init(
+//								type: .screenCornerRadius,
+//								constraint: .halfHeigt
+//							)
+//						)
 //						.alpha(intensity: 0.0)
 					]
 				),
@@ -133,7 +139,7 @@ class ViewController: UIViewController {
             contentInsets: .init(top: 20, left: 16, bottom: 20, right: 16),
             colors: CxjToastViewConfiguration.Colors(background: .white),
             shadow: .disable,
-			corners: .straight(mask: .bottom)
+			corners: .straight(mask: .top)
         )
     }
 }

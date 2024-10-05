@@ -20,13 +20,16 @@ extension CxjIconedToastConfiguration {
     public struct IconParams {
         public let icon: UIImage
         public let tintColor: UIColor?
-        
+		public let fixedSize: CGSize?
+		
         public init(
             icon: UIImage,
-            tintColor: UIColor?
+            tintColor: UIColor? = nil,
+			fixedSize: CGSize? = nil
         ) {
             self.icon = icon
             self.tintColor = tintColor
+			self.fixedSize = fixedSize
         }
     }
 }

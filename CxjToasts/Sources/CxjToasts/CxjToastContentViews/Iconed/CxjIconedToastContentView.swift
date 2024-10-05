@@ -66,20 +66,19 @@ private extension CxjIconedToastContentView {
     ) {
         iconImageView.image = iconParams.icon
         iconImageView.tintColor = iconParams.tintColor
+		setupIconImageViewFixedSize(iconParams.fixedSize)
     }
 }
 
 // MARK: - Layout
 private extension CxjIconedToastContentView {
-	func setupConstraints() {
-		setupIconImageViewConstraints()
-	}
-	
-	func setupIconImageViewConstraints() {
+	func setupIconImageViewFixedSize(_ size: CGSize?) {
+		guard let size else { return }
+		
 		iconImageView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			iconImageView.widthAnchor.constraint(equalToConstant: Constants.Layout.iconSize.width),
-			iconImageView.heightAnchor.constraint(equalToConstant: Constants.Layout.iconSize.height)
+			iconImageView.widthAnchor.constraint(equalToConstant: size.width),
+			iconImageView.heightAnchor.constraint(equalToConstant: size.height)
 		])
 	}
 }
@@ -94,7 +93,6 @@ private extension CxjIconedToastContentView {
 	func baseConfigure() {
 		configureStackProps()
 		addArrangedSubviews()
-		setupConstraints()
 	}
 	
 	func configureStackProps() {
