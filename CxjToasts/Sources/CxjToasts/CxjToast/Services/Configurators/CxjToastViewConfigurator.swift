@@ -36,12 +36,13 @@ enum CxjToastViewConfigurator {
 	static func shadow(for theme: Theme) -> Config.Shadow {
 		switch theme {
 		case .native:
-				.enable(params: CxjToastViewConfiguration.Shadow.Params(
-					offset: CGSize(width: 0, height: 4),
-					color: .black.withAlphaComponent(0.4),
-					opacity: 1.0,
-					radius: 10
-				)
+				.enable(
+					params: .init(
+						offset: .init(width: 0, height: 4),
+						color: .black.withAlphaComponent(0.5),
+						opacity: 1.0,
+						radius: 10
+					)
 				)
 		}
 	}

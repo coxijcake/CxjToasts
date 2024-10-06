@@ -29,26 +29,7 @@ public struct CxjToastViewConfiguration {
 public extension CxjToastViewConfiguration {
 	//MARK: - Shadow
 	public enum Shadow {
-		public struct Params {
-			let offset: CGSize
-			let color: UIColor
-			let opacity: Float
-			let radius: CGFloat
-			
-			public init(
-				offset: CGSize,
-				color: UIColor,
-				opacity: Float,
-				radius: CGFloat
-			) {
-				self.offset = offset
-				self.color = color
-				self.opacity = opacity
-				self.radius = radius
-			}
-		}
-		
-		case enable(params: Params)
+		case enable(params: CxjUIViewShadowParams)
 		case disable
 	}
 	
