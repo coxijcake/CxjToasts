@@ -21,15 +21,18 @@ extension CxjToastTheme {
 		let title: String
 		let subtitle: String?
 		let icon: UIImage?
+		let backgroundColor: UIColor
 		
 		public init(
 			title: String,
 			subtitle: String?,
-			icon: UIImage?
+			icon: UIImage?,
+			backgroundColor: UIColor
 		) {
 			self.title = title
 			self.subtitle = subtitle
 			self.icon = icon
+			self.backgroundColor = backgroundColor
 		}
 	}
 }

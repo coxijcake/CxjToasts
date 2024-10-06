@@ -29,22 +29,22 @@ enum CxjToastViewConfigurator {
     
     static func colors(for theme: Theme) -> Config.Colors {
         switch theme {
-        case .native: Config.Colors(background: .white)
+		case .native(data: let data): .init(background: data.backgroundColor)
         }
     }
     
-    static func shadow(for theme: Theme) -> Config.Shadow {
-        switch theme {
-        case .native:
-                .enable(params: CxjToastViewConfiguration.Shadow.Params(
-                    offset: CGSize(width: 0, height: 4),
-                    color: .black.withAlphaComponent(0.4),
-                    opacity: 1.0,
-                    radius: 10
-                )
-                )
-        }
-    }
+	static func shadow(for theme: Theme) -> Config.Shadow {
+		switch theme {
+		case .native:
+				.enable(params: CxjToastViewConfiguration.Shadow.Params(
+					offset: CGSize(width: 0, height: 4),
+					color: .black.withAlphaComponent(0.4),
+					opacity: 1.0,
+					radius: 10
+				)
+				)
+		}
+	}
     
 	static func corners(for theme: Theme) -> Config.Corners {
 		switch theme {

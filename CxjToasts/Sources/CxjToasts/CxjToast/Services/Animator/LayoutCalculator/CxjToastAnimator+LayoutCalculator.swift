@@ -30,8 +30,6 @@ extension CxjToastAnimator {
 			let translation: Translation = translationFor(progress: progress, scale: scale)
 			let cornerRadius: CornerRadius = cornerRadiusFor(progress: progress)
 			let shadow: ShadowOverlay = shadowOverlayFor(progress: progress)
-			
-			print(progress.value)
             
             return AnimatingProperties(
 				alpha: .init(value: alpha),
