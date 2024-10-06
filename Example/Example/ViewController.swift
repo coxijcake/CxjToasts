@@ -63,24 +63,30 @@ class ViewController: UIViewController {
 			config: CxjToastContentConfiguration.iconed(
 				config: .init(
 					params: .init(
+						iconPlacement: .left
+					),
+					iconParams: .init(
 						icon: .checkmark,
 						fixedSize: .init(width: 20, height: 20)
 					)
 				),
-				titlesConfig: .plain(
-					config: CxjToastTitlesConfiguration.Plain(
-						title: CxjToastTitlesConfiguration.PlainLabel(
-							text: "Teat toast title",
-							labelParams: CxjToastTitlesConfiguration.LabelParams(
-								numberOfLines: 3,
-								textAligment: .left
-							)
-						),
-						subtitle: .init(
-							text: "Teats toast long long long boring subtitle",
-							labelParams: .init(
-								numberOfLines: .zero,
-								textAligment: .left
+				titlesConfig: .init(
+					layout: .init(labelsPadding: 4),
+					titles: .plain(
+						config: .init(
+							title: .init(
+								text: "Teast Toast title",
+								labelParams: .init(
+									numberOfLines: 2,
+									textAligment: .left
+								)
+							),
+							subtitle: .init(
+								text: "Teast toast long long long\nlong long long long boring subtitle",
+								labelParams: .init(
+									numberOfLines: .zero,
+									textAligment: .left
+								)
 							)
 						)
 					)
@@ -137,7 +143,7 @@ class ViewController: UIViewController {
     private func customCxjToastViewConfig() -> CxjToastViewConfiguration {
         CxjToastViewConfiguration(
             contentInsets: .init(top: 20, left: 16, bottom: 20, right: 16),
-            colors: CxjToastViewConfiguration.Colors(background: .white),
+			colors: .init(background: .white),
             shadow: .disable,
 			corners: .straight(mask: .top)
         )

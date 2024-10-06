@@ -10,8 +10,8 @@ import UIKit
 extension CxjTemplatedToastContentConfigurator {
 	enum NativeContentConfigurator {
 		typealias Data = CxjToastTheme.NativeToastData
-		typealias TitlesConfig = CxjToastTitlesConfiguration
-		typealias SubtitleConfig = TitlesConfig.PlainLabel
+		typealias TitlesConfig = CxjTitledToastContentConfiguration.TitlesParams
+		typealias PlainTitleConfig = TitlesConfig.PlainLabel
 		
 		static func configuredContent(for data: Data) -> Content {
 			let titlesConfig: TitlesConfig = titlesConfig(for: data)
@@ -19,53 +19,63 @@ extension CxjTemplatedToastContentConfigurator {
 			if let icon = data.icon {
 				return CxjToastContentViewFactory.createContentViewWith(
 					config: CxjToastContentConfiguration.iconed(
-						config: CxjIconedToastConfiguration(
-							params: CxjIconedToastConfiguration.IconParams(
+						config: CxjIconedToastContentConfiguration(
+							params: .init(
+								iconPlacement: .left,
+								paddingToTitle: 10
+							),
+							iconParams: CxjIconedToastContentConfiguration.IconParams(
 								icon: icon,
-								tintColor: nil
+								fixedSize: CGSize(width: 40, height: 40)
 							)
 						),
-						titlesConfig: titlesConfig
+						titlesConfig: .init(
+							layout: .init(labelsPadding: 4),
+							titles: titlesConfig
+						)
 					)
 				)
 			} else {
 				return CxjToastContentViewFactory.createContentViewWith(
 					config: .titled(
-						config: titlesConfig
+						config: .init(
+							layout: .init(labelsPadding: 4),
+							titles: titlesConfig
+						)
 					)
 				)
 			}
 		}
 		
 		private static func titlesConfig(for data: Data) -> TitlesConfig {
-			CxjToastTitlesConfiguration.plain(
-				config: CxjToastTitlesConfiguration.Plain(
-					title: CxjToastTitlesConfiguration.PlainLabel(
-						text: data.title,
-						labelParams: CxjToastTitlesConfiguration.LabelParams(
-							numberOfLines: 1,
-							textAligment: textAligment(for: data)
-						)
-					),
+			TitlesConfig.plain(
+				config: .init(
+					title: titleConfig(for: data),
 					subtitle: subtitleConfig(for: data)
 				)
 			)
 		}
 		
-		private static func subtitleConfig(for data: Data) -> SubtitleConfig? {
-			guard let subtitle = data.subtitle else { return nil }
-			
-			return SubtitleConfig(
-				text: subtitle,
-				labelParams: CxjToastTitlesConfiguration.LabelParams(
+		private static func titleConfig(for data: Data) -> PlainTitleConfig {
+			PlainTitleConfig(
+				text: data.title,
+				labelParams: .init(
 					numberOfLines: 1,
-					textAligment: textAligment(for: data)
+					textAligment: .center
 				)
 			)
 		}
 		
-		private static func textAligment(for data: Data) -> NSTextAlignment {
-			.center
+		private static func subtitleConfig(for data: Data) -> PlainTitleConfig? {
+			guard let subtitle = data.subtitle else { return nil }
+			
+			return PlainTitleConfig(
+				text: subtitle,
+				labelParams: TitlesConfig.LabelParams(
+					numberOfLines: 1,
+					textAligment: .center
+				)
+			)
 		}
 	}
 }

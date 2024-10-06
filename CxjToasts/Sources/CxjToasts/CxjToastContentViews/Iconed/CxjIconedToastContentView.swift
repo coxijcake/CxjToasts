@@ -9,9 +9,9 @@ import UIKit
 
 //MARK: - Types
 public extension CxjIconedToastContentView {
-	typealias Configuration = CxjIconedToastConfiguration
+	typealias Configuration = CxjIconedToastContentConfiguration
     typealias IconParams = Configuration.IconParams
-    typealias TitlesConfiguration = CxjToastTitlesConfiguration
+    typealias TitlesConfiguration = CxjTitledToastContentConfiguration
 }
 
 extension CxjIconedToastContentView {
@@ -58,9 +58,36 @@ private extension CxjIconedToastContentView {
     func configureWith(
         config: Configuration
     ) {
-        configureIconWith(iconParams: config.params)
+		configureWith(layoutParams: config.params)
+        configureIconWith(iconParams: config.iconParams)
     }
-    
+	
+	func configureWith(layoutParams: Configuration.LayoutParams) {
+		setupSubviewsFor(iconPlacement: layoutParams.iconPlacement)
+		setupAxisFor(iconPlacement: layoutParams.iconPlacement)
+		
+		spacing = layoutParams.paddingToTitle
+	}
+	
+	func setupSubviewsFor(iconPlacement: Configuration.LayoutParams.IconPlacement) {
+		arrangedSubviews.forEach { $0.removeFromSuperview() }
+		
+		let orderedSubviews: [UIView]
+		switch iconPlacement {
+		case .left, .top: orderedSubviews = [iconImageView, titlesView]
+		case .right, .bottom: orderedSubviews = [titlesView, iconImageView]
+		}
+		
+		orderedSubviews.forEach { addArrangedSubview($0) }
+	}
+	
+	func setupAxisFor(iconPlacement: Configuration.LayoutParams.IconPlacement) {
+		switch iconPlacement {
+		case .left, .right: axis = .horizontal
+		case .top, .bottom: axis = .vertical
+		}
+	}
+	
     func configureIconWith(
         iconParams: IconParams
     ) {

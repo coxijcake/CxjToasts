@@ -8,7 +8,7 @@
 import Foundation
 
 public enum CxjToastContentConfiguration {
-    case iconed(config: CxjIconedToastConfiguration, titlesConfig: CxjToastTitlesConfiguration)
-    case titled(config: CxjToastTitlesConfiguration)
+    case iconed(config: CxjIconedToastContentConfiguration, titlesConfig: CxjTitledToastContentConfiguration)
+    case titled(config: CxjTitledToastContentConfiguration)
     case custom(contentView: CxjToastContentView)
 }

@@ -9,10 +9,10 @@ import UIKit
 
 //MARK: - Types
 public extension CxjTitledToastContentView {
-    typealias Configuration = CxjToastTitlesConfiguration
-    typealias PlainLabelConfiguration = Configuration.PlainLabel
-    typealias AttributedLabelConfiguration = Configuration.AttributedLabel
-    typealias LabelParams = Configuration.LabelParams
+    typealias Configuration = CxjTitledToastContentConfiguration
+	typealias PlainLabelConfiguration = Configuration.TitlesParams.PlainLabel
+	typealias AttributedLabelConfiguration = Configuration.TitlesParams.AttributedLabel
+	typealias LabelParams = Configuration.TitlesParams.LabelParams
 }
 
 //MARK: - ContentView
@@ -38,19 +38,28 @@ public final class CxjTitledToastContentView: UIStackView {
 // MARK: - Public
 public extension CxjTitledToastContentView {
 	func configureWith(configuration: Configuration) {
-        switch configuration {
-        case .plain(config: let config):
-            configure(label: titleLabel, with: config.title)
-            configure(label: subtitleLabel, with: config.subtitle)
-        case .attributed(config: let config):
-            configure(label: titleLabel, with: config.title)
-            configure(label: subtitleLabel, with: config.subtitle)
-        }
+		configureLayoutWith(layoutParams: configuration.layout)
+		configureLabelsWith(titlesParams: configuration.titles)
     }
 }
 
 // MARK: - Main
 private extension CxjTitledToastContentView {
+	func configureLayoutWith(layoutParams: Configuration.LayoutParams) {
+		spacing = layoutParams.labelsPadding
+	}
+	
+	func configureLabelsWith(titlesParams: Configuration.TitlesParams) {
+		switch titlesParams {
+		case .plain(config: let config):
+			configure(label: titleLabel, with: config.title)
+			configure(label: subtitleLabel, with: config.subtitle)
+		case .attributed(config: let config):
+			configure(label: titleLabel, with: config.title)
+			configure(label: subtitleLabel, with: config.subtitle)
+		}
+	}
+	
 	func configure(
 		label: UILabel,
         with config: PlainLabelConfiguration?
@@ -93,7 +102,7 @@ private extension CxjTitledToastContentView {
 	
 	func configureStackProps() {
 		axis = .vertical
-		distribution = .fillEqually
+		distribution = .fillProportionally
 		alignment = .fill
 		spacing = 2
 	}
