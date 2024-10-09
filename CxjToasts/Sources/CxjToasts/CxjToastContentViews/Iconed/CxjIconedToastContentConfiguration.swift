@@ -47,7 +47,7 @@ extension CxjIconedToastContentConfiguration {
         public init(
             icon: UIImage,
             tintColor: UIColor? = nil,
-			fixedSize: CGSize? = nil
+			fixedSize: CGSize?
         ) {
             self.icon = icon
             self.tintColor = tintColor

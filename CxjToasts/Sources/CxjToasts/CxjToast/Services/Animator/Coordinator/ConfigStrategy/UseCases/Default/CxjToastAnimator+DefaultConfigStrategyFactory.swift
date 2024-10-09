@@ -14,16 +14,18 @@ extension CxjToastAnimator {
 			input: ConfigStrategyCommonInput
 		) -> DefaultConfigStrategy {
 			switch placement {
-			case .top(let verticalOffset):
+			case .top(let safeArea, let verticalOffset):
 				DefaultTopConfigStrategyFactory.configStrategy(
 					input: input,
+					includingSafeArea: safeArea,
 					verticalOffset: verticalOffset
 				)
 			case .center:
 				DefaultCenterConfigStrategy(input: input)
-			case .bottom(let verticalOffset):
+			case .bottom(let safeArea, let verticalOffset):
 				DefaultBottomConfigStrategy(
 					input: input,
+					includingSafeArea: safeArea,
 					verticalOffset: verticalOffset
 				)
 			}

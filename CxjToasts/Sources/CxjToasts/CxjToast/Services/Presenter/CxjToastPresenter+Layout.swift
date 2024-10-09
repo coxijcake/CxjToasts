@@ -52,12 +52,22 @@ extension CxjToastPresenter {
 			in sourceView: UIView
 		) -> NSLayoutConstraint {
 			switch placement {
-			case .top(verticalOffset: let verticalOffset):
-				toastView.topAnchor
-					.constraint(equalTo: sourceView.safeAreaLayoutGuide.topAnchor, constant: verticalOffset)
-			case .bottom(verticalOffset: let verticalOffset):
-				toastView.bottomAnchor
-					.constraint(equalTo: sourceView.safeAreaLayoutGuide.bottomAnchor, constant: -verticalOffset)
+			case .top(let safeArea, let verticalOffset):
+				if safeArea {
+					toastView.topAnchor
+						.constraint(equalTo: sourceView.safeAreaLayoutGuide.topAnchor, constant: verticalOffset)
+				} else {
+					toastView.topAnchor
+						.constraint(equalTo: sourceView.topAnchor, constant: verticalOffset)
+				}
+			case .bottom(let safeArea, let verticalOffset):
+				if safeArea {
+					toastView.bottomAnchor
+						.constraint(equalTo: sourceView.safeAreaLayoutGuide.bottomAnchor, constant: -verticalOffset)
+				} else {
+					toastView.bottomAnchor
+						.constraint(equalTo: sourceView.bottomAnchor, constant: -verticalOffset)
+				}
 			case .center:
 				toastView.centerYAnchor.constraint(equalTo: sourceView.centerYAnchor)
 			}

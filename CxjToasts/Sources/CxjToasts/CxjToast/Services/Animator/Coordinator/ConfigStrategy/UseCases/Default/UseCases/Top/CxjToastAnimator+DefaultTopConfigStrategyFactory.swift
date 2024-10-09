@@ -12,13 +12,16 @@ extension CxjToastAnimator {
 	enum DefaultTopConfigStrategyFactory {
 		static func configStrategy(
 			input: ConfigStrategyCommonInput,
+			includingSafeArea: Bool,
 			verticalOffset: CGFloat
 		) -> DefaultTopConfigStrategy {
 			let applicationSafeAreaInsets: UIEdgeInsets = UIApplication.safeAreaInsets
 			let sourceViewSafeAreaInsets: UIEdgeInsets = input.sourceViewData.safeAreaInsets
 			
 			//TODO: - Add to global toasts settings
-			let isSourceSafeAreaEqulWindowSafeArea: Bool = applicationSafeAreaInsets == sourceViewSafeAreaInsets
+			let isSourceSafeAreaEqulWindowSafeArea: Bool = 
+			(applicationSafeAreaInsets == sourceViewSafeAreaInsets)
+			&& includingSafeArea
 			
 			return if isSourceSafeAreaEqulWindowSafeArea,
 					  CxjDynamicIslandHelper.isDynamicIslandInDefaultPosition {
@@ -35,6 +38,7 @@ extension CxjToastAnimator {
 			} else {
 				DefaultTopCommonConfigStrategy(
 					input: input,
+					includingSafeArea: includingSafeArea,
 					verticalOffset: verticalOffset
 				)
 			}

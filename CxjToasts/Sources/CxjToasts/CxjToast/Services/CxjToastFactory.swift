@@ -34,9 +34,14 @@ private extension CxjToastFactory {
                 config: viewConfig,
                 content: content
             )
-        case .template(theme: let theme):
-			let viewConfig = CxjToastViewConfigurator.config(for: theme)
-			let content = CxjTemplatedToastContentConfigurator.configuredContent(for: theme)
+        case .templated(template: let template):
+			let viewConfig = CxjTemplatedToastViewConfigProviderFactory
+				.configProviderFor(template: template)
+				.config()
+			
+			let content = CxjTemplatedToastContentConfiguratorFactory
+				.configuratorFor(template: template)
+				.content()
 			
             return CxjToastViewFactory.createViewWith(
                 config: viewConfig,
@@ -52,8 +57,12 @@ private extension CxjToastFactory {
         switch type {
         case .custom(let config, _, _):
             return config
-		case .template(theme: let theme):
-			return CxjToastConfigurator.config(for: theme)
+		case .templated(template: let template):
+			return CxjTemplatedToastConfigProviderFactory
+				.configProviderFor(template: template)
+				.config()
+//			return CxjTemplatedToastConfigConfigurator
+//				.configFor(template: template)
         }
     }
 }

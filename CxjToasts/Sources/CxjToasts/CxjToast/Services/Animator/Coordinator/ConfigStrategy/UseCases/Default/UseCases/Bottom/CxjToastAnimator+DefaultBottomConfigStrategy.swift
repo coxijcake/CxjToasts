@@ -11,6 +11,7 @@ import UIKit.UIView
 extension CxjToastAnimator {
 	struct DefaultBottomConfigStrategy: DefaultConfigStrategy {
 		let input: ConfigStrategyCommonInput
+		let includingSafeArea: Bool
 		let verticalOffset: CGFloat
 		
 		func dismissedStateAnimatingProperties() -> AnimatingProperties {
@@ -26,9 +27,13 @@ extension CxjToastAnimator {
 		}
 		
 		private func dismissedTranslationY() -> CGFloat {
+			let safeAreaInset: CGFloat = includingSafeArea
+			? input.sourceViewData.safeAreaInsets.bottom
+			: .zero
+			
 			let translationY: CGFloat =
 			verticalOffset
-			+ input.sourceViewData.safeAreaInsets.bottom
+			+ safeAreaInset
 			+ input.toastViewData.size.height
 			
 			return translationY

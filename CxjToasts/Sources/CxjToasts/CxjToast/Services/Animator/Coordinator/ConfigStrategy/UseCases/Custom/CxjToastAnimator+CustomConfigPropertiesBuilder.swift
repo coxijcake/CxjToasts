@@ -77,10 +77,14 @@ extension CxjToastAnimator {
 			let tranlationX: CGFloat = .zero
 			
 			switch input.toastViewData.placement {
-			case .top(let verticalOffset):
+			case .top(let safeArea, let verticalOffset):
+				let safeAreaInset: CGFloat = safeArea
+				? input.sourceViewData.safeAreaInsets.top
+				: .zero
+				
 				let translationY: CGFloat =
 				verticalOffset
-				+ input.sourceViewData.safeAreaInsets.top
+				+ safeAreaInset
 				+ input.toastViewData.size.height
 				
 				return AnimatingProperties.Translation(
@@ -92,10 +96,14 @@ extension CxjToastAnimator {
 					x: tranlationX,
 					y: .zero
 				)
-			case .bottom(let verticalOffset):
+			case .bottom(let safeArea, let verticalOffset):
+				let safeAreaInset: CGFloat = safeArea
+				? input.sourceViewData.safeAreaInsets.bottom
+				: .zero
+				
 				let translationY: CGFloat =
 				verticalOffset
-				+ input.sourceViewData.safeAreaInsets.bottom
+				+ safeAreaInset
 				+ input.toastViewData.size.height
 				
 				return AnimatingProperties.Translation(

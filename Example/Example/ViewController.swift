@@ -37,25 +37,46 @@ class ViewController: UIViewController {
         let testConentView = TestContentView()
         testConentView.backgroundColor = .red
         
-        CxjToast.show(
-            .custom(
-                config: self.customCxjTostConfig(),
-                viewConfig: self.customCxjToastViewConfig(),
-                content: self.customCxjToastContentView()
-            )
-        )
+//        CxjToast.show(
+//            .custom(
+//                config: self.customCxjTostConfig(),
+//                viewConfig: self.customCxjToastViewConfig(),
+//                content: self.customCxjToastContentView()
+//            )
+//        )
         
 //        CxjToast.show(
-//            .template(
-//                theme: .native(
-//                    data: CxjToastTheme.NativeToastData(
+//            .templated(
+//				template: .native(
+//                    data: CxjToastTemplate.NativeToastData(
 //                        title: "Test Toast Toast Toast",
 //                        subtitle: "some description",
-//                        icon: UIImage.checkmark
+//                        icon: UIImage.checkmark,
+//						backgroundColor: .white
 //                    )
 //                )
 //            )
 //        )
+		
+		CxjToast.show(
+			.templated(
+				template: .bottomPrimary(
+					data: CxjToastTemplate.BottomPrimaryToastData(
+						customSourceView: nil,
+						icon: UIImage.add,
+						title: CxjToastTemplate.BottomPrimaryToastData.Title(
+							text: "owofmqwofmqowf qowfm qowfmq owfmqow fqowf m",
+							numberOfLines: 3,
+							textColor: UIColor.black,
+							font: .systemFont(ofSize: 21, weight: .bold)
+						),
+						subtitle: nil,
+						backgroundColor: .white,
+						shadowColor: .black.withAlphaComponent(0.5)
+					)
+				)
+			)
+		)
 	}
 	
 	private func customCxjToastContentView() -> CxjToastContentView {
@@ -111,7 +132,7 @@ class ViewController: UIViewController {
                         max: 150
                     )
                 ),
-                placement: .bottom(verticalOffset: 6)
+				placement: .bottom(safeArea: true, verticalOffset: 6)
             ),
             dismissMethods: [
 				.swipe(direction: .bottom),
