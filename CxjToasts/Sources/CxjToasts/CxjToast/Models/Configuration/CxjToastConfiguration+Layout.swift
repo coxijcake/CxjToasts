@@ -10,9 +10,22 @@ import Foundation
 extension CxjToastConfiguration {
 	public struct Layout {
 		public enum Placement {
-			case top(safeArea: Bool, verticalOffset: CGFloat)
+			public struct VerticalSidePositionParams: Equatable {
+				let offset: CGFloat
+				let includingSafeArea: Bool
+				
+				public init(
+					offset: CGFloat,
+					includingSafeArea: Bool
+				) {
+					self.offset = offset
+					self.includingSafeArea = includingSafeArea
+				}
+			}
+			
+			case top(params: VerticalSidePositionParams)
 			case center
-			case bottom(safeArea: Bool, verticalOffset: CGFloat)
+			case bottom(params: VerticalSidePositionParams)
 		}
 		
 		let constraints: Constraints

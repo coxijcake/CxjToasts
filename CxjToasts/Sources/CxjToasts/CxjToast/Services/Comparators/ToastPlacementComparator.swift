@@ -25,8 +25,8 @@ struct ToastPlacementComparator {
     func isFullyEqauls() -> Bool {
         switch (lhs, rhs) {
         case (.center, .center): true
-        case (.top(let lhsOffset), .top(let rhsOffset)): lhsOffset == rhsOffset
-        case (.bottom(let lhsOffset), .bottom(let rhsOffset)): lhsOffset == rhsOffset
+		case (.top(let lhsParams), .top(let rhsParams)): lhsParams == rhsParams
+        case (.bottom(let lhsParams), .bottom(let rhsParams)): lhsParams == rhsParams
         default: false
         }
     }

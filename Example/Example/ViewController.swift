@@ -132,7 +132,7 @@ class ViewController: UIViewController {
                         max: 150
                     )
                 ),
-				placement: .bottom(safeArea: true, verticalOffset: 6)
+				placement: .bottom(params: .init(offset: 6, includingSafeArea: true))
             ),
             dismissMethods: [
 				.swipe(direction: .bottom),

@@ -63,7 +63,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 		}
 		
 		private func placement() -> Config.Layout.Placement {
-			.bottom(safeArea: true, verticalOffset: 12)
+			.bottom(params: .init(offset: 12, includingSafeArea: true))
 		}
 		
 		private func dismissMethods() -> Set<Config.DismissMethod> {
