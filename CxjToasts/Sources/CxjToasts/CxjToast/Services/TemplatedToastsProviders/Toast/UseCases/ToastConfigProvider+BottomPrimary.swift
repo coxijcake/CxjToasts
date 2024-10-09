@@ -77,7 +77,13 @@ extension CxjTemplatedToastConfigProviderFactory {
 			Config.Animations(
 				present: .nativeToastPresenting,
 				dismiss: .nativeToastDismissing,
-				behaviour: .default,
+				behaviour: .custom(
+					changes: [
+						.translation(type: .outOfSourceViewVerticaly),
+						.corners(radius: .init(type: .screenCornerRadius, constraint: .halfHeigt)),
+						.scale(value: .init(x: 1.1, y: 1.1))
+					]
+				),
 				nativeViewsIncluding: []
 			)
 		}
