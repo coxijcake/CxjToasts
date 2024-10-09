@@ -61,8 +61,6 @@ private extension CxjToastFactory {
 			return CxjTemplatedToastConfigProviderFactory
 				.configProviderFor(template: template)
 				.config()
-//			return CxjTemplatedToastConfigConfigurator
-//				.configFor(template: template)
         }
     }
 }
