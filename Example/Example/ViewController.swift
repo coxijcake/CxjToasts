@@ -32,7 +32,7 @@ class ViewController: UIViewController {
 	}
 	
 	private func showToast() {
-        let customContentView: CxjToastContentView = self.customCxjToastContentView()
+//        let customContentView: CxjToastContentView = self.customCxjToastContentView()
         
         let testConentView = TestContentView()
         testConentView.backgroundColor = .red
@@ -51,7 +51,7 @@ class ViewController: UIViewController {
 //                    data: CxjToastTemplate.NativeToastData(
 //                        title: "Test Toast Toast Toast",
 //                        subtitle: "some description",
-//                        icon: UIImage.checkmark,
+//                        icon: .init(resource: .testIcon),
 //						backgroundColor: .white
 //                    )
 //                )
@@ -63,7 +63,7 @@ class ViewController: UIViewController {
 				template: .bottomPrimary(
 					data: CxjToastTemplate.BottomPrimaryToastData(
 						customSourceView: nil,
-						icon: UIImage.add,
+						icon: .init(resource: .testIcon),
 						title: CxjToastTemplate.BottomPrimaryToastData.Title(
 							text: "owofmqwofmqowf qowfm qowfmq owfmqow fqowf m",
 							numberOfLines: 3,
@@ -87,7 +87,7 @@ class ViewController: UIViewController {
 						iconPlacement: .left
 					),
 					iconParams: .init(
-						icon: .checkmark,
+						icon: .init(resource: .testIcon),
 						fixedSize: .init(width: 20, height: 20)
 					)
 				),
