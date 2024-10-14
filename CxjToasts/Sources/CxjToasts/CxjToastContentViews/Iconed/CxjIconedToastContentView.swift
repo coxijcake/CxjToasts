@@ -145,6 +145,7 @@ private extension CxjIconedToastContentView {
 	func createIconImageView() -> UIImageView {
 		let imageView: UIImageView = UIImageView()
 		imageView.contentMode = .scaleAspectFit
+		imageView.clipsToBounds = true
 		
 		return imageView
 	}
