@@ -27,7 +27,7 @@ public struct CxjUIViewShadowParams {
 }
 
 extension CALayer {
-	func setupShadowWithParams(_ cxjShadowParams: CxjUIViewShadowParams) {
+	public func setupShadowWithParams(_ cxjShadowParams: CxjUIViewShadowParams) {
 		masksToBounds = false
 		shadowOffset = cxjShadowParams.offset
 		shadowColor = cxjShadowParams.color.cgColor
@@ -37,7 +37,7 @@ extension CALayer {
 }
 
 extension UIView {
-	func setupShadowWithParams(_ cxjShadowParams: CxjUIViewShadowParams) {
+	public func setupShadowWithParams(_ cxjShadowParams: CxjUIViewShadowParams) {
 		layer.setupShadowWithParams(cxjShadowParams)
 	}
 }

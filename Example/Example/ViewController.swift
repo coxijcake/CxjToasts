@@ -163,7 +163,15 @@ class ViewController: UIViewController {
     private func customCxjToastViewConfig() -> CxjToastViewConfiguration {
         CxjToastViewConfiguration(
             contentInsets: .init(top: 20, left: 16, bottom: 20, right: 16),
-			background: .blurred(effect: .init(style: .extraLight)),
+//			background: .blurred(effect: .init(style: .extraLight)),
+			background: .gradient(
+				params: .init(
+					colors: [.white.withAlphaComponent(0.95), .white.withAlphaComponent(0.85)],
+					locations: [0, 1],
+					direction: .init(startPoint: .init(x: 0.1, y: 0.5),
+									 endPoint: .init(x: 0.9, y: 0.5))
+				)
+			),
             shadow: .disable,
 			corners: .straight(mask: .top)
         )

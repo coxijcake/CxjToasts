@@ -1,5 +1,5 @@
 //
-//  CxjMulticastPublisher.swift
+//  MulticastPublisher.swift
 //
 //
 //  Created by Nikita Begletskiy on 24/08/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CxjMulticastPublisher<T> {
+final class MulticastPublisher<T> {
 	private let observers: NSHashTable<AnyObject> = NSHashTable.weakObjects()
 
 	func add(_ observer: T) {

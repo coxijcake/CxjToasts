@@ -19,6 +19,9 @@ enum CxjToastContainerBackgroundViewFactory {
 		case .blurred(effect: let effect):
 			CxjToastContainerBlurredBackgroundViewConfigurator
 				.backgroundBlurredViewWith(blurEffect: effect)
+		case .gradient(params: let params):
+			CxjToastContainerGradientdBackgroundViewConfigurator
+				.gradientBackgroundViewWithParams(params)
 		}
 	}
 }

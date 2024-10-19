@@ -37,7 +37,7 @@ public extension CxjToastViewConfiguration {
 	public enum Background {
 		case colorized(color: UIColor)
 		case blurred(effect: UIBlurEffect)
-//		case gradient
+		case gradient(params: CxjGradientParams)
 	}
 	
 	//MARK: - Corners

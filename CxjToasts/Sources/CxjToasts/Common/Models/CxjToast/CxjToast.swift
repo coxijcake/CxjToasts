@@ -30,7 +30,7 @@ public final class CxjToast: CxjToastIdentifiable {
     
     private(set) var displayingState: DisplayingState = .initial
 	
-	private static let publisher = CxjMulticastPublisher<CxjToastDelegate>()
+	private static let publisher = MulticastPublisher<CxjToastDelegate>()
 	
 	private(set) lazy var animator: CxjToastAnimator = CxjToastAnimator(
 		toastView: view,
