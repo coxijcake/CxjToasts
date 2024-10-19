@@ -83,6 +83,8 @@ private extension CxjTitledToastContentView {
 	}
 	
 	func setup(params: LabelParams, to label: UILabel) {
+		label.textColor = params.textColor
+		label.font = params.font
 		label.numberOfLines = params.numberOfLines
 		label.textAlignment = params.textAligment
 	}

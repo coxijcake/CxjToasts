@@ -88,13 +88,19 @@ extension CxjTitledToastContentConfiguration {
 		}
 		
 		public struct LabelParams {
+			public let textColor: UIColor
+			public let font: UIFont
 			public let numberOfLines: Int
 			public let textAligment: NSTextAlignment
 			
 			public init(
+				textColor: UIColor,
+				font: UIFont,
 				numberOfLines: Int,
 				textAligment: NSTextAlignment
 			) {
+				self.textColor = textColor
+				self.font = font
 				self.numberOfLines = numberOfLines
 				self.textAligment = textAligment
 			}

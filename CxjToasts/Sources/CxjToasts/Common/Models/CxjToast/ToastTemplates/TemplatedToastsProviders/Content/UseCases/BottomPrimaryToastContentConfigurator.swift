@@ -69,6 +69,8 @@ final class BottomPrimaryToastContentConfigurator: CxjTemplatedToastContentConfi
 		return PlainTitleConfig(
 			text: title.text,
 			labelParams: .init(
+				textColor: title.textColor,
+				font: title.font,
 				numberOfLines: title.numberOfLines,
 				textAligment: .center
 			)
@@ -81,6 +83,8 @@ final class BottomPrimaryToastContentConfigurator: CxjTemplatedToastContentConfi
 		return PlainTitleConfig(
 			text: subtitle.text,
 			labelParams: .init(
+				textColor: subtitle.textColor,
+				font: subtitle.font,
 				numberOfLines: subtitle.numberOfLines,
 				textAligment: .center
 			)

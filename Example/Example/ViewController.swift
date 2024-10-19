@@ -98,6 +98,8 @@ class ViewController: UIViewController {
 							title: .init(
 								text: "Teast Toast title",
 								labelParams: .init(
+									textColor: .white,
+									font: .systemFont(ofSize: 15, weight: .bold),
 									numberOfLines: 2,
 									textAligment: .left
 								)
@@ -105,6 +107,8 @@ class ViewController: UIViewController {
 							subtitle: .init(
 								text: "Teast toast long long long\nlong long long long boring subtitle",
 								labelParams: .init(
+									textColor: .white.withAlphaComponent(0.85),
+									font: .systemFont(ofSize: 14, weight: .regular),
 									numberOfLines: .zero,
 									textAligment: .left
 								)
@@ -166,10 +170,10 @@ class ViewController: UIViewController {
 //			background: .blurred(effect: .init(style: .extraLight)),
 			background: .gradient(
 				params: .init(
-					colors: [.white.withAlphaComponent(0.95), .white.withAlphaComponent(0.85)],
+					colors: [.black.withAlphaComponent(0.95), .black.withAlphaComponent(0.5)],
 					locations: [0, 1],
-					direction: .init(startPoint: .init(x: 0.1, y: 0.5),
-									 endPoint: .init(x: 0.9, y: 0.5))
+					direction: .init(startPoint: .init(x: 0.1, y: 0.25),
+									 endPoint: .init(x: 0.8, y: 0.75))
 				)
 			),
             shadow: .disable,
