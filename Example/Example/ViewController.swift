@@ -27,56 +27,51 @@ class ViewController: UIViewController {
 //        showToast(after: 10)
     }
     
-	@IBAction func showButtonPressed(_ sender: Any) {
-		showToast()
+	@IBAction func customButtonPressed(_ sender: Any) {
+		CxjToast.show(
+			.custom(
+				config: self.customCxjTostConfig(),
+				viewConfig: self.customCxjToastViewConfig(),
+				content: self.customCxjToastContentView()
+			)
+		)
 	}
 	
-	private func showToast() {
-//        let customContentView: CxjToastContentView = self.customCxjToastContentView()
-        
-        let testConentView = TestContentView()
-        testConentView.backgroundColor = .red
-        
-        CxjToast.show(
-            .custom(
-                config: self.customCxjTostConfig(),
-                viewConfig: self.customCxjToastViewConfig(),
-                content: self.customCxjToastContentView()
-            )
-        )
-        
-//        CxjToast.show(
-//            .templated(
-//				template: .native(
-//                    data: CxjToastTemplate.NativeToastData(
-//                        title: "Test Toast Toast Toast",
-//                        subtitle: "some description",
-//                        icon: .init(resource: .testIcon),
-//						backgroundColor: .white
-//                    )
-//                )
-//            )
-//        )
-		
-//		CxjToast.show(
-//			.templated(
-//				template: .bottomPrimary(
-//					data: CxjToastTemplate.BottomPrimaryToastData(
-//						customSourceView: nil,
-//						icon: .init(resource: .testIcon),
-//						title: CxjToastTemplate.BottomPrimaryToastData.Title(
-//							text: "owofmqwofmqowf qowfm qowfmq owfmqow fqowf m",
-//							numberOfLines: 3,
-//							textColor: UIColor.black,
-//							font: .systemFont(ofSize: 21, weight: .bold)
-//						),
-//						subtitle: nil,
-//						background: .colorized(color: .white),
-//						shadowColor: .black.withAlphaComponent(0.5)
-//					)
-//				)
-//			)
-//		)
+	@IBAction func nativeButtonPressed(_ sender: Any) {
+		CxjToast.show(
+			.templated(
+				template: .native(
+					data: CxjToastTemplate.NativeToastData(
+						title: "Test Toast Toast Toast",
+						subtitle: "some description",
+						icon: .init(resource: .testIcon),
+						backgroundColor: .white
+					)
+				)
+			)
+		)
+	}
+	
+	@IBAction func bottomPrimaryButtonPressed(_ sender: Any) {
+		CxjToast.show(
+			.templated(
+				template: .bottomPrimary(
+					data: CxjToastTemplate.BottomPrimaryToastData(
+						customSourceView: nil,
+						icon: .init(resource: .testIcon),
+						title: CxjToastTemplate.BottomPrimaryToastData.Title(
+							text: "owofmqwofmqowf qowfm qowfmq owfmqow fqowf m",
+							numberOfLines: 3,
+							textColor: UIColor.black,
+							font: .systemFont(ofSize: 21, weight: .bold)
+						),
+						subtitle: nil,
+						background: .colorized(color: .white),
+						shadowColor: .black.withAlphaComponent(0.5)
+					)
+				)
+			)
+		)
 	}
 	
 	private func customCxjToastContentView() -> CxjToastContentView {
@@ -136,7 +131,7 @@ class ViewController: UIViewController {
                         max: 150
                     )
                 ),
-				placement: .bottom(params: .init(offset: 200, includingSafeArea: true))
+				placement: .bottom(params: .init(offset: 20, includingSafeArea: true))
             ),
             dismissMethods: [
 				.swipe(direction: .bottom),

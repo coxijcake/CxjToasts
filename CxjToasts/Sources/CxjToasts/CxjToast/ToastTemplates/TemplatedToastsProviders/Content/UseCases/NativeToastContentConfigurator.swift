@@ -63,8 +63,8 @@ final class NativeToastContentConfigurator: CxjTemplatedToastContentConfigurator
 		PlainTitleConfig(
 			text: data.title,
 			labelParams: .init(
-				textColor: .white,
-				font: .systemFont(ofSize: 12, weight: .black),
+				textColor: .black,
+				font: .systemFont(ofSize: 14, weight: .bold),
 				numberOfLines: 1,
 				textAligment: .center
 			)
@@ -77,8 +77,8 @@ final class NativeToastContentConfigurator: CxjTemplatedToastContentConfigurator
 		return PlainTitleConfig(
 			text: subtitle,
 			labelParams: TitlesConfig.LabelParams(
-				textColor: .white.withAlphaComponent(0.8),
-				font: .systemFont(ofSize: 12, weight: .regular),
+				textColor: .black,
+				font: .systemFont(ofSize: 13, weight: .semibold),
 				numberOfLines: 1,
 				textAligment: .center
 			)
