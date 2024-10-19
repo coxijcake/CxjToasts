@@ -32,7 +32,7 @@ extension CxjToastTemplate {
 		let icon: UIImage?
 		let title: Title
 		let subtitle: Title?
-		let backgroundColor: UIColor
+		let background: CxjToastViewConfiguration.Background
 		let shadowColor: UIColor?
 		
 		public init(
@@ -40,14 +40,14 @@ extension CxjToastTemplate {
 			icon: UIImage?,
 			title: Title,
 			subtitle: Title?,
-			backgroundColor: UIColor,
+			background: CxjToastViewConfiguration.Background,
 			shadowColor: UIColor?
 		) {
 			self.customSourceView = customSourceView
 			self.icon = icon
 			self.title = title
 			self.subtitle = subtitle
-			self.backgroundColor = backgroundColor
+			self.background = background
 			self.shadowColor = shadowColor
 		}
 	}

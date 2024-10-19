@@ -37,47 +37,46 @@ class ViewController: UIViewController {
         let testConentView = TestContentView()
         testConentView.backgroundColor = .red
         
-//        CxjToast.show(
-//            .custom(
-//                config: self.customCxjTostConfig(),
-//                viewConfig: self.customCxjToastViewConfig(),
-//                content: self.customCxjToastContentView()
-//            )
-//        )
-        
         CxjToast.show(
-            .templated(
-				template: .native(
-                    data: CxjToastTemplate.NativeToastData(
-                        title: "Test Toast Toast Toast",
-                        subtitle: "some description",
-                        icon: .init(resource: .testIcon),
-						backgroundColor: .white
-                    )
-                )
+            .custom(
+                config: self.customCxjTostConfig(),
+                viewConfig: self.customCxjToastViewConfig(),
+                content: self.customCxjToastContentView()
             )
         )
+        
+//        CxjToast.show(
+//            .templated(
+//				template: .native(
+//                    data: CxjToastTemplate.NativeToastData(
+//                        title: "Test Toast Toast Toast",
+//                        subtitle: "some description",
+//                        icon: .init(resource: .testIcon),
+//						backgroundColor: .white
+//                    )
+//                )
+//            )
+//        )
 		
-		CxjToast.show(
-			.templated(
-				template: .bottomPrimary(
-					data: CxjToastTemplate.BottomPrimaryToastData(
-						customSourceView: nil,
-						icon: .init(resource: .testIcon),
-						title: CxjToastTemplate.BottomPrimaryToastData.Title(
-							text: "owofmqwofmqowf qowfm qowfmq owfmqow fqowf m",
-							numberOfLines: 3,
-							textColor: UIColor.black,
-							font: .systemFont(ofSize: 21, weight: .bold)
-						),
-						subtitle: nil,
-						backgroundColor: .white,
+//		CxjToast.show(
+//			.templated(
+//				template: .bottomPrimary(
+//					data: CxjToastTemplate.BottomPrimaryToastData(
+//						customSourceView: nil,
+//						icon: .init(resource: .testIcon),
+//						title: CxjToastTemplate.BottomPrimaryToastData.Title(
+//							text: "owofmqwofmqowf qowfm qowfmq owfmqow fqowf m",
+//							numberOfLines: 3,
+//							textColor: UIColor.black,
+//							font: .systemFont(ofSize: 21, weight: .bold)
+//						),
+//						subtitle: nil,
+//						background: .colorized(color: .white),
 //						shadowColor: .black.withAlphaComponent(0.5)
-						shadowColor: .red
-					)
-				)
-			)
-		)
+//					)
+//				)
+//			)
+//		)
 	}
 	
 	private func customCxjToastContentView() -> CxjToastContentView {
@@ -125,7 +124,7 @@ class ViewController: UIViewController {
             layout: CxjToastConfiguration.Layout(
                 constraints: CxjToastConfiguration.Constraints(
                     width: CxjToastConfiguration.Constraints.Values(
-                        min: sourceView.bounds.size.width,
+						min: sourceView.bounds.size.width * 0.75,
                         max: sourceView.bounds.size.width
                     ),
                     height: CxjToastConfiguration.Constraints.Values(
@@ -133,7 +132,7 @@ class ViewController: UIViewController {
                         max: 150
                     )
                 ),
-				placement: .bottom(params: .init(offset: 6, includingSafeArea: true))
+				placement: .bottom(params: .init(offset: 200, includingSafeArea: true))
             ),
             dismissMethods: [
 				.swipe(direction: .bottom),
@@ -145,8 +144,7 @@ class ViewController: UIViewController {
                 dismiss: .nativeToastDismissing,
 				behaviour: .custom(
 					changes: [
-						.translation(type: .outOfSourceViewVerticaly)
-//						.scale(value: .init(x: 0.5, y: 0.5)),
+						.translation(type: .outOfSourceViewVerticaly),
 //						.shadowOverlay(color: .black, intensity: 0.5),
 //						.corners(
 //							radius: .init(
@@ -165,7 +163,7 @@ class ViewController: UIViewController {
     private func customCxjToastViewConfig() -> CxjToastViewConfiguration {
         CxjToastViewConfiguration(
             contentInsets: .init(top: 20, left: 16, bottom: 20, right: 16),
-			background: .colorized(color: .white),
+			background: .blurred(effect: .init(style: .extraLight)),
             shadow: .disable,
 			corners: .straight(mask: .top)
         )

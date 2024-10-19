@@ -16,18 +16,9 @@ enum CxjToastContainerBackgroundViewFactory {
 		case .colorized(color: let color):
 			CxjToastContainerColorizedBackgroundViewConfigurator
 				.backgroundViewFor(color: color)
-		}
-	}
-}
-
-extension CxjToastContainerBackgroundViewFactory {
-	enum CxjToastContainerColorizedBackgroundViewConfigurator {
-		static func backgroundViewFor(color: UIColor) -> UIView {
-			let view: UIView = UIView()
-			view.backgroundColor = color
-			view.clipsToBounds = true
-			
-			return view
+		case .blurred(effect: let effect):
+			CxjToastContainerBlurredBackgroundViewConfigurator
+				.backgroundBlurredViewWith(blurEffect: effect)
 		}
 	}
 }

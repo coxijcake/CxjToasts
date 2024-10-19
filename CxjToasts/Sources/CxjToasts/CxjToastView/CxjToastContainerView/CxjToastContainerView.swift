@@ -115,14 +115,15 @@ private extension CxjToastContainerView {
 	}
 	
 	func setupContentView(withInsets insets: UIEdgeInsets) {
-		backgroundView.addSubview(contentView)
+		addSubview(contentView)
+		contentView.backgroundColor = .clear
 		
 		contentView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			contentView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: insets.top),
-			contentView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -insets.bottom),
-			contentView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: insets.left),
-			contentView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -insets.right)
+			contentView.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
+			contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
+			contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left),
+			contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -insets.right)
 		])
 	}
 }

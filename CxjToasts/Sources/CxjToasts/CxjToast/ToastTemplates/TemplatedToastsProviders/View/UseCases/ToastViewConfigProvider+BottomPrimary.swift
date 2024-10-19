@@ -20,7 +20,7 @@ extension CxjTemplatedToastViewConfigProviderFactory {
 		func config() -> Config {
 			Config(
 				contentInsets: .init(top: 10, left: 24, bottom: 10, right: 24),
-				background: .colorized(color: data.backgroundColor),
+				background: data.background,
 				shadow: shadow(),
 				corners: .fixed(value: 44, mask: .all)
 			)

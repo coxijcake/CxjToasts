@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,6 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test_vc_background" translatesAutoresizingMaskIntoConstraints="NO" id="zVZ-rr-IlF">
+                                <rect key="frame" x="19.666666666666657" y="119" width="353.66666666666674" height="639"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u9r-DZ-R9e">
                                 <rect key="frame" x="163.66666666666666" y="783" width="66" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -26,22 +28,21 @@
                                     <action selector="showButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="td1-gh-cgC"/>
                                 </connections>
                             </button>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xL4-w0-W9h">
-                                <rect key="frame" x="49" y="119" width="295" height="639"/>
-                                <color key="backgroundColor" systemColor="underPageBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="295" id="dlO-aG-RcJ"/>
-                                </constraints>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xL4-w0-W9h">
+                                <rect key="frame" x="49" y="0.0" width="295" height="758"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="u9r-DZ-R9e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TWb-aZ-FJU"/>
+                            <constraint firstItem="zVZ-rr-IlF" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.9" id="TgP-mq-Eyg"/>
                             <constraint firstItem="u9r-DZ-R9e" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Ti4-MS-VMC"/>
-                            <constraint firstItem="xL4-w0-W9h" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.75" id="UO4-HH-tAq"/>
-                            <constraint firstItem="xL4-w0-W9h" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="fEn-QP-8Jy"/>
-                            <constraint firstItem="xL4-w0-W9h" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="iGo-k9-U4y"/>
+                            <constraint firstItem="zVZ-rr-IlF" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.75" id="UEA-e8-Pdw"/>
+                            <constraint firstItem="zVZ-rr-IlF" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="bEc-0P-ZSl"/>
+                            <constraint firstItem="zVZ-rr-IlF" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="xHO-9N-l00"/>
                         </constraints>
                     </view>
                     <connections>
@@ -50,12 +51,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-153" y="-28"/>
+            <point key="canvasLocation" x="-153.43511450381678" y="-28.169014084507044"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="underPageBackgroundColor">
-            <color red="0.70980392156862748" green="0.71764705882352942" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="test_vc_background" width="4016" height="6016"/>
     </resources>
 </document>
