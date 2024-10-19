@@ -58,6 +58,12 @@ final class CxjToastContainerView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+	
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		
+		backgroundView.layer.cornerRadius = layer.cornerRadius
+	}
 }
 
 //MARK: - CxjToastView
@@ -90,7 +96,7 @@ private extension CxjToastContainerView {
 		}
 		
 		layer.maskedCorners = corners.mask
-		layer.masksToBounds = true
+		clipsToBounds = true
 	}
 }
 
@@ -102,20 +108,21 @@ private extension CxjToastContainerView {
     }
 	
 	func setupBackgroundView() {
-		insertSubview(backgroundView, at: .zero)
+		addSubview(backgroundView)
+		backgroundView.clipsToBounds = true
 		backgroundView.frame = bounds
 		backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 	}
 	
 	func setupContentView(withInsets insets: UIEdgeInsets) {
-		addSubview(contentView)
+		backgroundView.addSubview(contentView)
 		
 		contentView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			contentView.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
-			contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
-			contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left),
-			contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -insets.right)
+			contentView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: insets.top),
+			contentView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -insets.bottom),
+			contentView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: insets.left),
+			contentView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -insets.right)
 		])
 	}
 }

@@ -24,7 +24,7 @@ extension CxjTemplatedToastViewConfigProviderFactory {
 				shadow: .enable(
 					params: .init(
 						offset: .init(width: 0, height: 4),
-						color: .blue.withAlphaComponent(0.5),
+						color: .black.withAlphaComponent(0.5),
 						opacity: 1.0,
 						radius: 10
 					)

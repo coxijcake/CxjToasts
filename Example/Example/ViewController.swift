@@ -45,18 +45,18 @@ class ViewController: UIViewController {
 //            )
 //        )
         
-//        CxjToast.show(
-//            .templated(
-//				template: .native(
-//                    data: CxjToastTemplate.NativeToastData(
-//                        title: "Test Toast Toast Toast",
-//                        subtitle: "some description",
-//                        icon: .init(resource: .testIcon),
-//						backgroundColor: .white
-//                    )
-//                )
-//            )
-//        )
+        CxjToast.show(
+            .templated(
+				template: .native(
+                    data: CxjToastTemplate.NativeToastData(
+                        title: "Test Toast Toast Toast",
+                        subtitle: "some description",
+                        icon: .init(resource: .testIcon),
+						backgroundColor: .white
+                    )
+                )
+            )
+        )
 		
 		CxjToast.show(
 			.templated(
