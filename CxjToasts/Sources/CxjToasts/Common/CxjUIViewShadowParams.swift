@@ -26,12 +26,18 @@ public struct CxjUIViewShadowParams {
 	}
 }
 
+extension CALayer {
+	func setupShadowWithParams(_ cxjShadowParams: CxjUIViewShadowParams) {
+		masksToBounds = false
+		shadowOffset = cxjShadowParams.offset
+		shadowColor = cxjShadowParams.color.cgColor
+		shadowOpacity = cxjShadowParams.opacity
+		shadowRadius = cxjShadowParams.radius
+	}
+}
+
 extension UIView {
 	func setupShadowWithParams(_ cxjShadowParams: CxjUIViewShadowParams) {
-		layer.masksToBounds = false
-		layer.shadowOffset = cxjShadowParams.offset
-		layer.shadowColor = cxjShadowParams.color.cgColor
-		layer.shadowOpacity = cxjShadowParams.opacity
-		layer.shadowRadius = cxjShadowParams.radius
+		layer.setupShadowWithParams(cxjShadowParams)
 	}
 }

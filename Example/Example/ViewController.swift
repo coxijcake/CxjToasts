@@ -72,7 +72,8 @@ class ViewController: UIViewController {
 						),
 						subtitle: nil,
 						backgroundColor: .white,
-						shadowColor: .black.withAlphaComponent(0.5)
+//						shadowColor: .black.withAlphaComponent(0.5)
+						shadowColor: .red
 					)
 				)
 			)
@@ -164,7 +165,7 @@ class ViewController: UIViewController {
     private func customCxjToastViewConfig() -> CxjToastViewConfiguration {
         CxjToastViewConfiguration(
             contentInsets: .init(top: 20, left: 16, bottom: 20, right: 16),
-			colors: .init(background: .white),
+			background: .colorized(color: .white),
             shadow: .disable,
 			corners: .straight(mask: .top)
         )

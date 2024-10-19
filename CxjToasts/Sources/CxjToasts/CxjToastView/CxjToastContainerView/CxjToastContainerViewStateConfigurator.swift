@@ -17,7 +17,6 @@ enum CxjToastContainerViewStateConfigurator {
 		
 		return ViewState(
 			contentInsets: config.contentInsets,
-			backgroundColor: config.colors.background,
 			shadow: shadow,
 			corners: corners
 		)
@@ -37,11 +36,11 @@ enum CxjToastContainerViewStateConfigurator {
 	private static func stateCornersFor(configCorners: Config.Corners) -> ViewState.Corners {
 		switch configCorners {
 		case .straight(mask: let mask):
-			return .init(type: .rounded(value: .zero), mask: mask.layerMask)
+			return .init(type: .fixed(value: .zero), mask: mask.layerMask)
 		case .capsule(mask: let mask):
 			return .init(type: .capsule, mask: mask.layerMask)
-		case .rounded(value: let value, mask: let mask):
-			return .init(type: .rounded(value: value), mask: mask.layerMask)
+		case .fixed(value: let value, mask: let mask):
+			return .init(type: .fixed(value: value), mask: mask.layerMask)
 		}
 	}
 }

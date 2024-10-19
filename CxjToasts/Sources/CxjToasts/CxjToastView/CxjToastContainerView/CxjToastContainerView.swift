@@ -18,7 +18,7 @@ extension CxjToastContainerView {
 		struct Corners {
 			enum CornersType {
 				case capsule
-				case rounded(value: CGFloat)
+				case fixed(value: CGFloat)
 			}
 			
 			let type: CornersType
@@ -26,7 +26,6 @@ extension CxjToastContainerView {
 		}
 		
 		let contentInsets: UIEdgeInsets
-		let backgroundColor: UIColor
 		let shadow: Shadow
 		let corners: Corners
 	}
@@ -35,17 +34,21 @@ extension CxjToastContainerView {
 final class CxjToastContainerView: UIView {
     //MARK: - Subviews
     private let contentView: UIView
+	private let backgroundView: UIView
+	
     //MARK: - Props
 	private let state: ViewState
 	
     //MARK: - Lifecycle
 	public init(
 		state: ViewState,
-		contentView: UIView
+		contentView: UIView,
+		backgroundView: UIView
 	) {
 		self.state = state
 		self.contentView = contentView
-        
+		self.backgroundView = backgroundView
+		
         super.init(frame: .zero)
         
         baseConfigure()
@@ -60,29 +63,15 @@ final class CxjToastContainerView: UIView {
 //MARK: - CxjToastView
 extension CxjToastContainerView: CxjToastView {
 	func prepareToDisplay() {
-		setupShadow(state.shadow)
-		setupCorners(state.corners)
+		updateUIForState(state)
 	}
 }
 
 //MARK: - Configuration
 private extension CxjToastContainerView {
 	func updateUIForState(_ state: ViewState) {
-		setupContentLayoutWithInsets(state.contentInsets)
-		backgroundColor = state.backgroundColor
-		setupShadow(state.shadow)
 		setupCorners(state.corners)
-	}
-	
-	func setupContentLayoutWithInsets(_ insets: UIEdgeInsets) {
-		contentView.translatesAutoresizingMaskIntoConstraints = false
-		
-		NSLayoutConstraint.activate([
-			contentView.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
-			contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
-			contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left),
-			contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -insets.right)
-		])
+		setupShadow(state.shadow)
 	}
 	
 	func setupShadow(_ shadow: ViewState.Shadow) {
@@ -97,18 +86,36 @@ private extension CxjToastContainerView {
 	func setupCorners(_ corners: ViewState.Corners) {
 		switch corners.type {
 		case .capsule: layer.cornerRadius = bounds.size.height * 0.5
-		case .rounded(let value): layer.cornerRadius = value
+		case .fixed(let value): layer.cornerRadius = value
 		}
 		
 		layer.maskedCorners = corners.mask
+		layer.masksToBounds = true
 	}
 }
 
 //MARK: - Base Configuration
 private extension CxjToastContainerView {
     func baseConfigure() {
-		clipsToBounds = true
-		
-        addSubview(contentView)
+		setupBackgroundView()
+		setupContentView(withInsets: state.contentInsets)
     }
+	
+	func setupBackgroundView() {
+		insertSubview(backgroundView, at: .zero)
+		backgroundView.frame = bounds
+		backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+	}
+	
+	func setupContentView(withInsets insets: UIEdgeInsets) {
+		addSubview(contentView)
+		
+		contentView.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			contentView.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
+			contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
+			contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left),
+			contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -insets.right)
+		])
+	}
 }

@@ -8,19 +8,19 @@
 import UIKit
 
 public struct CxjToastViewConfiguration {
+	let background: Background
 	let contentInsets: UIEdgeInsets
-	let colors: Colors
 	let shadow: Shadow
 	let corners: Corners
 	
 	public init(
 		contentInsets: UIEdgeInsets,
-		colors: Colors,
+		background: Background,
 		shadow: Shadow,
 		corners: Corners
 	) {
 		self.contentInsets = contentInsets
-		self.colors = colors
+		self.background = background
 		self.shadow = shadow
 		self.corners = corners
 	}
@@ -33,15 +33,11 @@ public extension CxjToastViewConfiguration {
 		case disable
 	}
 	
-	//MARK: - Colors
-	public struct Colors {
-		let background: UIColor
-		
-		public init(
-			background: UIColor
-		) {
-			self.background = background
-		}
+	//MARK: - Background
+	public enum Background {
+		case colorized(color: UIColor)
+//		case blurred(radius: CGFloat)
+//		case gradient
 	}
 	
 	//MARK: - Corners
@@ -93,13 +89,13 @@ public extension CxjToastViewConfiguration {
 		
 		case straight(mask: CornersMask)
 		case capsule(mask: CornersMask)
-		case rounded(value: CGFloat, mask: CornersMask)
+		case fixed(value: CGFloat, mask: CornersMask)
 		
 		var mask: CornersMask {
 			switch self {
 			case .straight(let mask): mask
 			case .capsule(let mask): mask
-			case .rounded(let value, let mask): mask
+			case .fixed(let value, let mask): mask
 			}
 		}
 	}
