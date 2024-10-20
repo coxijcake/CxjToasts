@@ -122,8 +122,8 @@ private extension CxjActiveToastsUpdater {
 		let shouldPauseDismissing: Bool = index != 0
 		
 		shouldPauseDismissing
-		? toast.dismisser.deactivate()
-		: toast.dismisser.activate()
+		? toast.dismisser.deactivateDismissMethods()
+		: toast.dismisser.activateDismissMethods()
 	}
 }
 

@@ -11,15 +11,45 @@ public enum CxjToastFactory {
     static func toastFor(
         type: CxjToastType
     ) -> CxjToast {
+		let toastId: UUID = UUID()
+		
         let view: CxjToastView = createToastView(
             for: type
         )
         
-        let toastConfig: CxjToastConfiguration = config(
+        let config: CxjToastConfiguration = config(
             for: type
         )
-        
-        return CxjToast(view: view, config: toastConfig)
+		
+		let animator: CxjToastAnimator = CxjToastAnimator(
+			toastView: view,
+			config: config
+		)
+		
+		let presenter: CxjToastPresenter = CxjToastPresenter(
+			config: config,
+			toastView: view,
+			animator: animator
+		)
+		
+		let dismisser: CxjToastDismisser = CxjToastDismisser(
+			toastId: toastId,
+			toastView: view,
+			config: config,
+			animator: animator
+		)
+		
+		let toast: CxjToast = CxjToast(
+			id: toastId,
+			view: view,
+			config: config,
+			presenter: presenter,
+			dismisser: dismisser
+		)
+		
+		dismisser.delegate = toast
+		
+		return toast
     }
 }
 

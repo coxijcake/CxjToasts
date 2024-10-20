@@ -24,42 +24,32 @@ public extension CxjToast {
 
 public final class CxjToast: CxjIdentifiableToast {
     //MARK: - Props
-	public let id: UUID = UUID()
-    let view: ToastView
-    let config: Configuration
-    
-    private(set) var displayingState: DisplayingState = .initial
-	
 	private static let publisher = MulticastPublisher<CxjToastDelegate>()
 	
-	private(set) lazy var animator: CxjToastAnimator = CxjToastAnimator(
-		toastView: view,
-		config: config
-	)
+    let view: ToastView
+    let config: Configuration
+	let presenter: CxjToastPresentable
+	let dismisser: CxjToastDismissable
 	
-	private(set) lazy var presenter: CxjToastPresenter = CxjToastPresenter(
-		config: config,
-		toastView: view,
-		animator: animator
-	)
+	public let id: UUID
 	
-	private(set) lazy var dismisser: CxjToastDismisser = CxjToastDismisser(
-		toastId: id,
-		toastView: view,
-		config: config,
-		animator: animator,
-		delegate: self
-	)
+    private(set) var displayingState: DisplayingState = .initial
 	
     private(set) static var activeToasts: [CxjToast] = []
 	
     //MARK: - Lifecycle
     init(
+		id: UUID,
         view: ToastView,
-        config: Configuration
+        config: Configuration,
+		presenter: CxjToastPresentable,
+		dismisser: CxjToastDismissable
     ) {
+		self.id = id
         self.view = view
         self.config = config
+		self.presenter = presenter
+		self.dismisser = dismisser
     }
 }
 
@@ -100,11 +90,15 @@ extension CxjToast {
             )
 			
             toast.displayingState = .presented
-            toast.dismisser.activate()
+            toast.dismisser.activateDismissMethods()
 			
 			publisher.invoke { $0.didPresent(toast: toast) }
 		}
     }
+	
+	func updateDisplayingState(_ state: DisplayingState) {
+		self.displayingState = state
+	}
 }
 
 //MARK: - Dismissing
@@ -171,7 +165,7 @@ extension CxjToast: CxjToastDismisserDelegate {
 	func didDismissToastWith(id: UUID, by dismisser: CxjToastDismisser) {
 		guard let toast = CxjToast.firstCxjToastWith(id: id) else { return }
 		
-		dismisser.deactivate()
+		dismisser.deactivateDismissMethods()
 		toast.view.removeFromSuperview()
         toast.displayingState = .initial
 		

@@ -7,7 +7,15 @@
 
 import UIKit
 
-final class CxjToastPresenter {
+//MARK: - Interface
+protocol CxjToastPresentable {
+	var animator: CxjToastPresentAnimator { get }
+	
+	func present(completion: BoolCompletion?)
+}
+
+//MARK: - Implementation
+final class CxjToastPresenter: CxjToastPresentable {
 	let config: CxjToastConfiguration
 	let toastView: CxjToastView
 	let animator: CxjToastPresentAnimator
