@@ -93,10 +93,10 @@ extension CxjToastConfiguration {
 			case custom(changes: CustomBehaviourChanges)
 		}
 		
-		let present: CxjAnimation
-		let dismiss: CxjAnimation
-		let behaviour: Behaviour
-		let nativeViewsIncluding: Set<TopPlacementNativeView>
+		public let present: CxjAnimation
+		public let dismiss: CxjAnimation
+		public let behaviour: Behaviour
+		public let nativeViewsIncluding: Set<TopPlacementNativeView>
 		
 		public init(
 			present: CxjAnimation,

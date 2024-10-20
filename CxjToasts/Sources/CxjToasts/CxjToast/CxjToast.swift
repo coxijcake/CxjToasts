@@ -22,7 +22,7 @@ public extension CxjToast {
     }
 }
 
-public final class CxjToast: CxjToastIdentifiable {
+public final class CxjToast: CxjIdentifiableToast {
     //MARK: - Props
 	public let id: UUID = UUID()
     let view: ToastView
@@ -66,11 +66,18 @@ public final class CxjToast: CxjToastIdentifiable {
 //MARK: - Public Presenting
 extension CxjToast {
     public static func show(
-        _ type: ToastType
+        _ type: ToastType,
+		avoidTypeSpam: Bool = false
     ) {
         let toast: CxjToast = CxjToastFactory.toastFor(
             type: type
         )
+		
+		if avoidTypeSpam,
+		   let typeId = toast.typeId,
+		   firstWith(typeId: typeId) != nil {
+			return
+		}
 		
         toast.displayingState = .presenting
         activeToasts.append(toast)
@@ -105,9 +112,22 @@ extension CxjToast {
 	public static func hideToast(
 		with id: UUID
 	) {
-		guard let toast = CxjToast.firstWith(id: id) else { return }
+		guard let toast = CxjToast.firstCxjToastWith(id: id) else { return }
 		
 		toast.dismisser.dismiss()
+	}
+}
+
+//MARK: - Public common
+extension CxjToast {
+	public var typeId: String? { config.typeId }
+	
+	public static func firstWith(id: UUID) -> (any CxjIdentifiableToast)? {
+		activeToasts.first(where: { $0.id == id })
+	}
+	
+	public static func firstWith(typeId: String) -> (any CxjIdentifiableToast)? {
+		activeToasts.first(where: { $0.typeId == typeId })
 	}
 }
 
@@ -124,15 +144,15 @@ extension CxjToast {
 
 //MARK: - Private
 private extension CxjToast {
-	static func firstWith(id: UUID) -> CxjToast? {
-		activeToasts.first(where: { $0.id == id })
+	static func firstCxjToastWith(id: UUID) -> CxjToast? {
+		firstWith(id: id) as? CxjToast
 	}
 }
 
 //MARK: - CxjToastDismisserDelegate
 extension CxjToast: CxjToastDismisserDelegate {
 	func willDismissToastWith(id: UUID, by dismisser: CxjToastDismisser) {
-		guard let toast = CxjToast.firstWith(id: id) else { return }
+		guard let toast = CxjToast.firstCxjToastWith(id: id) else { return }
 		
         let toastsToUpdate = CxjToast.activeToasts.filter { $0 != toast }
         toast.displayingState = .dismissing
@@ -149,7 +169,7 @@ extension CxjToast: CxjToastDismisserDelegate {
 	}
 	
 	func didDismissToastWith(id: UUID, by dismisser: CxjToastDismisser) {
-		guard let toast = CxjToast.firstWith(id: id) else { return }
+		guard let toast = CxjToast.firstCxjToastWith(id: id) else { return }
 		
 		dismisser.deactivate()
 		toast.view.removeFromSuperview()

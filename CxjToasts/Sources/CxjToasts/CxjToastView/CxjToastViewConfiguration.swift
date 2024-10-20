@@ -8,10 +8,10 @@
 import UIKit
 
 public struct CxjToastViewConfiguration {
-	let background: Background
-	let contentInsets: UIEdgeInsets
-	let shadow: Shadow
-	let corners: Corners
+	public let background: Background
+	public let contentInsets: UIEdgeInsets
+	public let shadow: Shadow
+	public let corners: Corners
 	
 	public init(
 		contentInsets: UIEdgeInsets,
@@ -51,7 +51,7 @@ public extension CxjToastViewConfiguration {
 			case all
 			case custom(mask: CACornerMask)
 			
-			var layerMask: CACornerMask {
+			public var layerMask: CACornerMask {
 				switch self {
 				case .none:
 					[]
@@ -91,7 +91,7 @@ public extension CxjToastViewConfiguration {
 		case capsule(mask: CornersMask)
 		case fixed(value: CGFloat, mask: CornersMask)
 		
-		var mask: CornersMask {
+		public var mask: CornersMask {
 			switch self {
 			case .straight(let mask): mask
 			case .capsule(let mask): mask

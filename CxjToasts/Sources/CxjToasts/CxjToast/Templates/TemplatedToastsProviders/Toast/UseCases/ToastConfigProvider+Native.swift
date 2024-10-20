@@ -13,6 +13,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 			let sourceView: UIView = sourceView()
 			
 			return Config(
+				typeId: "cxj_native_toast",
 				sourceView: sourceView,
 				layout: layoutFor(sourceView: sourceView),
 				dismissMethods: dismissMethods(),

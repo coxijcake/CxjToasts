@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum CxjToastFactory {
+public enum CxjToastFactory {
     static func toastFor(
         type: CxjToastType
     ) -> CxjToast {

@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol CxjToastDelegate: AnyObject {
-	typealias Toast = any CxjToastIdentifiable
+	typealias Toast = any CxjIdentifiableToast
 	
 	func willPresent(toast: Toast)
 	func didPresent(toast: Toast)

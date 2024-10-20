@@ -22,8 +22,8 @@ extension CxjToastConfiguration {
 			}
 		}
 		
-		let width: Values
-		let height: Values
+		public let width: Values
+		public let height: Values
 		
 		public init(
 			width: Values,

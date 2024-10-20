@@ -9,8 +9,8 @@ import UIKit
 
 
 public struct CxjIconedToastContentConfiguration {
-	let params: LayoutParams
-    let iconParams: IconParams
+	public let params: LayoutParams
+	public let iconParams: IconParams
     
 	public init(
 		params: LayoutParams,

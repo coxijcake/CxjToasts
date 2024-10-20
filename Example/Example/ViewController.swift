@@ -30,10 +30,11 @@ class ViewController: UIViewController {
 	@IBAction func customButtonPressed(_ sender: Any) {
 		CxjToast.show(
 			.custom(
-				config: self.customCxjTostConfig(),
-				viewConfig: self.customCxjToastViewConfig(),
-				content: self.customCxjToastContentView()
-			)
+				config: customCxjTostConfig(),
+				viewConfig: customCxjToastViewConfig(),
+				content: customCxjToastContentView()
+			),
+			avoidTypeSpam: true
 		)
 	}
 	
@@ -119,7 +120,8 @@ class ViewController: UIViewController {
 		let sourceView: UIView = view
 		
        return CxjToastConfiguration(
-			sourceView: sourceView,
+		typeId: "custom test toast",
+		sourceView: sourceView,
             layout: CxjToastConfiguration.Layout(
                 constraints: CxjToastConfiguration.Constraints(
                     width: CxjToastConfiguration.Constraints.Values(
@@ -131,7 +133,7 @@ class ViewController: UIViewController {
                         max: 150
                     )
                 ),
-				placement: .bottom(params: .init(offset: 20, includingSafeArea: true))
+				placement: .bottom(params: .init(offset: 100, includingSafeArea: true))
             ),
             dismissMethods: [
 				.swipe(direction: .bottom),

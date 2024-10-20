@@ -21,6 +21,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 			let sourceView: UIView = data.customSourceView ?? defaultSourceView()
 			
 			return Config(
+				typeId: "cxj_bottom_primary_toast",
 				sourceView: sourceView,
 				layout: layoutFor(sourceView: sourceView),
 				dismissMethods: dismissMethods(),

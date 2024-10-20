@@ -28,8 +28,8 @@ extension CxjToastConfiguration {
 			case bottom(params: VerticalSidePositionParams)
 		}
 		
-		let constraints: Constraints
-		let placement: Placement
+		public let constraints: Constraints
+		public let placement: Placement
 		
 		public init(
 			constraints: Constraints,
