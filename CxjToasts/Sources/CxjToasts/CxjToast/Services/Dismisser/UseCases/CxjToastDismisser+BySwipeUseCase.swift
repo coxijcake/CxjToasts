@@ -161,7 +161,7 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
     
     func updateDislplayingToasts(animated: Bool, progress: CGFloat) {
         CxjActiveToastsUpdater.updateLayout(
-            activeToasts: CxjToast.activeToasts,
+			activeToasts: CxjToastsCoordinator.shared.activeToasts,
             progress: progress,
             on: placement,
             animation: animated ? animator.dismissAnimation : .noAnimation,

@@ -36,7 +36,8 @@ public enum CxjToastFactory {
 			toastId: toastId,
 			toastView: view,
 			config: config,
-			animator: animator
+			animator: animator,
+			delegate: CxjToastsCoordinator.shared
 		)
 		
 		let toast: CxjToast = CxjToast(
@@ -46,8 +47,6 @@ public enum CxjToastFactory {
 			presenter: presenter,
 			dismisser: dismisser
 		)
-		
-		dismisser.delegate = toast
 		
 		return toast
     }

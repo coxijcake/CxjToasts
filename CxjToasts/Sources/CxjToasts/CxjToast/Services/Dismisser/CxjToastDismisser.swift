@@ -51,7 +51,7 @@ final class CxjToastDismisser: CxjToastDismissable {
 		toastView: ToastView,
 		config: Configuration,
 		animator: CxjToastAnimator,
-		delegate: CxjToastDismisserDelegate? = nil
+		delegate: CxjToastDismisserDelegate?
 	) {
 		self.toastId = toastId
 		self.toastView = toastView
