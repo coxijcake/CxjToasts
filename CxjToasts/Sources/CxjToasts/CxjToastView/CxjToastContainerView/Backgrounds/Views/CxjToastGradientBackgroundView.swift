@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  CxjToastGradientBackgroundView.swift
 //  
 //
 //  Created by Nikita Begletskiy on 19/10/2024.

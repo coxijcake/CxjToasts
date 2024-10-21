@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  CxjToastDismisser+UseCasesFactory.swift
+//
 //
 //  Created by Nikita Begletskiy on 29/08/2024.
 //

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  CxjToastView.swift
 //  
 //
 //  Created by Nikita Begletskiy on 18/08/2024.

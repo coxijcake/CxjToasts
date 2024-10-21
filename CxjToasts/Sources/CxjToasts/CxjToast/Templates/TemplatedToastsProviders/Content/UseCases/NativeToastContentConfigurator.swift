@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  NativeToastContentConfigurator.swift
+//
 //
 //  Created by Nikita Begletskiy on 08/10/2024.
 //

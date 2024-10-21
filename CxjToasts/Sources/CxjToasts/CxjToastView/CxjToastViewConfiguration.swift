@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  CxjToastViewConfiguration.swift
 //  
 //
 //  Created by Nikita Begletskiy on 15/08/2024.
@@ -8,6 +8,8 @@
 import UIKit
 
 public struct CxjToastViewConfiguration {
+	public typealias Background = CxjBackground
+	
 	public let background: Background
 	public let contentInsets: UIEdgeInsets
 	public let shadow: Shadow
@@ -31,14 +33,6 @@ public extension CxjToastViewConfiguration {
 	public enum Shadow {
 		case enable(params: CxjUIViewShadowParams)
 		case disable
-	}
-	
-	//MARK: - Background
-	public enum Background {
-		case colorized(color: UIColor)
-		case blurred(effect: UIBlurEffect)
-		case gradient(params: CxjGradientParams)
-		case custom(view: UIView)
 	}
 	
 	//MARK: - Corners
