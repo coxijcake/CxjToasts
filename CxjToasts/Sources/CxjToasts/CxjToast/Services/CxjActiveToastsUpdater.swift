@@ -9,7 +9,7 @@ import UIKit
 
 //MARK: - Types
 extension CxjActiveToastsUpdater {
-    typealias Toast = CxjToast
+    typealias Toast = any CxjDisplayableToast
     typealias ToastView = CxjToastView
     typealias Placement = CxjToastConfiguration.Layout.Placement
     typealias Animation = CxjAnimation
@@ -177,7 +177,7 @@ private extension CxjActiveToastsUpdater {
     }
 	
 	static func shouldUpdateToastWith(
-		displayingState: Toast.DisplayingState
+		displayingState: CxjToastDisplayingState
 	) -> Bool {
 		switch displayingState {
 		case .presented, .presenting: true

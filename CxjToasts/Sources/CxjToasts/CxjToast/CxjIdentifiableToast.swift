@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol CxjIdentifiableToast: AnyObject, Hashable {
+public protocol CxjIdentifiableToast: AnyObject where Self: Equatable & Hashable {
 	var id: UUID { get }
 	var typeId: String? { get }
 }

@@ -13,16 +13,9 @@ public extension CxjToast {
     typealias ToastView = CxjToastView
     typealias Configuration = CxjToastConfiguration
     typealias ContentView = CxjToastContentView
-    
-    enum DisplayingState: String {
-        case initial
-        case presenting
-        case presented
-        case dismissing
-    }
 }
 
-public final class CxjToast: CxjIdentifiableToast {
+public final class CxjToast: CxjDisplayableToast {
     //MARK: - Props
     let view: ToastView
     let config: Configuration
@@ -31,7 +24,7 @@ public final class CxjToast: CxjIdentifiableToast {
 	
 	public let id: UUID
 	
-    private(set) var displayingState: DisplayingState = .initial
+    var displayingState: CxjToastDisplayingState = .initial
 	
     //MARK: - Lifecycle
     init(
@@ -96,13 +89,6 @@ extension CxjToast {
 	
 	public static func remove(observer: CxjToastDelegate) {
 		CxjToastsCoordinator.shared.remove(observer: observer)
-	}
-}
-
-//MARK: - State updating
-extension CxjToast {
-	func updateDisplayingState(_ state: DisplayingState) {
-		self.displayingState = state
 	}
 }
 

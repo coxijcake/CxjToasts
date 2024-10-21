@@ -35,7 +35,7 @@ extension CxjToastoordinator: CxjToastCoordinatable {
 
 //@MainActor
 final class CxjToastsCoordinator {
-	typealias Toast = CxjToast
+	typealias Toast = any CxjDisplayableToast
 	
 	static let shared: CxjToastsCoordinator = CxjToastsCoordinator()
 	private init() {}
@@ -57,7 +57,7 @@ extension CxjToastsCoordinator {
 			return
 		}
 		
-		toast.updateDisplayingState(.presenting)
+		toast.displayingState = .presenting
 		activeToasts.append(toast)
 		publisher.invoke { $0.willPresent(toast: toast) }
 		
@@ -80,7 +80,7 @@ extension CxjToastsCoordinator {
 				on: toast.config.layout.placement
 			)
 			
-			toast.updateDisplayingState(.presented)
+			toast.displayingState = .presented
 			toast.dismisser.activateDismissMethods()
 			
 			self.publisher.invoke { $0.didPresent(toast: toast) }
@@ -123,7 +123,7 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 	func willDismissToastWith(id: UUID, by dismisser: CxjToastDismisser) {
 		guard let toast: Toast = firstWith(id: id) else { return }
 		
-		let toastsToUpdate: [Toast] = activeToasts.filter { $0 != toast }
+		let toastsToUpdate: [Toast] = activeToasts.filter { $0.id != toast.id }
 		
 		CxjActiveToastsUpdater.updateLayout(
 			activeToasts: toastsToUpdate,
@@ -141,9 +141,9 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 		
 		dismisser.deactivateDismissMethods()
 		toast.view.removeFromSuperview()
-		toast.updateDisplayingState(.initial)
+		toast.displayingState = .initial
 		
-		activeToasts.removeAll(where: { $0 == toast })
+		activeToasts.removeAll(where: { $0.id == toast.id })
 		
 		CxjActiveToastsUpdater.updateDisplayingState(
 			activeToasts: activeToasts,
