@@ -22,6 +22,8 @@ enum CxjToastContainerBackgroundViewFactory {
 		case .gradient(params: let params):
 			CxjToastContainerGradientdBackgroundViewConfigurator
 				.gradientBackgroundViewWithParams(params)
+		case .custom(view: let customView):
+			customView
 		}
 	}
 }
