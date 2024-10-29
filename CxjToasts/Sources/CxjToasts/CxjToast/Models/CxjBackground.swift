@@ -5,7 +5,7 @@
 //  Created by Nikita Begletskiy on 21/10/2024.
 //
 
-import Foundation
+import UIKit
 
 public enum CxjBackground {
 	case colorized(color: UIColor)

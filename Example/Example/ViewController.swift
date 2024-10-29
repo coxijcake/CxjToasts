@@ -116,50 +116,61 @@ class ViewController: UIViewController {
 		)
 	}
     
-    private func customCxjTostConfig() -> CxjToastConfiguration {
+	private func customCxjTostConfig() -> CxjToastConfiguration {
 		let sourceView: UIView = view
 		
-       return CxjToastConfiguration(
-		typeId: "custom test toast",
-		sourceView: sourceView,
-            layout: CxjToastConfiguration.Layout(
-                constraints: CxjToastConfiguration.Constraints(
-                    width: CxjToastConfiguration.Constraints.Values(
+		let sourceBackground: CxjToastConfiguration.SourceBackground = .init(
+			theme: .blurred(effect: .init(style: .dark)),
+			interaction: .enabled(
+				action: .init(
+					touchEvent: .touchDown,
+					handling: .dismissToast
+				)
+			)
+		)
+		
+		return CxjToastConfiguration(
+			typeId: "custom test toast",
+			sourceView: sourceView,
+			sourceBackground: sourceBackground,
+			layout: CxjToastConfiguration.Layout(
+				constraints: CxjToastConfiguration.Constraints(
+					width: CxjToastConfiguration.Constraints.Values(
 						min: sourceView.bounds.size.width * 0.75,
-                        max: sourceView.bounds.size.width
-                    ),
-                    height: CxjToastConfiguration.Constraints.Values(
-                        min: 40,
-                        max: 150
-                    )
-                ),
+						max: sourceView.bounds.size.width
+					),
+					height: CxjToastConfiguration.Constraints.Values(
+						min: 40,
+						max: 150
+					)
+				),
 				placement: .bottom(params: .init(offset: 100, includingSafeArea: true))
-            ),
-            dismissMethods: [
+			),
+			dismissMethods: [
 				.swipe(direction: .bottom),
 				.tap(actionCompletion: nil),
 				.automatic(time: 3.0)
 			],
-            animations: CxjToastConfiguration.Animations(
-                present: .nativeToastPresenting,
-                dismiss: .nativeToastDismissing,
+			animations: CxjToastConfiguration.Animations(
+				present: .nativeToastPresenting,
+				dismiss: .nativeToastDismissing,
 				behaviour: .custom(
 					changes: [
 						.translation(type: .outOfSourceViewVerticaly),
-//						.shadowOverlay(color: .black, intensity: 0.5),
-//						.corners(
-//							radius: .init(
-//								type: .screenCornerRadius,
-//								constraint: .halfHeigt
-//							)
-//						)
-//						.alpha(intensity: 0.0)
+						//						.shadowOverlay(color: .black, intensity: 0.5),
+						//						.corners(
+						//							radius: .init(
+						//								type: .screenCornerRadius,
+						//								constraint: .halfHeigt
+						//							)
+						//						)
+						//						.alpha(intensity: 0.0)
 					]
 				),
-                nativeViewsIncluding: []
-            )
-        )
-    }
+				nativeViewsIncluding: []
+			)
+		)
+	}
     
     private func customCxjToastViewConfig() -> CxjToastViewConfiguration {
         CxjToastViewConfiguration(

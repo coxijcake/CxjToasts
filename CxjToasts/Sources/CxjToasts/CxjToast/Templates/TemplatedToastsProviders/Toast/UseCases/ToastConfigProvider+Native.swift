@@ -15,6 +15,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 			return Config(
 				typeId: "cxj_native_toast",
 				sourceView: sourceView,
+				sourceBackground: nil,
 				layout: layoutFor(sourceView: sourceView),
 				dismissMethods: dismissMethods(),
 				animations: animations()

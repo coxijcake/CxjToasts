@@ -22,16 +22,23 @@ extension CxjTemplatedToastConfigProviderFactory {
 			
 			return Config(
 				typeId: "cxj_bottom_primary_toast",
-				sourceView: sourceView,
+				sourceView: sourceView, 
+				sourceBackground: sourceBackground(),
 				layout: layoutFor(sourceView: sourceView),
 				dismissMethods: dismissMethods(),
 				animations: animations()
 			)
 		}
 		
-		
 		private func defaultSourceView() -> UIView {
 			UIApplication.keyWindow ?? UIApplication.topViewController()?.view ?? UIView()
+		}
+		
+		private func sourceBackground() -> Config.SourceBackground {
+			.init(
+				theme: .colorized(color: .black.withAlphaComponent(0.7)),
+				interaction: .enabled(action: .init(touchEvent: .touchDown, handling: .dismissToast))
+			)
 		}
 		
 		private func layoutFor(sourceView: UIView) -> Config.Layout {
