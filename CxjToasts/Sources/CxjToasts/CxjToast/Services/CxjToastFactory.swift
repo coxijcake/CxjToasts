@@ -26,6 +26,7 @@ public enum CxjToastFactory {
 		
 		let animator: CxjToastAnimator = CxjToastAnimator(
 			toastView: view,
+			sourceView: config.sourceView,
 			sourceBackground: sourceBackground,
 			config: config
 		)

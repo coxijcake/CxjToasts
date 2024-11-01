@@ -11,9 +11,9 @@ import UIKit.UIScreen
 extension CxjToastAnimator {
 	final class CustomConfigPropertiesBuilder {
 		//MARK: - Types
-		typealias Animations = CxjToastConfiguration.Animations
+		typealias Animations = CxjToastConfiguration.Animation
 		typealias Input = ConfigStrategyCommonInput
-		typealias Change = ToastConfig.Animations.Behaviour.CustomBehaviourChange
+		typealias Change = ToastConfig.Animation.Behaviour.CustomBehaviourChange
 		
 		//MARK: - Props
 		let input: Input

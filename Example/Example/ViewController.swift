@@ -155,22 +155,16 @@ class ViewController: UIViewController {
 				.automatic(time: 3.0)
 			],
 			animations: CxjToastConfiguration.Animations(
-				present: .nativeToastPresenting,
-				dismiss: .nativeToastDismissing,
-				behaviour: .custom(
-					changes: [
-						.translation(type: .outOfSourceViewVerticaly),
-						//						.shadowOverlay(color: .black, intensity: 0.5),
-						//						.corners(
-						//							radius: .init(
-						//								type: .screenCornerRadius,
-						//								constraint: .halfHeigt
-						//							)
-						//						)
-						//						.alpha(intensity: 0.0)
-					]
+				present: .init(
+					animation: .defaultSpring,
+					behaviour: .custom(changes: [.translation(type: .outOfSourceViewVerticaly)]),
+					nativeViewsIncluding: []
 				),
-				nativeViewsIncluding: []
+				dismiss: .init(
+					animation: .defaultSpring,
+					behaviour: .custom(changes: [.alpha(intensity: .zero), .scale(value: .init(x: 0.9, y: 0.75))]),
+					nativeViewsIncluding: []
+				)
 			)
 		)
 	}

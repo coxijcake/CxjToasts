@@ -10,6 +10,19 @@ import UIKit.UIColor
 
 extension CxjToastConfiguration {
 	public struct Animations {
+		public let present: Animation
+		public let dismiss: Animation
+		
+		public init(
+			present: Animation,
+			dismiss: Animation
+		) {
+			self.present = present
+			self.dismiss = dismiss
+		}
+	}
+	
+	public struct Animation {
 		public enum TopPlacementNativeView {
 			case notch, dynamicIsland
 		}
@@ -93,19 +106,16 @@ extension CxjToastConfiguration {
 			case custom(changes: CustomBehaviourChanges)
 		}
 		
-		public let present: CxjAnimation
-		public let dismiss: CxjAnimation
+		public let animation: CxjAnimation
 		public let behaviour: Behaviour
 		public let nativeViewsIncluding: Set<TopPlacementNativeView>
 		
 		public init(
-			present: CxjAnimation,
-			dismiss: CxjAnimation,
+			animation: CxjAnimation,
 			behaviour: Behaviour,
 			nativeViewsIncluding: Set<TopPlacementNativeView>
 		) {
-			self.present = present
-			self.dismiss = dismiss
+			self.animation = animation
 			self.behaviour = behaviour
 			self.nativeViewsIncluding = nativeViewsIncluding
 		}

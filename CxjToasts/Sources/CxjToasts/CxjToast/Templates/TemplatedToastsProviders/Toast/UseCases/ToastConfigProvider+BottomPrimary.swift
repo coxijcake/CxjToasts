@@ -82,9 +82,8 @@ extension CxjTemplatedToastConfigProviderFactory {
 		}
 		
 		private func animations() -> Config.Animations {
-			Config.Animations(
-				present: .nativeToastPresenting,
-				dismiss: .nativeToastDismissing,
+			let animation: Config.Animation = Config.Animation(
+				animation: .testSlow,
 				behaviour: .custom(
 					changes: [
 						.translation(type: .outOfSourceViewVerticaly),
@@ -93,6 +92,11 @@ extension CxjTemplatedToastConfigProviderFactory {
 					]
 				),
 				nativeViewsIncluding: []
+			)
+			
+			return Config.Animations(
+				present: animation,
+				dismiss: animation
 			)
 		}
 	}

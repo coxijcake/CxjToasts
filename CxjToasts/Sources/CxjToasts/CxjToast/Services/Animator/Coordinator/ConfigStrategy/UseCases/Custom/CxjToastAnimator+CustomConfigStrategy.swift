@@ -9,7 +9,7 @@ import Foundation
 
 extension CxjToastAnimator {
 	struct CustomConfigStrategy: ConfigStrategy {
-		typealias Changes = ToastConfig.Animations.Behaviour.CustomBehaviourChanges
+		typealias Changes = ToastConfig.Animation.Behaviour.CustomBehaviourChanges
 		
 		let input: ConfigStrategyCommonInput
 		let presentedStateAnimatingProperties: ToastAnimatingProperties

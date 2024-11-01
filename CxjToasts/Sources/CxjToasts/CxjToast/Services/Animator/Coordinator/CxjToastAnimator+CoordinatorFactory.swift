@@ -5,14 +5,16 @@
 //  Created by Nikita Begletskiy on 07/09/2024.
 //
 
-import Foundation
+import UIKit
 
 extension CxjToastAnimator {
 	enum CoordinatorConfigurator {
 		static func coordinator(
 			forToastView toastView: ToastView,
 			sourceBackground: SourceBackground?,
-			with config: ToastConfig
+			animation: ConfigAnimation,
+			layoutData: LayoutData,
+			placement: Placement
 		) -> Coordinator {
 			let presentedStateAnimatingProperties: ToastAnimatingProperties =  ToastAnimatingProperties(
 				alpha: .init(value: toastView.alpha),
@@ -30,11 +32,13 @@ extension CxjToastAnimator {
 				alpha: .min
 			)
 			
-			let configStrategy: ConfigStrategy = ConfigStrategyFactory.configStrategy(
-				for: config,
-				toastSize: toastView.bounds.size,
-				presentedStateAnimatingProperties: presentedStateAnimatingProperties
-			)
+			let configStrategy: ConfigStrategy = ConfigStrategyFactory
+				.configStrategyFor(
+					animation: animation,
+					placement: placement,
+					layoutData: layoutData,
+					presentedStateAnimatingProperties: presentedStateAnimatingProperties
+				)
 			
 			let toastLayoutCalculator: ToastLayoutCalculator = ToastLayoutCalculator(
 				presentedStateProps: presentedStateAnimatingProperties,
