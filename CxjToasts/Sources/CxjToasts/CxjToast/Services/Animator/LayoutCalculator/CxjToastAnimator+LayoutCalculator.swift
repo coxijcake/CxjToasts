@@ -169,7 +169,7 @@ extension CxjToastAnimator {
 }
 
 extension CxjToastAnimator {
-	struct SourceBackgroundCalculator {
+	struct SourceBackgroundLayoutCalculator {
 		typealias Properties = SourceBackgroundAnimatingProperties
 		typealias Progress = ToastLayoutProgress
 		

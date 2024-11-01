@@ -26,18 +26,32 @@ extension CxjToastAnimator {
 				alpha: .max
 			)
 			
+			let dismissedStateSourceBackgroundAnimatingProperties: SourceBackgroundAnimatingProperties = SourceBackgroundAnimatingProperties(
+				alpha: .min
+			)
+			
 			let configStrategy: ConfigStrategy = ConfigStrategyFactory.configStrategy(
 				for: config,
 				toastSize: toastView.bounds.size,
 				presentedStateAnimatingProperties: presentedStateAnimatingProperties
 			)
 			
+			let toastLayoutCalculator: ToastLayoutCalculator = ToastLayoutCalculator(
+				presentedStateProps: presentedStateAnimatingProperties,
+				dismissedStateProps: configStrategy.dismissedStateAnimatingProperties(),
+				toastSize: toastView.bounds.size
+			)
+			
+			let sourceBackgroundLayoutCalculator: SourceBackgroundLayoutCalculator = SourceBackgroundLayoutCalculator(
+				presentedStateProps: presentedStateSourceBackgroundAnimatingProperies,
+				dismissedStateProps: dismissedStateSourceBackgroundAnimatingProperties
+			)
+			
 			return CommonBehaviourCoordinator(
 				toastView: toastView,
 				sourceBackground: sourceBackground,
-				presentedStateAnimatingProperties: presentedStateAnimatingProperties,
-				presentedStateSourceBackgroundAnimatingProperties: presentedStateSourceBackgroundAnimatingProperies,
-				animationConfigStrategy: configStrategy
+				toastLayoutCalculator: toastLayoutCalculator,
+				sourceBackgroundLayoutCalculator: sourceBackgroundLayoutCalculator
 			)
 		}
 	}
