@@ -12,17 +12,17 @@ extension CxjToastAnimator {
 		typealias Changes = ToastConfig.Animations.Behaviour.CustomBehaviourChanges
 		
 		let input: ConfigStrategyCommonInput
-		let presentedStateAnimatingProperties: AnimatingProperties
+		let presentedStateAnimatingProperties: ToastAnimatingProperties
 		let changes: Changes
 		
-		func dismissedStateAnimatingProperties() -> AnimatingProperties {
+		func dismissedStateAnimatingProperties() -> ToastAnimatingProperties {
 			let builder = CustomConfigPropertiesBuilder(input: input)
 			   
 			for change in changes {
 				builder.update(with: change)
 			}
 			
-			let customAnimatingProperties: AnimatingProperties = builder.build()
+			let customAnimatingProperties: ToastAnimatingProperties = builder.build()
 			
 			return customAnimatingProperties
 		}

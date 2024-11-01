@@ -11,6 +11,7 @@ import UIKit
 public extension CxjToast {
     typealias ToastType = CxjToastType
     typealias ToastView = CxjToastView
+	typealias SourceBackground = CxjToastSourceBackground
     typealias Configuration = CxjToastConfiguration
     typealias ContentView = CxjToastContentView
 }
@@ -18,6 +19,7 @@ public extension CxjToast {
 public final class CxjToast: CxjDisplayableToast {
     //MARK: - Props
     let view: ToastView
+	let sourceBackground: SourceBackground?
     let config: Configuration
 	let presenter: CxjToastPresentable
 	let dismisser: CxjToastDismissable
@@ -30,12 +32,14 @@ public final class CxjToast: CxjDisplayableToast {
     init(
 		id: UUID,
         view: ToastView,
+		sourceBackground: SourceBackground?,
         config: Configuration,
 		presenter: CxjToastPresentable,
 		dismisser: CxjToastDismissable
     ) {
 		self.id = id
         self.view = view
+		self.sourceBackground = sourceBackground
         self.config = config
 		self.presenter = presenter
 		self.dismisser = dismisser

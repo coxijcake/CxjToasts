@@ -20,7 +20,7 @@ extension CxjToastAnimator {
 			let placement: CxjToastConfiguration.Layout.Placement
 		}
 		
-		let presentedStateAnimatingProperties: AnimatingProperties
+		let presentedStateAnimatingProperties: ToastAnimatingProperties
 		let toastViewData: ToastViewData
 		let sourceViewData: SourceViewData
 	}

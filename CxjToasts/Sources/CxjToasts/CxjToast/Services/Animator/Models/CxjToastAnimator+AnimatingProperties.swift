@@ -8,7 +8,7 @@
 import UIKit
 
 extension CxjToastAnimator {
-    struct AnimatingProperties {
+    struct ToastAnimatingProperties {
         struct Scale {
             let x: CGFloat
             let y: CGFloat
@@ -55,4 +55,8 @@ extension CxjToastAnimator {
 		let cornerRadius: CornerRadius
 		let shadowOverlay: ShadowOverlay
     }
+	
+	struct SourceBackgroundAnimatingProperties {
+		let alpha: ClampedAlpha
+	}
 }

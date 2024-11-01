@@ -9,14 +9,14 @@ import UIKit
 
 extension CxjToastPresenter {
 	enum LayoutApplier {
-		typealias Layout = CxjToastConfiguration.Layout
+		typealias ToastLayout = CxjToastConfiguration.Layout
 		typealias ToastView = CxjToastView
 		
 		//MARK: - Public API
-		static func apply(
-			layout: Layout,
-			for toastView: ToastView,
-			in sourceView: UIView
+		static func applyToastLayout(
+			_ layout: ToastLayout,
+			forToastView toastView: ToastView,
+			inSourceView sourceView: UIView
 		) {
 			let constraints = layout.constraints
 			let placement = layout.placement
@@ -45,10 +45,19 @@ extension CxjToastPresenter {
 			toastView.layoutIfNeeded()
 		}
 		
+		static func applyLayoutForBackgroundView(
+			_ backgroundView: UIView,
+			inSourceView sourceView: UIView
+		) {
+			sourceView.addSubview(backgroundView)
+			backgroundView.frame = sourceView.bounds
+			backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		}
+		
 		//MARK: - Private API
 		private static func verticalAnchorConstraint(
 			for toastView: ToastView,
-			placement: Layout.Placement,
+			placement: ToastLayout.Placement,
 			in sourceView: UIView
 		) -> NSLayoutConstraint {
 			switch placement {

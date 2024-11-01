@@ -19,10 +19,10 @@ extension CxjToastAnimator {
 		let input: Input
 		
 		private var alpha: ClampedAlpha
-		private var scale: AnimatingProperties.Scale
-		private var translation: AnimatingProperties.Translation
-		private var cornerRadius: AnimatingProperties.CornerRadius
-		private var shadowOverlay: AnimatingProperties.ShadowOverlay
+		private var scale: ToastAnimatingProperties.Scale
+		private var translation: ToastAnimatingProperties.Translation
+		private var cornerRadius: ToastAnimatingProperties.CornerRadius
+		private var shadowOverlay: ToastAnimatingProperties.ShadowOverlay
 		
 		//MARK: - Lifecycle
 		init(input: Input) {
@@ -38,7 +38,7 @@ extension CxjToastAnimator {
 		func update(with change: Change) -> CustomConfigPropertiesBuilder {
 			switch change {
 			case .scale(let value):
-				scale = AnimatingProperties.Scale(x: value.x, y: value.y)
+				scale = ToastAnimatingProperties.Scale(x: value.x, y: value.y)
 			case .translation(let type):
 				translation = translationFor(translationType: type)
 			case .alpha(let intensity):
@@ -53,8 +53,8 @@ extension CxjToastAnimator {
 		}
 		
 		//MARK: - Building
-		func build() -> AnimatingProperties {
-			return AnimatingProperties(
+		func build() -> ToastAnimatingProperties {
+			return ToastAnimatingProperties(
 				alpha: alpha,
 				scale: scale,
 				translation: translation,
@@ -64,16 +64,16 @@ extension CxjToastAnimator {
 		}
 		
 		//MARK: - Translation
-		private func translationFor(translationType: Change.TranslationType) -> AnimatingProperties.Translation {
+		private func translationFor(translationType: Change.TranslationType) -> ToastAnimatingProperties.Translation {
 			switch translationType {
 			case .outOfSourceViewVerticaly: 
 				return outOfSourceViewVerticalTranslation()
 			case .custom(value: let value):
-				return AnimatingProperties.Translation(x: value.x, y: value.y)
+				return ToastAnimatingProperties.Translation(x: value.x, y: value.y)
 			}
 		}
 		
-		private func outOfSourceViewVerticalTranslation() -> AnimatingProperties.Translation {
+		private func outOfSourceViewVerticalTranslation() -> ToastAnimatingProperties.Translation {
 			let tranlationX: CGFloat = .zero
 			
 			switch input.toastViewData.placement {
@@ -87,12 +87,12 @@ extension CxjToastAnimator {
 				+ safeAreaInset
 				+ input.toastViewData.size.height
 				
-				return AnimatingProperties.Translation(
+				return ToastAnimatingProperties.Translation(
 					x: tranlationX,
 					y: -translationY
 				)
 			case .center:
-				return AnimatingProperties.Translation(
+				return ToastAnimatingProperties.Translation(
 					x: tranlationX,
 					y: .zero
 				)
@@ -106,7 +106,7 @@ extension CxjToastAnimator {
 				+ safeAreaInset
 				+ input.toastViewData.size.height
 				
-				return AnimatingProperties.Translation(
+				return ToastAnimatingProperties.Translation(
 					x: tranlationX,
 					y: translationY
 				)
@@ -116,8 +116,8 @@ extension CxjToastAnimator {
 		//MARK: - CornerRadius
 		private func cornerRadiusValue(
 			for cornerRadius: Animations.Behaviour.CustomBehaviourChange.CornerRadius
-		) -> AnimatingProperties.CornerRadius {
-			let constraint: AnimatingProperties.CornerRadius.Constraint = {
+		) -> ToastAnimatingProperties.CornerRadius {
+			let constraint: ToastAnimatingProperties.CornerRadius.Constraint = {
 				switch cornerRadius.constraint {
 				case .halfHeigt: .halfHeight
 				case .none: .none
@@ -131,7 +131,7 @@ extension CxjToastAnimator {
 				}
 			}()
 			
-			return AnimatingProperties.CornerRadius(
+			return ToastAnimatingProperties.CornerRadius(
 				value: value,
 				constraint: constraint
 			)

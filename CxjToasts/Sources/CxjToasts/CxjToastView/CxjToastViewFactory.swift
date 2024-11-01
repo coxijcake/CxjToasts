@@ -15,7 +15,7 @@ enum CxjToastViewFactory {
 		let viewState: CxjToastContainerView.ViewState = CxjToastContainerViewStateConfigurator
 			.state(for: config)
 		let backgroundView: UIView = CxjToastContainerBackgroundViewFactory
-			.backroundViewFor(config: config.background)
+			.backroundViewFor(background: config.background)
 		
         let view = CxjToastContainerView(
 			state: viewState,

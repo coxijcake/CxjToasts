@@ -14,10 +14,10 @@ extension CxjToastAnimator {
 		let includingSafeArea: Bool
 		let verticalOffset: CGFloat
 		
-		func dismissedStateAnimatingProperties() -> AnimatingProperties {
+		func dismissedStateAnimatingProperties() -> ToastAnimatingProperties {
 			let yTranslation: CGFloat = dismissedTranslationY()
 			
-			return AnimatingProperties(
+			return ToastAnimatingProperties(
 				alpha: .max,
 				scale: .initial,
 				translation: .init(x: .zero, y: yTranslation),

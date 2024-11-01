@@ -141,6 +141,7 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 		
 		dismisser.deactivateDismissMethods()
 		toast.view.removeFromSuperview()
+		toast.sourceBackground?.removeFromSuperview()
 		toast.displayingState = .initial
 		
 		activeToasts.removeAll(where: { $0.id == toast.id })

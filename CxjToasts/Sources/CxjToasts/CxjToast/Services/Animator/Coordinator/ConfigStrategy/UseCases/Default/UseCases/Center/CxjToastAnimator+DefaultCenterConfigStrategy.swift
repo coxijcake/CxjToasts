@@ -11,10 +11,10 @@ extension CxjToastAnimator {
 	struct DefaultCenterConfigStrategy: DefaultConfigStrategy {
 		let input: ConfigStrategyCommonInput
 		
-		func dismissedStateAnimatingProperties() -> AnimatingProperties {
-			AnimatingProperties(
+		func dismissedStateAnimatingProperties() -> ToastAnimatingProperties {
+			ToastAnimatingProperties(
 				alpha: .min,
-				scale: CxjToastAnimator.AnimatingProperties.Scale(x: 0.5, y: 0.5),
+				scale: CxjToastAnimator.ToastAnimatingProperties.Scale(x: 0.5, y: 0.5),
 				translation: .initial,
 				cornerRadius: input.presentedStateAnimatingProperties.cornerRadius,
 				shadowOverlay: .off

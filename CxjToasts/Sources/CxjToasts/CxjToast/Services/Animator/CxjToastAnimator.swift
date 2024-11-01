@@ -10,6 +10,7 @@ import UIKit
 //MARK: - Types
 extension CxjToastAnimator {
     typealias ToastView = CxjToastView
+	typealias SourceBackground = CxjToastSourceBackground
     typealias ToastConfig = CxjToastConfiguration
 	typealias Placement = ToastConfig.Layout.Placement
     typealias Animations = ToastConfig.Animations
@@ -21,15 +22,22 @@ extension CxjToastAnimator {
 final class CxjToastAnimator {
 	//MARK: - Props
 	private let toastView: ToastView
+	private let sourceBackground: SourceBackground?
 	private let config: ToastConfig
 	
 	private lazy var coordinator: Coordinator = CoordinatorConfigurator.coordinator(
-		for: toastView,
+		forToastView: toastView,
+		sourceBackground: sourceBackground,
 		with: config
 	)
 	
-    init(toastView: ToastView, config: ToastConfig) {
+	init(
+		toastView: ToastView,
+		sourceBackground: SourceBackground?,
+		config: ToastConfig
+	) {
         self.toastView = toastView
+		self.sourceBackground = sourceBackground
         self.config = config
     }
 }

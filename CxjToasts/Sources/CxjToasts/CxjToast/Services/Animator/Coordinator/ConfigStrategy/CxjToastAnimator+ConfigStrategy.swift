@@ -9,6 +9,6 @@ import Foundation
 
 extension CxjToastAnimator {
 	protocol ConfigStrategy {
-		func dismissedStateAnimatingProperties() -> AnimatingProperties
+		func dismissedStateAnimatingProperties() -> ToastAnimatingProperties
 	}
 }

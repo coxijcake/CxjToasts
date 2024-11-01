@@ -12,10 +12,10 @@ extension CxjToastAnimator {
 		let input: ConfigStrategyCommonInput
 		let verticalOffset: CGFloat
 		
-		func dismissedStateAnimatingProperties() -> AnimatingProperties {
+		func dismissedStateAnimatingProperties() -> ToastAnimatingProperties {
 			let yTranslation: CGFloat = dismissYTranslation()
 			
-			return AnimatingProperties(
+			return ToastAnimatingProperties(
 				alpha: .max,
 				scale: dismissScale(),
 				translation: .init(x: .zero, y: yTranslation),
@@ -24,7 +24,7 @@ extension CxjToastAnimator {
 			)
 		}
 		
-		private func dismissScale() -> AnimatingProperties.Scale {
+		private func dismissScale() -> ToastAnimatingProperties.Scale {
 			let toastSize: CGSize = input.toastViewData.size
 			let dynamicIslandAdjustedSize: CGSize = CGSize(
 				width: CxjDynamicIslandHelper.minWidth - 6,
@@ -51,15 +51,15 @@ extension CxjToastAnimator {
 			return -yTranslation
 		}
 		
-		private func dismissedCornerRadius() -> AnimatingProperties.CornerRadius {
-			AnimatingProperties.CornerRadius(
+		private func dismissedCornerRadius() -> ToastAnimatingProperties.CornerRadius {
+			ToastAnimatingProperties.CornerRadius(
 				value: CxjDynamicIslandHelper.cornerRadius,
 				constraint: .halfHeight
 			)
 		}
 		
-		private func dismissedShadow() -> AnimatingProperties.ShadowOverlay {
-			AnimatingProperties.ShadowOverlay.on(
+		private func dismissedShadow() -> ToastAnimatingProperties.ShadowOverlay {
+			ToastAnimatingProperties.ShadowOverlay.on(
 				color: CxjDynamicIslandHelper.backgroundColor,
 				alpha: .max
 			)

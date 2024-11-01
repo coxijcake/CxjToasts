@@ -11,20 +11,27 @@ extension CxjToastAnimator {
 	final class CommonBehaviourCoordinator: Coordinator {
         //MARK: - Props
         private let toastView: ToastView
+		private let sourceBackground: SourceBackground?
 		private let animationConfigStrategy: ConfigStrategy
-        private let presentedStateAnimatingProperties: AnimatingProperties
-        		
+        private let presentedStateToastAnimatingProperties: ToastAnimatingProperties
+		private let presentedStateSourceBackgroundAnimatingProperties: SourceBackgroundAnimatingProperties
+		
 		private lazy var dismissedStateAnimatingProps = animationConfigStrategy
 			.dismissedStateAnimatingProperties()
 		
-		private lazy var layoutCalculator: LayoutCalculator = LayoutCalculator(
-			presentedStateProps: presentedStateAnimatingProperties,
+		private lazy var toastLayoutCalculator: ToastLayoutCalculator = ToastLayoutCalculator(
+			presentedStateProps: presentedStateToastAnimatingProperties,
 			dismissedStateProps: dismissedStateAnimatingProps,
 			toastSize: toastView.bounds.size
 		)
 		
+		private lazy var sourceBackgroundLayoutCalculator: SourceBackgroundCalculator = SourceBackgroundCalculator(
+			presentedStateProps: presentedStateSourceBackgroundAnimatingProperties,
+			dismissedStateProps: .init(alpha: .min)
+		)
+		
         private(set) lazy var dismissedStateYTranslation: CGFloat = {
-			layoutCalculator
+			toastLayoutCalculator
 				.propertiesFor(progress: .max)
 				.translation.y
         }()
@@ -34,11 +41,15 @@ extension CxjToastAnimator {
         //MARK: - Lifecycle
         init(
             toastView: ToastView,
-			presentedStateAnimatingProperties: AnimatingProperties,
+			sourceBackground: SourceBackground?,
+			presentedStateAnimatingProperties: ToastAnimatingProperties,
+			presentedStateSourceBackgroundAnimatingProperties: SourceBackgroundAnimatingProperties,
 			animationConfigStrategy: ConfigStrategy
         ) {
             self.toastView = toastView
-			self.presentedStateAnimatingProperties = presentedStateAnimatingProperties
+			self.sourceBackground = sourceBackground
+			self.presentedStateToastAnimatingProperties = presentedStateAnimatingProperties
+			self.presentedStateSourceBackgroundAnimatingProperties = presentedStateSourceBackgroundAnimatingProperties
 			self.animationConfigStrategy = animationConfigStrategy
         }
         
@@ -48,20 +59,25 @@ extension CxjToastAnimator {
 		}
 		
 		func presentingLayout() {
-			updateToastWith(animatingPropsValues: presentedStateAnimatingProperties)
+			updateToastWith(animatingPropsValues: presentedStateToastAnimatingProperties)
+			updateSourceBackgroundWith(animatingProps: presentedStateSourceBackgroundAnimatingProperties)
 		}
 		
         func dismissLayout(progress: ToastLayoutProgress) {
-			let properties: AnimatingProperties = layoutCalculator.propertiesFor(progress: progress)
+			let toastProps: ToastAnimatingProperties = toastLayoutCalculator
+				.propertiesFor(progress: progress)
+			let sourceBackgroundProps: SourceBackgroundAnimatingProperties = sourceBackgroundLayoutCalculator
+				.propertiesFor(progress: progress)
             
-            updateToastWith(animatingPropsValues: properties)
+            updateToastWith(animatingPropsValues: toastProps)
+			updateSourceBackgroundWith(animatingProps: sourceBackgroundProps)
         }
         
         //MARK: - Private Methods
 		private func addDimmedViewIfNeeded() {
 			switch dismissedStateAnimatingProps.shadowOverlay {
 			case .off:
-				switch presentedStateAnimatingProperties.shadowOverlay {
+				switch presentedStateToastAnimatingProperties.shadowOverlay {
 				case .off: return
 				case .on(let color, _):
 					addTransitionDimmedView(dimColor: color, cornersMask: toastView.layer.maskedCorners)
@@ -83,7 +99,7 @@ extension CxjToastAnimator {
 			self.transitionAnimationDimmedView = view
 		}
 		
-        private final func updateToastWith(animatingPropsValues: AnimatingProperties) {
+        private final func updateToastWith(animatingPropsValues: ToastAnimatingProperties) {
             let transform: CGAffineTransform = transformFor(changingValues: animatingPropsValues)
             
             toastView.transform = transform
@@ -93,7 +109,11 @@ extension CxjToastAnimator {
 			updateDimmedViewWith(animatingProperties: animatingPropsValues)
         }
 		
-		private func updateDimmedViewWith(animatingProperties: AnimatingProperties) {
+		private func updateSourceBackgroundWith(animatingProps: SourceBackgroundAnimatingProperties) {
+			sourceBackground?.alpha = animatingProps.alpha.value
+		}
+		
+		private func updateDimmedViewWith(animatingProperties: ToastAnimatingProperties) {
 			switch animatingProperties.shadowOverlay {
 			case .off:
 				transitionAnimationDimmedView?.alpha = .zero
@@ -104,7 +124,7 @@ extension CxjToastAnimator {
 			transitionAnimationDimmedView?.layer.cornerRadius = animatingProperties.cornerRadius.value
 		}
         
-        private func transformFor(changingValues: AnimatingProperties) -> CGAffineTransform {
+        private func transformFor(changingValues: ToastAnimatingProperties) -> CGAffineTransform {
 			let transform: CGAffineTransform = CGAffineTransform(
 				scaleX: changingValues.scale.x,
 				y: changingValues.scale.y

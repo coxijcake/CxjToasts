@@ -36,7 +36,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 		
 		private func sourceBackground() -> Config.SourceBackground {
 			.init(
-				theme: .colorized(color: .black.withAlphaComponent(0.7)),
+				theme: .colorized(color: .blue.withAlphaComponent(0.65)),
 				interaction: .enabled(action: .init(touchEvent: .touchDown, handling: .dismissToast))
 			)
 		}

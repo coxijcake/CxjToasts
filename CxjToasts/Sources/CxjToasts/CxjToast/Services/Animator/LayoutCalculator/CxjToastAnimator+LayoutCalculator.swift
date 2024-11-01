@@ -9,29 +9,30 @@ import UIKit
 
 
 extension CxjToastAnimator {
-    struct LayoutCalculator {
+    struct ToastLayoutCalculator {
 		//MARK: - Types
+		typealias Properties = ToastAnimatingProperties
 		typealias Progress = ToastLayoutProgress
-		typealias Scale = AnimatingProperties.Scale
-		typealias Translation = AnimatingProperties.Translation
-		typealias CornerRadius = AnimatingProperties.CornerRadius
-		typealias ShadowOverlay = AnimatingProperties.ShadowOverlay
+		typealias Scale = ToastAnimatingProperties.Scale
+		typealias Translation = ToastAnimatingProperties.Translation
+		typealias CornerRadius = ToastAnimatingProperties.CornerRadius
+		typealias ShadowOverlay = ToastAnimatingProperties.ShadowOverlay
 		
 		//MARK: - Props
-        let presentedStateProps: AnimatingProperties
-        let dismissedStateProps: AnimatingProperties
+        let presentedStateProps: ToastAnimatingProperties
+        let dismissedStateProps: ToastAnimatingProperties
         
         let toastSize: CGSize
         
-		//MARK: - Public API
-        func propertiesFor(progress: Progress) -> AnimatingProperties {
+		//MARK: - Toast properties
+        func propertiesFor(progress: Progress) -> ToastAnimatingProperties {
 			let alpha: CGFloat = alphaFor(progress: progress)
 			let scale: Scale = scaleFor(progress: progress)
 			let translation: Translation = translationFor(progress: progress, scale: scale)
 			let cornerRadius: CornerRadius = cornerRadiusFor(progress: progress)
 			let shadow: ShadowOverlay = shadowOverlayFor(progress: progress)
             
-            return AnimatingProperties(
+            return ToastAnimatingProperties(
 				alpha: .init(value: alpha),
                 scale: scale,
                 translation: translation,
@@ -56,7 +57,7 @@ extension CxjToastAnimator {
 		
 		//MARK: - Scale
 		private func scaleFor(progress: Progress) -> Scale {
-			let initialScale: AnimatingProperties.Scale = presentedStateProps.scale
+			let initialScale: ToastAnimatingProperties.Scale = presentedStateProps.scale
 			
 			let scaleX: CGFloat =
 			dismissedStateProps.scale.x
@@ -165,4 +166,37 @@ extension CxjToastAnimator {
 			}
 		}
     }
+}
+
+extension CxjToastAnimator {
+	struct SourceBackgroundCalculator {
+		typealias Properties = SourceBackgroundAnimatingProperties
+		typealias Progress = ToastLayoutProgress
+		
+		//MARK: - Props
+		let presentedStateProps: Properties
+		let dismissedStateProps: Properties
+		
+		func propertiesFor(progress: Progress) -> Properties {
+			let alpha: CGFloat = alphaValueFor(progress: progress)
+			
+			return Properties(
+				alpha: .init(value: alpha)
+			)
+		}
+		
+		//MARK: - Alpha
+		private func alphaValueFor(progress: Progress) -> CGFloat {
+			let initialAlpha: CGFloat = presentedStateProps.alpha.value
+			
+			let finalAlpha: CGFloat = dismissedStateProps.alpha.value
+			let alpha: CGFloat =
+			finalAlpha
+			* progress.value
+			+ initialAlpha
+			* progress.revertedValue
+			
+			return alpha
+		}
+	}
 }

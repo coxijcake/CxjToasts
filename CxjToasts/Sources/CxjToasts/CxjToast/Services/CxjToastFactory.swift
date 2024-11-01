@@ -21,20 +21,26 @@ public enum CxjToastFactory {
             for: type
         )
 		
+		let sourceBackground: CxjToastSourceBackground? = CxjToastSourceBackgroundFactory
+			.backgroundForTheme(config.sourceBackground?.theme)
+		
 		let animator: CxjToastAnimator = CxjToastAnimator(
 			toastView: view,
+			sourceBackground: sourceBackground,
 			config: config
 		)
 		
 		let presenter: CxjToastPresenter = CxjToastPresenter(
 			config: config,
 			toastView: view,
+			sourceBackgroundView: sourceBackground,
 			animator: animator
 		)
 		
 		let dismisser: CxjToastDismisser = CxjToastDismisser(
 			toastId: toastId,
 			toastView: view,
+			sourceBackgroundView: sourceBackground,
 			config: config,
 			animator: animator,
 			delegate: CxjToastsCoordinator.shared
@@ -43,6 +49,7 @@ public enum CxjToastFactory {
 		let toast: CxjToast = CxjToast(
 			id: toastId,
 			view: view,
+			sourceBackground: sourceBackground,
 			config: config,
 			presenter: presenter,
 			dismisser: dismisser

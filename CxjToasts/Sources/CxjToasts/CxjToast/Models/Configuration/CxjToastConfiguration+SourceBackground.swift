@@ -9,6 +9,7 @@ import UIKit
 
 extension CxjToastConfiguration {
 	public struct SourceBackground {
+		public typealias Theme = CxjToastSourceBackgroundTheme
 		public typealias CustomActionHandlingCompletion = (any CxjIdentifiableToast) -> Void
 		
 		public enum Interaction {
@@ -35,11 +36,11 @@ extension CxjToastConfiguration {
 			case custom(completion: CustomActionHandlingCompletion?)
 		}
 		
-		public let theme: CxjBackground
+		public let theme: Theme
 		public let interaction: Interaction
 		
 		public init(
-			theme: CxjBackground,
+			theme: Theme,
 			interaction: Interaction
 		) {
 			self.theme = theme

@@ -18,23 +18,33 @@ protocol CxjToastPresentable {
 final class CxjToastPresenter: CxjToastPresentable {
 	let config: CxjToastConfiguration
 	let toastView: CxjToastView
+	let sourceBackgroundView: CxjToastSourceBackground?
 	let animator: CxjToastPresentAnimator
 	
 	init(
 		config: CxjToastConfiguration,
 		toastView: CxjToastView,
+		sourceBackgroundView: CxjToastSourceBackground?,
 		animator: CxjToastPresentAnimator
 	) {
 		self.config = config
 		self.toastView = toastView
+		self.sourceBackgroundView = sourceBackgroundView
 		self.animator = animator
 	}
 	
 	func present(completion: BoolCompletion?) {
-		LayoutApplier.apply(
-			layout: config.layout,
-			for: toastView,
-			in: config.sourceView
+		if let sourceBackgroundView {
+			LayoutApplier.applyLayoutForBackgroundView(
+				sourceBackgroundView,
+				inSourceView: config.sourceView
+			)
+		}
+		
+		LayoutApplier.applyToastLayout(
+			config.layout,
+			forToastView: toastView,
+			inSourceView: config.sourceView
 		)
         
         toastView.prepareToDisplay()

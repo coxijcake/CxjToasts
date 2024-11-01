@@ -12,7 +12,7 @@ extension CxjToastAnimator {
 		static func configStrategy(
 			for config: ToastConfig,
 			toastSize: CGSize,
-			presentedStateAnimatingProperties: AnimatingProperties
+			presentedStateAnimatingProperties: ToastAnimatingProperties
 		) -> ConfigStrategy {
 			let commonInput: ConfigStrategyCommonInput = ConfigStrategyCommonInput(
 				presentedStateAnimatingProperties: presentedStateAnimatingProperties,

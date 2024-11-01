@@ -7,20 +7,20 @@
 
 import UIKit
 
-enum CxjToastContainerBackgroundViewFactory {
+public enum CxjToastContainerBackgroundViewFactory {
+	typealias Background = CxjBackground
 	typealias BackgroundView = UIView
-	typealias Config = CxjToastViewConfiguration.Background
 	
-	static func backroundViewFor(config: Config) -> BackgroundView {
-		switch config {
+	static func backroundViewFor(background: Background) -> BackgroundView {
+		switch background {
 		case .colorized(color: let color):
-			CxjToastContainerColorizedBackgroundViewConfigurator
+			CxjColorizedBackgroundViewConfigurator
 				.backgroundViewFor(color: color)
 		case .blurred(effect: let effect):
-			CxjToastContainerBlurredBackgroundViewConfigurator
+			CxjBlurredBackgroundViewConfigurator
 				.backgroundBlurredViewWith(blurEffect: effect)
 		case .gradient(params: let params):
-			CxjToastContainerGradientdBackgroundViewConfigurator
+			CxjGradientdBackgroundViewConfigurator
 				.gradientBackgroundViewWithParams(params)
 		case .custom(view: let customView):
 			customView

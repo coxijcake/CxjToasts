@@ -37,6 +37,7 @@ final class CxjToastDismisser: CxjToastDismissable {
 	//MARK: - Props
 	private let toastId: UUID
 	private let toastView: ToastView
+	private let sourceBackgroundView: CxjToastSourceBackground?
 	private let config: Configuration
 	
 	private lazy var dismissUseCases: [ToastDismissUseCase] = createDismissUseCases()
@@ -49,12 +50,14 @@ final class CxjToastDismisser: CxjToastDismissable {
 	init(
 		toastId: UUID,
 		toastView: ToastView,
+		sourceBackgroundView: CxjToastSourceBackground?,
 		config: Configuration,
 		animator: CxjToastAnimator,
 		delegate: CxjToastDismisserDelegate?
 	) {
 		self.toastId = toastId
 		self.toastView = toastView
+		self.sourceBackgroundView = sourceBackgroundView
 		self.config = config
 		self.animator = animator
 		self.delegate = delegate
