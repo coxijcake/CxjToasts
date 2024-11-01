@@ -48,7 +48,7 @@ final class CxjToastPresenter: CxjToastPresentable {
 		)
         
         toastView.prepareToDisplay()
-				
+		
 		animator.presentAction(completion: completion)
 	}
 }

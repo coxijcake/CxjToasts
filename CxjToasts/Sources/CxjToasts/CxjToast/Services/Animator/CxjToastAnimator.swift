@@ -42,8 +42,8 @@ final class CxjToastAnimator {
 	private let sourceBackground: SourceBackground?
 	private let config: ToastConfig
 	
-	private lazy var presentCoordinator: Coordinator = coordinatorFor(animation: config.animations.present)
-	private lazy var dismissCoordinator: Coordinator = coordinatorFor(animation: config.animations.dismiss)
+	private var presentCoordinator: Coordinator?
+	private var dismissCoordinator: Coordinator?
 	
 	init(
 		toastView: ToastView,
@@ -65,12 +65,19 @@ extension CxjToastAnimator: CxjToastPresentAnimator {
     }
     
 	func presentAction(completion: AnimationsCompletion?) {
+		setupCoordinators()
+		
+		guard let presentCoordinator else {
+			completion?(false)
+			return
+		}
+		
 		let fullProgress: ToastLayoutProgress = ToastLayoutProgress.max
         
 		presentCoordinator.beforeDisplayingLayout(progress: fullProgress)
 		
 		let animations: AnimationsAction = {
-			self.presentCoordinator.presentingLayout()
+			presentCoordinator.presentingLayout()
 		}
 		
 		UIView.animate(
@@ -88,7 +95,7 @@ extension CxjToastAnimator: CxjToastDismissAnimator {
 	}
     
     var dismissedStateYTranslation: CGFloat {
-		dismissCoordinator.dismissedStateYTranslation
+		dismissCoordinator?.dismissedStateYTranslation ?? .zero
     }
 	
 	func dismissAction(
@@ -98,7 +105,7 @@ extension CxjToastAnimator: CxjToastDismissAnimator {
 	) {
 		let progress: ToastLayoutProgress = ToastLayoutProgress(value: progress)
 		let animations: AnimationsAction = {
-			self.dismissCoordinator.dismissLayout(progress: progress)
+			self.dismissCoordinator?.dismissLayout(progress: progress)
 		}
 		
 		UIView.animate(
@@ -111,6 +118,11 @@ extension CxjToastAnimator: CxjToastDismissAnimator {
 
 //MARK: - Coordinators configuration
 private extension CxjToastAnimator {
+	func setupCoordinators() {
+		presentCoordinator = coordinatorFor(animation: config.animations.present)
+		dismissCoordinator = coordinatorFor(animation: config.animations.dismiss)
+	}
+	
 	func coordinatorFor(animation: ToastConfig.Animation) -> Coordinator {
 		CoordinatorConfigurator.coordinator(
 			forToastView: toastView,
