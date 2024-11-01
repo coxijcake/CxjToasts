@@ -50,6 +50,7 @@ public final class CxjToast: CxjDisplayableToast {
 extension CxjToast {
     public static func show(
         _ type: ToastType,
+		animated: Bool = true,
 		avoidTypeSpam: Bool = false
     ) {
         let toast: CxjToast = CxjToastFactory.toastFor(
@@ -58,6 +59,7 @@ extension CxjToast {
 		
 		CxjToastsCoordinator.shared.showToast(
 			toast,
+			animated: animated,
 			avoidTypeSpam: avoidTypeSpam
 		)
     }
@@ -66,9 +68,10 @@ extension CxjToast {
 //MARK: - Dismissing
 extension CxjToast {
 	public static func hideToast(
-		_ identifiableToast: any CxjIdentifiableToast
+		_ identifiableToast: any CxjIdentifiableToast,
+		animated: Bool = true
 	) {
-		CxjToastsCoordinator.shared.hideToast(identifiableToast)
+		CxjToastsCoordinator.shared.hideToast(identifiableToast, animated: animated)
 	}
 }
 

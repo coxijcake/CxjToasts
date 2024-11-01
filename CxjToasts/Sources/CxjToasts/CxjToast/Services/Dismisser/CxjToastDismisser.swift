@@ -20,7 +20,7 @@ protocol CxjToastDismissable {
 	func activateDismissMethods()
 	func deactivateDismissMethods()
 	func pauseDismissMethods()
-	func dismiss()
+	func dismiss(animated: Bool)
 }
 
 //MARK: - Types
@@ -78,13 +78,13 @@ extension CxjToastDismisser {
 		dismissUseCases.forEach { $0.pause() }
 	}
 	
-	func dismiss() {
+	func dismiss(animated: Bool) {
 		deactivateDismissMethods()
 		delegate?.willDismissToastWith(id: toastId, by: self)
 		
 		animator.dismissAction(
 			progress: 1,
-			animated: true,
+			animated: animated,
 			completion: { [weak self] _ in
 				guard let self else { return }
 				
@@ -121,6 +121,6 @@ extension CxjToastDismisser: ToastDismissUseCaseDelegate {
 	}
 	
 	func didFinish(useCase: any ToastDismissUseCase) {
-		dismiss()
+		dismiss(animated: true)
 	}
 }

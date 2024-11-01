@@ -64,7 +64,7 @@ extension CxjToastAnimator: CxjToastPresentAnimator {
 		config.animations.present.animation
     }
     
-	func presentAction(completion: AnimationsCompletion?) {
+	func presentAction(animated: Bool, completion: AnimationsCompletion?) {
 		setupCoordinators()
 		
 		guard let presentCoordinator else {
@@ -81,7 +81,7 @@ extension CxjToastAnimator: CxjToastPresentAnimator {
 		}
 		
 		UIView.animate(
-			with: presentAnimation,
+			with: animated ? presentAnimation : .noAnimation,
 			animations: animations,
 			completion: completion
 		)

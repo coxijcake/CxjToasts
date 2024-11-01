@@ -126,7 +126,7 @@ class ViewController: UIViewController {
 					touchEvent: .touchUpInside,
 					handling: .custom(completion: { toast in
 						print("OMG toast \(toast.id) background pressed")
-						CxjToast.hideToast(toast)
+						CxjToast.hideToast(toast, animated: false)
 					})
 				)
 			)

@@ -49,6 +49,7 @@ final class CxjToastsCoordinator {
 extension CxjToastsCoordinator {
 	func showToast(
 		_ toast: Toast,
+		animated: Bool,
 		avoidTypeSpam: Bool
 	) {
 		if avoidTypeSpam,
@@ -71,7 +72,7 @@ extension CxjToastsCoordinator {
 		
 		setupSourceBackgroundAction(forToast: toast)
 		
-		toast.presenter.present { [weak self, weak toast] _ in
+		toast.presenter.present(animated: animated) { [weak self, weak toast] _ in
 			guard
 				let self,
 				let toast
@@ -89,10 +90,10 @@ extension CxjToastsCoordinator {
 		}
 	}
 	
-	func hideToast(_ identifiableToast: any CxjIdentifiableToast) {
+	func hideToast(_ identifiableToast: any CxjIdentifiableToast, animated: Bool) {
 		guard let toast: Toast = firstWith(id: identifiableToast.id) else { return }
 		
-		toast.dismisser.dismiss()
+		toast.dismisser.dismiss(animated: animated)
 	}
 	
 	func firstWith(id: UUID) -> Toast? {

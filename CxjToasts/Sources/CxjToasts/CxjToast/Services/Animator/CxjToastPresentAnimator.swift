@@ -10,5 +10,5 @@ import Foundation
 protocol CxjToastPresentAnimator {
     var presentAnimation: CxjAnimation { get }
 	
-	func presentAction(completion: BoolCompletion?)
+	func presentAction(animated: Bool, completion: BoolCompletion?)
 }
