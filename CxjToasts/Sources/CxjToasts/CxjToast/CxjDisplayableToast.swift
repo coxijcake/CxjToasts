@@ -11,7 +11,7 @@ protocol CxjDisplayableToast: CxjIdentifiableToast {
 	var presenter: CxjToastPresentable { get }
 	var dismisser: CxjToastDismissable { get }
 	var view: CxjToastView { get }
-	var sourceBackground: CxjToastSourceBackground? { get }
+	var sourceBackgroundView: CxjToastSourceBackground? { get }
 	var config: CxjToastConfiguration { get }
 	
 	var displayingState: CxjToastDisplayingState { get set }

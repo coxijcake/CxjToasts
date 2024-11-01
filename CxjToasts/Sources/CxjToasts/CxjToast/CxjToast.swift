@@ -19,7 +19,7 @@ public extension CxjToast {
 public final class CxjToast: CxjDisplayableToast {
     //MARK: - Props
     let view: ToastView
-	let sourceBackground: SourceBackground?
+	let sourceBackgroundView: SourceBackground?
     let config: Configuration
 	let presenter: CxjToastPresentable
 	let dismisser: CxjToastDismissable
@@ -39,7 +39,7 @@ public final class CxjToast: CxjDisplayableToast {
     ) {
 		self.id = id
         self.view = view
-		self.sourceBackground = sourceBackground
+		self.sourceBackgroundView = sourceBackground
         self.config = config
 		self.presenter = presenter
 		self.dismisser = dismisser

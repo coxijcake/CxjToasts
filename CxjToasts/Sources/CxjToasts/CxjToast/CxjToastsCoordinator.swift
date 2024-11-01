@@ -69,6 +69,8 @@ extension CxjToastsCoordinator {
 			completion: nil
 		)
 		
+		setupSourceBackgroundAction(forToast: toast)
+		
 		toast.presenter.present { [weak self, weak toast] _ in
 			guard
 				let self,
@@ -113,9 +115,37 @@ extension CxjToastsCoordinator {
 	}
 }
 
-//MARK: - Private
+//MARK: - SoucreBackground action handling
 private extension CxjToastsCoordinator {
-	
+	func setupSourceBackgroundAction(forToast toast: Toast) {
+		switch toast.config.sourceBackground?.interaction {
+		case .disabled:
+			toast.sourceBackgroundView?.isUserInteractionEnabled = false
+		case .none:
+			break
+		case .enabled(action: let action):
+			guard let action else { break }
+			
+			let actionHandling: VoidCompletion? = {
+				switch action.handling {
+				case .none:
+					return {}
+				case .dismissToast:
+					return { [weak self, weak toast] in
+						guard let toast else { return }
+						CxjToast.hideToast(toast)
+					}
+				case .custom(let completion):
+					return { [weak toast] in
+						guard let toast else { return }
+						completion?(toast)
+					}
+				}
+			}()
+			
+			toast.sourceBackgroundView?.addInteractionAction(actionHandling, forEvent: action.touchEvent)
+		}
+	}
 }
 
 //MARK: - CxjToastDismisserDelegate
@@ -141,7 +171,7 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 		
 		dismisser.deactivateDismissMethods()
 		toast.view.removeFromSuperview()
-		toast.sourceBackground?.removeFromSuperview()
+		toast.sourceBackgroundView?.removeFromSuperview()
 		toast.displayingState = .initial
 		
 		activeToasts.removeAll(where: { $0.id == toast.id })

@@ -123,8 +123,11 @@ class ViewController: UIViewController {
 			theme: .blurred(effect: .init(style: .dark)),
 			interaction: .enabled(
 				action: .init(
-					touchEvent: .touchDown,
-					handling: .dismissToast
+					touchEvent: .touchUpInside,
+					handling: .custom(completion: { toast in
+						print("OMG toast \(toast.id) background pressed")
+						CxjToast.hideToast(toast)
+					})
 				)
 			)
 		)
