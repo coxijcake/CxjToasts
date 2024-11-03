@@ -1,5 +1,5 @@
 //
-//  CxjToastoordinator.swift
+//  CxjToastsCoordinator.swift
 //
 //
 //  Created by Nikita Begletskiy on 21/10/2024.
@@ -7,65 +7,48 @@
 
 import UIKit
 
-protocol CxjToastCoordinatable {
-	func presentToast()
-}
-
-final class CxjToastoordinator {
-	let toast: CxjToast
-	let presenter: CxjToastPresentable
-	let dismisser: CxjToastDismissable
-	
-	init(
-		toast: CxjToast,
-		presenter: CxjToastPresentable,
-		dismisser: CxjToastDismissable
-	) {
-		self.toast = toast
-		self.presenter = presenter
-		self.dismisser = dismisser
-	}
-}
-
-extension CxjToastoordinator: CxjToastCoordinatable {
-	func presentToast() {
-		
-	}
-}
-
 //@MainActor
-final class CxjToastsCoordinator {
-	typealias Toast = any CxjDisplayableToast
+public final class CxjToastsCoordinator {
+	public typealias IdentifiableToast = any CxjIdentifiableToast
+	public typealias ToastType = CxjToastType
+	typealias DisplayableToast = any CxjDisplayableToast
 	
-	static let shared: CxjToastsCoordinator = CxjToastsCoordinator()
+	public static let shared: CxjToastsCoordinator = CxjToastsCoordinator()
 	private init() {}
 	
 	private let publisher = MulticastPublisher<CxjToastDelegate>()
 	
-	private(set) var activeToasts: [Toast] = []
+	private(set) var activeToasts: [DisplayableToast] = []
 }
 
 //MARK: - Public API
 extension CxjToastsCoordinator {
-	func showToast(
-		_ toast: Toast,
-		animated: Bool,
-		avoidTypeSpam: Bool
+	public func showToast(
+		type toastType: ToastType,
+		animated: Bool = true
 	) {
-		if avoidTypeSpam,
-		   let typeId = toast.typeId,
-		   firstWith(typeId: typeId) != nil {
-			return
-		}
+		let toast: CxjToast = CxjToastFactory.toastFor(
+			type: toastType
+		)
+		
+		showToast(toast, animated: animated)
+	}
+	
+	func showToast(
+		_ toast: DisplayableToast,
+		animated: Bool
+	) {
+		let spamValidator: ToastSpamValidator = ToastSpamValidator(displayingToasts: activeToasts)
+		guard spamValidator.couldBeDisplayedToast(toast) else { return }
 		
 		toast.displayingState = .presenting
 		activeToasts.append(toast)
 		publisher.invoke { $0.willPresent(toast: toast) }
 		
-		CxjActiveToastsUpdater.updateLayout(
-			activeToasts: activeToasts,
-			progress: ToastLayoutProgress.max.value,
-			on: toast.config.layout.placement,
+		CxjDisplayingToastsCoordinator.updateLayoutFor(
+			displayingToasts: activeToasts,
+			linkedToToast: toast,
+			withProgress: ToastLayoutProgress.max.value,
 			animation: toast.presenter.animator.presentAnimation,
 			completion: nil
 		)
@@ -78,9 +61,9 @@ extension CxjToastsCoordinator {
 				let toast
 			else { return }
 			
-			CxjActiveToastsUpdater.updateDisplayingState(
-				activeToasts: self.activeToasts,
-				on: toast.config.layout.placement
+			CxjDisplayingToastsCoordinator.updateDismissMethodsFor(
+				displayingToasts: self.activeToasts,
+				linkedToToast: toast
 			)
 			
 			toast.displayingState = .presented
@@ -89,18 +72,41 @@ extension CxjToastsCoordinator {
 			self.publisher.invoke { $0.didPresent(toast: toast) }
 		}
 	}
-	
-	func hideToast(_ identifiableToast: any CxjIdentifiableToast, animated: Bool) {
-		guard let toast: Toast = firstWith(id: identifiableToast.id) else { return }
+}
+
+//MARK: - Dismissing
+extension CxjToastsCoordinator {
+	public func dismissToast(_ identifiableToast: any CxjIdentifiableToast, animated: Bool) {
+		guard 
+			let toast: DisplayableToast = first(withId: identifiableToast.id)
+		else { return }
 		
+		toast.displayingState = .dismissing
 		toast.dismisser.dismiss(animated: animated)
 	}
 	
-	func firstWith(id: UUID) -> Toast? {
+	public func dismissToasts(_ identifiableToasts: [any CxjIdentifiableToast], animated: Bool) {
+		identifiableToasts.forEach {
+			dismissToast($0, animated: animated)
+		}
+	}
+	
+	public func dismissAll(animated: Bool) {
+		dismissToasts(activeToasts, animated: animated)
+	}
+}
+
+//MARK: - Toasts searching
+extension CxjToastsCoordinator {
+	public func firstWith(id: UUID) -> IdentifiableToast? {
 		activeToasts.first(where: { $0.id == id })
 	}
 	
-	func firstWith(typeId: String) -> Toast? {
+	public func first<T>(withId id: UUID) -> T? {
+		firstWith(id: id) as? T
+	}
+	
+	public func firstWith(typeId: String) -> IdentifiableToast? {
 		activeToasts.first(where: { $0.typeId == typeId })
 	}
 }
@@ -118,7 +124,7 @@ extension CxjToastsCoordinator {
 
 //MARK: - SoucreBackground action handling
 private extension CxjToastsCoordinator {
-	func setupSourceBackgroundAction(forToast toast: Toast) {
+	func setupSourceBackgroundAction(forToast toast: DisplayableToast) {
 		switch toast.config.sourceBackground?.interaction {
 		case .disabled:
 			toast.sourceBackgroundView?.isUserInteractionEnabled = false
@@ -134,7 +140,8 @@ private extension CxjToastsCoordinator {
 				case .dismissToast:
 					return { [weak self, weak toast] in
 						guard let toast else { return }
-						CxjToast.hideToast(toast)
+						
+						CxjToastsCoordinator.shared.dismissToast(toast, animated: true)
 					}
 				case .custom(let completion):
 					return { [weak toast] in
@@ -152,14 +159,16 @@ private extension CxjToastsCoordinator {
 //MARK: - CxjToastDismisserDelegate
 extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 	func willDismissToastWith(id: UUID, by dismisser: CxjToastDismisser) {
-		guard let toast: Toast = firstWith(id: id) else { return }
+		guard
+			let toast: DisplayableToast = first(withId: id)
+		else { return }
 		
-		let toastsToUpdate: [Toast] = activeToasts.filter { $0.id != toast.id }
+		let toastsToUpdate: [DisplayableToast] = activeToasts.filter { $0.id != toast.id }
 		
-		CxjActiveToastsUpdater.updateLayout(
-			activeToasts: toastsToUpdate,
-			progress: ToastLayoutProgress.max.value,
-			on: toast.config.layout.placement,
+		CxjDisplayingToastsCoordinator.updateLayoutFor(
+			displayingToasts: toastsToUpdate,
+			linkedToToast: toast,
+			withProgress: ToastLayoutProgress.max.value,
 			animation: toast.dismisser.animator.dismissAnimation,
 			completion: nil
 		)
@@ -168,7 +177,9 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 	}
 	
 	func didDismissToastWith(id: UUID, by dismisser: CxjToastDismisser) {
-		guard let toast: Toast = firstWith(id: id) else { return }
+		guard
+			let toast: DisplayableToast = first(withId: id)
+		else { return }
 		
 		dismisser.deactivateDismissMethods()
 		toast.view.removeFromSuperview()
@@ -177,9 +188,9 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 		
 		activeToasts.removeAll(where: { $0.id == toast.id })
 		
-		CxjActiveToastsUpdater.updateDisplayingState(
-			activeToasts: activeToasts,
-			on: toast.config.layout.placement
+		CxjDisplayingToastsCoordinator.updateDismissMethodsFor(
+			displayingToasts: activeToasts,
+			linkedToToast: toast
 		)
 		
 		publisher.invoke { $0.didDismiss(toast: toast) }

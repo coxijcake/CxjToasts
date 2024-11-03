@@ -160,12 +160,15 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
     }
     
     func updateDislplayingToasts(animated: Bool, progress: CGFloat) {
-        CxjActiveToastsUpdater.updateLayout(
-			activeToasts: CxjToastsCoordinator.shared.activeToasts,
-            progress: progress,
-            on: placement,
-            animation: animated ? animator.dismissAnimation : .noAnimation,
-            completion: nil
-        )
+		let toastCoordinator: CxjToastsCoordinator = CxjToastsCoordinator.shared
+		guard let targetToast: any CxjDisplayableToast = toastCoordinator.first(withId: toastId) else { return }
+		
+		CxjDisplayingToastsCoordinator.updateLayoutFor(
+			displayingToasts: toastCoordinator.activeToasts,
+			linkedToToast: targetToast,
+			withProgress: progress,
+			animation: animated ? animator.dismissAnimation : .noAnimation,
+			completion: nil
+		)
     }
 }

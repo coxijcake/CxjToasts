@@ -28,19 +28,18 @@ class ViewController: UIViewController {
     }
     
 	@IBAction func customButtonPressed(_ sender: Any) {
-		CxjToast.show(
-			.custom(
+		CxjToastsCoordinator.shared.showToast(
+			type: .custom(
 				config: customCxjTostConfig(),
 				viewConfig: customCxjToastViewConfig(),
 				content: customCxjToastContentView()
-			),
-			avoidTypeSpam: true
+			)
 		)
 	}
 	
 	@IBAction func nativeButtonPressed(_ sender: Any) {
-		CxjToast.show(
-			.templated(
+		CxjToastsCoordinator.shared.showToast(
+			type: .templated(
 				template: .native(
 					data: CxjToastTemplate.NativeToastData(
 						title: "Test Toast Toast Toast",
@@ -54,8 +53,8 @@ class ViewController: UIViewController {
 	}
 	
 	@IBAction func bottomPrimaryButtonPressed(_ sender: Any) {
-		CxjToast.show(
-			.templated(
+		CxjToastsCoordinator.shared.showToast(
+			type: .templated(
 				template: .bottomPrimary(
 					data: CxjToastTemplate.BottomPrimaryToastData(
 						customSourceView: nil,
@@ -126,7 +125,7 @@ class ViewController: UIViewController {
 					touchEvent: .touchUpInside,
 					handling: .custom(completion: { toast in
 						print("OMG toast \(toast.id) background pressed")
-						CxjToast.hideToast(toast, animated: false)
+						CxjToastsCoordinator.shared.dismissAll(animated: true)
 					})
 				)
 			)
@@ -135,7 +134,8 @@ class ViewController: UIViewController {
 		return CxjToastConfiguration(
 			typeId: "custom test toast",
 			sourceView: sourceView,
-			sourceBackground: sourceBackground,
+//			sourceBackground: sourceBackground,
+			sourceBackground: nil,
 			layout: CxjToastConfiguration.Layout(
 				constraints: CxjToastConfiguration.Constraints(
 					width: CxjToastConfiguration.Constraints.Values(
@@ -157,15 +157,16 @@ class ViewController: UIViewController {
 			animations: CxjToastConfiguration.Animations(
 				present: .init(
 					animation: .defaultSpring,
-					behaviour: .custom(changes: [.translation(type: .outOfSourceViewVerticaly)]),
-					nativeViewsIncluding: []
+					behaviour: .custom(changes: [.translation(type: .outOfSourceViewVerticaly)])
 				),
 				dismiss: .init(
 					animation: .defaultSpring,
-					behaviour: .custom(changes: [.alpha(intensity: .zero), .scale(value: .init(x: 0.9, y: 0.75))]),
-					nativeViewsIncluding: []
+					behaviour: .custom(changes: [.alpha(intensity: .zero), .scale(value: .init(x: 0.9, y: 0.75))])
 				)
-			)
+			),
+//			spamProtection: .on(comparingAttributes: [.type, .placement(includingYOffset: false)]),
+			spamProtection: .off,
+			displayingSameAttributeToastBehaviour: .init(handling: .dismiss)
 		)
 	}
     

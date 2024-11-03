@@ -102,22 +102,19 @@ extension CxjToastConfiguration {
 				}
 			}
 			
-			case `default`
+			case `default`(includingNativeViews: Set<TopPlacementNativeView>)
 			case custom(changes: CustomBehaviourChanges)
 		}
 		
 		public let animation: CxjAnimation
 		public let behaviour: Behaviour
-		public let nativeViewsIncluding: Set<TopPlacementNativeView>
 		
 		public init(
 			animation: CxjAnimation,
-			behaviour: Behaviour,
-			nativeViewsIncluding: Set<TopPlacementNativeView>
+			behaviour: Behaviour
 		) {
 			self.animation = animation
 			self.behaviour = behaviour
-			self.nativeViewsIncluding = nativeViewsIncluding
 		}
 	}
 }

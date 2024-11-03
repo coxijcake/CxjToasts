@@ -8,7 +8,7 @@
 import UIKit
 
 //MARK: - Types
-public extension CxjToast {
+extension CxjToast {
     typealias ToastType = CxjToastType
     typealias ToastView = CxjToastView
 	typealias SourceBackground = CxjToastSourceBackground
@@ -16,7 +16,7 @@ public extension CxjToast {
     typealias ContentView = CxjToastContentView
 }
 
-public final class CxjToast: CxjDisplayableToast {
+final class CxjToast: CxjDisplayableToast {
     //MARK: - Props
     let view: ToastView
 	let sourceBackgroundView: SourceBackground?
@@ -46,57 +46,9 @@ public final class CxjToast: CxjDisplayableToast {
     }
 }
 
-//MARK: - Presenting
-extension CxjToast {
-    public static func show(
-        _ type: ToastType,
-		animated: Bool = true,
-		avoidTypeSpam: Bool = false
-    ) {
-        let toast: CxjToast = CxjToastFactory.toastFor(
-            type: type
-        )
-		
-		CxjToastsCoordinator.shared.showToast(
-			toast,
-			animated: animated,
-			avoidTypeSpam: avoidTypeSpam
-		)
-    }
-}
-
-//MARK: - Dismissing
-extension CxjToast {
-	public static func hideToast(
-		_ identifiableToast: any CxjIdentifiableToast,
-		animated: Bool = true
-	) {
-		CxjToastsCoordinator.shared.hideToast(identifiableToast, animated: animated)
-	}
-}
-
 //MARK: - Public common
 extension CxjToast {
-	public var typeId: String? { config.typeId }
-	
-	public static func firstWith(id: UUID) -> (any CxjIdentifiableToast)? {
-		CxjToastsCoordinator.shared.firstWith(id: id)
-	}
-	
-	public static func firstWith(typeId: String) -> (any CxjIdentifiableToast)? {
-		CxjToastsCoordinator.shared.firstWith(typeId: typeId)
-	}
-}
-
-//MARK: - Observing
-extension CxjToast {
-	public static func add(observer: CxjToastDelegate) {
-		CxjToastsCoordinator.shared.add(observer: observer)
-	}
-	
-	public static func remove(observer: CxjToastDelegate) {
-		CxjToastsCoordinator.shared.remove(observer: observer)
-	}
+	var typeId: String { config.typeId }
 }
 
 //MARK: - Equatable

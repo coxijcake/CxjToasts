@@ -18,7 +18,9 @@ extension CxjTemplatedToastConfigProviderFactory {
 				sourceBackground: nil,
 				layout: layoutFor(sourceView: sourceView),
 				dismissMethods: dismissMethods(),
-				animations: animations()
+				animations: animations(),
+				spamProtection: spamProtection(),
+				displayingSameAttributeToastBehaviour: displayinBehaviour()
 			)
 		}
 		
@@ -68,20 +70,26 @@ extension CxjTemplatedToastConfigProviderFactory {
 		private func animations() -> Config.Animations {
 			let present: Config.Animation = Config.Animation(
 				animation: .nativeToastPresenting,
-				behaviour: .default,
-				nativeViewsIncluding: [.dynamicIsland, .notch]
+				behaviour: .default(includingNativeViews: [.dynamicIsland, .notch])
 			)
 			
 			let dismiss: Config.Animation = Config.Animation(
 				animation: .nativeToastDismissing,
-				behaviour: .default,
-				nativeViewsIncluding: [.dynamicIsland, .notch]
+				behaviour: .default(includingNativeViews: [.dynamicIsland, .notch])
 			)
 			
 			return Config.Animations(
 				present: present,
 				dismiss: dismiss
 			)
+		}
+		
+		private func spamProtection() -> Config.SpamProtection {
+			.off
+		}
+		
+		private func displayinBehaviour() -> Config.DisplayingBehaviour {
+			.init(handling: .stack(maxVisibleToasts: 5))
 		}
 	}
 }

@@ -8,11 +8,12 @@
 import UIKit
 
 //MARK: - Types
-extension CxjActiveToastsUpdater {
+extension CxjDisplayingToastsUpdater {
     typealias Toast = any CxjDisplayableToast
     typealias ToastView = CxjToastView
     typealias Placement = CxjToastConfiguration.Layout.Placement
     typealias Animation = CxjAnimation
+	typealias Progress = ToastLayoutProgress
     
     enum Multipliers {
         static let yOffset: CGFloat = 5.0
@@ -20,69 +21,58 @@ extension CxjActiveToastsUpdater {
     }
 }
 
-//MARK: - Public toasts updating
-enum CxjActiveToastsUpdater {
-    static func updateLayout(
-        activeToasts: [Toast],
+//MARK: - Toasts layout updating
+enum CxjDisplayingToastsUpdater {
+	static func stackLayoutToasts(
+		toastsToStack: [Toast],
 		progress: CGFloat,
-        on placement: Placement,
-        animation: Animation,
-        completion: BoolCompletion?
-    ) {
-		let orderedToasts: [Toast] = orderedToasts(
-			on: placement,
-			from: activeToasts
-		)
-		
-        let actions: VoidCompletion = {
-			orderedToasts
-				.enumerated()
-				.forEach { index, toast in
-					update(
-						toast: toast,
-						progress: progress,
-						atIndex: index,
-						onPlacement: placement
-					)
-				}
-        }
-        
-        UIView.animate(
-            with: animation,
-            animations: actions,
-            completion: completion
-        )
-    }
-	
-	static func updateDisplayingState(
-		activeToasts: [Toast],
-		on placement: Placement
+		maxVisibleToasts: Int
 	) {
-		let orderedToasts = orderedToasts(
-			on: placement,
-			from: activeToasts
-		)
-		
-		orderedToasts
+		toastsToStack
 			.enumerated()
 			.forEach { index, toast in
-				updateDismissMethodsFor(toast: toast, at: index)
+				let alpha: CGFloat = (index < maxVisibleToasts)
+				? 1.0
+				: 0.0
+				
+				updateStackLayout(
+					toast: toast,
+					progress: progress,
+					atIndex: index,
+					alpha: alpha
+				)
+			}
+	}
+	
+	static func updateAlphaForToasts(
+		_ toastsToHide: [Toast],
+		progress: CGFloat
+	) {
+		toastsToHide
+			.enumerated()
+			.forEach {
+				setAlphaWithProgresss(
+					progress,
+					toToast: $0.element,
+					atIndex: $0.offset
+				)
 			}
 	}
 }
 
 //MARK: - Single toast layout updating
-private extension CxjActiveToastsUpdater {
-	static func update(
+private extension CxjDisplayingToastsUpdater {
+	static func updateStackLayout(
 		toast: Toast,
 		progress: CGFloat,
 		atIndex index: Int,
-		onPlacement placement: Placement
+		alpha: CGFloat
 	) {
 		guard
 			shouldUpdateToastWith(displayingState: toast.displayingState)
-		else { return}
+		else { return }
 		
+		let placement = toast.config.layout.placement
 		let progress = ToastLayoutProgress(value: progress)
 		
 		let finalYOffset: CGFloat = yOffset(
@@ -90,6 +80,7 @@ private extension CxjActiveToastsUpdater {
 			multiplier: Multipliers.yOffset,
 			onPlacement: placement
 		)
+		
 		let minYOffset: CGFloat = max(.zero, finalYOffset - Multipliers.yOffset)
 		
 		let finalXScale: CGFloat = xScale(
@@ -98,9 +89,6 @@ private extension CxjActiveToastsUpdater {
 			onPlacement: placement
 		)
 		let minXScale: CGFloat = finalXScale + Multipliers.scale
-		
-		let maxVisibleToasts: Int = maxVisibleToasts(for: placement)
-		let alpha: CGFloat = (index < maxVisibleToasts) ? 1.0 : 0.0
 		
 		let toastView: ToastView = toast.view
 		
@@ -111,41 +99,25 @@ private extension CxjActiveToastsUpdater {
 		toastView.transform = CGAffineTransform(scaleX: xScale, y: 1.0)
 			.concatenating(CGAffineTransform(translationX: .zero, y: finalYOffset))
 	}
-}
-
-//MARK: - Dismiss methods updates
-private extension CxjActiveToastsUpdater {
-	static func updateDismissMethodsFor(
-		toast: Toast,
-		at index: Int
-	) { 
-		let shouldPauseDismissing: Bool = index != 0
+	
+	static func setAlphaWithProgresss(
+		_ progress: CGFloat,
+		toToast toast: Toast,
+		atIndex index: Int
+	) {
+		let isTopToast: Bool = index == 0
+		let progress: ToastLayoutProgress = .init(value: progress)
+		let alphaValue: CGFloat = isTopToast
+		? progress.value
+		: progress.revertedValue
 		
-		shouldPauseDismissing
-		? toast.dismisser.deactivateDismissMethods()
-		: toast.dismisser.activateDismissMethods()
-	}
-}
-
-//MARK: - Toasts ordering
-private extension CxjActiveToastsUpdater {
-	static func orderedToasts(
-		on placement: Placement,
-		from activeToasts: [Toast]
-	) -> [Toast] {
-		activeToasts
-			.filter {
-				ToastPlacementComparator(
-					lhs: $0.config.layout.placement,
-					rhs: placement
-				).isFullyEqauls()
-			}
-			.reversed()
+		toast.view.alpha = alphaValue
+		toast.sourceBackgroundView?.alpha = alphaValue
 	}
 }
 
 //MARK: - Calculations
-private extension CxjActiveToastsUpdater {
+private extension CxjDisplayingToastsUpdater {
     static func yOffset(
         for index: Int,
         multiplier: CGFloat,
@@ -166,13 +138,6 @@ private extension CxjActiveToastsUpdater {
         case .top, .bottom, .center:
             let scale: CGFloat = 1.0 - (multiplier * CGFloat(index))
             return scale
-        }
-    }
-    
-    static func maxVisibleToasts(for placement: Placement) -> Int {
-        switch placement {
-        case .top, .bottom: 5
-        case .center: 3
         }
     }
 	

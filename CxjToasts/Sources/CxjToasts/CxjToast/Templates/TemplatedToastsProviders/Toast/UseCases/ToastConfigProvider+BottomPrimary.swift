@@ -26,7 +26,9 @@ extension CxjTemplatedToastConfigProviderFactory {
 				sourceBackground: sourceBackground(),
 				layout: layoutFor(sourceView: sourceView),
 				dismissMethods: dismissMethods(),
-				animations: animations()
+				animations: animations(),
+				spamProtection: spamProtection(),
+				displayingSameAttributeToastBehaviour: displayingBehaviour()
 			)
 		}
 		
@@ -36,7 +38,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 		
 		private func sourceBackground() -> Config.SourceBackground {
 			.init(
-				theme: .colorized(color: .blue.withAlphaComponent(0.65)),
+				theme: .colorized(color: .black.withAlphaComponent(0.65)),
 				interaction: .enabled(action: .init(touchEvent: .touchDown, handling: .dismissToast))
 			)
 		}
@@ -83,21 +85,28 @@ extension CxjTemplatedToastConfigProviderFactory {
 		
 		private func animations() -> Config.Animations {
 			let animation: Config.Animation = Config.Animation(
-				animation: .testSlow,
+				animation: .defaultSpring,
 				behaviour: .custom(
 					changes: [
 						.translation(type: .outOfSourceViewVerticaly),
 						.corners(radius: .init(type: .screenCornerRadius, constraint: .halfHeigt)),
 						.scale(value: .init(x: 1.1, y: 1.1))
 					]
-				),
-				nativeViewsIncluding: []
+				)
 			)
 			
 			return Config.Animations(
 				present: animation,
 				dismiss: animation
 			)
+		}
+		
+		private func spamProtection() -> Config.SpamProtection {
+			.on(comparingAttributes: [.type, .placement(includingYOffset: true)])
+		}
+		
+		private func displayingBehaviour() -> Config.DisplayingBehaviour {
+			.init(handling: .hide)
 		}
 	}
 }
