@@ -25,19 +25,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mXM-HV-X0i">
-                                <rect key="frame" x="16" y="753.66666666666663" width="361" height="54.333333333333371"/>
+                                <rect key="frame" x="16" y="773.66666666666663" width="361" height="34.333333333333371"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u9r-DZ-R9e">
-                                        <rect key="frame" x="0.0" y="0.0" width="120.33333333333333" height="54.333333333333336"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Custom"/>
-                                        <connections>
-                                            <action selector="customButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="td1-gh-cgC"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdu-XN-KXK">
-                                        <rect key="frame" x="120.33333333333334" y="0.0" width="120.33333333333334" height="54.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="180.66666666666666" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Native"/>
                                         <connections>
@@ -45,7 +36,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vim-rH-BBW">
-                                        <rect key="frame" x="240.66666666666671" y="0.0" width="120.33333333333334" height="54.333333333333336"/>
+                                        <rect key="frame" x="180.66666666666663" y="0.0" width="180.33333333333337" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="BottomPrimary"/>
                                         <connections>
