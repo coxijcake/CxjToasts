@@ -9,8 +9,7 @@ import UIKit
 import CxjToasts
 
 final class CustomToastViewController: UIViewController {
-	
-	
+	@IBOutlet weak var someContainerView: UIView!
 	
 	@IBAction func presentButtonPressed() {
 		CxjToastsCoordinator.shared.showToast(
@@ -42,7 +41,7 @@ private extension CustomToastViewController {
 				action: .init(
 					touchEvent: .touchUpInside,
 					handling: .custom(completion: { toast in
-						print("OMG toast \(toast.id) background pressed")
+						print("custom background view action")
 						CxjToastsCoordinator.shared.dismissAll(animated: true)
 					})
 				)
@@ -138,7 +137,6 @@ private extension CustomToastViewController {
 	func cxjToastViewConfig() -> CxjToastViewConfiguration {
 		CxjToastViewConfiguration(
 			contentInsets: .init(top: 20, left: 16, bottom: 20, right: 16),
-//			background: .blurred(effect: .init(style: .extraLight)),
 			background: .gradient(
 				params: .init(
 					colors: [.black.withAlphaComponent(0.95), .black.withAlphaComponent(0.5)],
@@ -148,7 +146,7 @@ private extension CustomToastViewController {
 				)
 			),
 			shadow: .disable,
-			corners: .straight(mask: .top)
+			corners: .fixed(value: 16, mask: .all)
 		)
 	}
 }

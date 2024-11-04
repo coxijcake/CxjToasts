@@ -16,6 +16,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8y-NX-uzZ">
+                                <rect key="frame" x="40" y="209" width="313" height="459"/>
+                                <color key="backgroundColor" red="0.55855291461064582" green="0.77124275128865982" blue="0.59867316359779299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="0e9-2n-cEd">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <subviews>
@@ -66,11 +70,18 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="0e9-2n-cEd" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="6k9-Mg-Vse"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="w8y-NX-uzZ" secondAttribute="bottom" constant="150" id="6tO-89-umX"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="w8y-NX-uzZ" secondAttribute="trailing" constant="40" id="Caz-tP-T24"/>
                             <constraint firstItem="0e9-2n-cEd" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="R4n-mX-f1N"/>
+                            <constraint firstItem="w8y-NX-uzZ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="150" id="cJC-2J-O7R"/>
+                            <constraint firstItem="w8y-NX-uzZ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="cPC-my-jd8"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="0e9-2n-cEd" secondAttribute="trailing" id="o8c-H1-CIS"/>
                             <constraint firstItem="0e9-2n-cEd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="qQ7-Wv-v4v"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="someContainerView" destination="w8y-NX-uzZ" id="UVj-mr-4G2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
