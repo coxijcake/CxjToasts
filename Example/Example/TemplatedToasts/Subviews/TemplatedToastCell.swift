@@ -10,6 +10,15 @@ import UIKit
 final class TemplatedToastCell: UICollectionViewCell {
 	static let reuseIdentifier: String = String(describing: TemplatedToastCell.self)
 	
+	override var isHighlighted: Bool {
+		didSet {
+			UIView.animate(withDuration: 0.15) {
+				self.transform = self.isHighlighted ? .init(scaleX: 0.96, y: 0.96) : .identity
+				self.alpha = self.isHighlighted ? 0.98 : 1
+			}
+		}
+	}
+	
 	//MARK: - Subviews
 	let titleLabel: UILabel = UILabel()
 	let separatorView: UIView = UIView()
