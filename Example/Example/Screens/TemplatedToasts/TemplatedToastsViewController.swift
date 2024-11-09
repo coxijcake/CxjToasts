@@ -12,8 +12,8 @@ final class TemplatedToastsViewController: UIViewController {
 	//MARK: - Subviews
 	@IBOutlet weak var collectionView: UICollectionView!
 	
-	private lazy var dataSource: TemplatedToastsListDiffableDataSource = TemplatedToastsListDiffableDataSource(
-		collectionView: collectionView
+	private lazy var dataSource: ToastsListDiffableDataSource = ToastsListDiffableDataSource(
+		collectionView: collectionView, templateTypes: TemplatedToastType.allCases
 	)
 	
 	private lazy var collectionLayout: UICollectionViewFlowLayout = {
@@ -42,7 +42,7 @@ final class TemplatedToastsViewController: UIViewController {
 
 extension TemplatedToastsViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		guard let toastType = dataSource.itemIdentifier(for: indexPath) else { return }
+		guard let toastType: TemplatedToastType = dataSource.toastType(forIndexPath: indexPath) else { return }
 		
 		let template = TemplatedToastFactory.toastTemplateForType(
 			toastType,

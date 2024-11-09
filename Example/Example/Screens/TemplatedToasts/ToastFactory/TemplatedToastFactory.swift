@@ -9,10 +9,8 @@ import UIKit
 import CxjToasts
 
 enum TemplatedToastFactory {
-	typealias TemplateType = TemplatedToastsListDiffableDataSource.TemplateType
-	
 	static func toastTemplateForType(
-		_ templateType: TemplateType,
+		_ templateType: TemplatedToastType,
 		customSourceView: UIView? = nil
 	) -> CxjToastTemplate {
 		switch templateType {
