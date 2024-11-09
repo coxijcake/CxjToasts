@@ -49,8 +49,14 @@ extension TemplatedToastsViewController: UICollectionViewDelegate {
 			customSourceView: nil
 		)
 		
-		CxjToastsCoordinator.shared.showToast(
-			type: .templated(template: template),
+		ToastPresenter.presentToastWithType(
+			.templated(template: template),
+			strategy: .custom(
+				strategy: .init(
+					presentsCount: 1,
+					delayBetweenToasts: 1.0
+				)
+			),
 			animated: true
 		)
 	}

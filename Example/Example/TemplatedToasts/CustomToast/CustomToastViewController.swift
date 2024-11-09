@@ -16,8 +16,14 @@ final class CustomToastViewController: UIViewController {
 	}
 	
 	@IBAction func presentButtonPressed() {
-		CxjToastsCoordinator.shared.showToast(
-			type: cxjToastType(),
+		ToastPresenter.presentToastWithType(
+			.custom(data: customToastData()),
+			strategy: .custom(
+				strategy: .init(
+					presentsCount: 4,
+					delayBetweenToasts: 1.0
+				)
+			),
 			animated: true
 		)
 	}
@@ -25,9 +31,9 @@ final class CustomToastViewController: UIViewController {
 
 //MARK: - Toast
 private extension CustomToastViewController {
-	func cxjToastType() -> CxjToastType {
-		.custom(
-			config: cxjTostConfig(),
+	func customToastData() -> CxjToastType.CustomToastData {
+		.init(
+			config: tostConfig(),
 			viewConfig: cxjToastViewConfig(),
 			content: cxjToastContentView()
 		)
@@ -36,7 +42,7 @@ private extension CustomToastViewController {
 
 //MARK: - Toast config
 private extension CustomToastViewController {
-	func cxjTostConfig() -> CxjToastConfiguration {
+	func tostConfig() -> CxjToastConfiguration {
 		return CxjToastConfiguration(
 			typeId: "custom test toast",
 			sourceView: sourceView(),
@@ -68,9 +74,9 @@ private extension CustomToastViewController {
 			)
 		)
 		
-//		return darkBlurredBackground
+		return darkBlurredBackground
 		
-		return nil
+//		return nil
 	}
 	
 	func layout() -> CxjToastConfiguration.Layout {
