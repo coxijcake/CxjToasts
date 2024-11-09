@@ -6,65 +6,20 @@
 //
 
 import UIKit
-import CxjToasts
 
 class ViewController: UIViewController {
-    @IBOutlet weak var containerView: UIView!
-    
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		// Do any additional setup after loading the view.
-        
-        view.backgroundColor = .gray
+	@IBAction func templatedButtonPressed(_ sender: Any) {
+		let templatedToastsVC = TemplatedToastsViewController.storyboardInstantiateInitialController()
+		routeTo(vc: templatedToastsVC)
 	}
-
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+	
+	@IBAction func customButtonPressed(_ sender: Any) {
 		let customVC = CustomToastViewController.storyboardInstantiateInitialController()
-		present(customVC, animated: true)
-    }
-	
-	@IBAction func nativeButtonPressed(_ sender: Any) {
-		CxjToastsCoordinator.shared.showToast(
-			type: .templated(
-				template: .native(
-					data: CxjToastTemplate.NativeToastData(
-						title: "Test Toast Toast Toast",
-						subtitle: "some description",
-						icon: .init(resource: .testIcon),
-						backgroundColor: .white
-					)
-				)
-			)
-		)
+		routeTo(vc: customVC)
 	}
 	
-	@IBAction func bottomPrimaryButtonPressed(_ sender: Any) {
-		CxjToastsCoordinator.shared.showToast(
-			type: .templated(
-				template: .bottomPrimary(
-					data: CxjToastTemplate.BottomPrimaryToastData(
-						customSourceView: nil,
-						icon: .init(resource: .testIcon),
-						title: CxjToastTemplate.BottomPrimaryToastData.Title(
-							text: "owofmqwofmqowf qowfm qowfmq owfmqow fqowf m",
-							numberOfLines: 3,
-							textColor: UIColor.black,
-							font: .systemFont(ofSize: 21, weight: .bold)
-						),
-						subtitle: nil,
-						background: .colorized(color: .white),
-						shadowColor: .black.withAlphaComponent(0.5)
-					)
-				)
-			)
-		)
+	private func routeTo(vc: UIViewController) {
+		vc.modalPresentationStyle = .fullScreen
+		present(vc, animated: true)
 	}
-}
-
-
-final class TestContentView: UIView, CxjToastContentView {
-    
 }

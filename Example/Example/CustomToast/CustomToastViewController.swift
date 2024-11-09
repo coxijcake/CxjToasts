@@ -11,6 +11,10 @@ import CxjToasts
 final class CustomToastViewController: UIViewController {
 	@IBOutlet weak var someContainerView: UIView!
 	
+	@IBAction func closeButtonPressed() {
+		dismiss(animated: true)
+	}
+	
 	@IBAction func presentButtonPressed() {
 		CxjToastsCoordinator.shared.showToast(
 			type: cxjToastType(),
@@ -33,9 +37,25 @@ private extension CustomToastViewController {
 //MARK: - Toast config
 private extension CustomToastViewController {
 	func cxjTostConfig() -> CxjToastConfiguration {
-		let sourceView: UIView = view
-		
-		let sourceBackground: CxjToastConfiguration.SourceBackground = .init(
+		return CxjToastConfiguration(
+			typeId: "custom test toast",
+			sourceView: sourceView(),
+			sourceBackground: sourceBackground(),
+			layout: layout(),
+			dismissMethods: dismissMethods(),
+			animations: animations(),
+			spamProtection: spamProtection(),
+			displayingSameAttributeToastBehaviour: displayingSameAttributeToastBehaviour()
+		)
+	}
+	
+	func sourceView() -> UIView {
+		return view
+//		return someContainerView
+	}
+	
+	func sourceBackground() -> CxjToastConfiguration.SourceBackground? {
+		let darkBlurredBackground: CxjToastConfiguration.SourceBackground = .init(
 			theme: .blurred(effect: .init(style: .dark)),
 			interaction: .enabled(
 				action: .init(
@@ -48,43 +68,62 @@ private extension CustomToastViewController {
 			)
 		)
 		
-		return CxjToastConfiguration(
-			typeId: "custom test toast",
-			sourceView: sourceView,
-//			sourceBackground: sourceBackground,
-			sourceBackground: nil,
-			layout: CxjToastConfiguration.Layout(
-				constraints: CxjToastConfiguration.Constraints(
-					width: CxjToastConfiguration.Constraints.Values(
-						min: sourceView.bounds.size.width * 0.75,
-						max: sourceView.bounds.size.width
-					),
-					height: CxjToastConfiguration.Constraints.Values(
-						min: 40,
-						max: 150
-					)
+//		return darkBlurredBackground
+		
+		return nil
+	}
+	
+	func layout() -> CxjToastConfiguration.Layout {
+		CxjToastConfiguration.Layout(
+			constraints: CxjToastConfiguration.Constraints(
+				width: CxjToastConfiguration.Constraints.Values(
+					min: sourceView().bounds.size.width * 0.75,
+					max: sourceView().bounds.size.width
 				),
-				placement: .bottom(params: .init(offset: 100, includingSafeArea: true))
-			),
-			dismissMethods: [
-				.swipe(direction: .bottom),
-				.tap(actionCompletion: nil),
-				.automatic(time: 3.0)
-			],
-			animations: CxjToastConfiguration.Animations(
-				present: .init(
-					animation: .defaultSpring,
-					behaviour: .custom(changes: [.translation(type: .outOfSourceViewVerticaly)])
-				),
-				dismiss: .init(
-					animation: .defaultSpring,
-					behaviour: .custom(changes: [.alpha(intensity: .zero), .scale(value: .init(x: 0.9, y: 0.75))])
+				height: CxjToastConfiguration.Constraints.Values(
+					min: 40,
+					max: 150
 				)
 			),
-//			spamProtection: .on(comparingAttributes: [.type, .placement(includingYOffset: false)]),
-			spamProtection: .off,
-			displayingSameAttributeToastBehaviour: .init(handling: .dismiss)
+			placement: .bottom(params: .init(offset: 100, includingSafeArea: true))
 		)
+	}
+	
+	func dismissMethods() -> Set<CxjToastConfiguration.DismissMethod> {
+		[
+			.swipe(direction: .bottom),
+			.tap(actionCompletion: nil),
+			.automatic(time: 3.0)
+		]
+	}
+	
+	func animations() -> CxjToastConfiguration.Animations {
+		CxjToastConfiguration.Animations(
+			present: presentAnimation(),
+			dismiss: dismissAnimation()
+		)
+	}
+	
+	func presentAnimation() -> CxjToastConfiguration.Animation {
+		CxjToastConfiguration.Animation(
+			animation: .defaultSpring,
+			behaviour: .custom(changes: [.translation(type: .outOfSourceViewVerticaly)])
+		)
+	}
+	
+	func dismissAnimation() -> CxjToastConfiguration.Animation {
+		CxjToastConfiguration.Animation(
+			animation: .defaultSpring,
+			behaviour: .custom(changes: [.alpha(intensity: .zero), .scale(value: .init(x: 0.9, y: 0.75))])
+		)
+	}
+	
+	func spamProtection() -> CxjToastConfiguration.SpamProtection {
+		.off
+	}
+	
+	func displayingSameAttributeToastBehaviour() -> CxjToastConfiguration.DisplayingBehaviour {
+		.init(handling: .dismiss)
 	}
 }
 
@@ -98,7 +137,7 @@ private extension CustomToastViewController {
 						iconPlacement: .left
 					),
 					iconParams: .init(
-						icon: .init(resource: .testIcon),
+						icon: .init(resource: .closeIcon),
 						fixedSize: .init(width: 20, height: 20)
 					)
 				),

@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,7 +19,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8y-NX-uzZ">
                                 <rect key="frame" x="40" y="209" width="313" height="459"/>
-                                <color key="backgroundColor" red="0.55855291461064582" green="0.77124275128865982" blue="0.59867316359779299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="0e9-2n-cEd">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
@@ -26,7 +27,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AlE-aM-epq">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Present"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Present">
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="presentButtonPressed" destination="Y6W-OH-hqX" eventType="touchUpInside" id="yKm-D5-IpT"/>
                                         </connections>
@@ -34,7 +37,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Fl-a8-mwM">
                                         <rect key="frame" x="0.0" y="181.33333333333334" width="393" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Present"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Present">
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="presentButtonPressed" destination="Y6W-OH-hqX" eventType="touchUpInside" id="dd9-L4-MAd"/>
                                         </connections>
@@ -42,7 +47,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rvV-rW-35U">
                                         <rect key="frame" x="0.0" y="362.33333333333331" width="393" height="34.333333333333314"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Present"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Present">
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="presentButtonPressed" destination="Y6W-OH-hqX" eventType="touchUpInside" id="SUI-XA-4KV"/>
                                         </connections>
@@ -50,7 +57,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LrV-7h-BMy">
                                         <rect key="frame" x="0.0" y="543.66666666666663" width="393" height="34.333333333333371"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Present"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Present">
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="presentButtonPressed" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Sa1-Zq-Ran"/>
                                         </connections>
@@ -58,23 +67,36 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSu-fA-sKT">
                                         <rect key="frame" x="0.0" y="724.66666666666663" width="393" height="34.333333333333371"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Present"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Present">
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="presentButtonPressed" destination="Y6W-OH-hqX" eventType="touchUpInside" id="ROm-rI-nVZ"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6x-A9-8ED">
+                                <rect key="frame" x="8" y="67" width="60" height="50"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="close_icon"/>
+                                <connections>
+                                    <action selector="closeButtonPressed" destination="Y6W-OH-hqX" eventType="touchUpInside" id="pJQ-HP-TY7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="0e9-2n-cEd" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="6k9-Mg-Vse"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="w8y-NX-uzZ" secondAttribute="bottom" constant="150" id="6tO-89-umX"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="w8y-NX-uzZ" secondAttribute="trailing" constant="40" id="Caz-tP-T24"/>
                             <constraint firstItem="0e9-2n-cEd" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="R4n-mX-f1N"/>
+                            <constraint firstItem="z6x-A9-8ED" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="WpY-SN-tI2"/>
                             <constraint firstItem="w8y-NX-uzZ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="150" id="cJC-2J-O7R"/>
                             <constraint firstItem="w8y-NX-uzZ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="cPC-my-jd8"/>
+                            <constraint firstItem="z6x-A9-8ED" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="fc8-JC-z6N"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="0e9-2n-cEd" secondAttribute="trailing" id="o8c-H1-CIS"/>
                             <constraint firstItem="0e9-2n-cEd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="qQ7-Wv-v4v"/>
                         </constraints>
@@ -88,4 +110,16 @@
             <point key="canvasLocation" x="3.8167938931297707" y="4.9295774647887329"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="close_icon" width="36" height="36"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
