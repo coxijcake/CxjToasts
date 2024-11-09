@@ -25,6 +25,7 @@
 		84482B112CDBFD74007D9588 /* TemplatedToastsListDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84482B102CDBFD74007D9588 /* TemplatedToastsListDiffableDataSource.swift */; };
 		84482B152CDC0141007D9588 /* TemplatedToastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84482B142CDC0141007D9588 /* TemplatedToastCell.swift */; };
 		84482B172CDC0433007D9588 /* TemplatedToastsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84482B162CDC0433007D9588 /* TemplatedToastsViewController.storyboard */; };
+		84A15C162CDFC68900FCDAC5 /* TemplatedToastFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C152CDFC68900FCDAC5 /* TemplatedToastFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		84482B102CDBFD74007D9588 /* TemplatedToastsListDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatedToastsListDiffableDataSource.swift; sourceTree = "<group>"; };
 		84482B142CDC0141007D9588 /* TemplatedToastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatedToastCell.swift; sourceTree = "<group>"; };
 		84482B162CDC0433007D9588 /* TemplatedToastsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TemplatedToastsViewController.storyboard; sourceTree = "<group>"; };
+		84A15C152CDFC68900FCDAC5 /* TemplatedToastFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatedToastFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 		84482B0D2CDBFC6C007D9588 /* TemplatedToasts */ = {
 			isa = PBXGroup;
 			children = (
+				84A15C142CDFC66600FCDAC5 /* ToastFactory */,
 				84482B132CDC00A3007D9588 /* Subviews */,
 				84482B122CDC009D007D9588 /* DataSource */,
 				84482B0E2CDBFC82007D9588 /* TemplatedToastsViewController.swift */,
@@ -191,6 +194,14 @@
 				84482B142CDC0141007D9588 /* TemplatedToastCell.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		84A15C142CDFC66600FCDAC5 /* ToastFactory */ = {
+			isa = PBXGroup;
+			children = (
+				84A15C152CDFC68900FCDAC5 /* TemplatedToastFactory.swift */,
+			);
+			path = ToastFactory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +352,7 @@
 				84482B0F2CDBFC82007D9588 /* TemplatedToastsViewController.swift in Sources */,
 				84482B152CDC0141007D9588 /* TemplatedToastCell.swift in Sources */,
 				84422BBF2CD95B76004F9306 /* CustomToastViewController.swift in Sources */,
+				84A15C162CDFC68900FCDAC5 /* TemplatedToastFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

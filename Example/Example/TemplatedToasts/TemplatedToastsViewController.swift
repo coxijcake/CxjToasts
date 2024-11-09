@@ -44,41 +44,15 @@ extension TemplatedToastsViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		guard let toastType = dataSource.itemIdentifier(for: indexPath) else { return }
 		
-		switch toastType {
-		case .native:
-			CxjToastsCoordinator.shared.showToast(
-				type: .templated(
-					template: .native(
-						data: CxjToastTemplate.NativeToastData(
-							title: "Test Toast Toast Toast",
-							subtitle: "some description",
-							icon: .init(resource: .closeIcon),
-							backgroundColor: .white
-						)
-					)
-				)
-			)
-		case .bottomPrimary:
-			CxjToastsCoordinator.shared.showToast(
-				type: .templated(
-					template: .bottomPrimary(
-						data: CxjToastTemplate.BottomPrimaryToastData(
-							customSourceView: nil,
-							icon: .init(resource: .closeIcon),
-							title: CxjToastTemplate.BottomPrimaryToastData.Title(
-								text: "owofmqwofmqowf qowfm qowfmq owfmqow fqowf m",
-								numberOfLines: 3,
-								textColor: UIColor.black,
-								font: .systemFont(ofSize: 21, weight: .bold)
-							),
-							subtitle: nil,
-							background: .colorized(color: .white),
-							shadowColor: .black.withAlphaComponent(0.5)
-						)
-					)
-				)
-			)
-		}
+		let template = TemplatedToastFactory.toastTemplateForType(
+			toastType,
+			customSourceView: nil
+		)
+		
+		CxjToastsCoordinator.shared.showToast(
+			type: .templated(template: template),
+			animated: true
+		)
 	}
 }
 
