@@ -33,12 +33,6 @@ final class ToastCell: UICollectionViewCell {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		
-		updateSubviewsLayout()
-	}
 }
 
 //MARK: - Configurator
@@ -50,33 +44,32 @@ extension ToastCell {
 
 //MARK: - Subviews layout
 private extension ToastCell {
-	var titleFrame: CGRect {
-		CGRect(
-			x: 16,
-			y: 2,
-			width: bounds.size.width - 32,
-			height: bounds.size.height - 4
-		)
-	}
-	
-	var separatorFrame: CGRect {
-		CGRect(
-			x: 0,
-			y: bounds.size.height - 2,
-			width: bounds.size.width,
-			height: 2
-		)
-	}
-	
-	func updateSubviewsLayout() {
-		titleLabel.frame = titleFrame
-		separatorView.frame = separatorFrame
+	func setupConstraints() {
+		[separatorView, titleLabel]
+			.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+		
+		NSLayoutConstraint.activate([
+			separatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
+			separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
+			separatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+			separatorView.heightAnchor.constraint(equalToConstant: 2),
+			
+			titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+			titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+			titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 2),
+			titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2)
+		])
 	}
 }
 
 //MARK: - Base configuration
 private extension ToastCell {
 	func baseConfigure() {
+		setupSubviews()
+		setupConstraints()
+   }
+	
+	func setupSubviews() {
 		[separatorView, titleLabel]
 			.forEach { addSubview($0) }
 		
@@ -85,7 +78,8 @@ private extension ToastCell {
 		separatorView.backgroundColor = .separator
 		
 		titleLabel.textColor = .label
+		titleLabel.numberOfLines = 0
 		titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
 		titleLabel.textAlignment = .left
-   }
+	}
 }

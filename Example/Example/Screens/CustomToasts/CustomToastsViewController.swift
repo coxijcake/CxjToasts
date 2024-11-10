@@ -24,7 +24,7 @@ final class CustomToastsViewController: UIViewController {
 	
 	private lazy var collectionLayout: UICollectionViewFlowLayout = {
 		let layout: UICollectionViewFlowLayout = .init()
-		layout.itemSize = .init(width: UIScreen.main.bounds.size.width, height: 60)
+		layout.itemSize = .init(width: UIScreen.main.bounds.size.width, height: 75)
 		layout.minimumLineSpacing = 0
 		layout.minimumInteritemSpacing = 0
 		layout.scrollDirection = .vertical

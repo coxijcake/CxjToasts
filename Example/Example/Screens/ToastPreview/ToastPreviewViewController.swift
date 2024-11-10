@@ -11,22 +11,51 @@ import CxjToasts
 //MARK: - Types
 extension ToastPreviewViewController {
 	struct Input {
-		let toastType: CxjToastType
+		let toastType: ToastType
 	}
 }
 
-final class ToastPreviewViewController: UIViewController {	
+final class ToastPreviewViewController: UIViewController {
+	//MARK: - Subviews
+	@IBOutlet weak var centerContainerView: UIView!
+	
+	//MARK: - Props
 	var input: Input!
 	
+	//MARK: - Actions
 	@IBAction func closeButtonPressed() {
 		dismiss(animated: true)
 	}
 	
-	@IBAction func presentButtonPressed() {
-		ToastPresenter.presentToastWithType(
-			input.toastType,
-			strategy: toastPresentingStrategy(),
+	@IBAction func backgroundViewPresentButtonPressed() {
+		try? presentInputToast(
+			fromView: view,
 			animated: true
+		)
+	}
+	
+	@IBAction func centerContainerViewPresentButtonPressed() {
+		try? presentInputToast(
+			fromView: centerContainerView,
+			animated: true
+		)
+	}
+}
+
+//MARK: - Presenting
+private extension ToastPreviewViewController {
+	func presentInputToast(fromView sourceView: UIView, animated: Bool) throws {
+		let toastType: CxjToastType = try ToastFactory.cxjToastTypeFor(
+			toastType: input.toastType,
+			customSourceView: sourceView
+		)
+		
+		let strategy: ToastPresetingStrategy = toastPresentingStrategy()
+		
+		ToastPresenter.presentToastWithType(
+			toastType,
+			strategy: strategy,
+			animated: animated
 		)
 	}
 }

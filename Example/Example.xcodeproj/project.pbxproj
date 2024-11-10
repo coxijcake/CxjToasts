@@ -33,6 +33,7 @@
 		84A15C6F2CDFDFF300FCDAC5 /* CustomToastFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C6E2CDFDFF300FCDAC5 /* CustomToastFactory.swift */; };
 		84A15C712CE0BA8A00FCDAC5 /* CustomToastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C702CE0BA8A00FCDAC5 /* CustomToastsViewController.swift */; };
 		84A15C732CE0BA9400FCDAC5 /* CustomToastsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A15C722CE0BA9400FCDAC5 /* CustomToastsViewController.storyboard */; };
+		84A15C772CE0CBC600FCDAC5 /* ToastFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C762CE0CBC600FCDAC5 /* ToastFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		84A15C6E2CDFDFF300FCDAC5 /* CustomToastFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastFactory.swift; sourceTree = "<group>"; };
 		84A15C702CE0BA8A00FCDAC5 /* CustomToastsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastsViewController.swift; sourceTree = "<group>"; };
 		84A15C722CE0BA9400FCDAC5 /* CustomToastsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomToastsViewController.storyboard; sourceTree = "<group>"; };
+		84A15C762CE0CBC600FCDAC5 /* ToastFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,7 +216,6 @@
 		84A15C532CDFDB2700FCDAC5 /* CustomToasts */ = {
 			isa = PBXGroup;
 			children = (
-				84A15C6D2CDFDFE200FCDAC5 /* ToastFactory */,
 				84A15C702CE0BA8A00FCDAC5 /* CustomToastsViewController.swift */,
 				84A15C722CE0BA9400FCDAC5 /* CustomToastsViewController.storyboard */,
 			);
@@ -224,7 +225,6 @@
 		84A15C542CDFDB3300FCDAC5 /* TemplatedToasts */ = {
 			isa = PBXGroup;
 			children = (
-				84A15C622CDFDB6900FCDAC5 /* ToastFactory */,
 				84A15C482CDFDB0100FCDAC5 /* TemplatedToastsViewController.swift */,
 				84A15C492CDFDB0100FCDAC5 /* TemplatedToastsViewController.storyboard */,
 			);
@@ -234,18 +234,11 @@
 		84A15C602CDFDB5200FCDAC5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				84A15C752CE0CBB900FCDAC5 /* ToastFactories */,
 				84A15C652CDFDB6D00FCDAC5 /* DataSource */,
 				84A15C4A2CDFDB0100FCDAC5 /* ToastPresenter.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		84A15C622CDFDB6900FCDAC5 /* ToastFactory */ = {
-			isa = PBXGroup;
-			children = (
-				84A15C612CDFDB6900FCDAC5 /* TemplatedToastFactory.swift */,
-			);
-			path = ToastFactory;
 			sourceTree = "<group>";
 		};
 		84A15C652CDFDB6D00FCDAC5 /* DataSource */ = {
@@ -273,12 +266,14 @@
 			path = ToastPreview;
 			sourceTree = "<group>";
 		};
-		84A15C6D2CDFDFE200FCDAC5 /* ToastFactory */ = {
+		84A15C752CE0CBB900FCDAC5 /* ToastFactories */ = {
 			isa = PBXGroup;
 			children = (
+				84A15C762CE0CBC600FCDAC5 /* ToastFactory.swift */,
+				84A15C612CDFDB6900FCDAC5 /* TemplatedToastFactory.swift */,
 				84A15C6E2CDFDFF300FCDAC5 /* CustomToastFactory.swift */,
 			);
-			path = ToastFactory;
+			path = ToastFactories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,6 +430,7 @@
 				84A15C6F2CDFDFF300FCDAC5 /* CustomToastFactory.swift in Sources */,
 				84A15C692CDFDB6D00FCDAC5 /* ToastCell.swift in Sources */,
 				84A15C1F2CDFDA3400FCDAC5 /* ToastType.swift in Sources */,
+				84A15C772CE0CBC600FCDAC5 /* ToastFactory.swift in Sources */,
 				84A15C402CDFDAFE00FCDAC5 /* ToastPreviewViewController.swift in Sources */,
 				84A15C632CDFDB6900FCDAC5 /* TemplatedToastFactory.swift in Sources */,
 			);
