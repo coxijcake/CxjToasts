@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Custom Toast View Controller-->
+        <!--Toast Preview View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="CustomToastViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="ToastPreviewViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8y-NX-uzZ">
-                                <rect key="frame" x="40" y="209" width="313" height="459"/>
-                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
-                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test_vc_background" translatesAutoresizingMaskIntoConstraints="NO" id="gec-4E-c3y">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="0e9-2n-cEd">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <subviews>
@@ -90,20 +89,17 @@
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="0e9-2n-cEd" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="6k9-Mg-Vse"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="w8y-NX-uzZ" secondAttribute="bottom" constant="150" id="6tO-89-umX"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="w8y-NX-uzZ" secondAttribute="trailing" constant="40" id="Caz-tP-T24"/>
+                            <constraint firstAttribute="trailing" secondItem="gec-4E-c3y" secondAttribute="trailing" id="KAi-t1-kl1"/>
+                            <constraint firstItem="gec-4E-c3y" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="Oam-iK-IHB"/>
                             <constraint firstItem="0e9-2n-cEd" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="R4n-mX-f1N"/>
                             <constraint firstItem="z6x-A9-8ED" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="WpY-SN-tI2"/>
-                            <constraint firstItem="w8y-NX-uzZ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="150" id="cJC-2J-O7R"/>
-                            <constraint firstItem="w8y-NX-uzZ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="cPC-my-jd8"/>
                             <constraint firstItem="z6x-A9-8ED" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="fc8-JC-z6N"/>
+                            <constraint firstAttribute="bottom" secondItem="gec-4E-c3y" secondAttribute="bottom" id="ga1-1y-A46"/>
+                            <constraint firstItem="gec-4E-c3y" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="jCW-bY-f6K"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="0e9-2n-cEd" secondAttribute="trailing" id="o8c-H1-CIS"/>
                             <constraint firstItem="0e9-2n-cEd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="qQ7-Wv-v4v"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="someContainerView" destination="w8y-NX-uzZ" id="UVj-mr-4G2"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -112,14 +108,12 @@
     </scenes>
     <resources>
         <image name="close_icon" width="36" height="36"/>
+        <image name="test_vc_background" width="4016" height="6016"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

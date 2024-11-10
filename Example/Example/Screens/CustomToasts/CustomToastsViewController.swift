@@ -1,24 +1,25 @@
 //
-//  TemplatedToastsViewController.swift
+//  CustomToastsViewController.swift
 //  Example
 //
-//  Created by Nikita Begletskiy on 06/11/2024.
+//  Created by Nikita Begletskiy on 10/11/2024.
 //
 
 import UIKit
 import CxjToasts
 
 //MARK: - Types
-extension TemplatedToastsViewController {
-	typealias ToastType = TemplatedToastType
+extension CustomToastsViewController {
+	typealias ToastType = CustomToastType
 }
 
-final class TemplatedToastsViewController: UIViewController {
+final class CustomToastsViewController: UIViewController {
 	//MARK: - Subviews
 	@IBOutlet weak var collectionView: UICollectionView!
 	
 	private lazy var dataSource: ToastsListDiffableDataSource = ToastsListDiffableDataSource(
-		collectionView: collectionView, templateTypes: ToastType.allCases
+		collectionView: collectionView,
+		templateTypes: ToastType.allCases
 	)
 	
 	private lazy var collectionLayout: UICollectionViewFlowLayout = {
@@ -46,17 +47,17 @@ final class TemplatedToastsViewController: UIViewController {
 }
 
 //MARK: - CollectionView Delegate
-extension TemplatedToastsViewController: UICollectionViewDelegate {
+extension CustomToastsViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		guard let toastType: ToastType = dataSource.toastType(forIndexPath: indexPath) else { return }
 		
-		let template = TemplatedToastFactory.toastTemplateForType(
+		let toastdata = CustomToastFactory.toastDataForType(
 			toastType,
 			customSourceView: nil
 		)
 		
 		ToastPresenter.presentToastWithType(
-			.templated(template: template),
+			.custom(data: toastdata),
 			strategy: .custom(
 				strategy: .init(
 					presentsCount: 1,
@@ -69,7 +70,7 @@ extension TemplatedToastsViewController: UICollectionViewDelegate {
 }
 
 //MARK: - Base configuration
-private extension TemplatedToastsViewController {
+private extension CustomToastsViewController {
 	func baseConfigure() {
 		configureCollectionView()
 	}

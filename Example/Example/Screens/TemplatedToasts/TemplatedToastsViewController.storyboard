@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,18 +29,31 @@
                                 <cells/>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtV-Ha-8CO">
-                                <rect key="frame" x="8" y="67" width="60" height="50"/>
+                                <rect key="frame" x="8" y="67" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="G3G-X2-oA0"/>
+                                    <constraint firstAttribute="width" constant="40" id="YyL-nb-ghc"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="close_icon"/>
                                 <connections>
                                     <action selector="closeButtonPressed" destination="Y6W-OH-hqX" eventType="touchUpInside" id="nIU-AE-sgD"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TemplatedToastsViewController" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mTI-0M-Jjl">
+                                <rect key="frame" x="76" y="76.666666666666671" width="241" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="mTI-0M-Jjl" firstAttribute="centerY" secondItem="mtV-Ha-8CO" secondAttribute="centerY" id="2hN-3x-67G"/>
                             <constraint firstItem="iWW-Lg-GH9" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9ul-Ij-tyl"/>
+                            <constraint firstItem="mTI-0M-Jjl" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Mm2-6U-qk2"/>
+                            <constraint firstItem="mTI-0M-Jjl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mtV-Ha-8CO" secondAttribute="trailing" constant="10" id="Mza-qr-wfr"/>
                             <constraint firstItem="iWW-Lg-GH9" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Phu-D9-vTf"/>
                             <constraint firstItem="mtV-Ha-8CO" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="jMK-eQ-LnO"/>
                             <constraint firstItem="mtV-Ha-8CO" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="rf1-XD-8JO"/>

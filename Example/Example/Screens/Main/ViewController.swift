@@ -14,8 +14,8 @@ class ViewController: UIViewController {
 	}
 	
 	@IBAction func customButtonPressed(_ sender: Any) {
-		let customVC = CustomToastViewController.storyboardInstantiateInitialController()
-		routeTo(vc: customVC)
+		let customToastsVC = CustomToastsViewController.storyboardInstantiateInitialController()
+		routeTo(vc: customToastsVC)
 	}
 	
 	private func routeTo(vc: UIViewController) {

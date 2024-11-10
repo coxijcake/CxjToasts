@@ -1,5 +1,5 @@
 //
-//  TemplatedToastCell.swift
+//  ToastCell.swift
 //  Example
 //
 //  Created by Nikita Begletskiy on 06/11/2024.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class TemplatedToastCell: UICollectionViewCell {
-	static let reuseIdentifier: String = String(describing: TemplatedToastCell.self)
+final class ToastCell: UICollectionViewCell {
+	static let reuseIdentifier: String = String(describing: ToastCell.self)
 	
 	override var isHighlighted: Bool {
 		didSet {
@@ -42,14 +42,14 @@ final class TemplatedToastCell: UICollectionViewCell {
 }
 
 //MARK: - Configurator
-extension TemplatedToastCell {
+extension ToastCell {
 	func configure(title: String) {
 		titleLabel.text = title
 	}
 }
 
 //MARK: - Subviews layout
-private extension TemplatedToastCell {
+private extension ToastCell {
 	var titleFrame: CGRect {
 		CGRect(
 			x: 16,
@@ -75,7 +75,7 @@ private extension TemplatedToastCell {
 }
 
 //MARK: - Base configuration
-private extension TemplatedToastCell {
+private extension ToastCell {
 	func baseConfigure() {
 		[separatorView, titleLabel]
 			.forEach { addSubview($0) }

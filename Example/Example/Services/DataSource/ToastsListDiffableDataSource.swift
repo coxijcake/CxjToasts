@@ -79,7 +79,7 @@ private extension ToastsListDiffableDataSource {
 	func diffableDataSourceFor(collectionView: UICollectionView) -> DiffableDataSource {
 		return DiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
 			guard
-				let cell: TemplatedToastCell = collectionView.dequeueReusableCell(withReuseIdentifier: TemplatedToastCell.reuseIdentifier, for: indexPath) as? TemplatedToastCell
+				let cell: ToastCell = collectionView.dequeueReusableCell(withReuseIdentifier: ToastCell.reuseIdentifier, for: indexPath) as? ToastCell
 			else { return nil }
 			
 			cell.configure(title: itemIdentifier.title)

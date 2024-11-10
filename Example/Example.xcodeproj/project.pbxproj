@@ -22,14 +22,17 @@
 		84A15C1F2CDFDA3400FCDAC5 /* ToastType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C1E2CDFDA3400FCDAC5 /* ToastType.swift */; };
 		84A15C222CDFDA5600FCDAC5 /* TemplatedToastType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C212CDFDA5600FCDAC5 /* TemplatedToastType.swift */; };
 		84A15C242CDFDA5A00FCDAC5 /* CustomToastType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C232CDFDA5A00FCDAC5 /* CustomToastType.swift */; };
-		84A15C402CDFDAFE00FCDAC5 /* CustomToastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C3D2CDFDAFE00FCDAC5 /* CustomToastViewController.swift */; };
-		84A15C412CDFDAFE00FCDAC5 /* CustomToastViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A15C3E2CDFDAFE00FCDAC5 /* CustomToastViewController.storyboard */; };
+		84A15C402CDFDAFE00FCDAC5 /* ToastPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C3D2CDFDAFE00FCDAC5 /* ToastPreviewViewController.swift */; };
+		84A15C412CDFDAFE00FCDAC5 /* ToastPreviewViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A15C3E2CDFDAFE00FCDAC5 /* ToastPreviewViewController.storyboard */; };
 		84A15C4C2CDFDB0100FCDAC5 /* TemplatedToastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C482CDFDB0100FCDAC5 /* TemplatedToastsViewController.swift */; };
 		84A15C4F2CDFDB0100FCDAC5 /* ToastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C4A2CDFDB0100FCDAC5 /* ToastPresenter.swift */; };
 		84A15C512CDFDB0100FCDAC5 /* TemplatedToastsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A15C492CDFDB0100FCDAC5 /* TemplatedToastsViewController.storyboard */; };
 		84A15C632CDFDB6900FCDAC5 /* TemplatedToastFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C612CDFDB6900FCDAC5 /* TemplatedToastFactory.swift */; };
 		84A15C662CDFDB6D00FCDAC5 /* ToastsListDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C642CDFDB6D00FCDAC5 /* ToastsListDiffableDataSource.swift */; };
-		84A15C692CDFDB6D00FCDAC5 /* TemplatedToastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C672CDFDB6D00FCDAC5 /* TemplatedToastCell.swift */; };
+		84A15C692CDFDB6D00FCDAC5 /* ToastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C672CDFDB6D00FCDAC5 /* ToastCell.swift */; };
+		84A15C6F2CDFDFF300FCDAC5 /* CustomToastFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C6E2CDFDFF300FCDAC5 /* CustomToastFactory.swift */; };
+		84A15C712CE0BA8A00FCDAC5 /* CustomToastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C702CE0BA8A00FCDAC5 /* CustomToastsViewController.swift */; };
+		84A15C732CE0BA9400FCDAC5 /* CustomToastsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A15C722CE0BA9400FCDAC5 /* CustomToastsViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,14 +71,17 @@
 		84A15C1E2CDFDA3400FCDAC5 /* ToastType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastType.swift; sourceTree = "<group>"; };
 		84A15C212CDFDA5600FCDAC5 /* TemplatedToastType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatedToastType.swift; sourceTree = "<group>"; };
 		84A15C232CDFDA5A00FCDAC5 /* CustomToastType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastType.swift; sourceTree = "<group>"; };
-		84A15C3D2CDFDAFE00FCDAC5 /* CustomToastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastViewController.swift; sourceTree = "<group>"; };
-		84A15C3E2CDFDAFE00FCDAC5 /* CustomToastViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomToastViewController.storyboard; sourceTree = "<group>"; };
+		84A15C3D2CDFDAFE00FCDAC5 /* ToastPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPreviewViewController.swift; sourceTree = "<group>"; };
+		84A15C3E2CDFDAFE00FCDAC5 /* ToastPreviewViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ToastPreviewViewController.storyboard; sourceTree = "<group>"; };
 		84A15C482CDFDB0100FCDAC5 /* TemplatedToastsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatedToastsViewController.swift; sourceTree = "<group>"; };
 		84A15C492CDFDB0100FCDAC5 /* TemplatedToastsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TemplatedToastsViewController.storyboard; sourceTree = "<group>"; };
 		84A15C4A2CDFDB0100FCDAC5 /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
 		84A15C612CDFDB6900FCDAC5 /* TemplatedToastFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatedToastFactory.swift; sourceTree = "<group>"; };
 		84A15C642CDFDB6D00FCDAC5 /* ToastsListDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastsListDiffableDataSource.swift; sourceTree = "<group>"; };
-		84A15C672CDFDB6D00FCDAC5 /* TemplatedToastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatedToastCell.swift; sourceTree = "<group>"; };
+		84A15C672CDFDB6D00FCDAC5 /* ToastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastCell.swift; sourceTree = "<group>"; };
+		84A15C6E2CDFDFF300FCDAC5 /* CustomToastFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastFactory.swift; sourceTree = "<group>"; };
+		84A15C702CE0BA8A00FCDAC5 /* CustomToastsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastsViewController.swift; sourceTree = "<group>"; };
+		84A15C722CE0BA9400FCDAC5 /* CustomToastsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomToastsViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +135,7 @@
 			children = (
 				84A15C1D2CDFDA2D00FCDAC5 /* Models */,
 				84A15C602CDFDB5200FCDAC5 /* Services */,
+				84A15C682CDFDB6D00FCDAC5 /* Subviews */,
 				84A15C3C2CDFDAEE00FCDAC5 /* Screens */,
 				84422BBB2CD95954004F9306 /* Extensions */,
 				8425F5B52C6DE8A00082226D /* AppDelegate.swift */,
@@ -187,6 +194,7 @@
 		84A15C3C2CDFDAEE00FCDAC5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				84A15C6A2CDFDF4200FCDAC5 /* ToastPreview */,
 				84A15C542CDFDB3300FCDAC5 /* TemplatedToasts */,
 				84A15C532CDFDB2700FCDAC5 /* CustomToasts */,
 				84A15C522CDFDB1200FCDAC5 /* Main */,
@@ -206,8 +214,9 @@
 		84A15C532CDFDB2700FCDAC5 /* CustomToasts */ = {
 			isa = PBXGroup;
 			children = (
-				84A15C3D2CDFDAFE00FCDAC5 /* CustomToastViewController.swift */,
-				84A15C3E2CDFDAFE00FCDAC5 /* CustomToastViewController.storyboard */,
+				84A15C6D2CDFDFE200FCDAC5 /* ToastFactory */,
+				84A15C702CE0BA8A00FCDAC5 /* CustomToastsViewController.swift */,
+				84A15C722CE0BA9400FCDAC5 /* CustomToastsViewController.storyboard */,
 			);
 			path = CustomToasts;
 			sourceTree = "<group>";
@@ -216,7 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				84A15C622CDFDB6900FCDAC5 /* ToastFactory */,
-				84A15C682CDFDB6D00FCDAC5 /* Subviews */,
 				84A15C482CDFDB0100FCDAC5 /* TemplatedToastsViewController.swift */,
 				84A15C492CDFDB0100FCDAC5 /* TemplatedToastsViewController.storyboard */,
 			);
@@ -251,9 +259,26 @@
 		84A15C682CDFDB6D00FCDAC5 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				84A15C672CDFDB6D00FCDAC5 /* TemplatedToastCell.swift */,
+				84A15C672CDFDB6D00FCDAC5 /* ToastCell.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		84A15C6A2CDFDF4200FCDAC5 /* ToastPreview */ = {
+			isa = PBXGroup;
+			children = (
+				84A15C3D2CDFDAFE00FCDAC5 /* ToastPreviewViewController.swift */,
+				84A15C3E2CDFDAFE00FCDAC5 /* ToastPreviewViewController.storyboard */,
+			);
+			path = ToastPreview;
+			sourceTree = "<group>";
+		};
+		84A15C6D2CDFDFE200FCDAC5 /* ToastFactory */ = {
+			isa = PBXGroup;
+			children = (
+				84A15C6E2CDFDFF300FCDAC5 /* CustomToastFactory.swift */,
+			);
+			path = ToastFactory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,8 +391,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84A15C412CDFDAFE00FCDAC5 /* CustomToastViewController.storyboard in Resources */,
+				84A15C412CDFDAFE00FCDAC5 /* ToastPreviewViewController.storyboard in Resources */,
 				8425F5BF2C6DE8A10082226D /* Assets.xcassets in Resources */,
+				84A15C732CE0BA9400FCDAC5 /* CustomToastsViewController.storyboard in Resources */,
 				8425F5C22C6DE8A10082226D /* Base in Resources */,
 				8425F5BD2C6DE8A00082226D /* Base in Resources */,
 				84A15C512CDFDB0100FCDAC5 /* TemplatedToastsViewController.storyboard in Resources */,
@@ -401,13 +427,15 @@
 				84A15C4C2CDFDB0100FCDAC5 /* TemplatedToastsViewController.swift in Sources */,
 				84A15C4F2CDFDB0100FCDAC5 /* ToastPresenter.swift in Sources */,
 				84A15C662CDFDB6D00FCDAC5 /* ToastsListDiffableDataSource.swift in Sources */,
+				84A15C712CE0BA8A00FCDAC5 /* CustomToastsViewController.swift in Sources */,
 				84A15C222CDFDA5600FCDAC5 /* TemplatedToastType.swift in Sources */,
 				8425F5B82C6DE8A00082226D /* SceneDelegate.swift in Sources */,
 				84422BC42CD96AE2004F9306 /* UIViewController+Extensions.swift in Sources */,
 				84A15C242CDFDA5A00FCDAC5 /* CustomToastType.swift in Sources */,
-				84A15C692CDFDB6D00FCDAC5 /* TemplatedToastCell.swift in Sources */,
+				84A15C6F2CDFDFF300FCDAC5 /* CustomToastFactory.swift in Sources */,
+				84A15C692CDFDB6D00FCDAC5 /* ToastCell.swift in Sources */,
 				84A15C1F2CDFDA3400FCDAC5 /* ToastType.swift in Sources */,
-				84A15C402CDFDAFE00FCDAC5 /* CustomToastViewController.swift in Sources */,
+				84A15C402CDFDAFE00FCDAC5 /* ToastPreviewViewController.swift in Sources */,
 				84A15C632CDFDB6900FCDAC5 /* TemplatedToastFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
