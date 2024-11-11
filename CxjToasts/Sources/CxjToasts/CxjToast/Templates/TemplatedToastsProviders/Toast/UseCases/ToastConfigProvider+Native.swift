@@ -9,11 +9,19 @@ import UIKit
 
 extension CxjTemplatedToastConfigProviderFactory {
 	final class NativeToastConfigProvider: CxjTemplatedToastConfigProvider {
+		typealias Data = CxjToastTemplate.NativeToastData
+		
+		let data: Data
+		
+		init(data: Data) {
+			self.data = data
+		}
+		
 		func config() -> Config {
 			let sourceView: UIView = sourceView()
 			
 			return Config(
-				typeId: "cxj_native_toast",
+				typeId: data.typeId,
 				sourceView: sourceView,
 				sourceBackground: nil,
 				layout: layoutFor(sourceView: sourceView),

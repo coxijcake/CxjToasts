@@ -13,10 +13,12 @@ enum CxjTemplatedToastConfigProviderFactory {
 	
 	static func configProviderFor(template: Template) -> Provider {
 		switch template {
-		case .native(data: _):
-			NativeToastConfigProvider()
+		case .native(data: let data):
+			NativeToastConfigProvider(data: data)
 		case .bottomPrimary(data: let data):
 			BottomPrimaryToastConfigProvider(data: data)
+		case .topStraight(data: let data):
+			TopStraightToastConfigProvider(data: data)
 		}
 	}
 }

@@ -1,15 +1,15 @@
 //
-//  ToastConfigProvider+BottomPrimary.swift
-//  
+//  ToastConfigProvider+TopStraight.swift
+//  CxjToasts
 //
-//  Created by Nikita Begletskiy on 08/10/2024.
+//  Created by Nikita Begletskiy on 11/11/2024.
 //
 
 import UIKit
 
 extension CxjTemplatedToastConfigProviderFactory {
-	final class BottomPrimaryToastConfigProvider: CxjTemplatedToastConfigProvider {
-		typealias Data = CxjToastTemplate.BottomPrimaryToastData
+	final class TopStraightToastConfigProvider: CxjTemplatedToastConfigProvider {
+		typealias Data = CxjToastTemplate.TopStraightToastData
 		
 		let data: Data
 		
@@ -36,11 +36,8 @@ extension CxjTemplatedToastConfigProviderFactory {
 			UIApplication.keyWindow ?? UIApplication.topViewController()?.view ?? UIView()
 		}
 		
-		private func sourceBackground() -> Config.SourceBackground {
-			.init(
-				theme: .colorized(color: .black.withAlphaComponent(0.65)),
-				interaction: .enabled(action: .init(touchEvent: .touchDown, handling: .dismissToast))
-			)
+		private func sourceBackground() -> Config.SourceBackground? {
+			nil
 		}
 		
 		private func layoutFor(sourceView: UIView) -> Config.Layout {
@@ -59,27 +56,28 @@ extension CxjTemplatedToastConfigProviderFactory {
 		
 		private func widthConstraintFor(sourceView: UIView) -> Config.Constraints.Values {
 			Config.Constraints.Values(
-				min: sourceView.bounds.size.width - 24,
-				max: sourceView.bounds.size.width - 24
+				min: sourceView.bounds.size.width,
+				max: sourceView.bounds.size.width
 			)
 		}
 		
 		private func heightConstraint() -> Config.Constraints.Values {
 			Config.Constraints.Values(
-				min: 145,
-				max: 200
+				min: 55,
+				max: 65
 			)
 			
 		}
 		
 		private func placement() -> Config.Layout.Placement {
-			.bottom(params: .init(offset: 12, includingSafeArea: true))
+			.top(params: .init(offset: .zero, includingSafeArea: true))
 		}
 		
 		private func dismissMethods() -> Set<Config.DismissMethod> {
 			[
 				.automatic(time: 3.0),
-				.swipe(direction: .bottom)
+				.swipe(direction: .top),
+				.tap(actionCompletion: nil)
 			]
 		}
 		
@@ -88,9 +86,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 				animation: .defaultSpring,
 				behaviour: .custom(
 					changes: [
-						.translation(type: .outOfSourceViewVerticaly),
-						.corners(radius: .init(type: .screenCornerRadius, constraint: .halfHeigt)),
-						.scale(value: .init(x: 1.1, y: 1.1))
+						.translation(type: .outOfSourceViewVerticaly)
 					]
 				)
 			)
@@ -106,7 +102,8 @@ extension CxjTemplatedToastConfigProviderFactory {
 		}
 		
 		private func displayingBehaviour() -> Config.DisplayingBehaviour {
-			.init(handling: .hide)
+			.init(handling: .dismiss)
 		}
 	}
 }
+

@@ -20,6 +20,10 @@ enum TemplatedToastFactory {
 			return bottomPrimaryToast(
 				customSourceView: customSourceView
 			)
+		case .topStraight:
+			return topStraightToast(
+				customSourceView: customSourceView
+			)
 		}
 	}
 }
@@ -29,6 +33,7 @@ private extension TemplatedToastFactory {
 	static func nativeToast() -> CxjToastTemplate {
 		.native(
 			data: CxjToastTemplate.NativeToastData(
+				typeId: "template_toast_test_native",
 				title: "Test Toast Toast Toast",
 				subtitle: "Some subtitle",
 				icon: .init(resource: .closeIcon),
@@ -45,6 +50,7 @@ private extension TemplatedToastFactory {
 	) -> CxjToastTemplate {
 		.bottomPrimary(
 			data: CxjToastTemplate.BottomPrimaryToastData(
+				typeId: "template_toast_test_bottom_primary",
 				customSourceView: customSourceView,
 				icon: .init(resource: .closeIcon),
 				title: CxjToastTemplate.BottomPrimaryToastData.Title(
@@ -56,6 +62,27 @@ private extension TemplatedToastFactory {
 				subtitle: nil,
 				background: .colorized(color: .white),
 				shadowColor: .black.withAlphaComponent(0.5)
+			)
+		)
+	}
+}
+
+//MARK: - Top Straight
+private extension TemplatedToastFactory {
+	static func topStraightToast(
+		customSourceView: UIView?
+	) -> CxjToastTemplate {
+		.topStraight(
+			data: CxjToastTemplate.TopStraightToastData(
+				typeId: "template_toast_test_top_straight",
+				customSourceView: customSourceView,
+				icon: .init(resource: .closeIcon),
+				title: .init(
+					text: "Test straight toast title",
+					textColor: .label,
+					font: .systemFont(ofSize: 18, weight: .medium)
+				),
+				background: .colorized(color: .secondarySystemBackground)
 			)
 		)
 	}

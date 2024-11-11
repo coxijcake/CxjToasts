@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
@@ -14,14 +14,14 @@
             <objects>
                 <viewController id="Y6W-OH-hqX" customClass="ToastPreviewViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test_preview_background" translatesAutoresizingMaskIntoConstraints="NO" id="gec-4E-c3y">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlM-Hr-Ccw">
-                                <rect key="frame" x="155.33333333333334" y="84" width="82.666666666666657" height="34.333333333333343"/>
+                                <rect key="frame" x="159.66666666666666" y="87" width="82.666666666666657" height="34.333333333333343"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Present" cornerStyle="capsule">
                                     <backgroundConfiguration key="background">
@@ -34,7 +34,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Y2-nj-vnO">
-                                <rect key="frame" x="155.33333333333334" y="763.66666666666663" width="82.666666666666657" height="34.333333333333371"/>
+                                <rect key="frame" x="159.66666666666666" y="785.66666666666663" width="82.666666666666657" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Present" cornerStyle="capsule">
                                     <backgroundConfiguration key="background">
@@ -47,10 +47,10 @@
                                 </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wUU-zR-zpg">
-                                <rect key="frame" x="29.333333333333343" y="283.66666666666674" width="334.33333333333326" height="455.33333333333326"/>
+                                <rect key="frame" x="30" y="291" width="342" height="466.66666666666674"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBJ-Zw-vJa">
-                                        <rect key="frame" x="122.33333333333331" y="207.66666666666663" width="90" height="40"/>
+                                        <rect key="frame" x="126" y="213.33333333333331" width="90" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="1le-iv-aSt"/>
                                             <constraint firstAttribute="height" constant="40" id="g6a-uh-F7k"/>
@@ -67,7 +67,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dry-Ai-cWh">
-                                        <rect key="frame" x="10" y="267.66666666666669" width="314.33333333333331" height="81.333333333333314"/>
+                                        <rect key="frame" x="10" y="273.33333333333337" width="322" height="81.333333333333314"/>
                                         <string key="text">Present from this source view works only for custom toasts or specific templates that support presentation from a custom source view.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
@@ -89,7 +89,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6x-A9-8ED">
-                                <rect key="frame" x="8" y="67" width="60" height="50"/>
+                                <rect key="frame" x="8" y="70" width="60" height="50"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="close_icon"/>
@@ -105,7 +105,9 @@
                             <constraint firstItem="wUU-zR-zpg" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="1.2" id="JZw-VF-D2a"/>
                             <constraint firstAttribute="trailing" secondItem="gec-4E-c3y" secondAttribute="trailing" id="KAi-t1-kl1"/>
                             <constraint firstItem="gec-4E-c3y" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="Oam-iK-IHB"/>
+                            <constraint firstItem="wUU-zR-zpg" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="30" id="ST3-zg-hST"/>
                             <constraint firstItem="hlM-Hr-Ccw" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="Tbs-Sg-Dwo"/>
+                            <constraint firstAttribute="trailing" secondItem="wUU-zR-zpg" secondAttribute="trailing" constant="30" id="WTf-Pd-fh8"/>
                             <constraint firstItem="z6x-A9-8ED" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="WpY-SN-tI2"/>
                             <constraint firstItem="wUU-zR-zpg" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="arx-6G-rng"/>
                             <constraint firstItem="wUU-zR-zpg" firstAttribute="height" secondItem="vDu-zF-Fre" secondAttribute="height" multiplier="0.6" id="cab-ML-2O2"/>
@@ -114,7 +116,6 @@
                             <constraint firstAttribute="bottom" secondItem="gec-4E-c3y" secondAttribute="bottom" id="ga1-1y-A46"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="5Y2-nj-vnO" secondAttribute="bottom" constant="20" id="gwW-ru-ZZU"/>
                             <constraint firstItem="gec-4E-c3y" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="jCW-bY-f6K"/>
-                            <constraint firstItem="wUU-zR-zpg" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="width" multiplier="0.85" id="wd2-2V-yeM"/>
                         </constraints>
                     </view>
                     <connections>
@@ -123,7 +124,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3.8167938931297707" y="4.9295774647887329"/>
+            <point key="canvasLocation" x="2.9850746268656714" y="4.805491990846682"/>
         </scene>
     </scenes>
     <resources>

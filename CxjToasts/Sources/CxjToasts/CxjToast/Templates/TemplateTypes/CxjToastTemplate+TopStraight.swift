@@ -1,28 +1,25 @@
 //
-//  CxjToastTemplate+BottomPrimary.swift
+//  CxjToastTemplate+TopStraight.swift
+//  CxjToasts
 //
-//
-//  Created by Nikita Begletskiy on 07/10/2024.
+//  Created by Nikita Begletskiy on 11/11/2024.
 //
 
 import UIKit
 
 extension CxjToastTemplate {
-	public struct BottomPrimaryToastData {
+	public struct TopStraightToastData {
 		public struct Title {
-			let text: String
-			let numberOfLines: Int
-			let textColor: UIColor
-			let font: UIFont
+			public let text: String
+			public let textColor: UIColor
+			public let font: UIFont
 			
 			public init(
 				text: String,
-				numberOfLines: Int,
 				textColor: UIColor,
 				font: UIFont
 			) {
 				self.text = text
-				self.numberOfLines = numberOfLines
 				self.textColor = textColor
 				self.font = font
 			}
@@ -32,27 +29,20 @@ extension CxjToastTemplate {
 		let customSourceView: UIView?
 		let icon: UIImage?
 		let title: Title
-		let subtitle: Title?
 		let background: CxjToastViewConfiguration.Background
-		let shadowColor: UIColor?
-		
 		
 		public init(
 			typeId: String,
-			customSourceView: UIView? = nil,
+			customSourceView: UIView?,
 			icon: UIImage?,
 			title: Title,
-			subtitle: Title?,
-			background: CxjToastViewConfiguration.Background,
-			shadowColor: UIColor?
+			background: CxjToastViewConfiguration.Background
 		) {
 			self.typeId = typeId
 			self.customSourceView = customSourceView
 			self.icon = icon
 			self.title = title
-			self.subtitle = subtitle
 			self.background = background
-			self.shadowColor = shadowColor
 		}
 	}
 }
