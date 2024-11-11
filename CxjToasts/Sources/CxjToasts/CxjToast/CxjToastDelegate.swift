@@ -15,3 +15,10 @@ public protocol CxjToastDelegate: AnyObject {
 	func willDismiss(toast: Toast)
 	func didDismiss(toast: Toast)
 }
+
+public extension CxjToastDelegate {
+	func willPresent(toast: Toast) {}
+	func didPresent(toast: Toast) {}
+	func willDismiss(toast: Toast) {}
+	func didDismiss(toast: Toast) {}
+}
