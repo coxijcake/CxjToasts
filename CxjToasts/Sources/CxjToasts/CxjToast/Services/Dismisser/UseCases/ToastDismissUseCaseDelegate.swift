@@ -10,5 +10,10 @@ import Foundation
 protocol ToastDismissUseCaseDelegate: AnyObject {
 	func didStartInteractive(by useCase: ToastDismissUseCase)
 	func didEndInteractive(by useCase: ToastDismissUseCase)
+	func didUpdateRemainingDisplayingTime(
+		_ time: TimeInterval,
+		initialDisplayingTime: TimeInterval,
+		by useCase: ToastDismissUseCase
+	)
 	func didFinish(useCase: ToastDismissUseCase)
 }

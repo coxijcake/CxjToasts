@@ -71,6 +71,9 @@ extension CxjToastContainerView: CxjToastView {
 	func prepareToDisplay() {
 		updateUIForState(state)
 	}
+	
+	func updateForRemainingDisplayingTime(_ time: TimeInterval, animated: Bool) {}
+	func updateForDismissingProgress(_ progress: Float, animated: Bool) {}
 }
 
 //MARK: - Configuration

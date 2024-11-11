@@ -158,7 +158,7 @@ private extension CxjToastsCoordinator {
 
 //MARK: - CxjToastDismisserDelegate
 extension CxjToastsCoordinator: CxjToastDismisserDelegate {
-	func willDismissToastWith(id: UUID, by dismisser: CxjToastDismisser) {
+	func willDismissToastWith(id: UUID, by dismisser: CxjToastDismissable) {
 		guard
 			let toast: DisplayableToast = first(withId: id)
 		else { return }
@@ -176,7 +176,7 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 		publisher.invoke { $0.willDismiss(toast: toast) }
 	}
 	
-	func didDismissToastWith(id: UUID, by dismisser: CxjToastDismisser) {
+	func didDismissToastWith(id: UUID, by dismisser: CxjToastDismissable) {
 		guard
 			let toast: DisplayableToast = first(withId: id)
 		else { return }
@@ -194,5 +194,44 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 		)
 		
 		publisher.invoke { $0.didDismiss(toast: toast) }
+	}
+	
+	func didUpdateRemainingDisplayingTime(
+		_ time: TimeInterval,
+		initialDisplayingTime: TimeInterval,
+		forToastWithId toastId: UUID,
+		by dismisser: any CxjToastDismissable
+	) {
+		guard
+			let toast: DisplayableToast = first(withId: toastId)
+		else { return }
+		
+		let progressValue: Float = Float(time / initialDisplayingTime)
+		let progress: ToastDisplayingProgress = ToastDisplayingProgress(value: progressValue)
+		
+		toast.view.updateForRemainingDisplayingTime(time, animated: true)
+		toast.view.updateForDismissingProgress(progress.reverted, animated: true)
+	}
+}
+
+
+//MARK: - ToastDisplayingProgress
+extension CxjToastsCoordinator {
+	struct ToastDisplayingProgress {
+		private static let minValue: Float = .zero
+		private static let maxValue: Float = 1.0
+		
+		static var min: ToastDisplayingProgress { ToastDisplayingProgress(value: minValue) }
+		static var max: ToastDisplayingProgress { ToastDisplayingProgress(value: maxValue) }
+		
+		@ClampedProgress var value: Float
+		
+		var reverted: Float {
+			_value.upperValue - value
+		}
+		
+		init(value: Float) {
+			self._value = ClampedProgress(value, ToastDisplayingProgress.minValue...ToastDisplayingProgress.maxValue)
+		}
 	}
 }

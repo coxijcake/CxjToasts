@@ -10,7 +10,11 @@ import Foundation
 extension CxjToastDismisser {
 	final class DimissByTimeUseCase: ToastDismissUseCase {
 		//MARK: - Props
+		private let timerUpdateInterval: TimeInterval = 0.1
+		
 		private let displayingTime: TimeInterval
+		private var remainingTime: TimeInterval
+		
 		private weak var delegate: ToastDismissUseCaseDelegate?
 		
 		private var dismissTimer: Timer?
@@ -22,6 +26,7 @@ extension CxjToastDismisser {
 			delegate: ToastDismissUseCaseDelegate?
 		) {
 			self.displayingTime = displayingTime
+			self.remainingTime = displayingTime
 			self.delegate = delegate
 		}
 		
@@ -52,18 +57,22 @@ extension CxjToastDismisser {
 		private func setupTimer(
 			for time: TimeInterval
 		) {
-            removeTimer()
-            
+			removeTimer()
+			
+			delegate?.didUpdateRemainingDisplayingTime(time, initialDisplayingTime: displayingTime, by: self)
+			
 			dismissTimer = Timer.scheduledTimer(
-				withTimeInterval: time,
-				repeats: false,
-				block: { [weak self] _ in
-					guard
-						let self,
-							self.dismissTimer?.isValid == true
-					else { return }
+				withTimeInterval: timerUpdateInterval,
+				repeats: true,
+				block: { [weak self] timer in
+					guard let self else { return }
 					
-					self.delegate?.didFinish(useCase: self)
+					self.remainingTime = max(.zero, self.remainingTime - self.timerUpdateInterval)
+					self.delegate?.didUpdateRemainingDisplayingTime(self.remainingTime, initialDisplayingTime: displayingTime, by: self)
+					
+					if remainingTime <= 0 {
+						self.delegate?.didFinish(useCase: self)
+					}
 				}
 			)
 		}

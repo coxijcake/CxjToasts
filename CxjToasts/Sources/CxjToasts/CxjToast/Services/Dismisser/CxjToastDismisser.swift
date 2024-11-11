@@ -9,8 +9,14 @@ import UIKit
 
 //MARK: - Delegate
 protocol CxjToastDismisserDelegate: AnyObject {
-	func willDismissToastWith(id: UUID, by dismisser: CxjToastDismisser)
-	func didDismissToastWith(id: UUID, by dismisser: CxjToastDismisser)
+	func willDismissToastWith(id: UUID, by dismisser: CxjToastDismissable)
+	func didDismissToastWith(id: UUID, by dismisser: CxjToastDismissable)
+	func didUpdateRemainingDisplayingTime(
+		_ time: TimeInterval,
+		initialDisplayingTime: TimeInterval,
+		forToastWithId toastId: UUID,
+		by dismisser: CxjToastDismissable
+	)
 }
 
 //MARK: - Interface
@@ -118,6 +124,14 @@ extension CxjToastDismisser: ToastDismissUseCaseDelegate {
 	
 	func didEndInteractive(by useCase: any ToastDismissUseCase) {
 		activateDismissMethods()
+	}
+	
+	func didUpdateRemainingDisplayingTime(
+		_ time: TimeInterval,
+		initialDisplayingTime: TimeInterval,
+		by useCase: any ToastDismissUseCase
+	) {
+		delegate?.didUpdateRemainingDisplayingTime(time, initialDisplayingTime: initialDisplayingTime, forToastWithId: toastId, by: self)
 	}
 	
 	func didFinish(useCase: any ToastDismissUseCase) {
