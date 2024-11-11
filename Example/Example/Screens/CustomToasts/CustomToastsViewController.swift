@@ -8,25 +8,20 @@
 import UIKit
 import CxjToasts
 
-//MARK: - Types
-extension CustomToastsViewController {
-	typealias ToastType = CustomToastType
-}
-
 final class CustomToastsViewController: UIViewController {
 	//MARK: - Subviews
 	@IBOutlet weak var collectionView: UICollectionView!
 	
 	private lazy var dataSource: ToastsListDiffableDataSource = ToastsListDiffableDataSource(
 		collectionView: collectionView,
-		templateTypes: ToastType.allCases
+		templateTypes: CustomToastType.allCases
 	)
 	
 	private lazy var collectionLayout: UICollectionViewFlowLayout = {
-		let layout: UICollectionViewFlowLayout = .init()
-		layout.itemSize = .init(width: UIScreen.main.bounds.size.width, height: 75)
+		let layout: ToastListFlowLayout = ToastListFlowLayout()
+		layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
 		layout.minimumLineSpacing = 0
-		layout.minimumInteritemSpacing = 0
+		layout.minimumInteritemSpacing = 10
 		layout.scrollDirection = .vertical
 		
 		return layout
@@ -46,18 +41,18 @@ final class CustomToastsViewController: UIViewController {
 	}
 }
 
-//MARK: - CollectionView Delegate
-extension CustomToastsViewController: UICollectionViewDelegate {
-	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		guard let toastType: ToastType = dataSource.toastType(forIndexPath: indexPath) else { return }
+//MARK: - Main methods
+private extension CustomToastsViewController {
+	func presentToastType(atIndexPath indexPath: IndexPath) {
+		guard let toastType: CustomToastType = dataSource.toastType(forIndexPath: indexPath) else { return }
 		
-		let toastdata = CustomToastFactory.toastDataForType(
+		let toastData = CustomToastFactory.toastDataForType(
 			toastType,
-			customSourceView: nil
+			customSourceView: view
 		)
 		
 		ToastPresenter.presentToastWithType(
-			.custom(data: toastdata),
+			.custom(data: toastData),
 			strategy: .custom(
 				strategy: .init(
 					presentsCount: 1,
@@ -66,6 +61,43 @@ extension CustomToastsViewController: UICollectionViewDelegate {
 			),
 			animated: true
 		)
+	}
+	
+	func routeToPreviewToastType(atIndexPath indexPath: IndexPath) {
+		guard let toastType: ToastType = dataSource.toastType(forIndexPath: indexPath) else { return }
+		
+		let previewVC: ToastPreviewViewController = ToastPreviewViewController.storyboardInstantiateInitialController()
+		previewVC.input = .init(toastType: toastType)
+		previewVC.modalPresentationStyle = .overFullScreen
+		present(previewVC, animated: true)
+	}
+}
+
+//MARK: - ToastCellDelegate
+extension CustomToastsViewController: ToastCellDelegate {
+	func showToastButtonPressedInCell(_ cell: ToastCell) {
+		guard let indexPath: IndexPath = collectionView.indexPath(for: cell) else { return }
+		
+		presentToastType(atIndexPath: indexPath)
+	}
+	
+	func routeToPreviewButtonPressedInCell(_ cell: ToastCell) {
+		guard let indexPath: IndexPath = collectionView.indexPath(for: cell) else { return }
+		
+		routeToPreviewToastType(atIndexPath: indexPath)
+	}
+}
+
+//MARK: - CollectionView Delegate
+extension CustomToastsViewController: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+		guard let cell = cell as? ToastCell else { return }
+		
+		cell.delegate = self
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		presentToastType(atIndexPath: indexPath)
 	}
 }
 
@@ -76,7 +108,7 @@ private extension CustomToastsViewController {
 	}
 	
 	func configureCollectionView() {
-		collectionView.register(ToastCell.self, forCellWithReuseIdentifier: ToastCell.reuseIdentifier)
+		collectionView.register(ToastCell.nib, forCellWithReuseIdentifier: ToastCell.reuseIdentifier)
 		collectionView.setCollectionViewLayout(collectionLayout, animated: false)
 		collectionView.contentInset = .init(top: 100, left: .zero, bottom: 40, right: .zero)
 		collectionView.delegate = self
