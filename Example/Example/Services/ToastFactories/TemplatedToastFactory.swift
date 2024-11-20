@@ -108,8 +108,9 @@ private extension TemplatedToastFactory {
 				),
 				timingFeedback: .none,
 				undoControl: .init(
-					actionCompletion: {
-						print("Undo action pressed")
+					actionCompletion: { toastId in
+						print("Undo action pressed for toast with id: \(toastId.uuidString)")
+						CxjToastsCoordinator.shared.dismissToast(withId: toastId, animated: true)
 					},
 					type: .default(
 						config: .init(

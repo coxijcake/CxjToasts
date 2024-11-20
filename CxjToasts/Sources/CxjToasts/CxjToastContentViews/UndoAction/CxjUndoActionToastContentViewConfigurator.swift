@@ -51,6 +51,9 @@ enum CxjUndoActionToastContentViewConfigurator {
 			button.setTitle(config.text, for: .normal)
 			button.titleLabel?.font = config.font
 			button.setTitleColor(config.textColor, for: .normal)
+			button.addAction(.init(handler: { _ in
+				config.actionCompletion?()
+			}), for: .touchUpInside)
 			
 			return button
 		}

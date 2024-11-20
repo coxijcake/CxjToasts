@@ -14,7 +14,8 @@ public enum CxjToastFactory {
 		let toastId: UUID = UUID()
 		
         let view: CxjToastView = createToastView(
-            for: type
+            for: type,
+			toastId: toastId
         )
         
         let config: CxjToastConfiguration = config(
@@ -63,7 +64,8 @@ public enum CxjToastFactory {
 private extension CxjToastFactory {
     //MARK: - ToastView
     static func createToastView(
-        for type: CxjToastType
+        for type: CxjToastType,
+		toastId: UUID
     ) -> CxjToastView {
         switch type {
         case .custom(let toastData):
@@ -77,7 +79,7 @@ private extension CxjToastFactory {
 				.config()
 			
 			let content = CxjTemplatedToastContentConfiguratorFactory
-				.configuratorFor(template: template)
+				.configuratorFor(template: template, toastId: toastId)
 				.content()
 			
             return CxjToastViewFactory.createViewWith(

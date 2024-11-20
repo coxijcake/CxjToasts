@@ -37,11 +37,13 @@ extension CxjToastTemplate {
 		}
 		
 		public struct UndoControl {
-			public let actionCompletion: CxjVoidCompletion?
+			public typealias ActionCompletion = (_ toastId: UUID) -> Void
+			
+			public let actionCompletion: ActionCompletion?
 			public let type: UndoControlType
 			
 			public init(
-				actionCompletion: CxjVoidCompletion?,
+				actionCompletion: ActionCompletion?,
 				type: UndoControlType
 			) {
 				self.actionCompletion = actionCompletion

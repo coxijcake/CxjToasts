@@ -31,15 +31,18 @@ extension CxjUndoActionToastContentConfiguration {
 			public let text: String
 			public let textColor: UIColor
 			public let font: UIFont
+			public let actionCompletion: CxjVoidCompletion?
 			
 			public init(
 				text: String,
 				textColor: UIColor,
-				font: UIFont
+				font: UIFont,
+				actionCompletion: CxjVoidCompletion?
 			) {
 				self.text = text
 				self.textColor = textColor
 				self.font = font
+				self.actionCompletion = actionCompletion
 			}
 		}
 		

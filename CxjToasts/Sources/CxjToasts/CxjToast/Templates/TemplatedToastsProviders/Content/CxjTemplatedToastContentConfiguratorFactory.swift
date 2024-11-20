@@ -10,7 +10,7 @@ import Foundation
 enum CxjTemplatedToastContentConfiguratorFactory {
 	typealias Template = CxjToastTemplate
 	
-	static func configuratorFor(template: Template) -> CxjTemplatedToastContentConfigurator {
+	static func configuratorFor(template: Template, toastId: UUID) -> CxjTemplatedToastContentConfigurator {
 		switch template {
 		case .native(let data):
 			NativeToastContentConfigurator(data: data)
@@ -19,7 +19,7 @@ enum CxjTemplatedToastContentConfiguratorFactory {
 		case .topStraight(data: let data):
 			TopStraightToastContentConfigurator(data: data)
 		case .undoAction(data: let data):
-			UndoActionToastContentConfigurator(data: data)
+			UndoActionToastContentConfigurator(data: data, toastId: toastId)
 		}
 	}
 }

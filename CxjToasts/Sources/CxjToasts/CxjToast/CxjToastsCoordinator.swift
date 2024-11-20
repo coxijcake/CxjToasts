@@ -7,7 +7,6 @@
 
 import UIKit
 
-//@MainActor
 public final class CxjToastsCoordinator {
 	public typealias IdentifiableToast = any CxjIdentifiableToast
 	public typealias ToastType = CxjToastType
@@ -81,8 +80,7 @@ extension CxjToastsCoordinator {
 			let toast: DisplayableToast = first(withId: identifiableToast.id)
 		else { return }
 		
-		toast.displayingState = .dismissing
-		toast.dismisser.dismiss(animated: animated)
+		dismissDisplayableToast(toast, animated: animated)
 	}
 	
 	public func dismissToasts(_ identifiableToasts: [any CxjIdentifiableToast], animated: Bool) {
@@ -91,8 +89,25 @@ extension CxjToastsCoordinator {
 		}
 	}
 	
+	public func dismissToast(withId toastId: UUID, animated: Bool) {
+		guard let toast: DisplayableToast = first(withId: toastId) else { return }
+		
+		dismissDisplayableToast(toast, animated: animated)
+	}
+	
+	public func dismissToasts(withIds toastIds: [UUID], animated: Bool) {
+		toastIds.forEach {
+			dismissToast(withId: $0, animated: animated)
+		}
+	}
+	
 	public func dismissAll(animated: Bool) {
 		dismissToasts(activeToasts, animated: animated)
+	}
+	
+	private func dismissDisplayableToast(_ toast: DisplayableToast, animated: Bool) {
+		toast.displayingState = .dismissing
+		toast.dismisser.dismiss(animated: animated)
 	}
 }
 
