@@ -47,7 +47,7 @@ enum CxjUndoActionToastContentViewConfigurator {
 		case .custom(control: let customControl):
 			return customControl
 		case .default(config: let config):
-			let button: UIButton = UIButton()
+			let button: CxjUndoToastActionButton = CxjUndoToastActionButton()
 			button.setTitle(config.text, for: .normal)
 			button.titleLabel?.font = config.font
 			button.setTitleColor(config.textColor, for: .normal)
