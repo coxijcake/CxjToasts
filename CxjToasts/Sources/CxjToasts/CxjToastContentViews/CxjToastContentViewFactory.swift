@@ -20,6 +20,8 @@ public enum CxjToastContentViewFactory {
             view.configureWith(configuration: config)
             
             return view
+		case .undoAction(config: let config):
+			return CxjUndoActionToastContentViewConfigurator.configuredContentViewWithConfig(config)
         case .custom(contentView: let contentView):
             return contentView
         }

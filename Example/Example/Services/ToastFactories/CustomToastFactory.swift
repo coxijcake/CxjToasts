@@ -147,7 +147,8 @@ extension CustomToastFactory {
 				config: CxjToastContentConfiguration.iconed(
 					config: .init(
 						params: .init(
-							iconPlacement: .left
+							iconPlacement: .left,
+							paddingToTitle: 16
 						),
 						iconParams: .init(
 							icon: .init(resource: .closeIcon),

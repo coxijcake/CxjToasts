@@ -32,10 +32,6 @@ extension CxjTemplatedToastConfigProviderFactory {
 			)
 		}
 		
-		private func defaultSourceView() -> UIView {
-			UIApplication.keyWindow ?? UIApplication.topViewController()?.view ?? UIView()
-		}
-		
 		private func sourceBackground() -> Config.SourceBackground? {
 			nil
 		}

@@ -11,7 +11,7 @@ extension CxjToastDismisser {
 	final class DimissByTouchUseCase: ToastDismissUseCase {
 		//MARK: - Props
 		private let toastView: CxjToastView
-		private let tapActionCompletion: VoidCompletion?
+		private let tapActionCompletion: CxjVoidCompletion?
 		private weak var delegate: ToastDismissUseCaseDelegate?
 		
 		private lazy var tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(
@@ -22,7 +22,7 @@ extension CxjToastDismisser {
 		//MARK: - Lifecycle
 		init(
 			toastView: CxjToastView,
-			tapActionCompletion: VoidCompletion?,
+			tapActionCompletion: CxjVoidCompletion?,
 			delegate: ToastDismissUseCaseDelegate?
 		) {
 			self.toastView = toastView

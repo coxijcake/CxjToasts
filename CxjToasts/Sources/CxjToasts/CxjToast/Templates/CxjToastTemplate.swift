@@ -18,4 +18,5 @@ public enum CxjToastTemplate {
 	case native(data: NativeToastData)
 	case bottomPrimary(data: BottomPrimaryToastData)
 	case topStraight(data: TopStraightToastData)
+	case undoAction(data: UndoActionToastData)
 }

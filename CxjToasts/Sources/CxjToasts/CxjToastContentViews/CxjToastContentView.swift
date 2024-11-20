@@ -8,5 +8,6 @@
 import UIKit
 
 public protocol CxjToastContentView: UIView {
-	
+	func updateForRemainingDisplayingTime(_ time: TimeInterval, animated: Bool)
+	func updateForDismissingProgress(_ progress: Float, animated: Bool)
 }

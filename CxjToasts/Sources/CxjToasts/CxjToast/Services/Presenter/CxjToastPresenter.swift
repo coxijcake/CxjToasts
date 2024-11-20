@@ -11,7 +11,7 @@ import UIKit
 protocol CxjToastPresentable {
 	var animator: CxjToastPresentAnimator { get }
 	
-	func present(animated: Bool, completion: BoolCompletion?)
+	func present(animated: Bool, completion: CxjBoolCompletion?)
 }
 
 //MARK: - Implementation
@@ -33,7 +33,7 @@ final class CxjToastPresenter: CxjToastPresentable {
 		self.animator = animator
 	}
 	
-	func present(animated: Bool, completion: BoolCompletion?) {
+	func present(animated: Bool, completion: CxjBoolCompletion?) {
 		if let sourceBackgroundView {
 			LayoutApplier.applyLayoutForBackgroundView(
 				sourceBackgroundView,

@@ -12,6 +12,7 @@ public protocol CxjToastView: UIView {
     
     //TODO: - Better naming
     func prepareToDisplay()
+	
 	func updateForRemainingDisplayingTime(_ time: TimeInterval, animated: Bool)
 	func updateForDismissingProgress(_ progress: Float, animated: Bool)
 }

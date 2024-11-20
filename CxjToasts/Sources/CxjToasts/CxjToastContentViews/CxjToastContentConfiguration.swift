@@ -10,5 +10,6 @@ import Foundation
 public enum CxjToastContentConfiguration {
     case iconed(config: CxjIconedToastContentConfiguration, titlesConfig: CxjTitledToastContentConfiguration)
     case titled(config: CxjTitledToastContentConfiguration)
+	case undoAction(config: CxjUndoActionToastContentConfiguration)
     case custom(contentView: CxjToastContentView)
 }

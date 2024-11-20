@@ -18,7 +18,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 		}
 		
 		func config() -> Config {
-			let sourceView: UIView = sourceView()
+			let sourceView: UIView = defaultSourceView()
 			
 			return Config(
 				typeId: data.typeId,
@@ -30,10 +30,6 @@ extension CxjTemplatedToastConfigProviderFactory {
 				spamProtection: spamProtection(),
 				displayingSameAttributeToastBehaviour: displayinBehaviour()
 			)
-		}
-		
-		private func sourceView() -> UIView {
-			UIApplication.keyWindow ?? UIApplication.topViewController()?.view ?? UIView()
 		}
 		
 		private func layoutFor(sourceView: UIView) -> Config.Layout {

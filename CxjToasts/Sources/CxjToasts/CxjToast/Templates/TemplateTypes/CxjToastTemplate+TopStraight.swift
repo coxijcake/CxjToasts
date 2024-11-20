@@ -25,11 +25,11 @@ extension CxjToastTemplate {
 			}
 		}
 		
-		let typeId: String
-		let customSourceView: UIView?
-		let icon: UIImage?
-		let title: Title
-		let background: CxjToastViewConfiguration.Background
+		public let typeId: String
+		public let customSourceView: UIView?
+		public let icon: UIImage?
+		public let title: Title
+		public let background: CxjToastViewConfiguration.Background
 		
 		public init(
 			typeId: String,

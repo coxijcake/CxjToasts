@@ -8,7 +8,7 @@
 import UIKit
 
 final class CxjToastSourceBackgroundControl: UIControl {
-	private var interactionCompletion: VoidCompletion?
+	private var interactionCompletion: CxjVoidCompletion?
 		
 	@objc private func handleInteraction() {
 		interactionCompletion?()

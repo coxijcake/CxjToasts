@@ -20,10 +20,10 @@ enum CxjDisplayingToastsCoordinator {
 		linkedToToast targetToast: Toast,
 		withProgress progress: CGFloat,
 		animation: Animation,
-		completion: BoolCompletion?
+		completion: CxjBoolCompletion?
 	) {
 		
-		let animatingAction: VoidCompletion = {
+		let animatingAction: CxjVoidCompletion = {
 			switch targetToast.config.displayingBehaviour.action {
 			case .stack(let maxVisibleToasts):
 				let toastsToStack: [Toast] = linkedToastsToToast(

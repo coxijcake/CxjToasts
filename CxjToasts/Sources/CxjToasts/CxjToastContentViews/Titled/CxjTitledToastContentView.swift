@@ -92,7 +92,8 @@ private extension CxjTitledToastContentView {
 
 //MARK: - CxjToastContentView
 extension CxjTitledToastContentView: CxjToastContentView {
-    
+	public func updateForRemainingDisplayingTime(_ time: TimeInterval, animated: Bool) {}
+	public func updateForDismissingProgress(_ progress: Float, animated: Bool) {}
 }
 
 // MARK: - Base Configuration

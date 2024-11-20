@@ -133,7 +133,7 @@ private extension CxjToastsCoordinator {
 		case .enabled(action: let action):
 			guard let action else { break }
 			
-			let actionHandling: VoidCompletion? = {
+			let actionHandling: CxjVoidCompletion? = {
 				switch action.handling {
 				case .none:
 					return {}

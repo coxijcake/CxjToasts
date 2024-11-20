@@ -7,5 +7,5 @@
 
 import Foundation
 
-typealias VoidCompletion = () -> Void
-typealias BoolCompletion = (Bool) -> Void
+public typealias CxjVoidCompletion = () -> Void
+public typealias CxjBoolCompletion = (Bool) -> Void

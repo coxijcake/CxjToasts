@@ -32,7 +32,7 @@ extension CxjIconedToastContentConfiguration {
 		
 		public init(
 			iconPlacement: IconPlacement,
-			paddingToTitle: CGFloat = 16
+			paddingToTitle: CGFloat
 		) {
 			self.iconPlacement = iconPlacement
 			self.paddingToTitle = paddingToTitle

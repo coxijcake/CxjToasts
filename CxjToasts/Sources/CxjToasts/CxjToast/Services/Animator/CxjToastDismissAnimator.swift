@@ -11,5 +11,5 @@ protocol CxjToastDismissAnimator {
 	var dismissAnimation: CxjAnimation { get }
     var dismissedStateYTranslation: CGFloat { get }
     
-	func dismissAction(progress: CGFloat, animated: Bool, completion: BoolCompletion?)
+	func dismissAction(progress: CGFloat, animated: Bool, completion: CxjBoolCompletion?)
 }

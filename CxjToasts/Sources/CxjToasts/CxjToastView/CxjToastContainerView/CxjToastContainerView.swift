@@ -33,7 +33,7 @@ extension CxjToastContainerView {
 
 final class CxjToastContainerView: UIView {
     //MARK: - Subviews
-    private let contentView: UIView
+    private let contentView: CxjToastContentView
 	private let backgroundView: UIView
 	
     //MARK: - Props
@@ -42,7 +42,7 @@ final class CxjToastContainerView: UIView {
     //MARK: - Lifecycle
 	public init(
 		state: ViewState,
-		contentView: UIView,
+		contentView: CxjToastContentView,
 		backgroundView: UIView
 	) {
 		self.state = state
@@ -72,8 +72,13 @@ extension CxjToastContainerView: CxjToastView {
 		updateUIForState(state)
 	}
 	
-	func updateForRemainingDisplayingTime(_ time: TimeInterval, animated: Bool) {}
-	func updateForDismissingProgress(_ progress: Float, animated: Bool) {}
+	func updateForRemainingDisplayingTime(_ time: TimeInterval, animated: Bool) {
+		contentView.updateForRemainingDisplayingTime(time, animated: animated)
+	}
+	
+	func updateForDismissingProgress(_ progress: Float, animated: Bool) {
+		contentView.updateForDismissingProgress(progress, animated: animated)
+	}
 }
 
 //MARK: - Configuration
