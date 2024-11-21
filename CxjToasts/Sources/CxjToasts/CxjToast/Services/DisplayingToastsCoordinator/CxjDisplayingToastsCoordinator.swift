@@ -117,30 +117,13 @@ private extension CxjDisplayingToastsCoordinator {
 					return false
 				}
 				
-				let comparingAttributes = targetToast.config.displayingBehaviour.comparingAttributes
+				let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
+					lhsToast: activeToast,
+					rhsToast: targetToast,
+					comparingAttributes: targetToast.config.displayingBehaviour.comparingAttributes
+				)
 				
-				var isLinked: Bool = false
-				
-				for comparingAttribute in comparingAttributes {
-					switch comparingAttribute {
-					case .type:
-						isLinked = ToastTypeComparator(
-							lhsToast: activeToast,
-							rhsToast: targetToast
-						).isEqual()
-					case .placement(let includingYOffset):
-						let placementComparator = ToastPlacementComparator(
-							lhs: activeToast.config.layout.placement,
-							rhs: targetToast.config.layout.placement
-						)
-						
-						isLinked = includingYOffset
-						? placementComparator.isFullyEqauls()
-						: placementComparator.isEqualPlacementType()
-					}
-				}
-				
-				return isLinked
+				return attributesComparator.isEqual()
 			}
 			.reversed()
 	}

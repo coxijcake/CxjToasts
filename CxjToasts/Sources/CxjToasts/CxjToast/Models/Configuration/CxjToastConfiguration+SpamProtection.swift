@@ -11,6 +11,7 @@ extension CxjToastConfiguration {
 	public enum ToastComparingAttribute: Hashable {
 		case type
 		case placement(includingYOffset: Bool)
+		case sourceView
 	}
 	
 	public enum SpamProtection {
@@ -36,7 +37,8 @@ extension CxjToastConfiguration {
 			handling: Action,
 			comparingAttributes: Set<ToastComparingAttribute> = [
 				.type,
-				.placement(includingYOffset: true)
+				.placement(includingYOffset: true),
+				.sourceView
 			]
 		) {
 			self.action = handling

@@ -30,6 +30,13 @@ struct ToastSpamValidator {
 								includingYOffset: includingYOffset
 							)
 						else { return false }
+					case .sourceView:
+						guard
+							!isOnTheSameSourceView(
+								lhsToast: displayingToast,
+								rhsToast: toastToDisplay
+							)
+						else { return false }
 					}
 				}
 			}
@@ -56,5 +63,12 @@ struct ToastSpamValidator {
 		} else {
 			return placementComparator.isEqualPlacementType()
 		}
+	}
+	
+	func isOnTheSameSourceView(lhsToast: Toast, rhsToast: Toast) -> Bool {
+		ToastSourceViewComparator(
+			lhs: lhsToast.config.sourceView,
+			rhs: rhsToast.config.sourceView
+		).isEquals()
 	}
 }
