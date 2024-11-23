@@ -18,6 +18,7 @@ enum ToastPresetingStrategy {
 	case custom(strategy: CustomPresentingStrategy)
 }
 
+@MainActor
 enum ToastPresenter {
 	static func presentToastWithType(
 		_ toastType: CxjToastType,
@@ -49,8 +50,11 @@ enum ToastPresenter {
 		animated: Bool
 	) {
 		for i in 0..<customStrategy.presentsCount {
-			DispatchQueue.main.asyncAfter(deadline: .now() + customStrategy.delayBetweenToasts * TimeInterval(i)) {
-				presentToastType(toastType, animated: animated)
+			Task.detached {
+				let delaySeconds: Double = customStrategy.delayBetweenToasts * Double(i)
+				try await Task.sleep(nanoseconds: NSEC_PER_SEC * UInt64(delaySeconds))
+				
+				await presentToastType(toastType, animated: animated)
 			}
 		}
 	}

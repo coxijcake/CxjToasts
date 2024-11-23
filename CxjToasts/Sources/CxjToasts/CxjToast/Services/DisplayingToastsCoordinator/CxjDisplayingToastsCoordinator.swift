@@ -14,6 +14,7 @@ extension CxjDisplayingToastsCoordinator {
 }
 
 //MARK: - Toats Layout
+@MainActor
 enum CxjDisplayingToastsCoordinator {
 	static func updateLayoutFor(
 		displayingToasts: [Toast],

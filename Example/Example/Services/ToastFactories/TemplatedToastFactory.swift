@@ -110,7 +110,9 @@ private extension TemplatedToastFactory {
 				undoControl: .init(
 					actionCompletion: { toastId in
 						print("Undo action pressed for toast with id: \(toastId.uuidString)")
-						CxjToastsCoordinator.shared.dismissToast(withId: toastId, animated: true)
+						Task { @MainActor in
+							CxjToastsCoordinator.shared.dismissToast(withId: toastId, animated: true)
+						}
 					},
 					type: .default(
 						config: .init(

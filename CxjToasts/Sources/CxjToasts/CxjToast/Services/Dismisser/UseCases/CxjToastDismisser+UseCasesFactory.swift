@@ -8,6 +8,7 @@
 import Foundation
 
 extension CxjToastDismisser {
+	@MainActor
 	enum CxjToastDismissUseCaseFactory {
 		typealias Configuration = CxjToastConfiguration
 		typealias DismissMethod = Configuration.DismissMethod

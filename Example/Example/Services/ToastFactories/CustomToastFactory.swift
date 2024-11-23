@@ -61,8 +61,10 @@ extension CustomToastFactory {
 					action: .init(
 						touchEvent: .touchUpInside,
 						handling: .custom(completion: { toast in
-							print("custom background view action")
-							CxjToastsCoordinator.shared.dismissAll(animated: true)
+							print("custom background view action for toat with id \(toast.id)")
+							Task { @MainActor in
+								CxjToastsCoordinator.shared.dismissAll(animated: true)
+							}
 						})
 					)
 				)

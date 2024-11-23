@@ -8,6 +8,7 @@
 import UIKit
 
 extension CxjToastDismisser {
+	@MainActor
 	final class DismissBySwipeUseCase: ToastDismissUseCase {
 		//MARK: - Types
 		typealias ToastView = CxjToastView

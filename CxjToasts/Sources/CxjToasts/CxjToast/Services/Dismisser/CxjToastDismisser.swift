@@ -39,6 +39,7 @@ extension CxjToastDismisser {
 }
 
 //MARK: - Impl
+@MainActor
 final class CxjToastDismisser: CxjToastDismissable {
 	//MARK: - Props
 	private let toastId: UUID

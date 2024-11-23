@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 public final class CxjToastsCoordinator {
 	public typealias IdentifiableToast = any CxjIdentifiableToast
 	public typealias ToastType = CxjToastType
