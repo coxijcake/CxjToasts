@@ -7,12 +7,13 @@
 
 import Foundation
 
-protocol CxjDisplayableToast: CxjIdentifiableToast {
+protocol CxjDisplayableToast: CxjIdentifiableToast, Sendable {
 	var presenter: CxjToastPresentable { get }
 	var dismisser: CxjToastDismissable { get }
 	var view: CxjToastView { get }
 	var sourceBackgroundView: CxjToastSourceBackground? { get }
 	var config: CxjToastConfiguration { get }
 	
+	@MainActor
 	var displayingState: CxjToastDisplayingState { get set }
 }

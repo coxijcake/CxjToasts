@@ -154,10 +154,12 @@ private extension CxjToastsCoordinator {
 				case .none:
 					return {}
 				case .dismissToast:
-					return { [weak self, weak toast] in
+					return { [ weak toast] in
 						guard let toast else { return }
 						
-						CxjToastsCoordinator.shared.dismissToast(toast, animated: true)
+						Task { @MainActor in
+							CxjToastsCoordinator.shared.dismissToast(toast, animated: true)
+						}
 					}
 				case .custom(let completion):
 					return { [weak toast] in

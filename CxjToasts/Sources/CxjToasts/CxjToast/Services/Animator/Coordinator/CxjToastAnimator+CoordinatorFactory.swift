@@ -8,6 +8,7 @@
 import UIKit
 
 extension CxjToastAnimator {
+	@MainActor
 	enum CoordinatorConfigurator {
 		static func coordinator(
 			forToastView toastView: ToastView,

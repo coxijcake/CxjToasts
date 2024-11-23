@@ -8,6 +8,7 @@
 import UIKit
 
 extension CxjToastAnimator {
+	@MainActor
 	enum ConfigStrategyFactory {
 		static func configStrategyFor(
 			animation: ConfigAnimation,

@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct CxjGradientParams {
+public struct CxjGradientParams: Sendable {
 	let colors: [UIColor]
 	let locations: [Double]?
 	let direction: Direction
@@ -25,7 +25,7 @@ public struct CxjGradientParams {
 
 //MARK: - Direction
 extension CxjGradientParams {
-	public struct Direction {
+	public struct Direction: Sendable {
 		let startPoint: CGPoint
 		let endPoint: CGPoint
 		

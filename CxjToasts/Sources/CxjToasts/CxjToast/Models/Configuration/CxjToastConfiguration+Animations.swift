@@ -9,7 +9,7 @@ import Foundation
 import UIKit.UIColor
 
 extension CxjToastConfiguration {
-	public struct Animations {
+	public struct Animations: Sendable {
 		public let present: Animation
 		public let dismiss: Animation
 		
@@ -22,16 +22,16 @@ extension CxjToastConfiguration {
 		}
 	}
 	
-	public struct Animation {
-		public enum TopPlacementNativeView {
+	public struct Animation: Sendable {
+		public enum TopPlacementNativeView: Sendable {
 			case notch, dynamicIsland
 		}
 		
-		public enum Behaviour {
+		public enum Behaviour: Sendable {
 			public typealias CustomBehaviourChanges = Set<CustomBehaviourChange>
 			
-			public enum CustomBehaviourChange: Hashable {
-				public struct Scale {
+			public enum CustomBehaviourChange: Hashable, Sendable {
+				public struct Scale: Sendable {
 					let x: CGFloat
 					let y: CGFloat
 					
@@ -41,7 +41,7 @@ extension CxjToastConfiguration {
 					}
 				}
 				
-				public struct Translation {
+				public struct Translation: Sendable {
 					let x: CGFloat
 					let y: CGFloat
 					
@@ -51,19 +51,19 @@ extension CxjToastConfiguration {
 					}
 				}
 				
-				public enum TranslationType {
+				public enum TranslationType: Sendable {
 					/// won't work for .center placement toast
 					case outOfSourceViewVerticaly
 					case custom(value: Translation)
 				}
 								
-				public struct CornerRadius {
-					public enum CornerRadiusType {
+				public struct CornerRadius: Sendable {
+					public enum CornerRadiusType: Sendable {
 						case screenCornerRadius
 						case custom(value: CGFloat)
 					}
 					
-					public enum Constraint {
+					public enum Constraint: Sendable {
 						case none
 						case halfHeigt
 					}
@@ -85,11 +85,11 @@ extension CxjToastConfiguration {
 				
 				var compareIdentifier: String {
 					switch self {
-					case .scale(let value): return "scale"
-					case .translation(let value): return "tranlsation"
-					case .alpha(let intensity): return "alpha"
-					case .shadowOverlay(let intensity): return "shadowOverlay"
-					case .corners(let radius): return "corners"
+					case .scale: return "scale"
+					case .translation: return "tranlsation"
+					case .alpha: return "alpha"
+					case .shadowOverlay: return "shadowOverlay"
+					case .corners: return "corners"
 					}
 				}
 				

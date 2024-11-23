@@ -8,16 +8,16 @@
 import UIKit
 
 extension CxjToastConfiguration {
-	public struct SourceBackground {
+	public struct SourceBackground: Sendable {
 		public typealias Theme = CxjToastSourceBackgroundTheme
-		public typealias CustomActionHandlingCompletion = (any CxjIdentifiableToast) -> Void
+		public typealias CustomActionHandlingCompletion = @Sendable (any CxjIdentifiableToast) -> Void
 		
-		public enum Interaction {
+		public enum Interaction: Sendable {
 			case disabled
 			case enabled(action: Action?)
 		}
 		
-		public struct Action {
+		public struct Action: Sendable {
 			public let touchEvent: UIControl.Event
 			public let handling: ActionHandling
 			
@@ -30,7 +30,7 @@ extension CxjToastConfiguration {
 			}
 		}
 		
-		public enum ActionHandling {
+		public enum ActionHandling: Sendable {
 			case none
 			case dismissToast
 			case custom(completion: CustomActionHandlingCompletion?)

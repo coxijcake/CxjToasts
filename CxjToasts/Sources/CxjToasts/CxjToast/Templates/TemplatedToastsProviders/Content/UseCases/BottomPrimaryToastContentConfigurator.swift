@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 final class BottomPrimaryToastContentConfigurator: CxjTemplatedToastContentConfigurator {
 	typealias Data = CxjToastTemplate.BottomPrimaryToastData
 	

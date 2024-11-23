@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 enum CxjTemplatedToastConfigProviderFactory {
 	typealias Template = CxjToastTemplate
 	typealias Provider = CxjTemplatedToastConfigProvider

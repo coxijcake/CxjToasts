@@ -8,6 +8,7 @@
 import Foundation
 
 extension CxjToastDismisser {
+	@MainActor
 	final class DimissByTimeUseCase: ToastDismissUseCase {
 		//MARK: - Props
 		private let timerUpdateInterval: TimeInterval = 0.1
@@ -67,11 +68,13 @@ extension CxjToastDismisser {
 				block: { [weak self] timer in
 					guard let self else { return }
 					
-					self.remainingTime = max(.zero, self.remainingTime - self.timerUpdateInterval)
-					self.delegate?.didUpdateRemainingDisplayingTime(self.remainingTime, initialDisplayingTime: displayingTime, by: self)
-					
-					if remainingTime <= 0 {
-						self.delegate?.didFinish(useCase: self)
+					Task { @MainActor in
+						self.remainingTime = max(.zero, self.remainingTime - self.timerUpdateInterval)
+						self.delegate?.didUpdateRemainingDisplayingTime(self.remainingTime, initialDisplayingTime: displayingTime, by: self)
+						
+						if remainingTime <= 0 {
+							self.delegate?.didFinish(useCase: self)
+						}
 					}
 				}
 			)

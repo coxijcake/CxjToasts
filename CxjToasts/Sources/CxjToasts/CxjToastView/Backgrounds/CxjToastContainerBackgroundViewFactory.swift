@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 public enum CxjToastContainerBackgroundViewFactory {
 	typealias Background = CxjBackground
 	typealias BackgroundView = UIView

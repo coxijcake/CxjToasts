@@ -8,7 +8,7 @@
 import UIKit
 
 //MARK: - Configuration
-public struct CxjToastConfiguration {
+public struct CxjToastConfiguration: Sendable {
 	public let typeId: String
 	public let sourceView: UIView
 	public let sourceBackground: SourceBackground?

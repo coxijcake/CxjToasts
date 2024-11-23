@@ -11,11 +11,11 @@ extension ToastsListDiffableDataSource {
 	typealias DiffableDataSource = UICollectionViewDiffableDataSource<SectionIdentifier, CellItem>
 	typealias DiffableDataSourceSnapshot = NSDiffableDataSourceSnapshot<SectionIdentifier, CellItem>
 	
-	enum SectionIdentifier: Hashable, Equatable {
+	enum SectionIdentifier: Hashable, Equatable, Sendable {
 		case templatesList
 	}
 	
-	struct CellItem: Hashable, Equatable {
+	struct CellItem: Hashable, Equatable, Sendable {
 		let toastType: ToastType
 		
 		var id: String { toastType.id }
@@ -31,6 +31,7 @@ extension ToastsListDiffableDataSource {
 	}
 }
 
+@MainActor
 final class ToastsListDiffableDataSource {
 	private let templateTypes: [ToastType]
 	

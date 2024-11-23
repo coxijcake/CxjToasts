@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 public enum CxjNotchHelper {
 	public static let beforeNotchModelSafeAreaHeight: CGFloat = 20
 	public static let afterNotchModelSafeAreaHeight: CGFloat = 59 // dynamic island

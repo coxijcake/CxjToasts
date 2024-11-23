@@ -9,6 +9,7 @@ import Foundation
 import UIKit.UIScreen
 
 extension CxjToastAnimator {
+	@MainActor
 	final class CustomConfigPropertiesBuilder {
 		//MARK: - Types
 		typealias Animations = CxjToastConfiguration.Animation
@@ -35,6 +36,7 @@ extension CxjToastAnimator {
 		}
 		
 		//MARK: - Updating
+		@discardableResult
 		func update(with change: Change) -> CustomConfigPropertiesBuilder {
 			switch change {
 			case .scale(let value):

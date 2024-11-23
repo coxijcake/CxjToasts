@@ -8,8 +8,8 @@
 import Foundation
 
 extension CxjToastConfiguration {
-	public struct Constraints {
-		public struct Values {
+	public struct Constraints: Sendable {
+		public struct Values: Sendable {
 			let min: CGFloat
 			let max: CGFloat
 			

@@ -8,9 +8,9 @@
 import Foundation
 
 extension CxjToastConfiguration {
-	public struct Layout {
-		public enum Placement {
-			public struct VerticalSidePositionParams: Equatable {
+	public struct Layout: Sendable {
+		public enum Placement: Sendable {
+			public struct VerticalSidePositionParams: Equatable, Sendable {
 				let offset: CGFloat
 				let includingSafeArea: Bool
 				

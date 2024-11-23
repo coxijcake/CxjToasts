@@ -16,7 +16,7 @@ extension CxjToast {
     typealias ContentView = CxjToastContentView
 }
 
-final class CxjToast: CxjDisplayableToast {
+final class CxjToast: CxjDisplayableToast, Sendable {
     //MARK: - Props
     let view: ToastView
 	let sourceBackgroundView: SourceBackground?
@@ -24,9 +24,10 @@ final class CxjToast: CxjDisplayableToast {
 	let presenter: CxjToastPresentable
 	let dismisser: CxjToastDismissable
 	
-	public let id: UUID
+	@MainActor
+	var displayingState: CxjToastDisplayingState = .initial
 	
-    var displayingState: CxjToastDisplayingState = .initial
+	public let id: UUID
 	
     //MARK: - Lifecycle
     init(

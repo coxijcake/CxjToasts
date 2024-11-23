@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 enum CxjToastViewFactory {
     static func createViewWith(
         config: CxjToastViewConfiguration,

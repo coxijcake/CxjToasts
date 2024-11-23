@@ -8,6 +8,7 @@
 import UIKit
 import CxjToasts
 
+@MainActor
 enum ToastFactory {
 	enum Error: Swift.Error {
 		case invalidToastType

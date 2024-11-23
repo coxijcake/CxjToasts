@@ -30,13 +30,13 @@ public struct CxjToastViewConfiguration {
 
 public extension CxjToastViewConfiguration {
 	//MARK: - Shadow
-	public enum Shadow {
+	enum Shadow {
 		case enable(params: CxjUIViewShadowParams)
 		case disable
 	}
 	
 	//MARK: - Corners
-	public enum Corners {
+	enum Corners {
 		public enum CornersMask {
 			case none
 			case top
@@ -90,7 +90,7 @@ public extension CxjToastViewConfiguration {
 			switch self {
 			case .straight(let mask): mask
 			case .capsule(let mask): mask
-			case .fixed(let value, let mask): mask
+			case .fixed(_, let mask): mask
 			}
 		}
 	}

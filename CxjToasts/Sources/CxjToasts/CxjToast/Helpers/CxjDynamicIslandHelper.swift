@@ -8,6 +8,7 @@
 import UIKit
 
 // https://developer.apple.com/design/human-interface-guidelines/live-activities
+@MainActor
 public enum CxjDynamicIslandHelper {
 	public static let requiredSafeAreaHeight: CGFloat = 59
     public static let estimatedMinHeight: CGFloat = 37

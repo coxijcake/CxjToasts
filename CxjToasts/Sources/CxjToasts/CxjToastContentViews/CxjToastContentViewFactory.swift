@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 public enum CxjToastContentViewFactory {
     public static func createContentViewWith(config: CxjToastContentConfiguration) -> CxjToastContentView {
         switch config {

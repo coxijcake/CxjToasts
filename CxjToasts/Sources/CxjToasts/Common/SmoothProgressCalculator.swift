@@ -22,12 +22,9 @@ struct SmoothProgressCalculator {
 	
 	func smoothedProgress() -> Value {
 		if originalProgress <= threshold {
-			return
-			(originalProgress / threshold)
-			* (threshold / 2)
+			return (originalProgress / threshold) * (threshold / 2)
 		} else {
-			return
-			(originalProgress - threshold)
+			return (originalProgress - threshold)
 			/ (1 - threshold)
 			* (1 - threshold / 2)
 			+ (threshold / 2)

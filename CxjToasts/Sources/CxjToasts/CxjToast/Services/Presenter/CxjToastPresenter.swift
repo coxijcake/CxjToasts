@@ -8,13 +8,15 @@
 import UIKit
 
 //MARK: - Interface
-protocol CxjToastPresentable {
+@MainActor
+protocol CxjToastPresentable: Sendable {
 	var animator: CxjToastPresentAnimator { get }
 	
 	func present(animated: Bool, completion: CxjBoolCompletion?)
 }
 
 //MARK: - Implementation
+@MainActor
 final class CxjToastPresenter: CxjToastPresentable {
 	let config: CxjToastConfiguration
 	let toastView: CxjToastView

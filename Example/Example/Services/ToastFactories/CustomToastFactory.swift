@@ -8,6 +8,7 @@
 import UIKit
 import CxjToasts
 
+@MainActor
 enum CustomToastFactory {
 	typealias ToastConfig = CxjToastConfiguration
 	typealias ToastData = CxjToastType.CustomToastData
@@ -31,6 +32,7 @@ enum CustomToastFactory {
 }
 
 extension CustomToastFactory {
+	@MainActor
 	enum BottomGradientWithBlurredBackgroundToastDataConfigurator {
 		static func toastData(withSoureView soureView: UIView) -> ToastData {
 			ToastData(

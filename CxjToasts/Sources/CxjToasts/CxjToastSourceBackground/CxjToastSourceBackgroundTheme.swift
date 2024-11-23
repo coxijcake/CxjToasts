@@ -7,7 +7,7 @@
 
 import UIKit
 
-public enum CxjToastSourceBackgroundTheme {
+public enum CxjToastSourceBackgroundTheme: Sendable {
 	case colorized(color: UIColor)
 	case blurred(effect: UIBlurEffect)
 	case gradient(params: CxjGradientParams)

@@ -35,6 +35,7 @@ extension CxjToastAnimator {
 	}
 }
 
+@MainActor
 final class CxjToastAnimator {
 	//MARK: - Props
 	private let toastView: ToastView

@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 protocol CxjTemplatedToastContentConfigurator {
 	typealias Content = CxjToastContentView
 	

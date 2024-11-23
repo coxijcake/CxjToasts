@@ -7,7 +7,8 @@
 
 import Foundation
 
-public enum CxjToastType {
+@MainActor
+public enum CxjToastType: Sendable {
 	case templated(template: CxjToastTemplate)
 	case custom(data: CustomToastData)
 }

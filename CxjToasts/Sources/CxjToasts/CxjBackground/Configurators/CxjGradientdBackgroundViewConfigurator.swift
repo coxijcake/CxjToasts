@@ -8,6 +8,7 @@
 import UIKit
 
 enum CxjGradientdBackgroundViewConfigurator {
+	@MainActor
 	static func gradientBackgroundViewWithParams(_ gradientParams: CxjGradientParams) -> UIView {
 		let view: CxjToastGradientBackgroundView = CxjToastGradientBackgroundView(frame: .zero)
 		let gradientState: CxjToastGradientBackgroundView.GradientState = .init(

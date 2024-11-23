@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol CxjToastPresentAnimator {
     var presentAnimation: CxjAnimation { get }
 	

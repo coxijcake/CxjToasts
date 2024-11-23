@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 enum CxjUndoActionToastContentViewConfigurator {
 	typealias Config = CxjUndoActionToastContentConfiguration
 	
@@ -35,7 +36,7 @@ enum CxjUndoActionToastContentViewConfigurator {
 		switch config {
 		case .none:
 			return nil
-		case .number(withProgress: let withProgress):
+		case .number(withProgress: _):
 			return nil
 		case .custom(view: let customView):
 			return customView

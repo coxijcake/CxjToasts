@@ -8,13 +8,13 @@
 import Foundation
 
 extension CxjToastConfiguration {
-	public enum DismissMethod: Hashable, Equatable {
-		public enum SwipeDirection: String, Hashable {
+	public enum DismissMethod: Hashable, Equatable, Sendable {
+		public enum SwipeDirection: String, Hashable, Sendable {
 			case top, bottom, any
 		}
 		
 		
-		case tap(actionCompletion: (() -> Void)?)
+		case tap(actionCompletion: CxjVoidSendableCompletion?)
 		case automatic(time: TimeInterval)
 		case swipe(direction: SwipeDirection)
 		

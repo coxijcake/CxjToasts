@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ToastType {
+protocol ToastType: Sendable {
 	var id: String { get }
 	var title: String { get }
 }

@@ -8,6 +8,7 @@
 import UIKit
 
 //MARK: - Delegate
+@MainActor
 protocol CxjToastDismisserDelegate: AnyObject {
 	func willDismissToastWith(id: UUID, by dismisser: CxjToastDismissable)
 	func didDismissToastWith(id: UUID, by dismisser: CxjToastDismissable)
@@ -20,7 +21,8 @@ protocol CxjToastDismisserDelegate: AnyObject {
 }
 
 //MARK: - Interface
-protocol CxjToastDismissable {
+@MainActor
+protocol CxjToastDismissable: Sendable {
 	var animator: CxjToastDismissAnimator { get }
 	
 	func activateDismissMethods()

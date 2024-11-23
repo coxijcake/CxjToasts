@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 enum CxjColorizedBackgroundViewConfigurator {
 	static func backgroundViewFor(color: UIColor) -> UIView {
 		let view: UIView = UIView()

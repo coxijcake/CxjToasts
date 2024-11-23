@@ -8,6 +8,7 @@
 import UIKit
 
 extension CxjToastAnimator {
+	@MainActor
 	final class CommonBehaviourCoordinator: Coordinator {
         //MARK: - Props
         private let toastView: ToastView

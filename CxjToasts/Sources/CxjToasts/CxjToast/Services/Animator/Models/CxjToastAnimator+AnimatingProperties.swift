@@ -13,14 +13,14 @@ extension CxjToastAnimator {
             let x: CGFloat
             let y: CGFloat
             
-            static var initial: Scale = Scale(x: 1.0, y: 1.0)
+			static var initial: Scale { Scale(x: 1.0, y: 1.0) }
         }
 		
 		struct Translation {
 			let x: CGFloat
 			let y: CGFloat
 			
-			static var initial: Translation = Translation(x: .zero, y: .zero)
+			static var initial: Translation { Translation(x: .zero, y: .zero) }
 		}
 		
 		struct CornerRadius {

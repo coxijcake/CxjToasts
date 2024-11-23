@@ -8,6 +8,7 @@
 import Foundation
 
 extension CxjToastAnimator {
+	@MainActor
 	enum DefaultConfigStrategyFactory {
 		static func configStrategy(
 			placement: CxjToastConfiguration.Layout.Placement,

@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 protocol CxjTemplatedToastConfigProvider {
 	typealias Config = CxjToastConfiguration
 	

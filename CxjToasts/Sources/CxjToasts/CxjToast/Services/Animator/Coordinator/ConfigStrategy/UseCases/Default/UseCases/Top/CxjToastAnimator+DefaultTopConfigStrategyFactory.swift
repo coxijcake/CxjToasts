@@ -9,6 +9,7 @@ import Foundation
 import UIKit.UIApplication
 
 extension CxjToastAnimator {
+	@MainActor
 	enum DefaultTopConfigStrategyFactory {
 		static func configStrategy(
 			input: ConfigStrategyCommonInput,

@@ -8,6 +8,7 @@
 import Foundation
 
 extension CxjToastAnimator {
+	@MainActor
 	struct CustomConfigStrategy: ConfigStrategy {
 		typealias Changes = ToastConfig.Animation.Behaviour.CustomBehaviourChanges
 		

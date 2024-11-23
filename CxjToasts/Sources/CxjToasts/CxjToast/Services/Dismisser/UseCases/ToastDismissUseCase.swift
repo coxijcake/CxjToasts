@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol ToastDismissUseCase {
 	func activate()
 	func deactivate()

@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 public enum CxjToastSourceBackgroundFactory {
 	typealias Background = CxjToastSourceBackground
 	typealias Theme = CxjToastConfiguration.SourceBackground.Theme

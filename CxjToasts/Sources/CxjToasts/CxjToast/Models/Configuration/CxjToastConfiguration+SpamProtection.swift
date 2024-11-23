@@ -8,13 +8,13 @@
 import Foundation
 
 extension CxjToastConfiguration {
-	public enum ToastComparingAttribute: Hashable {
+	public enum ToastComparingAttribute: Hashable, Sendable {
 		case type
 		case placement(includingYOffset: Bool)
 		case sourceView
 	}
 	
-	public enum SpamProtection {
+	public enum SpamProtection: Sendable {
 		case on(comparingAttributes: Set<ToastComparingAttribute>)
 		case off
 	}
@@ -22,8 +22,8 @@ extension CxjToastConfiguration {
 
 
 extension CxjToastConfiguration {
-	public struct DisplayingBehaviour {
-		public enum Action {
+	public struct DisplayingBehaviour: Sendable {
+		public enum Action: Sendable {
 			case stack(maxVisibleToasts: Int)
 			case hide
 			case dismiss

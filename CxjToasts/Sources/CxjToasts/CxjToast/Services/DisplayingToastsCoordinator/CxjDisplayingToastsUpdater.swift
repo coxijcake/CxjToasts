@@ -22,6 +22,7 @@ extension CxjDisplayingToastsUpdater {
 }
 
 //MARK: - Toasts layout updating
+@MainActor
 enum CxjDisplayingToastsUpdater {
 	static func stackLayoutToasts(
 		toastsToStack: [Toast],
@@ -81,18 +82,16 @@ private extension CxjDisplayingToastsUpdater {
 			onPlacement: placement
 		)
 		
-		let minYOffset: CGFloat = max(.zero, finalYOffset - Multipliers.yOffset)
-		
 		let finalXScale: CGFloat = xScale(
 			for: index,
 			multiplier: Multipliers.scale,
 			onPlacement: placement
 		)
+		
 		let minXScale: CGFloat = finalXScale + Multipliers.scale
 		
 		let toastView: ToastView = toast.view
 		
-		let yOffset: CGFloat = minYOffset + (finalYOffset - minYOffset) * progress.value
 		let xScale: CGFloat = minXScale + (finalXScale - minXScale) * progress.value
 		
 		toastView.alpha = alpha

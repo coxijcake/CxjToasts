@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 protocol ToastCellDelegate: AnyObject {
 	func showToastButtonPressedInCell(_ cell: ToastCell)
 	func routeToPreviewButtonPressedInCell(_ cell: ToastCell)
@@ -35,7 +36,9 @@ final class ToastCell: UICollectionViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
-		baseConfigure()
+		Task { @MainActor in
+			baseConfigure()
+		}
 	}
 	
 	//MARK: - Overriden methods

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CxjToastDisplayingState: String {
+enum CxjToastDisplayingState: String, Sendable {
 	case initial
 	case presenting
 	case presented

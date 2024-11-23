@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol CxjToastDismissAnimator {
 	var dismissAnimation: CxjAnimation { get }
     var dismissedStateYTranslation: CGFloat { get }

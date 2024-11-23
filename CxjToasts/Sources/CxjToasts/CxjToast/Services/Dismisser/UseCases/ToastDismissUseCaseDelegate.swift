@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol ToastDismissUseCaseDelegate: AnyObject {
 	func didStartInteractive(by useCase: ToastDismissUseCase)
 	func didEndInteractive(by useCase: ToastDismissUseCase)
@@ -15,5 +16,6 @@ protocol ToastDismissUseCaseDelegate: AnyObject {
 		initialDisplayingTime: TimeInterval,
 		by useCase: ToastDismissUseCase
 	)
+	
 	func didFinish(useCase: ToastDismissUseCase)
 }

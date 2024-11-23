@@ -8,6 +8,7 @@
 import UIKit
 import CxjToasts
 
+@MainActor
 enum TemplatedToastFactory {
 	static func toastTemplateForType(
 		_ templateType: TemplatedToastType,

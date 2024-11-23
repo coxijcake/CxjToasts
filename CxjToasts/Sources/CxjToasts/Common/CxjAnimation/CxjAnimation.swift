@@ -8,6 +8,7 @@
 import UIKit
 
 //MARK: - Animation
+@MainActor
 public struct CxjAnimation {
 	public typealias Animations = (() -> Void)
 	public typealias Completion = ((Bool) -> Void)

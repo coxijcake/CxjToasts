@@ -8,4 +8,7 @@
 import Foundation
 
 public typealias CxjVoidCompletion = () -> Void
+public typealias CxjVoidSendableCompletion = @Sendable () -> Void
+
 public typealias CxjBoolCompletion = (Bool) -> Void
+public typealias CxjBoolSendableCompletion = @Sendable (Bool) -> Void

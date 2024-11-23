@@ -57,7 +57,7 @@ extension CxjToastAnimator {
 		
 		//MARK: - Scale
 		private func scaleFor(progress: Progress) -> Scale {
-			let initialScale: ToastAnimatingProperties.Scale = presentedStateProps.scale
+//			let initialScale: ToastAnimatingProperties.Scale = presentedStateProps.scale
 			
 			let scaleX: CGFloat =
 			dismissedStateProps.scale.x
@@ -88,7 +88,7 @@ extension CxjToastAnimator {
 		}
 		
 		private func xTranslationFor(progress: Progress, scale: Scale) -> CGFloat {
-			let initialTranslation: CGFloat = presentedStateProps.translation.x
+//			let initialTranslation: CGFloat = presentedStateProps.translation.x
 			
 			let xTranslation: CGFloat =
 			dismissedStateProps.translation.x
@@ -98,7 +98,7 @@ extension CxjToastAnimator {
 		}
 		
 		private func yTranslationFor(progress: Progress, scale: Scale) -> CGFloat {
-			let initialTranslation: CGFloat = presentedStateProps.translation.y
+//			let initialTranslation: CGFloat = presentedStateProps.translation.y
 			
 			let toastScaledSizeDifference: CGFloat =
 			((toastSize.height - (toastSize.height * scale.y)) / 2)

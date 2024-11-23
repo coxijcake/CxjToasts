@@ -8,6 +8,7 @@
 import UIKit
 
 extension CxjToastPresenter {
+	@MainActor
 	enum LayoutApplier {
 		typealias ToastLayout = CxjToastConfiguration.Layout
 		typealias ToastView = CxjToastView
