@@ -55,6 +55,7 @@ extension CxjToastsCoordinator {
 		
 		setupSourceBackgroundAction(forToast: toast)
 		
+		toast.dismisser.setupDismissMethods()
 		toast.presenter.present(animated: animated) { [weak self, weak toast] _ in
 			guard
 				let self,
@@ -139,6 +140,7 @@ extension CxjToastsCoordinator {
 }
 
 //MARK: - SoucreBackground action handling
+//TODO: - To another class
 private extension CxjToastsCoordinator {
 	func setupSourceBackgroundAction(forToast toast: DisplayableToast) {
 		switch toast.config.sourceBackground?.interaction {
@@ -234,6 +236,7 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 
 
 //MARK: - ToastDisplayingProgress
+//TODO: - To another file
 extension CxjToastsCoordinator {
 	struct ToastDisplayingProgress {
 		private static let minValue: Float = .zero

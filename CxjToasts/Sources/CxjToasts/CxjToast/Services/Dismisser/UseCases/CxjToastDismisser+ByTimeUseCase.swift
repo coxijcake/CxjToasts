@@ -29,6 +29,12 @@ extension CxjToastDismisser {
 			self.displayingTime = displayingTime
 			self.remainingTime = displayingTime
 			self.delegate = delegate
+			
+			delegate?.didUpdateRemainingDisplayingTime(
+				displayingTime,
+				initialDisplayingTime: displayingTime,
+				by: self
+			)
 		}
 		
 		//MARK: - Public

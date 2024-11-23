@@ -107,7 +107,7 @@ private extension TemplatedToastFactory {
 					textColor: .black,
 					font: .systemFont(ofSize: 14, weight: .regular)
 				),
-				timingFeedback: .none,
+				timingFeedback: .number(withProgress: true),
 				undoControl: .init(
 					actionCompletion: { toastId in
 						print("Undo action pressed for toast with id: \(toastId.uuidString)")

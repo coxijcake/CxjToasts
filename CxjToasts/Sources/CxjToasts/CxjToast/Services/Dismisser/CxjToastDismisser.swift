@@ -25,6 +25,7 @@ protocol CxjToastDismisserDelegate: AnyObject {
 protocol CxjToastDismissable: Sendable {
 	var animator: CxjToastDismissAnimator { get }
 	
+	func setupDismissMethods()
 	func activateDismissMethods()
 	func deactivateDismissMethods()
 	func pauseDismissMethods()
@@ -49,11 +50,11 @@ final class CxjToastDismisser: CxjToastDismissable {
 	private let sourceBackgroundView: CxjToastSourceBackground?
 	private let config: Configuration
 	
-	private lazy var dismissUseCases: [ToastDismissUseCase] = createDismissUseCases()
+	private var dismissUseCases: [ToastDismissUseCase] = []
+	
+	private weak var delegate: CxjToastDismisserDelegate?
 	
 	let animator: Animator
-	
-	weak var delegate: CxjToastDismisserDelegate?
 	
 	//MARK: - Lifecycle
 	init(
@@ -75,6 +76,19 @@ final class CxjToastDismisser: CxjToastDismissable {
 
 //MARK: - Public
 extension CxjToastDismisser {
+	func setupDismissMethods() {
+		dismissUseCases = config.dismissMethods.compactMap { method in
+			CxjToastDismissUseCaseFactory.useCase(
+				for: method,
+				toastId: toastId,
+				toastView: toastView,
+				placement: config.layout.placement,
+				animator: animator,
+				delegate: self
+			)
+		}
+	}
+	
 	func activateDismissMethods() {
 		dismissUseCases.forEach { $0.activate() }
 	}
@@ -100,22 +114,6 @@ extension CxjToastDismisser {
 				self.delegate?.didDismissToastWith(id: self.toastId, by: self)
 			}
 		)
-	}
-}
-
-//MARK: - Private
-private extension CxjToastDismisser {
-	func createDismissUseCases() -> [ToastDismissUseCase] {
-		config.dismissMethods.compactMap { method in
-			CxjToastDismissUseCaseFactory.useCase(
-				for: method,
-				toastId: toastId,
-				toastView: toastView,
-				placement: config.layout.placement,
-				animator: animator,
-				delegate: self
-			)
-		}
 	}
 }
 
