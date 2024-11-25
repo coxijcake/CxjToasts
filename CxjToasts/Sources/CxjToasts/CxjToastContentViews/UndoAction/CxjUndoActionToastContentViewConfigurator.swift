@@ -37,17 +37,18 @@ enum CxjUndoActionToastContentViewConfigurator {
 		case .none:
 			return nil
 		case .number:
-			return UndoActionToastNumberedTimingFeedbackView()
+			return numberTimingFeedbackView()
 		case .progress:
-			return UndoToastCountdownProgressFeedbackView(
-				progressState: UndoToastCountdownProgressFeedbackView.ProgressState(
-					lineWidth: 2.0,
-					progressLineColor: .white,
-					progressBackgroundColor: .black
-				)
-			)
+			return progressFeedbackView()
 		case .numberWithProgress:
-			return nil
+			let numberView: CxjToastTimingFeedbackView = numberTimingFeedbackView()
+			let progressView: CxjToastTimingFeedbackView = progressFeedbackView()
+			let numberWithProgressFeedbackView: CxjToastTimingFeedbackView = UndoActionToastNumberedWithProgressFeedbackView(
+				timingFeebackView: numberView,
+				progressFeedbackView: progressView
+			)
+			
+			return numberWithProgressFeedbackView
 		case .custom(view: let customView):
 			return customView
 		}
@@ -68,5 +69,19 @@ enum CxjUndoActionToastContentViewConfigurator {
 			
 			return button
 		}
+	}
+	
+	private static func numberTimingFeedbackView() -> UndoActionToastNumberedTimingFeedbackView {
+		return UndoActionToastNumberedTimingFeedbackView()
+	}
+	
+	private static func progressFeedbackView() -> UndoToastCountdownProgressFeedbackView {
+		return UndoToastCountdownProgressFeedbackView(
+		   progressState: UndoToastCountdownProgressFeedbackView.ProgressState(
+			   lineWidth: 2.0,
+			   progressLineColor: .white,
+			   progressBackgroundColor: .black
+		   )
+	   )
 	}
 }
