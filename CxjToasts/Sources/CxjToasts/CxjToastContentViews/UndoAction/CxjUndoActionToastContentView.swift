@@ -65,6 +65,13 @@ private extension CxjUndoActionToastContentView {
 	}
 	
 	func setupSubviews() {
+		if let timingFeedbackView {
+			NSLayoutConstraint.activate([
+				timingFeedbackView.widthAnchor.constraint(equalToConstant: 30),
+				timingFeedbackView.heightAnchor.constraint(equalToConstant: 30)
+			])
+		}
+		
 		[leadingStackView, undoButton]
 			.forEach { addArrangedSubview($0) }
 		[timingFeedbackView, infoContentView]

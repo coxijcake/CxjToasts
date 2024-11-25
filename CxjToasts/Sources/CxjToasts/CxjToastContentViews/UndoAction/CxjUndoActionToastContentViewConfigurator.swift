@@ -36,7 +36,17 @@ enum CxjUndoActionToastContentViewConfigurator {
 		switch config {
 		case .none:
 			return nil
-		case .number(withProgress: _):
+		case .number:
+			return UndoActionToastNumberedTimingFeedbackView()
+		case .progress:
+			return UndoToastCountdownProgressFeedbackView(
+				progressState: UndoToastCountdownProgressFeedbackView.ProgressState(
+					lineWidth: 2.0,
+					progressLineColor: .white,
+					progressBackgroundColor: .black
+				)
+			)
+		case .numberWithProgress:
 			return nil
 		case .custom(view: let customView):
 			return customView
@@ -48,7 +58,7 @@ enum CxjUndoActionToastContentViewConfigurator {
 		case .custom(control: let customControl):
 			return customControl
 		case .default(config: let config):
-			let button: CxjUndoToastActionButton = CxjUndoToastActionButton()
+			let button: UndoToastActionButton = UndoToastActionButton()
 			button.setTitle(config.text, for: .normal)
 			button.titleLabel?.font = config.font
 			button.setTitleColor(config.textColor, for: .normal)

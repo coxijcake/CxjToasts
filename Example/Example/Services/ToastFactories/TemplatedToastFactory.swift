@@ -104,10 +104,10 @@ private extension TemplatedToastFactory {
 				customSourceView: customSourceView,
 				title: .init(
 					text: "Undo this action",
-					textColor: .black,
+					textColor: .white.withAlphaComponent(0.85),
 					font: .systemFont(ofSize: 14, weight: .regular)
 				),
-				timingFeedback: .number(withProgress: true),
+				timingFeedback: .progress,
 				undoControl: .init(
 					actionCompletion: { toastId in
 						print("Undo action pressed for toast with id: \(toastId.uuidString)")
@@ -134,7 +134,7 @@ private extension TemplatedToastFactory {
 					displayingBehaviour: .init(handling: .stack(maxVisibleToasts: 3))
 				),
 				toastView: .init(
-					background: .blurred(effect: .init(style: .dark)),
+					background: .colorized(color: .black.withAlphaComponent(0.95)),
 					shadow: .disable,
 					corners: .fixed(value: 12, mask: .all)
 				)

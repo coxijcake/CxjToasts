@@ -75,12 +75,11 @@ final class UndoActionToastContentConfigurator: CxjTemplatedToastContentConfigur
 		_ data: Data.TimingFeedback
 	) -> CxjUndoActionToastContentConfiguration.TimingFeedback {
 		switch data {
-		case .none:
-				.none
-		case .custom(view: let view):
-				.custom(view: view)
-		case .number(withProgress: let withProgress):
-				.number(withProgress: withProgress)
+		case .none: .none
+		case .custom(view: let view): .custom(view: view)
+		case .number: .number
+		case .progress: .progress
+		case .numberWithProgress: .numberWithProgress
 		}
 	}
 }

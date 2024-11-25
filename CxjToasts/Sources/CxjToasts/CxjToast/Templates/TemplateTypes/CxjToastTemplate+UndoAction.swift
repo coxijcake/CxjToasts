@@ -27,7 +27,9 @@ extension CxjToastTemplate {
 		
 		public enum TimingFeedback {
 			case none
-			case number(withProgress: Bool)
+			case number
+			case progress
+			case numberWithProgress
 			case custom(view: CxjToastTimingFeedbackView)
 		}
 		

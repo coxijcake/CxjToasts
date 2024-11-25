@@ -66,8 +66,6 @@ extension CxjToastDismisser {
 		) {
 			removeTimer()
 			
-			delegate?.didUpdateRemainingDisplayingTime(time, initialDisplayingTime: displayingTime, by: self)
-			
 			dismissTimer = Timer.scheduledTimer(
 				withTimeInterval: timerUpdateInterval,
 				repeats: true,
