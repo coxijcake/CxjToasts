@@ -11,11 +11,11 @@ extension CxjToastTemplate {
 	public struct UndoActionToastData {
 		public typealias TimingFeedback = CxjUndoActionToastContentConfiguration.TimingFeedback
 		public typealias Title = CxjTitledToastContentConfiguration
-		public typealias DefaultUndoControlConfig = CxjUndoActionToastContentConfiguration.UndoControl.Config
+		public typealias DefaultUndoControlTitleConfig = CxjUndoActionToastContentConfiguration.UndoControl.TitleConfig
 		
 		public enum UndoControlType {
 			case custom(control: UIControl)
-			case `default`(config: DefaultUndoControlConfig)
+			case `default`(config: DefaultUndoControlTitleConfig)
 		}
 		
 		public struct UndoControl {

@@ -27,24 +27,25 @@ extension CxjUndoActionToastContentConfiguration {
 	public typealias Title = CxjTitledToastContentConfiguration
 	
 	public enum UndoControl {
-		public struct Config {
-			public let text: String
-			public let textColor: UIColor
-			public let font: UIFont
-			
-			public init(
-				text: String,
-				textColor: UIColor,
-				font: UIFont
-			) {
-				self.text = text
-				self.textColor = textColor
-				self.font = font
+		public enum TitleConfig {
+			public struct PlainTitleConfig {
+				public let text: String
+				public let textColor: UIColor
+				public let font: UIFont
+				
+				public init(text: String, textColor: UIColor, font: UIFont) {
+					self.text = text
+					self.textColor = textColor
+					self.font = font
+				}
 			}
+			
+			case plain(config: PlainTitleConfig)
+			case attributed(string: NSAttributedString)
 		}
 		
 		case custom(control: UIControl)
-		case `default`(config: Config, actionCompletion: CxjVoidCompletion?)
+		case `default`(config: TitleConfig, actionCompletion: CxjVoidCompletion?)
 	}
 	
 	public enum TimingFeedback {

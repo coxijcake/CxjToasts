@@ -133,10 +133,12 @@ private extension TemplatedToastFactory {
 						}
 					},
 					type: .default(
-						config: .init(
-							text: "Undo",
-							textColor: .blue,
-							font: .systemFont(ofSize: 17, weight: .bold)
+						config: .plain(
+							config: .init(
+								text: "Undo",
+								textColor: .blue,
+								font: .systemFont(ofSize: 17, weight: .bold)
+							)
 						)
 					)
 				),

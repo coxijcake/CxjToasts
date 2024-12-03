@@ -19,7 +19,8 @@ extension UndoActionToastUndoButton {
 }
 
 final class UndoActionToastUndoButton: CxjInteractiveBounceButton {
-	
+	override var alphaOnTouch: CGFloat { 0.975 }
+	override var scaleOnTouch: CGFloat { 0.925 }
 }
 
 //MARK: - Configuration
