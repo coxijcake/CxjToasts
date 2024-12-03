@@ -59,12 +59,20 @@ enum CxjUndoActionToastContentViewConfigurator {
 		case .custom(control: let customControl):
 			return customControl
 		case .default(config: let config, actionCompletion: let actionCompletion):
-			let button: UndoToastActionButton = UndoToastActionButton()
-			button.setTitle(config.text, for: .normal)
-			button.titleLabel?.font = config.font
-			button.setTitleColor(config.textColor, for: .normal)
+			let button: UndoActionToastUndoButton = UndoActionToastUndoButton()
+			button.setupConfig(
+				.init(
+					title: .plain(
+						text: config.text,
+						color: config.textColor,
+						font: config.font
+					)
+				),
+				forState: .normal
+			)
+			
 			button.addAction(.init(handler: { _ in
-				actionCompletion?()
+				actionCompletion
 			}), for: .touchUpInside)
 			
 			return button
