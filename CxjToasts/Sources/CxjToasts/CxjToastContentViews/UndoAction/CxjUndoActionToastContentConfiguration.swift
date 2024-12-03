@@ -8,7 +8,7 @@
 import UIKit
 
 public struct CxjUndoActionToastContentConfiguration {
-	public let title: CxjTitledToastContentConfiguration
+	public let title: Title
 	public let unduControl: UndoControl
 	public let timingFeedback: TimingFeedback
 	
@@ -24,37 +24,63 @@ public struct CxjUndoActionToastContentConfiguration {
 }
 
 extension CxjUndoActionToastContentConfiguration {
-	typealias Content = CxjTitledToastContentConfiguration
+	public typealias Title = CxjTitledToastContentConfiguration
 	
 	public enum UndoControl {
 		public struct Config {
 			public let text: String
 			public let textColor: UIColor
 			public let font: UIFont
-			public let actionCompletion: CxjVoidCompletion?
 			
 			public init(
 				text: String,
 				textColor: UIColor,
-				font: UIFont,
-				actionCompletion: CxjVoidCompletion?
+				font: UIFont
 			) {
 				self.text = text
 				self.textColor = textColor
 				self.font = font
-				self.actionCompletion = actionCompletion
 			}
 		}
 		
 		case custom(control: UIControl)
-		case `default`(config: Config)
+		case `default`(config: Config, actionCompletion: CxjVoidCompletion?)
 	}
 	
 	public enum TimingFeedback {
+		public struct NumberParams {
+			public let numberColor: UIColor
+			public let font: UIFont
+			
+			public init(
+				numberColor: UIColor,
+				font: UIFont = .monospacedDigitSystemFont(ofSize: 15, weight: .bold)
+			) {
+				self.numberColor = numberColor
+				self.font = font
+			}
+		}
+		
+		public struct ProgressParams {
+			public let lineWidth: CGFloat
+			public let progressLineColor: UIColor
+			public let progressBackgroundColor: UIColor
+			
+			public init(
+				lineWidth: CGFloat,
+				progressLineColor: UIColor,
+				progressBackgroundColor: UIColor
+			) {
+				self.lineWidth = lineWidth
+				self.progressLineColor = progressLineColor
+				self.progressBackgroundColor = progressBackgroundColor
+			}
+		}
+		
 		case none
-		case number
-		case progress
-		case numberWithProgress
+		case number(params: NumberParams)
+		case progress(params: ProgressParams)
+		case numberWithProgress(numberParams: NumberParams, progressParams: ProgressParams)
 		case custom(view: CxjToastTimingFeedbackView)
 	}
 }

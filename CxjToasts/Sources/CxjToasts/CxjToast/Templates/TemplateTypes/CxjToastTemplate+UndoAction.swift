@@ -9,33 +9,13 @@ import UIKit
 
 extension CxjToastTemplate {
 	public struct UndoActionToastData {
-		public struct Title {
-			public let text: String
-			public let textColor: UIColor
-			public let font: UIFont
-			
-			public init(
-				text: String,
-				textColor: UIColor,
-				font: UIFont
-			) {
-				self.text = text
-				self.textColor = textColor
-				self.font = font
-			}
-		}
-		
-		public enum TimingFeedback {
-			case none
-			case number
-			case progress
-			case numberWithProgress
-			case custom(view: CxjToastTimingFeedbackView)
-		}
+		public typealias TimingFeedback = CxjUndoActionToastContentConfiguration.TimingFeedback
+		public typealias Title = CxjTitledToastContentConfiguration
+		public typealias DefaultUndoControlConfig = CxjUndoActionToastContentConfiguration.UndoControl.Config
 		
 		public enum UndoControlType {
 			case custom(control: UIControl)
-			case `default`(config: Title)
+			case `default`(config: DefaultUndoControlConfig)
 		}
 		
 		public struct UndoControl {

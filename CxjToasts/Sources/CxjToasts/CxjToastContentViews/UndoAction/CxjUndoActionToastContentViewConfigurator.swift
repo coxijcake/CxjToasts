@@ -16,7 +16,7 @@ enum CxjUndoActionToastContentViewConfigurator {
 	) -> CxjUndoActionToastContentView {
 		let timingFeedbackView: CxjToastTimingFeedbackView? = timingFeedbackViewForConfig(config.timingFeedback)
 		let infoContentView: UIView = infoContentViewForConfig(config.title)
-		let unduControl: UIControl = undoControlForConfig(config.unduControl)
+		let unduControl: UIControl = undoControlForConfigControl(config.unduControl)
 		
 		return CxjUndoActionToastContentView(
 			timingFeedbackView: timingFeedbackView,
@@ -25,7 +25,7 @@ enum CxjUndoActionToastContentViewConfigurator {
 		)
 	}
 	
-	private static func infoContentViewForConfig(_ config: Config.Content) -> UIView {
+	private static func infoContentViewForConfig(_ config: Config.Title) -> UIView {
 		let view: CxjTitledToastContentView = CxjTitledToastContentView()
 		view.configureWith(configuration: config)
 		
@@ -36,13 +36,13 @@ enum CxjUndoActionToastContentViewConfigurator {
 		switch config {
 		case .none:
 			return nil
-		case .number:
-			return numberTimingFeedbackView()
-		case .progress:
-			return progressFeedbackView()
-		case .numberWithProgress:
-			let numberView: CxjToastTimingFeedbackView = numberTimingFeedbackView()
-			let progressView: CxjToastTimingFeedbackView = progressFeedbackView()
+		case .number(params: let params):
+			return numberTimingFeedbackViewWithParams(params)
+		case .progress(params: let params):
+			return progressFeedbackViewWithParams(params)
+		case .numberWithProgress(numberParams: let numberParams, progressParams: let progressParams):
+			let numberView: CxjToastTimingFeedbackView = numberTimingFeedbackViewWithParams(numberParams)
+			let progressView: CxjToastTimingFeedbackView = progressFeedbackViewWithParams(progressParams)
 			let numberWithProgressFeedbackView: CxjToastTimingFeedbackView = UndoActionToastNumberedWithProgressFeedbackView(
 				timingFeebackView: numberView,
 				progressFeedbackView: progressView
@@ -54,34 +54,39 @@ enum CxjUndoActionToastContentViewConfigurator {
 		}
 	}
 	
-	private static func undoControlForConfig(_ config: Config.UndoControl) -> UIControl {
-		switch config {
+	private static func undoControlForConfigControl(_ control: Config.UndoControl) -> UIControl {
+		switch control {
 		case .custom(control: let customControl):
 			return customControl
-		case .default(config: let config):
+		case .default(config: let config, actionCompletion: let actionCompletion):
 			let button: UndoToastActionButton = UndoToastActionButton()
 			button.setTitle(config.text, for: .normal)
 			button.titleLabel?.font = config.font
 			button.setTitleColor(config.textColor, for: .normal)
 			button.addAction(.init(handler: { _ in
-				config.actionCompletion?()
+				actionCompletion?()
 			}), for: .touchUpInside)
 			
 			return button
 		}
 	}
 	
-	private static func numberTimingFeedbackView() -> UndoActionToastNumberedTimingFeedbackView {
-		return UndoActionToastNumberedTimingFeedbackView()
+	private static func numberTimingFeedbackViewWithParams(_ params: Config.TimingFeedback.NumberParams) -> UndoActionToastNumberedTimingFeedbackView {
+		return UndoActionToastNumberedTimingFeedbackView(
+			config: .init(
+				numberColor: params.numberColor,
+				numberFont: params.font
+			)
+		)
 	}
 	
-	private static func progressFeedbackView() -> UndoToastCountdownProgressFeedbackView {
+	private static func progressFeedbackViewWithParams(_ params: Config.TimingFeedback.ProgressParams) -> UndoToastCountdownProgressFeedbackView {
 		return UndoToastCountdownProgressFeedbackView(
-		   progressState: UndoToastCountdownProgressFeedbackView.ProgressState(
-			   lineWidth: 2.0,
-			   progressLineColor: .white,
-			   progressBackgroundColor: .black
-		   )
-	   )
+			progressState: UndoToastCountdownProgressFeedbackView.ProgressState(
+				lineWidth: params.lineWidth,
+				progressLineColor: params.progressLineColor,
+				progressBackgroundColor: params.progressBackgroundColor
+			)
+		)
 	}
 }

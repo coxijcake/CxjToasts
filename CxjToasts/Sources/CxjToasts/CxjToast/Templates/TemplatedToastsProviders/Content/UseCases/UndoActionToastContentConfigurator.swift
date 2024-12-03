@@ -22,29 +22,9 @@ final class UndoActionToastContentConfigurator: CxjTemplatedToastContentConfigur
 		CxjToastContentViewFactory.createContentViewWith(
 			config: .undoAction(
 				config: .init(
-					title: titleConfigForData(data.title),
+					title: data.title,
 					unduControl: unduButtonConfigForData(data.undoControl, toastId: toastId),
-					timingFeedback: timingFeedbackConfigForData(data.timingFeedback)
-				)
-			)
-		)
-	}
-	
-	private func titleConfigForData(_ data: Data.Title) -> CxjTitledToastContentConfiguration {
-		.init(
-			layout: .init(),
-			titles: .plain(
-				config: .init(
-					title: .init(
-						text: data.text,
-						labelParams: .init(
-							textColor: data.textColor,
-							font: data.font,
-							numberOfLines: 1,
-							textAligment: .left
-						)
-					),
-					subtitle: nil
+					timingFeedback: data.timingFeedback
 				)
 			)
 		)
@@ -59,27 +39,11 @@ final class UndoActionToastContentConfigurator: CxjTemplatedToastContentConfigur
 			return .custom(control: customControl)
 		case .default(config: let config):
 			return .default(
-				config: .init(
-					text: config.text,
-					textColor: config.textColor,
-					font: config.font,
-					actionCompletion: {
-						data.actionCompletion?(toastId)
-					}
-				)
+				config: config,
+				actionCompletion: {
+					data.actionCompletion?(toastId)
+				}
 			)
-		}
-	}
-	
-	private func timingFeedbackConfigForData(
-		_ data: Data.TimingFeedback
-	) -> CxjUndoActionToastContentConfiguration.TimingFeedback {
-		switch data {
-		case .none: .none
-		case .custom(view: let view): .custom(view: view)
-		case .number: .number
-		case .progress: .progress
-		case .numberWithProgress: .numberWithProgress
 		}
 	}
 }

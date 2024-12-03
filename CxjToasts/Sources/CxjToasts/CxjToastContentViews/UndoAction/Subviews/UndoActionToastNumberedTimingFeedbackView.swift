@@ -7,6 +7,13 @@
 
 import UIKit
 
+extension UndoActionToastNumberedTimingFeedbackView {
+	struct ViewConfig {
+		let numberColor: UIColor
+		let numberFont: UIFont
+	}
+}
+
 final class UndoActionToastNumberedTimingFeedbackView: UIView {
 	//MARK: - Subviews
 	private let label: UILabel = UILabel()
@@ -15,16 +22,25 @@ final class UndoActionToastNumberedTimingFeedbackView: UIView {
 	private var lastUpdatedSecond: Int?
 	
 	//MARK: - Lifecycle
-	override init(frame: CGRect) {
+	init(config: ViewConfig, frame: CGRect = .zero) {
 		super.init(frame: frame)
 		
 		baseConfigure()
+		setupConfig(config)
 	}
 	
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		
 		baseConfigure()
+	}
+}
+
+//MARK: - Configuration
+extension UndoActionToastNumberedTimingFeedbackView {
+	func setupConfig(_ config: ViewConfig) {
+		label.textColor = config.numberColor
+		label.font = config.numberFont
 	}
 }
 
@@ -42,8 +58,6 @@ private extension UndoActionToastNumberedTimingFeedbackView {
 	}
 	
 	func setupNumberLabel() {
-		label.textColor = .white
-		label.font = .monospacedDigitSystemFont(ofSize: 15, weight: .bold)
 		label.textAlignment = .center
 		label.minimumScaleFactor = 0.7
 		label.adjustsFontSizeToFitWidth = true
