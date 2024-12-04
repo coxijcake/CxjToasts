@@ -123,7 +123,7 @@ private extension TemplatedToastFactory {
 				),
 				timingFeedback: .numberWithProgress(
 					numberParams: .init(numberColor: .white, font: .monospacedDigitSystemFont(ofSize: 14, weight: .bold)),
-					progressParams: .init(lineWidth: 2, progressLineColor: .white, progressBackgroundColor: .black)
+					progressParams: .init(lineWidth: 2, lineColor: .white)
 				),
 				undoControl: .init(
 					actionCompletion: { toastId in
@@ -153,7 +153,7 @@ private extension TemplatedToastFactory {
 					displayingBehaviour: .init(handling: .stack(maxVisibleToasts: 3))
 				),
 				toastView: .init(
-					background: .colorized(color: .black.withAlphaComponent(0.95)),
+					background: .colorized(color: .black.withAlphaComponent(0.9)),
 					shadow: .disable,
 					corners: .fixed(value: 12, mask: .all)
 				)

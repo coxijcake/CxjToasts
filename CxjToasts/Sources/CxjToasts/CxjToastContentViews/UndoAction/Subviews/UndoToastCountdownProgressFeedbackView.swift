@@ -10,14 +10,13 @@ import UIKit
 extension UndoToastCountdownProgressFeedbackView {
 	struct ProgressState {
 		let lineWidth: CGFloat
-		let progressLineColor: UIColor
-		let progressBackgroundColor: UIColor
+		let lineColor: UIColor
 	}
 }
 
 final class UndoToastCountdownProgressFeedbackView: UIView {
 	//MARK: - Subviews
-	let circularProgressView: CircularProgressBarView
+	let circularProgressView: CircularCountdownProgressBarView
 	
 	//MARK: - Props
 	let progressState: ProgressState
@@ -25,11 +24,10 @@ final class UndoToastCountdownProgressFeedbackView: UIView {
 	//MARK: - Lifecyclce
 	init(progressState: ProgressState, frame: CGRect = .zero) {
 		self.progressState = progressState
-		self.circularProgressView = CircularProgressBarView(
+		self.circularProgressView = CircularCountdownProgressBarView(
 			appearance: .init(
 				lineWidth: progressState.lineWidth,
-				backgroundColor: progressState.progressLineColor,
-				progressColor: progressState.progressBackgroundColor
+				progressColor: progressState.lineColor
 			)
 		)
 		

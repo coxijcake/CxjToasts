@@ -64,17 +64,14 @@ extension CxjUndoActionToastContentConfiguration {
 		
 		public struct ProgressParams {
 			public let lineWidth: CGFloat
-			public let progressLineColor: UIColor
-			public let progressBackgroundColor: UIColor
+			public let lineColor: UIColor
 			
 			public init(
 				lineWidth: CGFloat,
-				progressLineColor: UIColor,
-				progressBackgroundColor: UIColor
+				lineColor: UIColor
 			) {
 				self.lineWidth = lineWidth
-				self.progressLineColor = progressLineColor
-				self.progressBackgroundColor = progressBackgroundColor
+				self.lineColor = lineColor
 			}
 		}
 		

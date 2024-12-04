@@ -101,8 +101,7 @@ enum CxjUndoActionToastContentViewConfigurator {
 		return UndoToastCountdownProgressFeedbackView(
 			progressState: UndoToastCountdownProgressFeedbackView.ProgressState(
 				lineWidth: params.lineWidth,
-				progressLineColor: params.progressLineColor,
-				progressBackgroundColor: params.progressBackgroundColor
+				lineColor: params.lineColor
 			)
 		)
 	}
