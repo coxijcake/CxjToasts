@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 public struct CxjIconedToastContentConfiguration {
 	public let params: LayoutParams
 	public let iconParams: IconParams

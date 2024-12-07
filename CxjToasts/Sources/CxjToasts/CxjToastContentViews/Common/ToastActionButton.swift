@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UndoActionToastUndoButton {
+extension ToastActionButton {
 	struct ButtonConfig {
 		enum Title {
 			case plain(text: String, color: UIColor, font: UIFont)
@@ -18,13 +18,13 @@ extension UndoActionToastUndoButton {
 	}
 }
 
-final class UndoActionToastUndoButton: CxjInteractiveBounceButton {
+final class ToastActionButton: CxjInteractiveBounceButton {
 	override var alphaOnTouch: CGFloat { 0.975 }
 	override var scaleOnTouch: CGFloat { 0.925 }
 }
 
 //MARK: - Configuration
-extension UndoActionToastUndoButton {
+extension ToastActionButton {
 	func setupConfig(_ config: ButtonConfig, forState controlState: UIControl.State) {
 		switch config.title {
 		case .plain(text: let text, color: let color, font: let font):

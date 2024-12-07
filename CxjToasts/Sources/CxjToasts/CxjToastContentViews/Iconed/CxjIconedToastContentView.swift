@@ -14,14 +14,6 @@ public extension CxjIconedToastContentView {
     typealias TitlesConfiguration = CxjTitledToastContentConfiguration
 }
 
-extension CxjIconedToastContentView {
-	enum Constants {
-		enum Layout {
-			static let iconSize: CGSize = CGSize(width: 28, height: 28)
-		}
-	}
-}
-
 //MARK: - ContentView
 public final class CxjIconedToastContentView: UIStackView {
 	// MARK: - Subviews

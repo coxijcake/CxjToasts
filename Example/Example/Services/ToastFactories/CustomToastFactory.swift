@@ -148,44 +148,73 @@ extension CustomToastFactory {
 		//MARK: - Content
 		private static func contentView() -> CxjToastContentView {
 			CxjToastContentViewFactory.createContentViewWith(
-				config: CxjToastContentConfiguration.iconed(
+				config: .iconedAction(
 					config: .init(
-						params: .init(
-							iconPlacement: .left,
-							paddingToTitle: 16
+						actionControl: .default(
+							config: .plain(config: .init(text: "Some action", textColor: .white, font: .systemFont(ofSize: 15, weight: .bold))),
+							actionCompletion: nil
 						),
-						iconParams: .init(
-							icon: .init(resource: .closeIcon),
-							fixedSize: .init(width: 20, height: 20)
-						)
+						layout: .init(actionControlPlacement: .right, paddingToInfoContent: 10)
 					),
+					iconConfig: .init(params: .init(iconPlacement: .left, paddingToTitle: 6), iconParams: .init(icon: .closeIcon, fixedSize: .init(width: 25, height: 25))),
 					titlesConfig: .init(
-						layout: .init(labelsPadding: 4),
+						layout: .init(labelsPadding: 0),
 						titles: .plain(
 							config: .init(
 								title: .init(
-									text: "Teast Toast title",
+									text: "Some test title",
 									labelParams: .init(
 										textColor: .white,
-										font: .systemFont(ofSize: 15, weight: .bold),
-										numberOfLines: 2,
+										font: .systemFont(ofSize: 14, weight: .medium),
+										numberOfLines: 1,
 										textAligment: .left
 									)
 								),
-								subtitle: .init(
-									text: "Teast toast long long long\nlong long long long boring subtitle",
-									labelParams: .init(
-										textColor: .white.withAlphaComponent(0.85),
-										font: .systemFont(ofSize: 14, weight: .regular),
-										numberOfLines: .zero,
-										textAligment: .left
-									)
-								)
+								subtitle: nil
 							)
 						)
 					)
 				)
 			)
+//			CxjToastContentViewFactory.createContentViewWith(
+//				config: CxjToastContentConfiguration.iconed(
+//					config: .init(
+//						params: .init(
+//							iconPlacement: .left,
+//							paddingToTitle: 16
+//						),
+//						iconParams: .init(
+//							icon: .init(resource: .closeIcon),
+//							fixedSize: .init(width: 20, height: 20)
+//						)
+//					),
+//					titlesConfig: .init(
+//						layout: .init(labelsPadding: 4),
+//						titles: .plain(
+//							config: .init(
+//								title: .init(
+//									text: "Teast Toast title",
+//									labelParams: .init(
+//										textColor: .white,
+//										font: .systemFont(ofSize: 15, weight: .bold),
+//										numberOfLines: 2,
+//										textAligment: .left
+//									)
+//								),
+//								subtitle: .init(
+//									text: "Teast toast long long long\nlong long long long boring subtitle",
+//									labelParams: .init(
+//										textColor: .white.withAlphaComponent(0.85),
+//										font: .systemFont(ofSize: 14, weight: .regular),
+//										numberOfLines: .zero,
+//										textAligment: .left
+//									)
+//								)
+//							)
+//						)
+//					)
+//				)
+//			)
 		}
 	}
 }

@@ -59,7 +59,7 @@ enum CxjUndoActionToastContentViewConfigurator {
 		case .custom(control: let customControl):
 			return customControl
 		case .default(config: let config, actionCompletion: let actionCompletion):
-			let button: UndoActionToastUndoButton = UndoActionToastUndoButton()
+			let button: ToastActionButton = ToastActionButton()
 
 			switch config {
 			case .plain(config: let config):
