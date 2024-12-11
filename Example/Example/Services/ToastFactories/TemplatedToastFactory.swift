@@ -37,10 +37,16 @@ enum TemplatedToastFactory {
 private extension TemplatedToastFactory {
 	static func nativeToast() -> CxjToastTemplate {
 		.native(
-			data: CxjToastTemplate.NativeToastData(
+			data: .init(
 				typeId: "template_toast_test_native",
-				title: "Test Toast Toast Toast",
-				subtitle: "Some subtitle",
+				title: .plain(
+					string: "Test toast toast",
+					attributes: .init(textColor: .black, font: .systemFont(ofSize: 15, weight: .bold))
+				),
+				subtitle: .plain(
+					string: "Some subtitle",
+					attributes: .init(textColor: .black.withAlphaComponent(0.85), font: .systemFont(ofSize: 14, weight: .regular))
+				),
 				icon: .init(resource: .closeIcon),
 				backgroundColor: .white
 			)
@@ -54,15 +60,19 @@ private extension TemplatedToastFactory {
 		customSourceView: UIView?
 	) -> CxjToastTemplate {
 		.bottomPrimary(
-			data: CxjToastTemplate.BottomPrimaryToastData(
+			data: .init(
 				typeId: "template_toast_test_bottom_primary",
 				customSourceView: customSourceView,
-				icon: .init(resource: .closeIcon),
-				title: CxjToastTemplate.BottomPrimaryToastData.Title(
-					text: "owofmqwofmqowf qowfm qowfmq owfmqow fqowf m",
-					numberOfLines: 3,
-					textColor: UIColor.black,
-					font: .systemFont(ofSize: 21, weight: .bold)
+				icon: .init(icon: .init(resource: .closeIcon), fixedSize: .init(width: 40, height: 40)),
+				title: .init(
+					text: .plain(
+						string: "owofmqwofmqowf qowfm qowfmq owfmqow fqowf m",
+						attributes: .init(textColor: .black, font: .systemFont(ofSize: 21, weight: .bold))
+					),
+					label: .init(
+						numberOfLines: 3,
+						textAligment: .center
+					)
 				),
 				subtitle: nil,
 				background: .colorized(color: .white),
@@ -78,14 +88,13 @@ private extension TemplatedToastFactory {
 		customSourceView: UIView?
 	) -> CxjToastTemplate {
 		.topStraight(
-			data: CxjToastTemplate.TopStraightToastData(
+			data: .init(
 				typeId: "template_toast_test_top_straight",
 				customSourceView: customSourceView,
 				icon: .init(resource: .closeIcon),
-				title: .init(
-					text: "Test straight toast title",
-					textColor: .label,
-					font: .systemFont(ofSize: 18, weight: .medium)
+				title: .plain(
+					string: "Test straight toast title",
+					attributes: .init(textColor: .label, font: .systemFont(ofSize: 18, weight: .medium))
 				),
 				background: .colorized(color: .secondarySystemBackground)
 			)
@@ -102,49 +111,27 @@ private extension TemplatedToastFactory {
 			data: .init(
 				typeId: "template_toast_test_undo_action",
 				customSourceView: customSourceView,
-				title: .init(
-					layout: .init(labelsPadding: 0),
-					titles: .plain(
-						config: .init(
-							title: .init(
-								text: "Undo this action",
-								labelParams: .init(
-									textColor: .white.withAlphaComponent(
-										0.85
-									),
-									font: .systemFont(ofSize: 14, weight: .regular),
-									numberOfLines: 1,
-									textAligment: .left
-								)
-							),
-							subtitle: nil
-						)
-					)
-				),
+				title: .plain(string: "Undo this action", attributes: .init(textColor: .white.withAlphaComponent(0.85), font: .systemFont(ofSize: 14, weight: .semibold))),
+				subtitle: nil,
 				timingFeedback: .numberWithProgress(
 					numberParams: .init(numberColor: .white, font: .monospacedDigitSystemFont(ofSize: 14, weight: .bold)),
 					progressParams: .init(lineWidth: 2, lineColor: .white)
 				),
 				undoControl: .init(
 					actionCompletion: { toastId in
-						print("Undo action pressed for toast with id: \(toastId.uuidString)")
 						Task { @MainActor in
 							CxjToastsCoordinator.shared.dismissToast(withId: toastId, animated: true)
 						}
 					},
 					type: .default(
 						config: .plain(
-							config: .init(
-								text: "Undo",
-								textColor: .blue,
-								font: .systemFont(ofSize: 17, weight: .bold)
-							)
+							config: .init(text: "Undo", textColor: .blue.withAlphaComponent(0.9), font: .systemFont(ofSize: 17, weight: .bold))
 						)
 					)
 				),
 				toast: .init(
 					placement: .bottom(params: .init(offset: 20, includingSafeArea: true)),
-					dismissMethods: [.swipe(direction: .bottom), .automatic(time: 5.0)],
+					dismissMethods: [.swipe(direction: .bottom), .automatic(time: 5.1)],
 					animations: .init(
 						present: .init(animation: .defaultSpring, behaviour: .default(includingNativeViews: [])),
 						dismiss: .init(animation: .defaultSpring, behaviour: .default(includingNativeViews: []))

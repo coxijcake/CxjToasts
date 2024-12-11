@@ -9,40 +9,23 @@ import UIKit
 
 extension CxjToastTemplate {
 	public struct BottomPrimaryToastData {
-		public struct Title {
-			let text: String
-			let numberOfLines: Int
-			let textColor: UIColor
-			let font: UIFont
-			
-			public init(
-				text: String,
-				numberOfLines: Int,
-				textColor: UIColor,
-				font: UIFont
-			) {
-				self.text = text
-				self.numberOfLines = numberOfLines
-				self.textColor = textColor
-				self.font = font
-			}
-		}
+		public typealias Text = CxjLabelConfiguration
+		public typealias Icon = CxjIconConfiguration
 		
 		let typeId: String
 		let customSourceView: UIView?
-		let icon: UIImage?
-		let title: Title
-		let subtitle: Title?
+		let icon: Icon?
+		let title: Text
+		let subtitle: Text?
 		let background: CxjToastViewConfiguration.Background
 		let shadowColor: UIColor?
-		
 		
 		public init(
 			typeId: String,
 			customSourceView: UIView? = nil,
-			icon: UIImage?,
-			title: Title,
-			subtitle: Title?,
+			icon: Icon?,
+			title: Text,
+			subtitle: Text?,
 			background: CxjToastViewConfiguration.Background,
 			shadowColor: UIColor?
 		) {

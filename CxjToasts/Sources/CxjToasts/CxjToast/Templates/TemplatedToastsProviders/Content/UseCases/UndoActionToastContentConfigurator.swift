@@ -23,6 +23,7 @@ final class UndoActionToastContentConfigurator: CxjTemplatedToastContentConfigur
 			config: .undoAction(
 				config: .init(
 					title: data.title,
+					subtitle: data.subtitle,
 					unduControl: unduButtonConfigForData(data.undoControl, toastId: toastId),
 					timingFeedback: data.timingFeedback
 				)

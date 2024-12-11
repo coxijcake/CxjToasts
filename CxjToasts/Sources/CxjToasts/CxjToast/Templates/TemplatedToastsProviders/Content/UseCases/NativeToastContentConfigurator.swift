@@ -16,72 +16,47 @@ final class NativeToastContentConfigurator: CxjTemplatedToastContentConfigurator
 		self.data = data
 	}
 	
-	func content() -> Content {
-		let titlesConfig: TitlesConfig = titlesConfig(for: data)
+	func content() -> any Content {
+		let textConfig = textContentConfigForData(data)
 		
 		if let icon = data.icon {
-			return CxjToastContentViewFactory.createContentViewWith(
-				config: CxjToastContentConfiguration.iconed(
-					config: CxjIconedToastContentConfiguration(
-						params: .init(
-							iconPlacement: .left,
-							paddingToTitle: 10
-						),
-						iconParams: CxjIconedToastContentConfiguration.IconParams(
-							icon: icon,
-							fixedSize: CGSize(width: 40, height: 40)
-						)
+			return CxjInfoToastContentViewConfigurator.contentViewForType(
+				.textWithIcon(
+					iconConfig: .init(
+						layout: .init(iconPlacement: .left, paddingToContent: 10),
+						iconParams: .init(icon: icon, tintColor: nil, fixedSize: CGSize(width: 40, height: 40))
 					),
-					titlesConfig: .init(
-						layout: .init(labelsPadding: 4),
-						titles: titlesConfig
-					)
+					textConfig: textConfig
 				)
 			)
 		} else {
-			return CxjToastContentViewFactory.createContentViewWith(
-				config: .titled(
-					config: .init(
-						layout: .init(labelsPadding: 4),
-						titles: titlesConfig
-					)
-				)
-			)
+			return CxjToastTextContentViewConfigurator.viewWithConfig(textConfig)
 		}
 	}
 	
-	private  func titlesConfig(for data: Data) -> TitlesConfig {
-		TitlesConfig.plain(
-			config: .init(
-				title: titleConfig(for: data),
-				subtitle: subtitleConfig(for: data)
-			)
-		)
-	}
-	
-	private  func titleConfig(for data: Data) -> PlainTitleConfig {
-		PlainTitleConfig(
-			text: data.title,
-			labelParams: .init(
-				textColor: .black,
-				font: .systemFont(ofSize: 14, weight: .bold),
-				numberOfLines: 1,
-				textAligment: .center
-			)
-		)
-	}
-	
-	private func subtitleConfig(for data: Data) -> PlainTitleConfig? {
-		guard let subtitle = data.subtitle else { return nil }
+	private func textContentConfigForData(_ data: Data) -> CxjToastTextContentConfiguration {
+		let titleLabelConfiguration = labelConfigForDataTextParams(data.title)
 		
-		return PlainTitleConfig(
-			text: subtitle,
-			labelParams: TitlesConfig.LabelParams(
-				textColor: .black,
-				font: .systemFont(ofSize: 13, weight: .semibold),
-				numberOfLines: 1,
-				textAligment: .center
+		if let subtitle = data.subtitle {
+			let subtitleLabelConfiguration = labelConfigForDataTextParams(subtitle)
+			return .withSubtitle(
+				titleLabelConfig: titleLabelConfiguration,
+				subtitleLabelConfig: subtitleLabelConfiguration,
+				subtitleParams: .init(labelsPadding: 4)
 			)
-		)
+		} else {
+			return .title(labelConfig: titleLabelConfiguration)
+		}
+	}
+	
+	private func labelConfigForDataTextParams(_ params: Data.Text) -> CxjLabelConfiguration {
+		let textConfig = params
+		let labelAttributes = labelAttributes()
+		
+		return .init(text: textConfig, label: labelAttributes)
+	}
+	
+	private func labelAttributes() -> CxjLabelConfiguration.LabelAttributes {
+		.init(numberOfLines: 1, textAligment: .center)
 	}
 }

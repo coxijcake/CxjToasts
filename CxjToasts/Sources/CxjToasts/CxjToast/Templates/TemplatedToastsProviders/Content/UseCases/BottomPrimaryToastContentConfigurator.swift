@@ -18,77 +18,33 @@ final class BottomPrimaryToastContentConfigurator: CxjTemplatedToastContentConfi
 	}
 	
 	func content() -> Content {
-		if let iconedConfig = iconedConfig(for: data) {
-			return CxjToastContentViewFactory
-				.createContentViewWith(config: iconedConfig)
+		let textConfig: CxjToastTextContentConfiguration = textConfigForData(data)
+		
+		if let icon = data.icon {
+			return CxjInfoToastContentViewConfigurator.contentViewForType(
+				.textWithIcon(
+					iconConfig: .init(
+						layout: .init(iconPlacement: .top, paddingToContent: 10),
+						iconParams: icon
+					),
+					textConfig: textConfig
+				)
+			)
 		} else {
-			let titledContentConfig = titledContentConfigFor(data: data)
-			return CxjToastContentViewFactory
-				.createContentViewWith(config: .titled(config: titledContentConfig))
+			return CxjToastTextContentViewConfigurator.viewWithConfig(textConfig)
 		}
 	}
 	
-	private func iconedConfig(for data: Data) -> CxjToastContentConfiguration? {
-		guard let icon = data.icon else { return nil }
-		
-		return .iconed(
-			config: CxjIconedToastContentConfiguration(
-				params: CxjIconedToastContentConfiguration.LayoutParams(
-					iconPlacement: .top,
-					paddingToTitle: 10
-				),
-				iconParams: CxjIconedToastContentConfiguration.IconParams(
-					icon: icon,
-					fixedSize: CGSize(width: 40, height: 40)
-				)
-			),
-			titlesConfig: titledContentConfigFor(data: data)
-		)
-	}
-	
-	private func titledContentConfigFor(data: Data) -> CxjTitledToastContentConfiguration {
-		.init(
-			layout: CxjTitledToastContentConfiguration.LayoutParams(
-				labelsPadding: 4
-			),
-			titles: titlesConfigFor(data: data)
-		)
-	}
-	
-	private func titlesConfigFor(data: Data) -> TitlesConfig {
-		TitlesConfig.plain(
-			config: CxjTitledToastContentConfiguration.TitlesParams.Plain(
-				title: titleConfigFor(data: data),
-				subtitle: subtitleConfigFor(data: data)
+	private func textConfigForData(_ data: Data) -> CxjToastTextContentConfiguration {
+		if let subtitle = data.subtitle {
+			return .withSubtitle(
+				titleLabelConfig: data.title,
+				subtitleLabelConfig: subtitle,
+				subtitleParams: .init(labelsPadding: 4)
 			)
-		)
+		} else {
+			return .title(labelConfig: data.title)
+		}
 	}
-	
-	private func titleConfigFor(data: Data) -> PlainTitleConfig {
-		let title = data.title
-		
-		return PlainTitleConfig(
-			text: title.text,
-			labelParams: .init(
-				textColor: title.textColor,
-				font: title.font,
-				numberOfLines: title.numberOfLines,
-				textAligment: .center
-			)
-		)
-	}
-	
-	private func subtitleConfigFor(data: Data) -> PlainTitleConfig? {
-		guard let subtitle = data.subtitle else { return nil }
-		
-		return PlainTitleConfig(
-			text: subtitle.text,
-			labelParams: .init(
-				textColor: subtitle.textColor,
-				font: subtitle.font,
-				numberOfLines: subtitle.numberOfLines,
-				textAligment: .center
-			)
-		)
-	}
+
 }

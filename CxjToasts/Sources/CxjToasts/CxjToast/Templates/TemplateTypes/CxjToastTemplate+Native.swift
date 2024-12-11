@@ -9,16 +9,18 @@ import UIKit
 
 extension CxjToastTemplate {
 	public struct NativeToastData {
+		public typealias Text = CxjTextConfiguration
+		
 		let typeId: String
-		let title: String
-		let subtitle: String?
+		let title: Text
+		let subtitle: Text?
 		let icon: UIImage?
 		let backgroundColor: UIColor
 		
 		public init(
 			typeId: String,
-			title: String,
-			subtitle: String?,
+			title: Text,
+			subtitle: Text?,
 			icon: UIImage?,
 			backgroundColor: UIColor
 		) {

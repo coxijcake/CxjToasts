@@ -16,64 +16,34 @@ final class TopStraightToastContentConfigurator: CxjTemplatedToastContentConfigu
 		self.data = data
 	}
 	
-	func content() -> Content {
-		if let iconedConfig = iconedConfig(for: data) {
-			return CxjToastContentViewFactory
-				.createContentViewWith(config: iconedConfig)
+	func content() -> any Content {
+		let textConfig: CxjToastTextContentConfiguration = textConfigForData(data)
+		
+		if let icon = data.icon {
+			return CxjInfoToastContentViewConfigurator.contentViewForType(
+				.textWithIcon(
+					iconConfig: .init(
+						layout: .init(iconPlacement: .left, paddingToContent: 8),
+						iconParams: .init(icon: icon, fixedSize: CGSize(width: 20, height: 20))
+					),
+					textConfig: textConfig
+				)
+			)
 		} else {
-			let titledConfig = titledContentConfigFor(data: data)
-			return CxjToastContentViewFactory
-				.createContentViewWith(config: .titled(config: titledConfig))
+			return CxjInfoToastContentViewConfigurator.contentViewForType(
+				.text(config: textConfig)
+			)
 		}
 	}
 	
-	private func iconedConfig(for data: Data) -> CxjToastContentConfiguration? {
-		guard let icon = data.icon else { return nil }
-		
-		return .iconed(
-			config: CxjIconedToastContentConfiguration(
-				params: CxjIconedToastContentConfiguration.LayoutParams(
-					iconPlacement: .left,
-					paddingToTitle: 8
-				),
-				iconParams: CxjIconedToastContentConfiguration.IconParams(
-					icon: icon,
-					fixedSize: CGSize(width: 20, height: 20)
-				)
-			),
-			titlesConfig: titledContentConfigFor(data: data)
-		)
-	}
-	
-	private func titledContentConfigFor(data: Data) -> CxjTitledToastContentConfiguration {
-		.init(
-			layout: CxjTitledToastContentConfiguration.LayoutParams(
-				labelsPadding: 4
-			),
-			titles: titlesConfigFor(data: data)
-		)
-	}
-	
-	private func titlesConfigFor(data: Data) -> TitlesConfig {
-		TitlesConfig.plain(
-			config: CxjTitledToastContentConfiguration.TitlesParams.Plain(
-				title: titleConfigFor(data: data),
-				subtitle: nil
-			)
-		)
-	}
-	
-	private func titleConfigFor(data: Data) -> PlainTitleConfig {
-		let title = data.title
-		
-		return PlainTitleConfig(
-			text: title.text,
-			labelParams: .init(
-				textColor: title.textColor,
-				font: title.font,
+	private func textConfigForData(_ data: Data) -> CxjToastTextContentConfiguration {
+		.title(labelConfig: .init(
+			text: data.title,
+			label: .init(
 				numberOfLines: 1,
 				textAligment: .left
 			)
+		)
 		)
 	}
 }

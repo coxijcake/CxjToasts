@@ -10,9 +10,7 @@ import UIKit
 @MainActor
 protocol CxjTemplatedToastContentConfigurator {
 	typealias Content = CxjToastContentView
-	
-	typealias TitlesConfig = CxjTitledToastContentConfiguration.TitlesParams
-	typealias PlainTitleConfig = TitlesConfig.PlainLabel
+	typealias TitlesConfig = CxjToastTextContentConfiguration
 	
 	func content() -> Content
 }

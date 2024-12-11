@@ -8,10 +8,16 @@
 import Foundation
 
 public enum CxjToastContentConfiguration {
-    case iconed(config: CxjIconedToastContentConfiguration, titlesConfig: CxjTitledToastContentConfiguration)
-    case titled(config: CxjTitledToastContentConfiguration)
-	case titledAction(config: CxjActionToastContentConfiguration, titlesConfig: CxjTitledToastContentConfiguration)
-	case iconedAction(config: CxjActionToastContentConfiguration, iconConfig: CxjIconedToastContentConfiguration, titlesConfig: CxjTitledToastContentConfiguration)
+	case info(type: InfoContentType)
+	case action(config: CxjActionToastContentConfiguration, infoContent: InfoContentType)
 	case undoAction(config: CxjUndoActionToastContentConfiguration)
-    case custom(contentView: CxjToastContentView)
+	case custom(contentView: CxjToastContentView)
+}
+
+//MARK: - Nested types
+extension CxjToastContentConfiguration {
+	public enum InfoContentType {
+		case text(config: CxjToastTextContentConfiguration)
+		case textWithIcon(iconConfig: CxjIconedToastContentConfiguration, textConfig: CxjToastTextContentConfiguration)
+	}
 }

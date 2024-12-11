@@ -8,14 +8,14 @@
 import UIKit
 
 public struct CxjIconedToastContentConfiguration {
-	public let params: LayoutParams
+	public let layout: LayoutParams
 	public let iconParams: IconParams
     
 	public init(
-		params: LayoutParams,
+		layout: LayoutParams,
 		iconParams: IconParams
 	) {
-		self.params = params
+		self.layout = layout
         self.iconParams = iconParams
     }
 }
@@ -27,30 +27,16 @@ extension CxjIconedToastContentConfiguration {
 		}
 		
 		public let iconPlacement: IconPlacement
-		public let paddingToTitle: CGFloat
+		public let paddingToContent: CGFloat
 		
 		public init(
 			iconPlacement: IconPlacement,
-			paddingToTitle: CGFloat
+			paddingToContent: CGFloat
 		) {
 			self.iconPlacement = iconPlacement
-			self.paddingToTitle = paddingToTitle
+			self.paddingToContent = paddingToContent
 		}
 	}
 	
-    public struct IconParams {
-        public let icon: UIImage
-        public let tintColor: UIColor?
-		public let fixedSize: CGSize?
-		
-        public init(
-            icon: UIImage,
-            tintColor: UIColor? = nil,
-			fixedSize: CGSize?
-        ) {
-            self.icon = icon
-            self.tintColor = tintColor
-			self.fixedSize = fixedSize
-        }
-    }
+	public typealias IconParams = CxjIconConfiguration
 }

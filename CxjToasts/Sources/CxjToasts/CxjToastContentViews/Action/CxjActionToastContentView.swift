@@ -9,7 +9,7 @@ import UIKit
 
 //MARK: - Types
 extension CxjActionToastContentView {
-	struct ViewState {
+	struct Config {
 		struct Layout {
 			enum ActionControlPlacement {
 				case left, top, right, bottom
@@ -29,23 +29,20 @@ public final class CxjActionToastContentView: UIStackView {
 	private let contentView: UIView
 	private let actionControl: UIControl
 	
-	private let viewState: ViewState
-	
 	//MARK: - Lifecycle
 	init(
 		contentView: UIView,
 		actionControl: UIControl,
-		viewState: ViewState,
+		viewConfig: Config,
 		frame: CGRect = .zero
 	) {
 		self.contentView = contentView
 		self.actionControl = actionControl
-		self.viewState = viewState
 		
 		super.init(frame: frame)
 		
 		baseConfigure()
-		configureWithState(viewState)
+		configureWithState(viewConfig)
 	}
 	
 	required init(coder: NSCoder) {
@@ -53,16 +50,16 @@ public final class CxjActionToastContentView: UIStackView {
 	}
 }
 
-//MARK: - ViewState applying
+//MARK: - View configuration
 private extension CxjActionToastContentView {
-	func configureWithState(_ viewState: ViewState) {
+	func configureWithState(_ viewState: Config) {
 		setupAxisForControlPlacement(viewState.layout.controlPlacement)
 		setupArrangedSubviewsForControlPlacement(viewState.layout.controlPlacement)
 		
 		spacing = viewState.layout.paddingToContentView
 	}
 	
-	func setupArrangedSubviewsForControlPlacement(_ placement: ViewState.Layout.ActionControlPlacement) {
+	func setupArrangedSubviewsForControlPlacement(_ placement: Config.Layout.ActionControlPlacement) {
 		arrangedSubviews.forEach { $0.removeFromSuperview() }
 		
 		let orderedSubviews: [UIView]
@@ -74,7 +71,7 @@ private extension CxjActionToastContentView {
 		orderedSubviews.forEach { addArrangedSubview($0) }
 	}
 	
-	func setupAxisForControlPlacement(_ placement: ViewState.Layout.ActionControlPlacement) {
+	func setupAxisForControlPlacement(_ placement: Config.Layout.ActionControlPlacement) {
 		switch placement {
 		case .left, .right: axis = .horizontal
 		case .top, .bottom: axis = .vertical

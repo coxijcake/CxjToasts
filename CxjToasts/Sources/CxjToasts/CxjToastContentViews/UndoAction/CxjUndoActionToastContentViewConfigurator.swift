@@ -15,7 +15,7 @@ enum CxjUndoActionToastContentViewConfigurator {
 		_ config: Config
 	) -> CxjUndoActionToastContentView {
 		let timingFeedbackView: CxjToastTimingFeedbackView? = timingFeedbackViewForConfig(config.timingFeedback)
-		let infoContentView: UIView = infoContentViewForConfig(config.title)
+		let infoContentView: UIView = infoContentViewForConfig(config)
 		let unduControl: UIControl = undoControlForConfigControl(config.unduControl)
 		
 		return CxjUndoActionToastContentView(
@@ -25,11 +25,22 @@ enum CxjUndoActionToastContentViewConfigurator {
 		)
 	}
 	
-	private static func infoContentViewForConfig(_ config: Config.Title) -> UIView {
-		let view: CxjTitledToastContentView = CxjTitledToastContentView()
-		view.configureWith(configuration: config)
+	private static func infoContentViewForConfig(_ config: Config) -> UIView {
+		let labelsAttributes = CxjLabelConfiguration.LabelAttributes(numberOfLines: 1, textAligment: .left)
+		let titleLabelConfig = CxjLabelConfiguration(text: config.title, label: labelsAttributes)
 		
-		return view
+		if let subtitle = config.subtitle {
+			let subtitleLabelConfig = CxjLabelConfiguration(text: subtitle, label: labelsAttributes)
+			return CxjToastTextContentViewConfigurator.viewWithConfig(
+				.withSubtitle(
+					titleLabelConfig: titleLabelConfig,
+					subtitleLabelConfig: subtitleLabelConfig,
+					subtitleParams: .init(labelsPadding: 4)
+				)
+			)
+		} else {
+			return CxjToastTextContentViewConfigurator.viewWithConfig(.title(labelConfig: titleLabelConfig))
+		}
 	}
 	
 	private static func timingFeedbackViewForConfig(_ config: Config.TimingFeedback) -> CxjToastTimingFeedbackView? {
