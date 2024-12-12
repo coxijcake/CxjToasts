@@ -32,6 +32,7 @@ public final class CxjIconedToastContentView: UIStackView {
 		super.init(frame: frame)
 		
 		baseConfigure()
+		setupConfiguration(config)
 	}
 	
 	required init(coder: NSCoder) {
@@ -65,8 +66,8 @@ private extension CxjIconedToastContentView {
 	
 	func setupAxisForIconPlacement(_ placement: Config.Layout.IconPlacement) {
 		switch placement {
-		case .left, .top: axis = .horizontal
-		case .right, .bottom: axis = .vertical
+		case .left, .right: axis = .horizontal
+		case .top, .bottom: axis = .vertical
 		}
 	}
 }

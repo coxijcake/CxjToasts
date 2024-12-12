@@ -30,7 +30,7 @@ final class NativeToastContentConfigurator: CxjTemplatedToastContentConfigurator
 				)
 			)
 		} else {
-			return CxjToastTextContentViewConfigurator.viewWithConfig(textConfig)
+			return CxjInfoToastContentViewConfigurator.contentViewForType(.text(config: textConfig))
 		}
 	}
 	
