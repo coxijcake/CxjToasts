@@ -24,8 +24,7 @@ final class CxjToast: CxjDisplayableToast, Sendable {
 	let presenter: CxjToastPresentable
 	let dismisser: CxjToastDismissable
 	
-	@MainActor
-	var displayingState: CxjToastDisplayingState = .initial
+	@MainActor var displayingState: CxjToastDisplayingState = .initial
 	
 	public let id: UUID
 	
@@ -50,6 +49,11 @@ final class CxjToast: CxjDisplayableToast, Sendable {
 //MARK: - Public common
 extension CxjToast {
 	var typeId: String { config.typeId }
+	
+	@MainActor
+	var isInteracting: Bool {
+		view.gestureRecognizers?.contains { $0.state == .changed } ?? false
+	}
 }
 
 //MARK: - Equatable

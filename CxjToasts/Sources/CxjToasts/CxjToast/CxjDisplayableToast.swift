@@ -16,4 +16,6 @@ protocol CxjDisplayableToast: CxjIdentifiableToast, Sendable {
 	
 	@MainActor
 	var displayingState: CxjToastDisplayingState { get set }
+	@MainActor
+	var isInteracting: Bool { get }
 }

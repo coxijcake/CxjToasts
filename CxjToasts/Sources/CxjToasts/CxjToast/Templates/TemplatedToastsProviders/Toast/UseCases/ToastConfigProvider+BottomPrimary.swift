@@ -95,7 +95,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 		}
 		
 		private func spamProtection() -> Config.SpamProtection {
-			.on(comparisonCriteria: .init(rule: .or))
+			.on(comparisonCriteria: .init(rule: .and))
 		}
 		
 		private func displayingBehaviour() -> Config.DisplayingBehaviour {

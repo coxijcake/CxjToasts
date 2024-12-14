@@ -29,6 +29,12 @@ enum CxjDisplayingToastsUpdater {
 		progress: CGFloat,
 		maxVisibleToasts: Int
 	) {
+		guard
+			!toastsToStack.contains(where: { $0.isInteracting })
+		else {
+			return
+		}
+		
 		toastsToStack
 			.enumerated()
 			.forEach { index, toast in
