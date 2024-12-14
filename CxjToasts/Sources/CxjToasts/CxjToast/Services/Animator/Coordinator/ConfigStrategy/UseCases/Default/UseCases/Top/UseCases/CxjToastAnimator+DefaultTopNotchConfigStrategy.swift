@@ -33,9 +33,12 @@ extension CxjToastAnimator {
 			min(notchSize.width, toastSize.width)
 			/ max(notchSize.width, toastSize.width)
 			
-			let yScale: CGFloat =
+			let minScaleY: CGFloat = 0.75
+			let calculatedScaleY: CGFloat =
 			min(notchSize.height, toastSize.height)
 			/ max(notchSize.height, toastSize.height)
+			let yScale: CGFloat = max(minScaleY, calculatedScaleY)
+			
 			
 			return .init(x: xScale, y: yScale)
 		}
@@ -46,6 +49,7 @@ extension CxjToastAnimator {
 			let yTranslation: CGFloat =
 			verticalOffset
 			+ topSafeArea
+			+ input.toastViewData.size.height
 			- (topSafeArea - CxjDynamicIslandHelper.estimatedMinHeight)
 			
 			return -yTranslation
