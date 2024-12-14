@@ -25,12 +25,17 @@ protocol CxjToastDismisserDelegate: AnyObject {
 protocol CxjToastDismissable: Sendable {
 	var animator: CxjToastDismissAnimator { get }
 	
-	func setupDismissMethods()
-	func activateDismissMethods()
-	func deactivateDismissMethods()
-	func pauseDismissMethods()
+	func configureDismissMethods()
+	func setupDimissMethods(_ methods: Set<ToastDimissMethod>, state: ToastDismisserState)
 	func dismiss(animated: Bool)
 }
+
+extension CxjToastDismissable {
+	func setupDimissMethods(_ methods: Set<ToastDimissMethod> = ToastDimissMethod.allUnqiueCases, state: ToastDismisserState) {
+		setupDimissMethods(methods, state: state)
+	}
+}
+
 
 //MARK: - Types
 extension CxjToastDismisser {
@@ -43,7 +48,7 @@ extension CxjToastDismisser {
 
 //MARK: - Impl
 @MainActor
-final class CxjToastDismisser: CxjToastDismissable {
+final class CxjToastDismisser {
 	//MARK: - Props
 	private let toastId: UUID
 	private let toastView: ToastView
@@ -75,8 +80,8 @@ final class CxjToastDismisser: CxjToastDismissable {
 }
 
 //MARK: - Public
-extension CxjToastDismisser {
-	func setupDismissMethods() {
+extension CxjToastDismisser: CxjToastDismissable {
+	func configureDismissMethods() {
 		dismissUseCases = config.dismissMethods.compactMap { method in
 			CxjToastDismissUseCaseFactory.useCase(
 				for: method,
@@ -89,20 +94,16 @@ extension CxjToastDismisser {
 		}
 	}
 	
-	func activateDismissMethods() {
-		dismissUseCases.forEach { $0.activate() }
-	}
-	
-	func deactivateDismissMethods() {
-		dismissUseCases.forEach { $0.deactivate() }
-	}
-	
-	func pauseDismissMethods() {
-		dismissUseCases.forEach { $0.pause() }
+	func setupDimissMethods(_ methods: Set<ToastDimissMethod>, state: ToastDismisserState) {
+		dismissUseCases.forEach {
+			methods.contains($0.dismissMethod)
+			? $0.setupState(state)
+			: ()
+		}
 	}
 	
 	func dismiss(animated: Bool) {
-		deactivateDismissMethods()
+		setupDimissMethods(state: .inActive)
 		delegate?.willDismissToastWith(id: toastId, by: self)
 		
 		animator.dismissAction(
@@ -120,11 +121,11 @@ extension CxjToastDismisser {
 //MARK: - ToastDismissUseCaseDelegate
 extension CxjToastDismisser: ToastDismissUseCaseDelegate {
 	func didStartInteractive(by useCase: any ToastDismissUseCase) {
-		pauseDismissMethods()
+		setupDimissMethods([.time], state: .paused)
 	}
 	
 	func didEndInteractive(by useCase: any ToastDismissUseCase) {
-		activateDismissMethods()
+		setupDimissMethods([.time], state: .active)
 	}
 	
 	func didUpdateRemainingDisplayingTime(

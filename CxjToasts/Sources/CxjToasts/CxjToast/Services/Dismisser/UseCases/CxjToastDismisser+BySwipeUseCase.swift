@@ -9,7 +9,7 @@ import UIKit
 
 extension CxjToastDismisser {
 	@MainActor
-	final class DismissBySwipeUseCase: ToastDismissUseCase {
+	final class DismissBySwipeUseCase {
 		//MARK: - Types
 		typealias ToastView = CxjToastView
 		typealias Animator = CxjToastDismissAnimator
@@ -59,24 +59,38 @@ extension CxjToastDismisser {
 			self.animator = animator
 			self.delegate = delegate
 		}
-		
-		//MARK: - Public
-		func activate() {
-			addGesture()
-		}
-		
-		func pause() {
-			
-		}
-		
-		func deactivate() {
-			removeGesture()
+	}
+}
+
+//MARK: - ToastDismissUseCase
+extension CxjToastDismisser.DismissBySwipeUseCase: ToastDismissUseCase {
+	var dismissMethod: ToastDimissMethod {
+		.swipe
+	}
+	
+	func setupState(_ state: ToastDismisserState) {
+		switch state {
+		case .active: activate()
+		case .inActive: deactivate()
+		case .paused: pause()
 		}
 	}
 }
 
 //MARK: - Private
 private extension CxjToastDismisser.DismissBySwipeUseCase {
+	func activate() {
+		addGesture()
+	}
+	
+	func pause() {
+		
+	}
+	
+	func deactivate() {
+		removeGesture()
+	}
+	
     func addGesture() {
         removeGesture()
         toastView.addGestureRecognizer(swipeGesture)

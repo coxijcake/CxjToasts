@@ -7,11 +7,27 @@
 
 import Foundation
 
+enum ToastDimissMethod: CaseIterable {
+	static var allUnqiueCases: Set<ToastDimissMethod> {
+		Set(allCases)
+	}
+	
+	case swipe
+	case tap
+	case time
+}
+
+enum ToastDismisserState {
+	case active
+	case inActive
+	case paused
+}
+
 @MainActor
 protocol ToastDismissUseCase {
-	func activate()
-	func deactivate()
-	func pause()
+	var dismissMethod: ToastDimissMethod { get }
+	
+	func setupState(_ state: ToastDismisserState)
 }
 
 

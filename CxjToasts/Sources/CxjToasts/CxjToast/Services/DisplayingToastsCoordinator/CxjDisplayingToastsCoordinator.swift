@@ -96,24 +96,27 @@ extension CxjDisplayingToastsCoordinator {
 		toast: Toast,
 		at index: Int
 	) {
-		let isTopPositionToast: Bool = index != 0
+		let isTopPositionToast: Bool = index == 0
 		
 		switch toast.config.displayingBehaviour.action {
 		case .stack(attributes: let attributes):
 			if attributes.shouldStopTimerForStackedUnvisibleToasts {
-				isTopPositionToast
-				? toast.dismisser.deactivateDismissMethods()
-				: toast.dismisser.activateDismissMethods()
+				updateTimerStateForToast(toast, isTopPosition: isTopPositionToast)
 			}
 		case .hide(attributes: let attributes):
 			if attributes.shouldStopTimerForStackedUnvisibleToasts {
-				isTopPositionToast
-				? toast.dismisser.deactivateDismissMethods()
-				: toast.dismisser.activateDismissMethods()
+				updateTimerStateForToast(toast, isTopPosition: isTopPositionToast)
 			}
 		case .dismiss:
 			break
 		}
+	}
+	
+	private static func updateTimerStateForToast(_ toast: Toast, isTopPosition: Bool) {
+		let methods: Set<ToastDimissMethod> = [.time]
+		isTopPosition
+		? toast.dismisser.setupDimissMethods(methods, state: .active)
+		: toast.dismisser.setupDimissMethods(methods, state: .paused)
 	}
 }
 

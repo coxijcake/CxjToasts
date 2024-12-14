@@ -9,7 +9,7 @@ import Foundation
 
 extension CxjToastDismisser {
 	@MainActor
-	final class DimissByTimeUseCase: ToastDismissUseCase {
+	final class DimissByTimeUseCase {
 		//MARK: - Props
 		private let timerUpdateInterval: TimeInterval = 0.1
 		
@@ -36,57 +36,74 @@ extension CxjToastDismisser {
 				by: self
 			)
 		}
-		
-		//MARK: - Public
-		func activate() {
-			start()
+	}
+}
+
+//MARK: - ToastDismissUseCase
+extension CxjToastDismisser.DimissByTimeUseCase: ToastDismissUseCase {
+	var dismissMethod: ToastDimissMethod {
+		.time
+	}
+	
+	func setupState(_ state: ToastDismisserState) {
+		switch state {
+		case .active: activate()
+		case .inActive: deactivate()
+		case .paused: pause()
 		}
-		
-		func deactivate() {
-			pausedTime = nil
-			removeTimer()
+	}
+}
+
+//MARK: - Private
+private extension CxjToastDismisser.DimissByTimeUseCase {
+	func activate() {
+		start()
+	}
+	
+	func deactivate() {
+		pausedTime = nil
+		remainingTime = displayingTime
+		removeTimer()
+	}
+	
+	func pause() {
+		pausedTime = dismissTimer?.fireDate.timeIntervalSinceNow
+		removeTimer()
+	}
+	
+	func start() {
+		if let pausedTime {
+			setupTimer(for: pausedTime)
+		} else {
+			setupTimer(for: displayingTime)
 		}
+	}
+	
+	func setupTimer(
+		for time: TimeInterval
+	) {
+		removeTimer()
 		
-		func pause() {
-			pausedTime = dismissTimer?.fireDate.timeIntervalSinceNow
-			removeTimer()
-		}
-		
-		//MARK: - Private
-		private func start() {
-			if let pausedTime {
-				setupTimer(for: pausedTime)
-			} else {
-				setupTimer(for: displayingTime)
-			}
-		}
-		
-		private func setupTimer(
-			for time: TimeInterval
-		) {
-			removeTimer()
-			
-			dismissTimer = Timer.scheduledTimer(
-				withTimeInterval: timerUpdateInterval,
-				repeats: true,
-				block: { [weak self] timer in
-					guard let self else { return }
+		dismissTimer = Timer.scheduledTimer(
+			withTimeInterval: timerUpdateInterval,
+			repeats: true,
+			block: { [weak self] timer in
+				guard let self else { return }
+				
+				Task { @MainActor in
+					self.remainingTime = max(.zero, self.remainingTime - self.timerUpdateInterval)
+					self.delegate?.didUpdateRemainingDisplayingTime(self.remainingTime, initialDisplayingTime: displayingTime, by: self)
 					
-					Task { @MainActor in
-						self.remainingTime = max(.zero, self.remainingTime - self.timerUpdateInterval)
-						self.delegate?.didUpdateRemainingDisplayingTime(self.remainingTime, initialDisplayingTime: displayingTime, by: self)
-						
-						if remainingTime <= 0 {
-							self.delegate?.didFinish(useCase: self)
-						}
+					if remainingTime <= 0 {
+						self.delegate?.didFinish(useCase: self)
 					}
 				}
-			)
-		}
-		
-		private func removeTimer() {
-			dismissTimer?.invalidate()
-			dismissTimer = nil
-		}
+			}
+		)
+	}
+	
+	func removeTimer() {
+		dismissTimer?.invalidate()
+		dismissTimer = nil
 	}
 }

@@ -55,7 +55,7 @@ extension CxjToastsCoordinator {
 		
 		setupSourceBackgroundAction(forToast: toast)
 		
-		toast.dismisser.setupDismissMethods()
+		toast.dismisser.configureDismissMethods()
 		toast.presenter.present(animated: animated) { [weak self, weak toast] _ in
 			guard
 				let self,
@@ -68,7 +68,7 @@ extension CxjToastsCoordinator {
 			)
 			
 			toast.displayingState = .presented
-			toast.dismisser.activateDismissMethods()
+			toast.dismisser.setupDimissMethods(state: .active)
 			
 			self.publisher.invoke { $0.didPresent(toast: toast) }
 		}
@@ -201,7 +201,7 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 			let toast: DisplayableToast = first(withId: id)
 		else { return }
 		
-		dismisser.deactivateDismissMethods()
+		toast.dismisser.setupDimissMethods(state: .inActive)
 		toast.view.removeFromSuperview()
 		toast.sourceBackgroundView?.removeFromSuperview()
 		toast.displayingState = .initial

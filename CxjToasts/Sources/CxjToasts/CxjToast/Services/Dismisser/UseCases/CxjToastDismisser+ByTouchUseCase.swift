@@ -8,7 +8,8 @@
 import UIKit
 
 extension CxjToastDismisser {
-	final class DimissByTouchUseCase: ToastDismissUseCase {
+	@MainActor
+	final class DimissByTouchUseCase {
 		//MARK: - Props
 		private let toastView: CxjToastView
 		private let tapActionCompletion: CxjVoidCompletion?
@@ -29,33 +30,49 @@ extension CxjToastDismisser {
 			self.tapActionCompletion = tapActionCompletion
 			self.delegate = delegate
 		}
-		
-		//MARK: - Public
-		func activate() {
-			removeGesture()
-			addGesture()
+	}
+}
+
+//MARK: - ToastDismissUseCase
+extension CxjToastDismisser.DimissByTouchUseCase: ToastDismissUseCase {
+	var dismissMethod: ToastDimissMethod {
+		.tap
+	}
+	
+	func setupState(_ state: ToastDismisserState) {
+		switch state {
+		case .active: activate()
+		case .inActive: deactivate()
+		case .paused: pause()
 		}
+	}
+}
+
+//MARK: - Private
+private extension CxjToastDismisser.DimissByTouchUseCase {
+	func activate() {
+		removeGesture()
+		addGesture()
+	}
+	
+	func pause() {
 		
-		func pause() {
-			
-		}
-		
-		func deactivate() {
-			removeGesture()
-		}
-		
-		//MARK: - Private
-		private func addGesture() {
-			toastView.addGestureRecognizer(tapGesture)
-		}
-		
-		private func removeGesture() {
-			toastView.removeGestureRecognizer(tapGesture)
-		}
-		
-		@objc private func handleToastTap() {
-			tapActionCompletion?()
-			delegate?.didFinish(useCase: self)
-		}
+	}
+	
+	func deactivate() {
+		removeGesture()
+	}
+	
+	func addGesture() {
+		toastView.addGestureRecognizer(tapGesture)
+	}
+	
+	func removeGesture() {
+		toastView.removeGestureRecognizer(tapGesture)
+	}
+	
+	@objc func handleToastTap() {
+		tapActionCompletion?()
+		delegate?.didFinish(useCase: self)
 	}
 }

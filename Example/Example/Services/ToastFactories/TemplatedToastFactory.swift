@@ -137,7 +137,7 @@ private extension TemplatedToastFactory {
 				),
 				toast: .init(
 					placement: .bottom(params: .init(offset: 20, includingSafeArea: true)),
-					dismissMethods: [.swipe(direction: .bottom), .automatic(time: 5.1)],
+					dismissMethods: [.swipe(direction: .bottom), .automatic(time: 5.0)],
 					animations: .init(
 						present: .init(animation: .defaultSpring, behaviour: .default(includingNativeViews: [])),
 						dismiss: .init(animation: .defaultSpring, behaviour: .default(includingNativeViews: []))
