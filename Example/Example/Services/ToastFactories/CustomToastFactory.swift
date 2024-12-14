@@ -125,7 +125,7 @@ extension CustomToastFactory {
 		}
 		
 		private static func displayingSameAttributeToastBehaviour() -> ToastConfig.DisplayingBehaviour {
-			.init(handling: .dismiss)
+			.init(handling: .dismiss, comparisonCriteria: .init(rule: .or))
 		}
 		
 		//MARK: - ViewConfig

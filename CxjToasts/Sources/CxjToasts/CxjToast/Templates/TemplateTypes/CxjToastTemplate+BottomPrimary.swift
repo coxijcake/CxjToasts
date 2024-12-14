@@ -11,9 +11,11 @@ extension CxjToastTemplate {
 	public struct BottomPrimaryToastData {
 		public typealias Text = CxjLabelConfiguration
 		public typealias Icon = CxjIconConfiguration
+		public typealias SourceBackground = CxjToastConfiguration.SourceBackground
 		
 		let typeId: String
 		let customSourceView: UIView?
+		let sourceBackground: SourceBackground?
 		let icon: Icon?
 		let title: Text
 		let subtitle: Text?
@@ -23,6 +25,7 @@ extension CxjToastTemplate {
 		public init(
 			typeId: String,
 			customSourceView: UIView? = nil,
+			sourceBackground: SourceBackground?,
 			icon: Icon?,
 			title: Text,
 			subtitle: Text?,
@@ -31,6 +34,7 @@ extension CxjToastTemplate {
 		) {
 			self.typeId = typeId
 			self.customSourceView = customSourceView
+			self.sourceBackground = sourceBackground
 			self.icon = icon
 			self.title = title
 			self.subtitle = subtitle

@@ -94,11 +94,16 @@ extension CxjTemplatedToastConfigProviderFactory {
 		}
 		
 		private func spamProtection() -> Config.SpamProtection {
-			.on(comparingAttributes: [.type, .placement(includingYOffset: true)])
+			.on(
+				comparisonCriteria: .init(
+					attibutes: [.sourceView, .type, .placement(includingYOffset: true)],
+					rule: .and
+				)
+			)
 		}
 		
 		private func displayingBehaviour() -> Config.DisplayingBehaviour {
-			.init(handling: .dismiss)
+			.init(handling: .dismiss, comparisonCriteria: .init(rule: .and))
 		}
 	}
 }

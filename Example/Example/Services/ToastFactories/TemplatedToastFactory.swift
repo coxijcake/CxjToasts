@@ -39,6 +39,7 @@ private extension TemplatedToastFactory {
 		.native(
 			data: .init(
 				typeId: "template_toast_test_native",
+//				typeId: UUID().uuidString,
 				title: .plain(
 					string: "Test toast toast",
 					attributes: .init(textColor: .black, font: .systemFont(ofSize: 15, weight: .bold))
@@ -63,6 +64,11 @@ private extension TemplatedToastFactory {
 			data: .init(
 				typeId: "template_toast_test_bottom_primary",
 				customSourceView: customSourceView,
+//				sourceBackground: .init(
+//					theme: .colorized(color: .black.withAlphaComponent(0.65)),
+//					interaction: .enabled(action: .init(touchEvent: .touchDown, handling: .dismissToast))
+//				),
+				sourceBackground: nil,
 				icon: .init(icon: .init(resource: .closeIcon), fixedSize: .init(width: 40, height: 40)),
 				title: .init(
 					text: .plain(
@@ -96,7 +102,7 @@ private extension TemplatedToastFactory {
 					string: "Test straight toast title",
 					attributes: .init(textColor: .label, font: .systemFont(ofSize: 18, weight: .medium))
 				),
-				background: .colorized(color: .secondarySystemBackground)
+				background: .colorized(color: customSourceView?.backgroundColor?.withAlphaComponent(0.95) ?? .white)
 			)
 		)
 	}
@@ -137,7 +143,10 @@ private extension TemplatedToastFactory {
 						dismiss: .init(animation: .defaultSpring, behaviour: .default(includingNativeViews: []))
 					),
 					spamProtection: .off,
-					displayingBehaviour: .init(handling: .stack(maxVisibleToasts: 3))
+					displayingBehaviour: .init(
+						handling: .stack(attributes: .init(maxVisibleToasts: 3, shouldStopTimerForStackedUnvisibleToasts: true)),
+						comparisonCriteria: .init(rule: .or)
+					)
 				),
 				toastView: .init(
 					background: .colorized(color: .black.withAlphaComponent(0.9)),

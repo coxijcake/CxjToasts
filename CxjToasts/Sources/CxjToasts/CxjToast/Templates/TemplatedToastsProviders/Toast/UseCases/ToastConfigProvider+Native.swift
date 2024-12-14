@@ -93,7 +93,12 @@ extension CxjTemplatedToastConfigProviderFactory {
 		}
 		
 		private func displayinBehaviour() -> Config.DisplayingBehaviour {
-			.init(handling: .stack(maxVisibleToasts: 5))
+			.init(
+				handling: .stack(
+					attributes: .init(maxVisibleToasts: 5, shouldStopTimerForStackedUnvisibleToasts: false)
+				),
+				comparisonCriteria: .init(rule: .and)
+			)
 		}
 	}
 }

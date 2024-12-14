@@ -7,44 +7,79 @@
 
 import Foundation
 
+extension ToastSpamValidator {
+	enum ValidationResult {
+		case passed
+		case failed
+	}
+}
+
 struct ToastSpamValidator {
 	typealias Toast = any CxjDisplayableToast
+	typealias Attributes = Set<CxjToastComparisonAttribute>
 	
 	let displayingToasts: [Toast]
 	
 	func couldBeDisplayedToast(_ toastToDisplay: Toast) -> Bool {
 		switch toastToDisplay.config.spamProtection {
-		case .on(comparingAttributes: let comparingAttributes):
-			for displayingToast in displayingToasts {
-				for comparingAttribute in comparingAttributes {
-					switch comparingAttribute {
-					case .type:
-						guard
-							!isEqualByType(lhsToast: displayingToast, rhsToast: toastToDisplay)
-						else { return false }
-					case .placement(let includingYOffset):
-						guard
-							!isEqualByPlacement(
-								lhsToast: displayingToast,
-								rhsToast: toastToDisplay,
-								includingYOffset: includingYOffset
-							)
-						else { return false }
-					case .sourceView:
-						guard
-							!isOnTheSameSourceView(
-								lhsToast: displayingToast,
-								rhsToast: toastToDisplay
-							)
-						else { return false }
-					}
-				}
+		case .on(comparisonCriteria: let comparisonCriteria):
+			switch comparisonCriteria.logicOperation {
+			case .or:
+				return validateForEqualOneOfAttributes(
+					comparisonCriteria.attibutes,
+					toasts: displayingToasts,
+					withToast: toastToDisplay
+				) == .passed
+			case .and:
+				return validateForEqualAllAttributes(
+					comparisonCriteria.attibutes,
+					toasts: displayingToasts,
+					withToast: toastToDisplay
+				) == .passed
 			}
-			
-			return true
 		case .off:
 			return true
 		}
+	}
+	
+	func validateForEqualAllAttributes(
+		_ attributes: Attributes,
+		toasts: [Toast],
+		withToast targetToast: Toast
+	) -> ValidationResult {
+		for displayingToast in displayingToasts {
+			let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
+				lhsToast: displayingToast,
+				rhsToast: targetToast,
+				comparingAttributes: targetToast.config.displayingBehaviour.comparisonCriteria.attibutes
+			)
+			
+			if attributesComparator.isAllAttributesEqual() {
+				return .failed
+			}
+		}
+		
+		return .passed
+	}
+	
+	func validateForEqualOneOfAttributes(
+		_ attributes: Attributes,
+		toasts: [Toast],
+		withToast targetToast: Toast
+	) -> ValidationResult {
+		for displayingToast in displayingToasts {
+			let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
+				lhsToast: displayingToast,
+				rhsToast: targetToast,
+				comparingAttributes: targetToast.config.displayingBehaviour.comparisonCriteria.attibutes
+			)
+			
+			if attributesComparator.isOneOfAttributesEqual() {
+				return .failed
+			}
+		}
+		
+		return .passed
 	}
 	
 	func isEqualByType(lhsToast: Toast, rhsToast: Toast) -> Bool {

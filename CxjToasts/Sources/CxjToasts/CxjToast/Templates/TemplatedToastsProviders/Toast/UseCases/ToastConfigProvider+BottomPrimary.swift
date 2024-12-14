@@ -23,7 +23,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 			return Config(
 				typeId: data.typeId,
 				sourceView: sourceView,
-				sourceBackground: sourceBackground(),
+				sourceBackground: sourceBackgroundForData(data),
 				layout: layoutFor(sourceView: sourceView),
 				dismissMethods: dismissMethods(),
 				animations: animations(),
@@ -32,11 +32,8 @@ extension CxjTemplatedToastConfigProviderFactory {
 			)
 		}
 		
-		private func sourceBackground() -> Config.SourceBackground {
-			.init(
-				theme: .colorized(color: .black.withAlphaComponent(0.65)),
-				interaction: .enabled(action: .init(touchEvent: .touchDown, handling: .dismissToast))
-			)
+		private func sourceBackgroundForData(_ data: Data) -> Config.SourceBackground? {
+			data.sourceBackground
 		}
 		
 		private func layoutFor(sourceView: UIView) -> Config.Layout {
@@ -98,11 +95,14 @@ extension CxjTemplatedToastConfigProviderFactory {
 		}
 		
 		private func spamProtection() -> Config.SpamProtection {
-			.on(comparingAttributes: [.type, .placement(includingYOffset: true)])
+			.on(comparisonCriteria: .init(rule: .or))
 		}
 		
 		private func displayingBehaviour() -> Config.DisplayingBehaviour {
-			.init(handling: .hide)
+			.init(
+				handling: .hide(attributes: .init(shouldStopTimerForStackedUnvisibleToasts: false)),
+				comparisonCriteria: .init(rule: .or)
+			)
 		}
 	}
 }

@@ -26,7 +26,7 @@ enum CxjDisplayingToastsCoordinator {
 		
 		let animatingAction: CxjVoidCompletion = {
 			switch targetToast.config.displayingBehaviour.action {
-			case .stack(let maxVisibleToasts):
+			case .stack(let attributes):
 				let toastsToStack: [Toast] = linkedToastsToToast(
 					targetToast,
 					fromActiveToasts: displayingToasts,
@@ -36,7 +36,7 @@ enum CxjDisplayingToastsCoordinator {
 				CxjDisplayingToastsUpdater.stackLayoutToasts(
 					toastsToStack: toastsToStack,
 					progress: progress,
-					maxVisibleToasts: maxVisibleToasts
+					maxVisibleToasts: attributes.maxVisibleToasts
 				)
 			case .hide:
 				let toastsToAlphaUpdate: [Toast] = linkedToastsToToast(
@@ -98,9 +98,22 @@ extension CxjDisplayingToastsCoordinator {
 	) {
 		let isTopPositionToast: Bool = index != 0
 		
-		isTopPositionToast
-		? toast.dismisser.deactivateDismissMethods()
-		: toast.dismisser.activateDismissMethods()
+		switch toast.config.displayingBehaviour.action {
+		case .stack(attributes: let attributes):
+			if attributes.shouldStopTimerForStackedUnvisibleToasts {
+				isTopPositionToast
+				? toast.dismisser.deactivateDismissMethods()
+				: toast.dismisser.activateDismissMethods()
+			}
+		case .hide(attributes: let attributes):
+			if attributes.shouldStopTimerForStackedUnvisibleToasts {
+				isTopPositionToast
+				? toast.dismisser.deactivateDismissMethods()
+				: toast.dismisser.activateDismissMethods()
+			}
+		case .dismiss:
+			break
+		}
 	}
 }
 
@@ -121,10 +134,15 @@ private extension CxjDisplayingToastsCoordinator {
 				let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
 					lhsToast: activeToast,
 					rhsToast: targetToast,
-					comparingAttributes: targetToast.config.displayingBehaviour.comparingAttributes
+					comparingAttributes: targetToast.config.displayingBehaviour.comparisonCriteria.attibutes
 				)
 				
-				return attributesComparator.isEqual()
+				switch targetToast.config.displayingBehaviour.comparisonCriteria.logicOperation {
+				case .or:
+					return attributesComparator.isOneOfAttributesEqual()
+				case .and:
+					return attributesComparator.isAllAttributesEqual()
+				}
 			}
 			.reversed()
 	}
