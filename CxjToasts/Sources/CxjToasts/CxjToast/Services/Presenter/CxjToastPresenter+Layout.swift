@@ -9,28 +9,50 @@ import UIKit
 
 extension CxjToastPresenter {
 	@MainActor
-	enum LayoutApplier {
+	final class LayoutApplier {
+		//MARK: - Types
 		typealias ToastLayout = CxjToastConfiguration.Layout
 		typealias ToastView = CxjToastView
+		typealias ToastConfig = CxjToastConfiguration
+		
+		//MARK: - Props
+		private let toastView: ToastView
+		private let sourceView: UIView
+		
+		private let updatingForKeyboardStrategy: UpdatingForKeyboardStrategy
+		
+		private var defaultVerticalConstraint: NSLayoutConstraint?
+		private var bottomConstaintDuringKeyboardDisplaying: NSLayoutConstraint?
+		
+		//MARK: - Lifecycle
+		init(
+			toastView: ToastView,
+			sourceView: UIView,
+			updatingForKeyboardStrategy: UpdatingForKeyboardStrategy
+		) {
+			self.toastView = toastView
+			self.sourceView = sourceView
+			self.updatingForKeyboardStrategy = updatingForKeyboardStrategy
+		}
 		
 		//MARK: - Public API
-		static func applyToastLayout(
+		func applyToastLayout(
 			_ layout: ToastLayout,
-			forToastView toastView: ToastView,
-			inSourceView sourceView: UIView
+			keyboardState: CxjKeyboardDisplayingState
 		) {
 			let constraints = layout.constraints
 			let placement = layout.placement
 			
+			sourceView.addSubview(toastView)
 			toastView.translatesAutoresizingMaskIntoConstraints = false
 			
-			sourceView.addSubview(toastView)
-			
-			let vetricalAnchorConstraint: NSLayoutConstraint = verticalAnchorConstraint(
+			let verticalAnchorConstraint: NSLayoutConstraint = verticalAnchorConstraint(
 				for: toastView,
 				placement: placement,
 				in: sourceView
 			)
+			
+			self.defaultVerticalConstraint = verticalAnchorConstraint
 			
 			NSLayoutConstraint.activate([
 				toastView.widthAnchor.constraint(greaterThanOrEqualToConstant: constraints.width.min),
@@ -40,13 +62,16 @@ extension CxjToastPresenter {
 				toastView.leadingAnchor.constraint(greaterThanOrEqualTo: sourceView.safeAreaLayoutGuide.leadingAnchor),
 				toastView.trailingAnchor.constraint(lessThanOrEqualTo: sourceView.safeAreaLayoutGuide.trailingAnchor),
 				toastView.centerXAnchor.constraint(equalTo: sourceView.centerXAnchor),
-				vetricalAnchorConstraint
+				verticalAnchorConstraint
 			])
 			
+			sourceView.layoutIfNeeded()
 			toastView.layoutIfNeeded()
+			
+			updateLayoutForKeyboardState(keyboardState, animated: false)
 		}
 		
-		static func applyLayoutForBackgroundView(
+		func applyLayoutForBackgroundView(
 			_ backgroundView: UIView,
 			inSourceView sourceView: UIView
 		) {
@@ -55,8 +80,43 @@ extension CxjToastPresenter {
 			backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		}
 		
+		func updateLayoutForKeyboardState(_ keyboardState: CxjKeyboardDisplayingState, animated: Bool) {
+			let action = updatingForKeyboardStrategy.actionForState(keyboardState)
+			
+			guard shouldUpdateForAction(action) else { return }
+			
+			switch action {
+			case .defaultPosition:
+				bottomConstaintDuringKeyboardDisplaying?.isActive = false
+				bottomConstaintDuringKeyboardDisplaying = nil
+				defaultVerticalConstraint?.isActive = true
+			case .setupBottomPadding(params: let params):
+				defaultVerticalConstraint?.isActive = false
+				bottomConstaintDuringKeyboardDisplaying = bottomConstraintForWithPadding(
+					params.padding,
+					insideView: sourceView
+				)
+				bottomConstaintDuringKeyboardDisplaying?.isActive = true
+				
+				let layoutSourceAction: CxjVoidCompletion = {
+					self.sourceView.layoutSubviews()
+				}
+				
+				if animated {
+					UIView.animate(
+						withDuration: params.animationValues.duration,
+						delay: .zero,
+						options: UIView.AnimationOptions(rawValue: params.animationValues.curveValue),
+						animations: layoutSourceAction
+					)
+				} else {
+					layoutSourceAction()
+				}
+			}
+		}
+		
 		//MARK: - Private API
-		private static func verticalAnchorConstraint(
+		private func verticalAnchorConstraint(
 			for toastView: ToastView,
 			placement: ToastLayout.Placement,
 			in sourceView: UIView
@@ -81,6 +141,22 @@ extension CxjToastPresenter {
 						.constraint(equalTo: sourceView.bottomAnchor, constant: -params.offset)
 				}
 			}
+		}
+		
+		private func shouldUpdateForAction(_ action: UpdatingForKeyboardStrategy.Action) -> Bool {
+			switch action {
+			case .defaultPosition:
+				bottomConstaintDuringKeyboardDisplaying?.isActive == true
+			case .setupBottomPadding(let params):
+				defaultVerticalConstraint?.isActive == true
+			}
+		}
+		
+		private func bottomConstraintForWithPadding(
+			_ padding: CGFloat,
+			insideView sourceView: UIView
+		) -> NSLayoutConstraint {
+			return toastView.bottomAnchor.constraint(equalTo: sourceView.bottomAnchor, constant: -padding)
 		}
 	}
 }

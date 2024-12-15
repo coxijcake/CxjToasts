@@ -15,7 +15,7 @@ public final class CxjToastsCoordinator {
 	
 	public static let shared: CxjToastsCoordinator = CxjToastsCoordinator()
 	
-	private let keyboardDisplayingStateObserver: CxjToastsKeyboardDisplayingStateObserver = CxjToastsKeyboardDisplayingStateObserver()
+	private let keyboardDisplayingStateObserver: CxjToastsKeyboardDisplayingStateHandler = CxjToastsKeyboardDisplayingStateHandler()
 	
 	private let publisher = MulticastPublisher<CxjToastDelegate>()
 	
@@ -61,7 +61,7 @@ extension CxjToastsCoordinator {
 		SourceBackgroundActionConfigurator.configureActionForToast(toast)
 		
 		toast.dismisser.configureDismissMethods()
-		toast.presenter.present(animated: animated) { [weak self, weak toast] _ in
+		toast.presenter.present(animated: animated, keyboardState: keyboardDisplayingStateObserver.keyboardDisplayingState) { [weak self, weak toast] _ in
 			guard
 				let self,
 				let toast
@@ -209,9 +209,9 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 	}
 }
 
-//MARK: - CxjToastsKeyboardDisplayingStateObserverDataSource
-extension CxjToastsCoordinator: CxjToastsKeyboardDisplayingStateObserverDataSource {
-	func displayingToastsForObserver(_ observer: CxjToastsKeyboardDisplayingStateObserver) -> [any CxjDisplayableToast] {
+//MARK: - CxjToastsKeyboardDisplayingStateHandler.DataSource
+extension CxjToastsCoordinator: CxjToastsKeyboardDisplayingStateHandler.DataSource {
+	func displayingToastsForObserver(_ observer: CxjToastsKeyboardDisplayingStateHandler) -> [any CxjDisplayableToast] {
 		activeToasts
 	}
 }

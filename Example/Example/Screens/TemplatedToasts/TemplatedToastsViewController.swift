@@ -30,6 +30,7 @@ final class TemplatedToastsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		let _ = CxjToastsCoordinator.shared
 		baseConfigure()
 		dataSource.reloadData()
 	}

@@ -12,7 +12,8 @@ import UIKit
 protocol CxjToastPresentable: Sendable {
 	var animator: CxjToastPresentAnimator { get }
 	
-	func present(animated: Bool, completion: CxjBoolCompletion?)
+	func present(animated: Bool, keyboardState: CxjKeyboardDisplayingState, completion: CxjBoolCompletion?)
+	func updateForKeyboardState(_ keyboardState: CxjKeyboardDisplayingState, animated: Bool)
 }
 
 //MARK: - Implementation
@@ -21,6 +22,8 @@ final class CxjToastPresenter: CxjToastPresentable {
 	let config: CxjToastConfiguration
 	let toastView: CxjToastView
 	let sourceBackgroundView: CxjToastSourceBackground?
+	
+	let layoutApplier: LayoutApplier
 	let animator: CxjToastPresentAnimator
 	
 	init(
@@ -33,24 +36,32 @@ final class CxjToastPresenter: CxjToastPresentable {
 		self.toastView = toastView
 		self.sourceBackgroundView = sourceBackgroundView
 		self.animator = animator
+		self.layoutApplier = LayoutApplier(
+			toastView: toastView,
+			sourceView: config.sourceView,
+			updatingForKeyboardStrategy: .init(toastConfig: config, toastView: toastView)
+		)
 	}
 	
-	func present(animated: Bool, completion: CxjBoolCompletion?) {
+	func present(animated: Bool, keyboardState: CxjKeyboardDisplayingState, completion: CxjBoolCompletion?) {
 		if let sourceBackgroundView {
-			LayoutApplier.applyLayoutForBackgroundView(
+			layoutApplier.applyLayoutForBackgroundView(
 				sourceBackgroundView,
 				inSourceView: config.sourceView
 			)
 		}
 		
-		LayoutApplier.applyToastLayout(
+		layoutApplier.applyToastLayout(
 			config.layout,
-			forToastView: toastView,
-			inSourceView: config.sourceView
+			keyboardState: keyboardState
 		)
         
         toastView.prepareToDisplay()
 		
 		animator.presentAction(animated: animated, completion: completion)
+	}
+	
+	func updateForKeyboardState(_ keyboardState: CxjKeyboardDisplayingState, animated: Bool) {
+		layoutApplier.updateLayoutForKeyboardState(keyboardState, animated: animated)
 	}
 }
