@@ -18,9 +18,16 @@ extension ToastPreviewViewController {
 final class ToastPreviewViewController: UIViewController {
 	//MARK: - Subviews
 	@IBOutlet weak var centerContainerView: UIView!
+	@IBOutlet weak var textField: UITextField!
 	
 	//MARK: - Props
 	var input: Input!
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		textField.delegate = self
+	}
 	
 	//MARK: - Actions
 	@IBAction func closeButtonPressed() {
@@ -69,5 +76,12 @@ private extension ToastPreviewViewController {
 				delayBetweenToasts: 1.0
 			)
 		)
+	}
+}
+
+extension ToastPreviewViewController: UITextFieldDelegate {
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		textField.resignFirstResponder()
+		return true
 	}
 }

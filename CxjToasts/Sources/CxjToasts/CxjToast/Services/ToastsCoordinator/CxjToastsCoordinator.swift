@@ -14,11 +14,16 @@ public final class CxjToastsCoordinator {
 	typealias DisplayableToast = any CxjDisplayableToast
 	
 	public static let shared: CxjToastsCoordinator = CxjToastsCoordinator()
-	private init() {}
+	
+	private let keyboardDisplayingStateObserver: CxjToastsKeyboardDisplayingStateObserver = CxjToastsKeyboardDisplayingStateObserver()
 	
 	private let publisher = MulticastPublisher<CxjToastDelegate>()
 	
 	private(set) var activeToasts: [DisplayableToast] = []
+	
+	private init() {
+		baseConfigure()
+	}
 }
 
 //MARK: - Public API
@@ -53,7 +58,7 @@ extension CxjToastsCoordinator {
 			completion: nil
 		)
 		
-		setupSourceBackgroundAction(forToast: toast)
+		SourceBackgroundActionConfigurator.configureActionForToast(toast)
 		
 		toast.dismisser.configureDismissMethods()
 		toast.presenter.present(animated: animated) { [weak self, weak toast] _ in
@@ -139,40 +144,10 @@ extension CxjToastsCoordinator {
 	}
 }
 
-//MARK: - SoucreBackground action handling
-//TODO: - To another class
+//MARK: - Base configuration
 private extension CxjToastsCoordinator {
-	func setupSourceBackgroundAction(forToast toast: DisplayableToast) {
-		switch toast.config.sourceBackground?.interaction {
-		case .disabled:
-			toast.sourceBackgroundView?.isUserInteractionEnabled = false
-		case .none:
-			break
-		case .enabled(action: let action):
-			guard let action else { break }
-			
-			let actionHandling: CxjVoidCompletion? = {
-				switch action.handling {
-				case .none:
-					return {}
-				case .dismissToast:
-					return { [ weak toast] in
-						guard let toast else { return }
-						
-						Task { @MainActor in
-							CxjToastsCoordinator.shared.dismissToast(toast, animated: true)
-						}
-					}
-				case .custom(let completion):
-					return { [weak toast] in
-						guard let toast else { return }
-						completion?(toast)
-					}
-				}
-			}()
-			
-			toast.sourceBackgroundView?.addInteractionAction(actionHandling, forEvent: action.touchEvent)
-		}
+	func baseConfigure() {
+		keyboardDisplayingStateObserver.dataSource = self
 	}
 }
 
@@ -234,25 +209,9 @@ extension CxjToastsCoordinator: CxjToastDismisserDelegate {
 	}
 }
 
-
-//MARK: - ToastDisplayingProgress
-//TODO: - To another file
-extension CxjToastsCoordinator {
-	struct ToastDisplayingProgress {
-		private static let minValue: Float = .zero
-		private static let maxValue: Float = 1.0
-		
-		static var min: ToastDisplayingProgress { ToastDisplayingProgress(value: minValue) }
-		static var max: ToastDisplayingProgress { ToastDisplayingProgress(value: maxValue) }
-		
-		@ClampedProgress var value: Float
-		
-		var reverted: Float {
-			_value.upperValue - value
-		}
-		
-		init(value: Float) {
-			self._value = ClampedProgress(value, ToastDisplayingProgress.minValue...ToastDisplayingProgress.maxValue)
-		}
+//MARK: - CxjToastsKeyboardDisplayingStateObserverDataSource
+extension CxjToastsCoordinator: CxjToastsKeyboardDisplayingStateObserverDataSource {
+	func displayingToastsForObserver(_ observer: CxjToastsKeyboardDisplayingStateObserver) -> [any CxjDisplayableToast] {
+		activeToasts
 	}
 }
