@@ -145,7 +145,7 @@ private extension TemplatedToastFactory {
 					spamProtection: .off,
 					displayingBehaviour: .init(
 						handling: .stack(attributes: .init(maxVisibleToasts: 3, shouldStopTimerForStackedUnvisibleToasts: true)),
-						comparisonCriteria: .init(rule: .or)
+						comparisonCriteria: .init(rule: .and)
 					)
 				),
 				toastView: .init(
