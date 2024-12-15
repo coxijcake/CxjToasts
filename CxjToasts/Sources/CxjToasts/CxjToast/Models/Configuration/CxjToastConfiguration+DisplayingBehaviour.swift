@@ -21,10 +21,10 @@ extension CxjToastConfiguration {
 			}
 			
 			public struct HideAttributes: Sendable {
-				let shouldStopTimerForStackedUnvisibleToasts: Bool
+				let shouldStopTimerForHiddenToasts: Bool
 				
-				public init(shouldStopTimerForStackedUnvisibleToasts: Bool) {
-					self.shouldStopTimerForStackedUnvisibleToasts = shouldStopTimerForStackedUnvisibleToasts
+				public init(shouldStopTimerForHiddenToasts: Bool) {
+					self.shouldStopTimerForHiddenToasts = shouldStopTimerForHiddenToasts
 				}
 			}
 			

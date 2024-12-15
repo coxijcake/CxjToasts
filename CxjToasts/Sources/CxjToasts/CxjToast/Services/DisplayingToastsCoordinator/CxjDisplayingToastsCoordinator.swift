@@ -104,7 +104,7 @@ extension CxjDisplayingToastsCoordinator {
 				updateTimerStateForToast(toast, isTopPosition: isTopPositionToast)
 			}
 		case .hide(attributes: let attributes):
-			if attributes.shouldStopTimerForStackedUnvisibleToasts {
+			if attributes.shouldStopTimerForHiddenToasts {
 				updateTimerStateForToast(toast, isTopPosition: isTopPositionToast)
 			}
 		case .dismiss:

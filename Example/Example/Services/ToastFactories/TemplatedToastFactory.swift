@@ -115,7 +115,8 @@ private extension TemplatedToastFactory {
 	) -> CxjToastTemplate {
 		.undoAction(
 			data: .init(
-				typeId: "template_toast_test_undo_action",
+//				typeId: "template_toast_test_undo_action",
+				typeId: UUID().uuidString,
 				customSourceView: customSourceView,
 				title: .plain(string: "Undo this action", attributes: .init(textColor: .white.withAlphaComponent(0.85), font: .systemFont(ofSize: 14, weight: .semibold))),
 				subtitle: nil,
@@ -145,7 +146,7 @@ private extension TemplatedToastFactory {
 					spamProtection: .off,
 					displayingBehaviour: .init(
 						handling: .stack(attributes: .init(maxVisibleToasts: 3, shouldStopTimerForStackedUnvisibleToasts: true)),
-						comparisonCriteria: .init(rule: .and)
+						comparisonCriteria: .init(attibutes: [.sourceView, .placement(includingYOffset: true)], rule: .and)
 					)
 				),
 				toastView: .init(

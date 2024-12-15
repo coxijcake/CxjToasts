@@ -101,7 +101,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 		
 		private func displayingBehaviour() -> Config.DisplayingBehaviour {
 			.init(
-				handling: .hide(attributes: .init(shouldStopTimerForStackedUnvisibleToasts: false)),
+				handling: .hide(attributes: .init(shouldStopTimerForHiddenToasts: false)),
 				comparisonCriteria: .init(rule: .and)
 			)
 		}
