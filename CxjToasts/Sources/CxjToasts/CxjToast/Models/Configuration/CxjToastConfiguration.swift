@@ -14,6 +14,7 @@ public struct CxjToastConfiguration: Sendable {
 	public let sourceBackground: SourceBackground?
     public let layout: Layout
     public let dismissMethods: Set<DismissMethod>
+	public let keyboardHandling: KeyboardHandling
 	public let animations: Animations
 	public let spamProtection: SpamProtection
 	public let displayingBehaviour: DisplayingBehaviour
@@ -24,6 +25,7 @@ public struct CxjToastConfiguration: Sendable {
 		sourceBackground: SourceBackground?,
         layout: Layout,
         dismissMethods: Set<DismissMethod>,
+		keyboardHandling: KeyboardHandling,
 		animations: Animations,
 		spamProtection: SpamProtection,
 		displayingSameAttributeToastBehaviour: DisplayingBehaviour
@@ -33,6 +35,7 @@ public struct CxjToastConfiguration: Sendable {
 		self.sourceBackground = sourceBackground
         self.layout = layout
         self.dismissMethods = dismissMethods
+		self.keyboardHandling = keyboardHandling
         self.animations = animations
 		self.spamProtection = spamProtection
 		self.displayingBehaviour = displayingSameAttributeToastBehaviour

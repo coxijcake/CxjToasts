@@ -31,27 +31,33 @@ extension CxjToastPresenter {
 		let toastView: UIView
 		
 		func actionForState(_ keyboardState: CxjKeyboardDisplayingState) -> Action {
-			guard shouldUpdateToastWithConfig(toastConfig) else { return .defaultPosition }
-			
-			switch keyboardState {
-			case .hiden: return .defaultPosition
-			case .displaying(data: let data):
-				let sourceView: UIView = toastConfig.sourceView
-				let convertedKeyboardEndResult: CGRect = sourceView.convert(data.rect, from: UIApplication.keyWindow)
-				let keyboardOverlapValue: CGFloat = toastView.frame.maxY - convertedKeyboardEndResult.origin.y
+			switch toastConfig.keyboardHandling {
+			case .ignore:
+				return .defaultPosition
+			case .moveToastUpperKeyboard(additionalOffset: let additionalOffset):
+				guard shouldUpdateToastWithConfig(toastConfig) else { return .defaultPosition }
 				
-				guard keyboardOverlapValue > .zero else { return .defaultPosition }
-				
-				let additionalPadding: CGFloat = 10
-				let toastHeight: CGFloat = convertedKeyboardEndResult.size.height
-				let bottomPadding: CGFloat = toastHeight + additionalPadding
-				
-				return .setupBottomPadding(
-					params: .init(
-						padding: bottomPadding,
-						animationValues: .init(duration: data.animationDuration, curveValue: data.curveValue)
+				switch keyboardState {
+				case .hiden: return .defaultPosition
+				case .displaying(data: let data):
+					let sourceView: UIView = toastConfig.sourceView
+					let convertedKeyboardEndResult: CGRect = sourceView.convert(data.rect, from: UIApplication.keyWindow)
+					let keyboardOverlapValue: CGFloat =
+					(toastView.frame.maxY + additionalOffset)
+					- convertedKeyboardEndResult.origin.y
+					
+					guard keyboardOverlapValue > .zero else { return .defaultPosition }
+					
+					let toastHeight: CGFloat = convertedKeyboardEndResult.size.height
+					let bottomPadding: CGFloat = toastHeight + additionalOffset
+					
+					return .setupBottomPadding(
+						params: .init(
+							padding: bottomPadding,
+							animationValues: .init(duration: data.animationDuration, curveValue: data.curveValue)
+						)
 					)
-				)
+				}
 			}
 		}
 		

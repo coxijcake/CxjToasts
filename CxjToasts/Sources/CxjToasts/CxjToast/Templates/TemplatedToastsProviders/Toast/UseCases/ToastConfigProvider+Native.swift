@@ -26,6 +26,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 				sourceBackground: nil,
 				layout: layoutFor(sourceView: sourceView),
 				dismissMethods: dismissMethods(),
+				keyboardHandling: .ignore,
 				animations: animations(),
 				spamProtection: spamProtection(),
 				displayingSameAttributeToastBehaviour: displayinBehaviour()

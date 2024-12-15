@@ -50,6 +50,7 @@ extension CustomToastFactory {
 				sourceBackground: sourceBackground(),
 				layout: layout(inSourceView: sourceView),
 				dismissMethods: dismissMethods(),
+				keyboardHandling: .moveToastUpperKeyboard(additionalOffset: 10),
 				animations: animations(),
 				spamProtection: spamProtection(),
 				displayingSameAttributeToastBehaviour: displayingSameAttributeToastBehaviour()
