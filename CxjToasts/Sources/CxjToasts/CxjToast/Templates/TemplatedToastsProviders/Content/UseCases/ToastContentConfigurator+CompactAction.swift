@@ -1,5 +1,5 @@
 //
-//  ToastContentConfigurator+.swift
+//  ToastContentConfigurator+CompactAction.swift
 //  CxjToasts
 //
 //  Created by Nikita Begletskiy on 16/12/2024.
@@ -8,8 +8,8 @@
 import UIKit
 
 extension CxjTemplatedToastContentConfiguratorFactory {
-	final class ActionToastContentConfigurator: CxjTemplatedToastContentConfigurator {
-		typealias Data = CxjToastTemplate.ActionToastData
+	final class CompactActionToastContentConfigurator: CxjTemplatedToastContentConfigurator {
+		typealias Data = CxjToastTemplate.CompactActionToastData
 		
 		let data: Data
 		let toastId: UUID

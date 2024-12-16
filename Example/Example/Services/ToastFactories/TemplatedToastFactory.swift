@@ -25,7 +25,7 @@ enum TemplatedToastFactory {
 			return topStraightToast(
 				customSourceView: customSourceView
 			)
-		case .action:
+		case .compactAction:
 			return actionToast(
 				customSourceView: customSourceView
 			)
@@ -115,7 +115,7 @@ private extension TemplatedToastFactory {
 //MARK: - Action
 private extension TemplatedToastFactory {
 	static func actionToast(customSourceView: UIView?) -> CxjToastTemplate {
-		.action(
+		.compactAction(
 			data: .init(
 				typeId: "action_toast_test",
 				customSourceView: customSourceView,

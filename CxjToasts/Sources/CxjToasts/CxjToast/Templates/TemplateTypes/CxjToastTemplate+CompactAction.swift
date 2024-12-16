@@ -1,5 +1,5 @@
 //
-//  CxjToastTemplate+Action.swift
+//  CxjToastTemplate+CompactAction.swift
 //  CxjToasts
 //
 //  Created by Nikita Begletskiy on 16/12/2024.
@@ -8,7 +8,7 @@
 import UIKit
 
 extension CxjToastTemplate {
-	public struct ActionToastData {
+	public struct CompactActionToastData {
 		public typealias Title = CxjLabelConfiguration
 		public typealias Icon = CxjIconConfiguration
 		public typealias Constraints = CxjToastConfiguration.Constraints
