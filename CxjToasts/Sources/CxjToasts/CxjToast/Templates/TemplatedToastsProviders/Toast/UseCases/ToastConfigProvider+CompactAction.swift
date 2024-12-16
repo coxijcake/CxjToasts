@@ -24,7 +24,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 				typeId: data.typeId,
 				sourceView: sourceView,
 				sourceBackground: nil,
-				layout: layoutForData(data.toast),
+				layout: layoutForData(data.toast, insideView: sourceView),
 				dismissMethods: data.toast.dismissMethods,
 				keyboardHandling: .moveToastUpperKeyboard(additionalOffset: 10),
 				animations: data.toast.animations,
@@ -33,10 +33,21 @@ extension CxjTemplatedToastConfigProviderFactory {
 			)
 		}
 		
-		private func layoutForData(_ data: Data.Toast) -> Config.Layout {
-			Config.Layout(
-				constraints: data.constraints,
+		private func layoutForData(_ data: Data.Toast, insideView sourceView: UIView) -> Config.Layout {
+			return Config.Layout(
+				constraints: constraintsForData(data, insideView: sourceView),
 				placement: data.placement
+			)
+		}
+		
+		private func constraintsForData(_ data: Data.Toast, insideView sourceView: UIView) -> Config.Constraints {
+			let fixedWidth: CGFloat = sourceView.frame.size.width - 10
+			let minHeight: CGFloat = 54
+			let maxHeight: CGFloat = 65
+			
+			return .init(
+				width: .init(min: fixedWidth, max: fixedWidth),
+				height: .init(min: minHeight, max: maxHeight)
 			)
 		}
 	}

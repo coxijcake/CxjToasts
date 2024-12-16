@@ -26,7 +26,7 @@ enum TemplatedToastFactory {
 				customSourceView: customSourceView
 			)
 		case .compactAction:
-			return actionToast(
+			return compactActionToast(
 				customSourceView: customSourceView
 			)
 		case .undoAction:
@@ -114,15 +114,20 @@ private extension TemplatedToastFactory {
 
 //MARK: - Action
 private extension TemplatedToastFactory {
-	static func actionToast(customSourceView: UIView?) -> CxjToastTemplate {
-		.compactAction(
+	static func compactActionToast(customSourceView: UIView?) -> CxjToastTemplate {
+		let toastActionCompletion: CxjVoidSendableCompletion = {
+			print("Compact action toast action")
+		}
+		
+		return .compactAction(
 			data: .init(
-				typeId: "action_toast_test",
+				typeId: "compact_action_toast_test",
 				customSourceView: customSourceView,
 				actionControl: .init(
 					actionCompletion: { toastId in
 						Task { @MainActor in
 							CxjToastsCoordinator.shared.dismissToast(withId: toastId, animated: true)
+							toastActionCompletion()
 						}
 					},
 					type: .default(
@@ -146,12 +151,11 @@ private extension TemplatedToastFactory {
 				toast: .init(
 					placement: .bottom(
 						params: .init(
-							offset: 20,
+							offset: 10,
 							includingSafeArea: true
 						)
 					),
-					constraints: .init(width: .init(min: 250, max: 300), height: .init(min: 50, max: 65)),
-					dismissMethods: [.swipe(direction: .bottom), .automatic(time: 3.0)],
+					dismissMethods: [.swipe(direction: .bottom), .automatic(time: 3.0), .tap(actionCompletion: toastActionCompletion)],
 					animations: .init(
 						present: .init(
 							animation: .defaultSpring,

@@ -33,7 +33,6 @@ extension CxjToastTemplate {
 		
 		public struct Toast {
 			public let placement: CxjToastConfiguration.Layout.Placement
-			public let constraints: Constraints
 			public let dismissMethods: Set<CxjToastConfiguration.DismissMethod>
 			public let animations: CxjToastConfiguration.Animations
 			public let spamProtection: CxjToastConfiguration.SpamProtection
@@ -41,14 +40,12 @@ extension CxjToastTemplate {
 			
 			public init(
 				placement: CxjToastConfiguration.Layout.Placement,
-				constraints: Constraints,
 				dismissMethods: Set<CxjToastConfiguration.DismissMethod>,
 				animations: CxjToastConfiguration.Animations,
 				spamProtection: CxjToastConfiguration.SpamProtection,
 				displayingBehaviour: CxjToastConfiguration.DisplayingBehaviour
 			) {
 				self.placement = placement
-				self.constraints = constraints
 				self.dismissMethods = dismissMethods
 				self.animations = animations
 				self.spamProtection = spamProtection
