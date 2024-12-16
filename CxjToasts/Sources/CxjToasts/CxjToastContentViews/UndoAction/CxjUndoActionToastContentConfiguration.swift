@@ -47,7 +47,7 @@ extension CxjUndoActionToastContentConfiguration {
 			case attributed(string: NSAttributedString)
 		}
 		
-		case custom(control: UIControl)
+		case custom(control: UIControl, actionCompletion: CxjVoidCompletion?)
 		case `default`(config: TitleConfig, actionCompletion: CxjVoidCompletion?)
 	}
 	

@@ -25,6 +25,10 @@ enum TemplatedToastFactory {
 			return topStraightToast(
 				customSourceView: customSourceView
 			)
+		case .action:
+			return actionToast(
+				customSourceView: customSourceView
+			)
 		case .undoAction:
 			return undoActionToast(
 				customSourceView: customSourceView
@@ -103,6 +107,77 @@ private extension TemplatedToastFactory {
 					attributes: .init(textColor: .label, font: .systemFont(ofSize: 18, weight: .medium))
 				),
 				background: .colorized(color: customSourceView?.backgroundColor?.withAlphaComponent(0.95) ?? .white)
+			)
+		)
+	}
+}
+
+//MARK: - Action
+private extension TemplatedToastFactory {
+	static func actionToast(customSourceView: UIView?) -> CxjToastTemplate {
+		.action(
+			data: .init(
+				typeId: "action_toast_test",
+				customSourceView: customSourceView,
+				actionControl: .init(
+					actionCompletion: { toastId in
+						Task { @MainActor in
+							CxjToastsCoordinator.shared.dismissToast(withId: toastId, animated: true)
+						}
+					},
+					type: .default(
+						config: .plain(
+							config: .init(text: "Handle", textColor: .white, font: .systemFont(ofSize: 15, weight: .semibold))
+						)
+					)),
+				content: .init(
+					title: .init(
+						text: .plain(
+							string: "Smth happend. Handle it.",
+							attributes: .init(
+								textColor: .white,
+								font: .systemFont(ofSize: 14, weight: .regular)
+							)
+						),
+						label: .init(numberOfLines: 1, textAligment: .left)
+					),
+					icon: nil
+				),
+				toast: .init(
+					placement: .bottom(
+						params: .init(
+							offset: 20,
+							includingSafeArea: true
+						)
+					),
+					constraints: .init(width: .init(min: 250, max: 300), height: .init(min: 50, max: 65)),
+					dismissMethods: [.swipe(direction: .bottom), .automatic(time: 3.0)],
+					animations: .init(
+						present: .init(
+							animation: .defaultSpring,
+							behaviour: .default(includingNativeViews: [])
+						),
+						dismiss: .init(
+							animation: .defaultSpring,
+							behaviour: .default(includingNativeViews: [])
+						)
+					),
+					spamProtection: .off,
+					displayingBehaviour: .init(
+						handling: .stack(
+							attributes: .init(
+								maxVisibleToasts: 3,
+								shouldStopTimerForStackedUnvisibleToasts: true
+							)
+						),
+						comparisonCriteria: .init(rule: .and)
+					)
+				),
+				toastView: .init(
+					background: .blurred(effect: .init(style: .dark)),
+					shadow: .disable,
+					corners: .fixed(value: 10, mask: .all)
+				)
 			)
 		)
 	}

@@ -42,8 +42,16 @@ enum CxjActionToastContentViewConfigurator {
 	
 	private static func actionControlForConfig(_ config: Config.ActionControl) -> UIControl {
 		switch config {
-		case .custom(control: let control):
-			return control
+		case .custom(control: let control, let actionCompletion):
+			let resultControl = control
+			if let actionCompletion {
+				resultControl.addAction(
+					.init(handler: { _ in actionCompletion()}),
+					for: .touchUpInside
+				)
+			}
+			
+			return resultControl
 		case .default(config: let config, actionCompletion: let actionCompletion):
 			let actionButton: ToastActionButton = ToastActionButton()
 			switch config {
@@ -62,6 +70,13 @@ enum CxjActionToastContentViewConfigurator {
 				actionButton.setupConfig(
 					.init(title: .attributed(text: string)),
 					forState: .normal
+				)
+			}
+			
+			if let actionCompletion {
+				actionButton.addAction(
+					.init(handler: { _ in actionCompletion()}),
+					for: .touchUpInside
 				)
 			}
 			

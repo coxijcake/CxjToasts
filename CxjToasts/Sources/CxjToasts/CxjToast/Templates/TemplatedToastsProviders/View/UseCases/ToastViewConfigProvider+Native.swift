@@ -8,7 +8,7 @@
 import UIKit
 
 extension CxjTemplatedToastViewConfigProviderFactory {
-	final class CxjNativeToastViewConfigProvider: CxjTemplatedToastViewConfigProvider {
+	final class NativeToastViewConfigProvider: CxjTemplatedToastViewConfigProvider {
 		typealias Data = Template.NativeToastData
 		
 		let data: Data

@@ -1,15 +1,15 @@
 //
-//  ToastViewConfigProvider+UndoAction.swift
+//  ToastViewConfigProvider+Action.swift
 //  CxjToasts
 //
-//  Created by Nikita Begletskiy on 12/11/2024.
+//  Created by Nikita Begletskiy on 16/12/2024.
 //
 
 import UIKit
 
 extension CxjTemplatedToastViewConfigProviderFactory {
-	final class UndoActionToastViewConfigProvider: CxjTemplatedToastViewConfigProvider {
-		typealias Data = Template.UndoActionToastData
+	final class ActionToastViewConfigProvider: CxjTemplatedToastViewConfigProvider {
+		typealias Data = Template.ActionToastData
 		
 		let data: Data
 		

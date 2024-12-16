@@ -66,9 +66,21 @@ enum CxjUndoActionToastContentViewConfigurator {
 	}
 	
 	private static func undoControlForConfigControl(_ control: Config.UndoControl) -> UIControl {
+		let configuredControl: UIControl
+		
 		switch control {
-		case .custom(control: let customControl):
-			return customControl
+		case .custom(control: let customControl, let actionCompletion):
+			configuredControl = customControl
+			if let actionCompletion {
+				customControl.addAction(
+					.init(
+						handler: { _ in
+							actionCompletion()
+						}
+					),
+					for: .touchUpInside
+				)
+			}
 		case .default(config: let config, actionCompletion: let actionCompletion):
 			let button: ToastActionButton = ToastActionButton()
 
@@ -91,12 +103,16 @@ enum CxjUndoActionToastContentViewConfigurator {
 				)
 			}
 			
-			button.addAction(.init(handler: { _ in
-				actionCompletion?()
-			}), for: .touchUpInside)
+			if let actionCompletion {
+				button.addAction(.init(handler: { _ in
+					actionCompletion()
+				}), for: .touchUpInside)
+			}
 			
-			return button
+			configuredControl = button
 		}
+		
+		return configuredControl
 	}
 	
 	private static func numberTimingFeedbackViewWithParams(_ params: Config.TimingFeedback.NumberParams) -> UndoActionToastNumberedTimingFeedbackView {

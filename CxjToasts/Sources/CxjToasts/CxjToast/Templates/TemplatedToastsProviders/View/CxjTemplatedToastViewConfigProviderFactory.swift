@@ -14,13 +14,15 @@ enum CxjTemplatedToastViewConfigProviderFactory {
 	static func configProviderFor(template: Template) -> Provider {
 		switch template {
 		case .native(let data):
-			CxjNativeToastViewConfigProvider(data: data)
+			NativeToastViewConfigProvider(data: data)
 		case .bottomPrimary(data: let data):
-			CxjBottomPrimaryToastViewConfigProvider(data: data)
+			BottomPrimaryToastViewConfigProvider(data: data)
 		case .topStraight(data: let data):
-			CxjTopStraightToastViewConfigProvider(data: data)
+			TopStraightToastViewConfigProvider(data: data)
+		case .action(data: let data):
+			ActionToastViewConfigProvider(data: data)
 		case .undoAction(data: let data):
-			CxjUndoActionToastViewConfigProvider(data: data)
+			UndoActionToastViewConfigProvider(data: data)
 		}
 	}
 }
