@@ -19,6 +19,8 @@ enum CxjTemplatedToastViewConfigProviderFactory {
 			BottomPrimaryToastViewConfigProvider(data: data)
 		case .topStraight(data: let data):
 			TopStraightToastViewConfigProvider(data: data)
+        case .minimalizedGlobalStatus(data: let data):
+            MinimaliedGlobalStatusToastViewConfigProvider(data: data)
 		case .compactAction(data: let data):
 			CompactActionToastViewConfigProvider(data: data)
 		case .undoAction(data: let data):

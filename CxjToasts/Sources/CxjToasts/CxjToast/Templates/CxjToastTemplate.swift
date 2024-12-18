@@ -15,9 +15,13 @@ extension CxjToastTemplate {
 
 //MARK: - Themes
 public enum CxjToastTemplate {
+    //MARK: - Info toasts
 	case native(data: NativeToastData)
 	case bottomPrimary(data: BottomPrimaryToastData)
 	case topStraight(data: TopStraightToastData)
+    case minimalizedGlobalStatus(data: MinimaliedGlobalStatusToastData)
+    
+    //MARK: - Action toasts
 	case compactAction(data: CompactActionToastData)
 	case undoAction(data: UndoActionToastData)
 }

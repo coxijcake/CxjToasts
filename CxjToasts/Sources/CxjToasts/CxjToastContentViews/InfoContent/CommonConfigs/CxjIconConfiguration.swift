@@ -11,14 +11,17 @@ public struct CxjIconConfiguration {
 	public let icon: UIImage
 	public let tintColor: UIColor?
 	public let fixedSize: CGSize?
+    public let cornerRadius: CGFloat?
 	
 	public init(
 		icon: UIImage,
 		tintColor: UIColor? = nil,
-		fixedSize: CGSize?
+		fixedSize: CGSize?,
+        cornerRadius: CGFloat? = nil
 	) {
 		self.icon = icon
 		self.tintColor = tintColor
 		self.fixedSize = fixedSize
+        self.cornerRadius = cornerRadius
 	}
 }

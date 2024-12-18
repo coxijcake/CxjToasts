@@ -25,6 +25,8 @@ enum TemplatedToastFactory {
 			return topStraightToast(
 				customSourceView: customSourceView
 			)
+        case .minimalizedGlobalStatus:
+            return minimalizedGlobalStatus()
 		case .compactAction:
 			return compactActionToast(
 				customSourceView: customSourceView
@@ -110,6 +112,32 @@ private extension TemplatedToastFactory {
 			)
 		)
 	}
+}
+
+
+//MARK: - MinimalizedGlobalStatus
+private extension TemplatedToastFactory {
+    static func minimalizedGlobalStatus() -> CxjToastTemplate {
+        return .minimalizedGlobalStatus(
+            data: .init(
+                typeId: "minimalized_global_status_test",
+                icon: nil,
+                title: .plain(
+                    string: "No connection",
+                    attributes: .init(
+                        textColor: .white.withAlphaComponent(0.95),
+                        font: .systemFont(ofSize: 15, weight: .semibold)
+                    )
+                ),
+                background: .colorized(color: .green.withAlphaComponent(0.65)),
+                dismissMethods: [
+                    .automatic(time: 2.5),
+                    .swipe(direction: .top),
+                    .tap(actionCompletion: nil)
+                ]
+            )
+        )
+    }
 }
 
 //MARK: - Action

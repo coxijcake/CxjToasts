@@ -11,6 +11,8 @@ enum TemplatedToastType: String, CaseIterable, ToastType {
 	case native
 	case bottomPrimary
 	case topStraight
+    case minimalizedGlobalStatus
+    
 	case compactAction
 	case undoAction
 	
