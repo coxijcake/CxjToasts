@@ -62,7 +62,7 @@ final class CxjToastContainerView: UIView {
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		
-		backgroundView.layer.cornerRadius = layer.cornerRadius
+        updateCornersForState(state.corners)
 	}
 }
 
@@ -84,7 +84,7 @@ extension CxjToastContainerView: CxjToastView {
 //MARK: - Configuration
 private extension CxjToastContainerView {
 	func updateUIForState(_ state: ViewState) {
-		setupCorners(state.corners)
+		updateCornersForState(state.corners)
 		setupShadow(state.shadow)
 	}
 	
@@ -97,20 +97,24 @@ private extension CxjToastContainerView {
 		}
 	}
 	
-	func setupCorners(_ corners: ViewState.Corners) {
+	func updateCornersForState(_ corners: ViewState.Corners) {
+        let cornerRadius: CGFloat
 		switch corners.type {
-		case .capsule: layer.cornerRadius = bounds.size.height * 0.5
-		case .fixed(let value): layer.cornerRadius = value
+		case .capsule: cornerRadius = bounds.size.height * 0.5
+		case .fixed(let value): cornerRadius = value
 		}
 		
-		layer.maskedCorners = corners.mask
-		clipsToBounds = true
+        [layer, backgroundView.layer].forEach {
+            $0.cornerRadius = cornerRadius
+            $0.maskedCorners = corners.mask
+        }
 	}
 }
 
 //MARK: - Base Configuration
 private extension CxjToastContainerView {
     func baseConfigure() {
+        clipsToBounds = true
 		setupBackgroundView()
 		setupContentView(withInsets: state.contentInsets)
     }
