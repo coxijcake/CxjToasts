@@ -29,7 +29,7 @@ enum CxjIconWithTextToastContentViewConfigurator {
 	
 	private static func iconImageViewWithParams(_ params: Config.IconParams) -> UIImageView {
 		let imageView: UIImageView = UIImageView(image: params.icon)
-		imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = params.contentMode
 		imageView.clipsToBounds = true
         
         if let cornerRadius: CGFloat = params.cornerRadius {
