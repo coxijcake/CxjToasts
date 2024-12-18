@@ -31,6 +31,10 @@ enum CxjIconWithTextToastContentViewConfigurator {
 		let imageView: UIImageView = UIImageView(image: params.icon)
 		imageView.contentMode = .scaleAspectFit
 		imageView.clipsToBounds = true
+        
+        if let cornerRadius: CGFloat = params.cornerRadius {
+            imageView.layer.cornerRadius = cornerRadius
+        }
 		
 		if let tintColor: UIColor = params.tintColor {
 			imageView.tintColor = tintColor
