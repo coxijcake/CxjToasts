@@ -24,8 +24,10 @@ extension CxjToastContainerView {
 			let type: CornersType
 			let mask: CACornerMask
 		}
+        
+        typealias Layout = CxjToastContentLayout
 		
-		let contentInsets: UIEdgeInsets
+        let contentLayout: Layout
 		let shadow: Shadow
 		let corners: Corners
 	}
@@ -115,8 +117,10 @@ private extension CxjToastContainerView {
 private extension CxjToastContainerView {
     func baseConfigure() {
         clipsToBounds = true
-		setupBackgroundView()
-		setupContentView(withInsets: state.contentInsets)
+        contentView.backgroundColor = .clear
+        
+        setupBackgroundView()
+        setupContentViewWithLayout(state.contentLayout)
     }
 	
 	func setupBackgroundView() {
@@ -125,17 +129,18 @@ private extension CxjToastContainerView {
 		backgroundView.frame = bounds
 		backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 	}
-	
-	func setupContentView(withInsets insets: UIEdgeInsets) {
-		addSubview(contentView)
-		contentView.backgroundColor = .clear
-		
-		contentView.translatesAutoresizingMaskIntoConstraints = false
-		NSLayoutConstraint.activate([
-			contentView.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
-			contentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insets.bottom),
-			contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left),
-			contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -insets.right)
-		])
-	}
+    
+    func setupContentViewWithLayout(_ layout: ViewState.Layout) {
+        addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let constraints: [NSLayoutConstraint] = ToastContentNsLayoutConstraintConfigurator
+            .constraintsForLayout(
+                layout,
+                forView: contentView,
+                insideView: self
+            )
+        
+        NSLayoutConstraint.activate(constraints)
+    }
 }

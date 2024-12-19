@@ -9,19 +9,20 @@ import UIKit
 
 public struct CxjToastViewConfiguration {
 	public typealias Background = CxjBackground
+    public typealias ContentLayout = CxjToastContentLayout
 	
 	public let background: Background
-	public let contentInsets: UIEdgeInsets
+    public let contentLayout: ContentLayout
 	public let shadow: Shadow
 	public let corners: Corners
 	
 	public init(
-		contentInsets: UIEdgeInsets,
+        contentLayout: ContentLayout,
 		background: Background,
 		shadow: Shadow,
 		corners: Corners
 	) {
-		self.contentInsets = contentInsets
+        self.contentLayout = contentLayout
 		self.background = background
 		self.shadow = shadow
 		self.corners = corners

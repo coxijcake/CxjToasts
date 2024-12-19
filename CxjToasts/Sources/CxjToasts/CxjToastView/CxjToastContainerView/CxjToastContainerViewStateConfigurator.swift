@@ -16,7 +16,7 @@ enum CxjToastContainerViewStateConfigurator {
 		let corners: ViewState.Corners = stateCornersFor(configCorners: config.corners)
 		
 		return ViewState(
-			contentInsets: config.contentInsets,
+            contentLayout: config.contentLayout,
 			shadow: shadow,
 			corners: corners
 		)

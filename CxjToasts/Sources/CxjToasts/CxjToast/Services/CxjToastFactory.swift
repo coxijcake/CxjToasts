@@ -70,8 +70,8 @@ private extension CxjToastFactory {
     ) -> CxjToastView {
         switch type {
         case .custom(let toastData):
-            return CxjToastViewFactory.createViewWith(
-				config: toastData.viewConfig,
+            return CxjToastViewConfigurator.viewWithConfig(
+				toastData.viewConfig,
 				content: toastData.content
             )
         case .templated(template: let template):
@@ -83,8 +83,8 @@ private extension CxjToastFactory {
 				.configuratorFor(template: template, toastId: toastId)
 				.content()
 			
-            return CxjToastViewFactory.createViewWith(
-                config: viewConfig,
+            return CxjToastViewConfigurator.viewWithConfig(
+                viewConfig,
 				content: content
             )
         }

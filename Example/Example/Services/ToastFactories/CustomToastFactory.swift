@@ -132,7 +132,7 @@ extension CustomToastFactory {
 		//MARK: - ViewConfig
 		private static func viewConfig() -> CxjToastViewConfiguration {
 			CxjToastViewConfiguration(
-				contentInsets: .init(top: 20, left: 16, bottom: 20, right: 16),
+                contentLayout: .fill(insets: .init(top: 20, left: 16, bottom: 20, right: 16)),
 				background: .gradient(
 					params: .init(
 						colors: [.black.withAlphaComponent(0.95), .black.withAlphaComponent(0.5)],

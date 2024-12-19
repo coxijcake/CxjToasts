@@ -8,9 +8,9 @@
 import UIKit
 
 @MainActor
-enum CxjToastViewFactory {
-    static func createViewWith(
-        config: CxjToastViewConfiguration,
+enum CxjToastViewConfigurator {
+    static func viewWithConfig(
+        _ config: CxjToastViewConfiguration,
         content: CxjToastContentView
     ) -> CxjToastView {
 		let viewState: CxjToastContainerView.ViewState = CxjToastContainerViewStateConfigurator
