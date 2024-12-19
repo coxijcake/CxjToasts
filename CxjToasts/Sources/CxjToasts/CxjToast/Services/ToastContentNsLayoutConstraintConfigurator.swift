@@ -93,39 +93,37 @@ private extension ToastContentNsLayoutConstraintConfigurator {
             )
         case .left(value: let value):
             return nsLayoutConstraintForNsLayoutAnchor(
-                childView.leftAnchor,
+                childView.leadingAnchor,
                 withValue: value,
-                equalToAnchor: parentView.leftAnchor
+                equalToAnchor: parentView.leadingAnchor
             )
         case .right(value: let value):
             return nsLayoutConstraintForNsLayoutAnchor(
-                childView.rightAnchor,
+                childView.trailingAnchor,
                 withValue: value,
-                equalToAnchor: parentView.rightAnchor
+                equalToAnchor: parentView.trailingAnchor
             )
-        case .centerX(offset: let offset):
+        case .centerX(value: let value):
             return nsLayoutConstraintForNsLayoutAnchor(
                 childView.centerXAnchor,
-                withValue: .equal(value: offset),
+                withValue: value,
                 equalToAnchor: parentView.centerXAnchor
             )
-        case .centerY(offset: let offset):
+        case .centerY(value: let value):
             return nsLayoutConstraintForNsLayoutAnchor(
                 childView.centerYAnchor,
-                withValue: .equal(value: offset),
+                withValue: value,
                 equalToAnchor: parentView.centerYAnchor
             )
-        case .width(value: let value):
-            return nsLayoutConstraintForNsLayoutAnchor(
+        case .with(value: let value):
+            return nsLayoutConstraintForNsLayoutDimension(
                 childView.widthAnchor,
-                withValue: .equal(value: value),
-                equalToAnchor: parentView.widthAnchor
+                withValue: value
             )
         case .height(value: let value):
-            return nsLayoutConstraintForNsLayoutAnchor(
+            return nsLayoutConstraintForNsLayoutDimension(
                 childView.heightAnchor,
-                withValue: .equal(value: value),
-                equalToAnchor: parentView.heightAnchor
+                withValue: value
             )
         }
     }
@@ -139,9 +137,23 @@ private extension ToastContentNsLayoutConstraintConfigurator {
         case .equal(value: let value):
             anchorStart.constraint(equalTo: anchorEnd, constant: value)
         case .greaterOrEqual(value: let value):
-            anchorStart.constraint(lessThanOrEqualTo: anchorEnd, constant: value)
+            anchorStart.constraint(greaterThanOrEqualTo: anchorEnd, constant: value)
         case .lessOrEqual(value: let value):
             anchorStart.constraint(lessThanOrEqualTo: anchorEnd, constant: value)
+        }
+    }
+    
+    static func nsLayoutConstraintForNsLayoutDimension(
+        _ dimension: NSLayoutDimension,
+        withValue value: Layout.ConstraintValue
+    ) -> NSLayoutConstraint {
+        switch value {
+        case .equal(value: let value):
+            return dimension.constraint(equalToConstant: value)
+        case .greaterOrEqual(value: let value):
+            return dimension.constraint(greaterThanOrEqualToConstant: value)
+        case .lessOrEqual(value: let value):
+            return dimension.constraint(lessThanOrEqualToConstant: value)
         }
     }
 }

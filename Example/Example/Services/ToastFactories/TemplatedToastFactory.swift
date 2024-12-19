@@ -70,11 +70,11 @@ private extension TemplatedToastFactory {
 			data: .init(
 				typeId: "template_toast_test_bottom_primary",
 				customSourceView: customSourceView,
-//				sourceBackground: .init(
-//					theme: .colorized(color: .black.withAlphaComponent(0.65)),
-//					interaction: .enabled(action: .init(touchEvent: .touchDown, handling: .dismissToast))
-//				),
-				sourceBackground: nil,
+				sourceBackground: .init(
+					theme: .colorized(color: .black.withAlphaComponent(0.65)),
+					interaction: .enabled(action: .init(touchEvent: .touchDown, handling: .dismissToast))
+				),
+//				sourceBackground: nil,
 				icon: .init(icon: .init(resource: .closeIcon), fixedSize: .init(width: 40, height: 40)),
 				title: .init(
 					text: .plain(
@@ -121,15 +121,18 @@ private extension TemplatedToastFactory {
         return .minimalizedGlobalStatus(
             data: .init(
                 typeId: "minimalized_global_status_test",
-                icon: nil,
+                icon: .init(
+                    icon: .closeIcon,
+                    fixedSize: .init(width: 20, height: 20)
+                ),
                 title: .plain(
                     string: "No connection",
                     attributes: .init(
-                        textColor: .white.withAlphaComponent(0.95),
-                        font: .systemFont(ofSize: 15, weight: .semibold)
+                        textColor: .white,
+                        font: .systemFont(ofSize: 13, weight: .semibold)
                     )
                 ),
-                background: .colorized(color: .green.withAlphaComponent(0.65)),
+                background: .colorized(color: .init(red: 0.349, green: 0.8, blue: 0.298, alpha: 1.0)),
                 dismissMethods: [
                     .automatic(time: 2.5),
                     .swipe(direction: .top),

@@ -19,11 +19,11 @@ extension CxjToastContentLayout {
         case left(value: ConstraintValue)
         case right(value: ConstraintValue)
         
-        case centerX(offset: CGFloat)
-        case centerY(offset: CGFloat)
+        case with(value: ConstraintValue)
+        case height(value: ConstraintValue)
         
-        case width(value: CGFloat)
-        case height(value: CGFloat)
+        case centerX(value: ConstraintValue)
+        case centerY(value: ConstraintValue)
     }
 
     public enum ConstraintValue {
