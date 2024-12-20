@@ -1,15 +1,15 @@
 //
-//  ToastConfigProvider+MinimalizedGlobalStatus.swift
+//  ToastConfigProvider+CompactActionDescription.swift
 //  CxjToasts
 //
-//  Created by Nikita Begletskiy on 17/12/2024.
+//  Created by Nikita Begletskiy on 19/12/2024.
 //
 
 import UIKit
 
 extension CxjTemplatedToastConfigProviderFactory {
-    final class MinimaliedGlobalStatusToastConfigProvider: CxjTemplatedToastConfigProvider {
-        typealias Data = CxjToastTemplate.MinimaliedGlobalStatusToastData
+    final class CompactActionDescriptionConfigProvider: CxjTemplatedToastConfigProvider {
+        typealias Data = CxjToastTemplate.CompactActionDescriptionToastData
         
         let data: Data
         
@@ -18,23 +18,19 @@ extension CxjTemplatedToastConfigProviderFactory {
         }
         
         func config() -> Config {
-            let soureView: UIView = defaultSourceView()
+            let sourceView: UIView = data.customSourceView ?? defaultSourceView()
             
             return .init(
                 typeId: data.typeId,
-                sourceView: soureView,
-                sourceBackground: sourceBackground(),
-                layout: layoutInsideView(soureView),
-                dismissMethods: data.dismissMethods,
+                sourceView: sourceView,
+                sourceBackground: nil,
+                layout: layoutInsideView(sourceView),
+                dismissMethods: dismissMethods(),
                 keyboardHandling: .ignore,
                 animations: animations(),
                 spamProtection: spamProtection(),
                 displayingSameAttributeToastBehaviour: displayingBehaviour()
             )
-        }
-        
-        private func sourceBackground() -> Config.SourceBackground? {
-            nil
         }
         
         private func layoutInsideView(_ sourceView: UIView) -> Config.Layout {
@@ -52,30 +48,35 @@ extension CxjTemplatedToastConfigProviderFactory {
         }
         
         private func widthConstraintsInsideView(_ sourceView: UIView) -> Config.Constraints.Values {
-            let width: CGFloat = sourceView.bounds.size.width
-            
-            return .init(min: width, max: width)
+            return .init(
+                min: 60,
+                max: sourceView.bounds.size.width * 0.8
+            )
         }
         
         private func heightConstraint() -> Config.Constraints.Values {
-            let minHeight: CGFloat = 55
-            let topSafeAreaHeight: CGFloat = UIApplication.safeAreaInsets.top
-            
-            let height: CGFloat = (topSafeAreaHeight > 20)
-            ? 75
-            : 55
-            
-            return .init(min: height, max: height)
+            .init(
+                min: 42,
+                max: 52
+            )
         }
         
         private func placement() -> Config.Layout.Placement {
-            .top(params: .init(offset: .zero, includingSafeArea: false))
+            .center
+        }
+        
+        private func dismissMethods() -> Set<Config.DismissMethod> {
+            [
+                .tap(actionCompletion: nil),
+                .automatic(time: 2.0)
+            ]
         }
         
         private func animations() -> Config.Animations {
-            let behaviour: Config.Animation.Behaviour = .custom(
-                changes: [.translation(type: .outOfSourceViewVerticaly)]
-            )
+            let behaviour: Config.Animation.Behaviour = .custom(changes: [
+                .alpha(intensity: 0.25),
+                .scale(value: .init(x: 0.25, y: 0.25))
+            ])
             
             let present: Config.Animation = .init(
                 animation: .toastPresenting,
@@ -112,8 +113,10 @@ extension CxjTemplatedToastConfigProviderFactory {
 fileprivate extension CxjAnimation {
     static let toastPresenting = CxjAnimation { (animations, completion) in
         UIView.animate(
-            withDuration: 0.25,
+            withDuration: 1.0,
             delay: .zero,
+            usingSpringWithDamping: 0.9,
+            initialSpringVelocity: 15.0,
             options: [.curveEaseOut, .allowUserInteraction, .beginFromCurrentState],
             animations: animations,
             completion: completion

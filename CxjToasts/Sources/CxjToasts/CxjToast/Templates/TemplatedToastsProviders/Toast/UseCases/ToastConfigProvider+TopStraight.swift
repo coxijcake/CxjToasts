@@ -78,20 +78,25 @@ extension CxjTemplatedToastConfigProviderFactory {
 			]
 		}
 		
-		private func animations() -> Config.Animations {
-			let animation: Config.Animation = Config.Animation(
-				animation: .defaultSpring,
-				behaviour: .custom(
-					changes: [
-						.translation(type: .outOfSourceViewVerticaly)
-					]
-				)
-			)
-			
-			return Config.Animations(
-				present: animation,
-				dismiss: animation
-			)
+		private func animations() -> Config.Animations {            
+            let behaviour: Config.Animation.Behaviour = .custom(
+                changes: [.translation(type: .outOfSourceViewVerticaly)]
+            )
+            
+            let present: Config.Animation = .init(
+                animation: .toastPresenting,
+                behaviour: behaviour
+            )
+            
+            let dismiss: Config.Animation = .init(
+                animation: .toastDismissing,
+                behaviour: behaviour
+            )
+            
+            return Config.Animations(
+                present: present,
+                dismiss: dismiss
+            )
 		}
 		
 		private func spamProtection() -> Config.SpamProtection {
@@ -109,3 +114,25 @@ extension CxjTemplatedToastConfigProviderFactory {
 	}
 }
 
+//MARK: - CxjAnimation extensions
+fileprivate extension CxjAnimation {
+    static let toastPresenting = CxjAnimation { (animations, completion) in
+        UIView.animate(
+            withDuration: 0.25,
+            delay: .zero,
+            options: [.curveEaseOut, .allowUserInteraction, .beginFromCurrentState],
+            animations: animations,
+            completion: completion
+        )
+    }
+    
+    static let toastDismissing = CxjAnimation { (animations, completion) in
+        UIView.animate(
+            withDuration: 0.175,
+            delay: .zero,
+            options: [.curveEaseIn, .beginFromCurrentState],
+            animations: animations,
+            completion: completion
+        )
+    }
+}

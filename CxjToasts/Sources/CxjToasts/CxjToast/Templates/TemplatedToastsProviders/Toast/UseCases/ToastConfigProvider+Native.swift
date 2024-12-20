@@ -74,12 +74,12 @@ extension CxjTemplatedToastConfigProviderFactory {
 		
 		private func animations() -> Config.Animations {
 			let present: Config.Animation = Config.Animation(
-				animation: .nativeToastPresenting,
+				animation: .toastPresenting,
 				behaviour: .default(includingNativeViews: [.dynamicIsland])
 			)
 			
 			let dismiss: Config.Animation = Config.Animation(
-				animation: .nativeToastDismissing,
+				animation: .toastDismissing,
 				behaviour: .default(includingNativeViews: [.dynamicIsland])
 			)
 			
@@ -102,4 +102,29 @@ extension CxjTemplatedToastConfigProviderFactory {
 			)
 		}
 	}
+}
+
+//MARK: - CxjAnimation extensions
+fileprivate extension CxjAnimation {
+    static let toastPresenting = CxjAnimation { (animations, completion) in
+        UIView.animate(
+            withDuration: 1.0,
+            delay: .zero,
+            usingSpringWithDamping: 0.85,
+            initialSpringVelocity: 10.0,
+            options: [.curveEaseOut, .allowUserInteraction, .beginFromCurrentState],
+            animations: animations,
+            completion: completion
+        )
+    }
+    
+    static let toastDismissing = CxjAnimation { (animations, completion) in
+        UIView.animate(
+            withDuration: 0.25,
+            delay: .zero,
+            options: [.curveEaseIn, .beginFromCurrentState],
+            animations: animations,
+            completion: completion
+        )
+    }
 }

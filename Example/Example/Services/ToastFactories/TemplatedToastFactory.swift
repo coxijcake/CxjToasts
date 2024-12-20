@@ -27,6 +27,10 @@ enum TemplatedToastFactory {
 			)
         case .minimalizedGlobalStatus:
             return minimalizedGlobalStatus()
+        case .compactActionDescription:
+            return compactActionDescription(
+                customSourceView: customSourceView
+            )
 		case .compactAction:
 			return compactActionToast(
 				customSourceView: customSourceView
@@ -108,7 +112,15 @@ private extension TemplatedToastFactory {
 					string: "Test straight toast title",
 					attributes: .init(textColor: .label, font: .systemFont(ofSize: 18, weight: .medium))
 				),
-				background: .colorized(color: customSourceView?.backgroundColor?.withAlphaComponent(0.95) ?? .white)
+				background: .colorized(color: customSourceView?.backgroundColor?.withAlphaComponent(0.95) ?? .white),
+                shadow: .enable(
+                    params: .init(
+                        offset: .init(width: 0, height: 3),
+                        color: .black.withAlphaComponent(0.75),
+                        opacity: 1.0,
+                        radius: 4
+                    )
+                )
 			)
 		)
 	}
@@ -138,6 +150,26 @@ private extension TemplatedToastFactory {
                     .swipe(direction: .top),
                     .tap(actionCompletion: nil)
                 ]
+            )
+        )
+    }
+}
+
+//MARK: - CompactActionDescription
+private extension TemplatedToastFactory {
+    static func compactActionDescription(customSourceView: UIView?) -> CxjToastTemplate {
+        return .compactActionDescription(
+            data: .init(
+                typeId: "compact_action_description_test",
+                title: .plain(
+                    string: "Sent",
+                    attributes: .init(
+                        textColor: .white,
+                        font: .systemFont(ofSize: 12, weight: .semibold)
+                    )
+                ),
+                background: .blurred(effect: .init(style: .dark)),
+                customSourceView: customSourceView
             )
         )
     }

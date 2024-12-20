@@ -21,6 +21,8 @@ enum CxjTemplatedToastContentConfiguratorFactory {
 			TopStraightToastContentConfigurator(data: data)
         case .minimalizedGlobalStatus(data: let data):
             GlobalMinimalizedStatusToastContentConfigurator(data: data)
+        case .compactActionDescription(data: let data):
+            CompactActionDescriptionToastContentConfigurator(data: data)
 		case .compactAction(data: let data):
 			CompactActionToastContentConfigurator(data: data, toastId: toastId)
 		case .undoAction(data: let data):

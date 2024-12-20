@@ -20,6 +20,7 @@ public enum CxjToastTemplate {
 	case bottomPrimary(data: BottomPrimaryToastData)
 	case topStraight(data: TopStraightToastData)
     case minimalizedGlobalStatus(data: MinimaliedGlobalStatusToastData)
+    case compactActionDescription(data: CompactActionDescriptionToastData)
     
     //MARK: - Action toasts
 	case compactAction(data: CompactActionToastData)
