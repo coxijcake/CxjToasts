@@ -8,12 +8,12 @@
 import Foundation
 
 struct ToastTypeComparator {
-	typealias Toast = any CxjDisplayableToast
+    typealias ToastTypeId = String
 	
-	let lhsToast: Toast
-	let rhsToast: Toast
+	let lhsToastTypeId: ToastTypeId
+	let rhsToastTypeId: ToastTypeId
 	
 	func isEqual() -> Bool {
-		lhsToast.typeId == rhsToast.typeId
+        lhsToastTypeId == rhsToastTypeId
 	}
 }

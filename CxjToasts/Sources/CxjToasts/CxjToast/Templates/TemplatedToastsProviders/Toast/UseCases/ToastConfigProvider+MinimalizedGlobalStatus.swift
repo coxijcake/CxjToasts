@@ -58,7 +58,6 @@ extension CxjTemplatedToastConfigProviderFactory {
         }
         
         private func heightConstraint() -> Config.Constraints.Values {
-            let minHeight: CGFloat = 55
             let topSafeAreaHeight: CGFloat = UIApplication.safeAreaInsets.top
             
             let height: CGFloat = (topSafeAreaHeight > 20)

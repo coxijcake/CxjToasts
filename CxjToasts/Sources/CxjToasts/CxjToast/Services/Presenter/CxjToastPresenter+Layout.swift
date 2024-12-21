@@ -147,7 +147,7 @@ extension CxjToastPresenter {
 			switch action {
 			case .defaultPosition:
 				bottomConstaintDuringKeyboardDisplaying?.isActive == true
-			case .setupBottomPadding(let params):
+			case .setupBottomPadding(_):
 				defaultVerticalConstraint?.isActive == true
 			}
 		}

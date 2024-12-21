@@ -5,22 +5,29 @@
 //  Created by Nikita Begletskiy on 21/11/2024.
 //
 
-import Foundation
+import UIKit
 
 extension ToastAttributesComparator {
 	enum ValidationResult {
 		case passed
 		case failed
 	}
+    
+    struct ComparingValues {
+        typealias Placement = CxjToastConfiguration.Layout.Placement
+        
+        let typeId: String
+        let placement: Placement
+        let sourceView: UIView
+    }
 }
 
 struct ToastAttributesComparator {
-	typealias Attribute = CxjToastComparisonAttribute
-	typealias Toast = (any CxjDisplayableToast)
+	typealias ComparisonAttribute = CxjToastComparisonAttribute
 	
-	let lhsToast: Toast
-	let rhsToast: Toast
-	let comparingAttributes: Set<Attribute>
+	let lhsToastValues: ComparingValues
+	let rhsToastValues: ComparingValues
+	let comparingAttributes: Set<ComparisonAttribute>
 	
 	func isAllAttributesEqual() -> Bool {
 		let attributesCount: Int = comparingAttributes.count
@@ -29,16 +36,16 @@ struct ToastAttributesComparator {
 		for comparingAttribute in comparingAttributes {
 			switch comparingAttribute {
 			case .type:
-				let comparator: ToastTypeComparator = ToastTypeComparator(
-					lhsToast: lhsToast,
-					rhsToast: rhsToast
-				)
+                let typeComparator: ToastTypeComparator = ToastTypeComparator(
+                    lhsToastTypeId: lhsToastValues.typeId,
+                    rhsToastTypeId: rhsToastValues.typeId
+                )
 				
-				comparator.isEqual() ? equalAttributesCount += 1 : ()
+                typeComparator.isEqual() ? equalAttributesCount += 1 : ()
 			case .placement(let includingYOffset):
 				let placementComparator = ToastPlacementComparator(
-					lhs: lhsToast.config.layout.placement,
-					rhs: rhsToast.config.layout.placement
+                    lhs: lhsToastValues.placement,
+					rhs: rhsToastValues.placement
 				)
 				
 				if includingYOffset {
@@ -48,8 +55,8 @@ struct ToastAttributesComparator {
 				}
 			case .sourceView:
 				let comparator = ToastSourceViewComparator(
-					lhs: lhsToast.config.sourceView,
-					rhs: rhsToast.config.sourceView
+                    lhs: lhsToastValues.sourceView,
+					rhs: rhsToastValues.sourceView
 				)
 				
 				comparator.isEquals() ? equalAttributesCount += 1 : ()
@@ -63,18 +70,18 @@ struct ToastAttributesComparator {
 		for comparingAttribute in comparingAttributes {
 			switch comparingAttribute {
 			case .type:
-				let typeComparator: ToastTypeComparator = ToastTypeComparator(
-					lhsToast: lhsToast,
-					rhsToast: rhsToast
-				)
+                let typeComparator: ToastTypeComparator = ToastTypeComparator(
+                    lhsToastTypeId: lhsToastValues.typeId,
+                    rhsToastTypeId: rhsToastValues.typeId
+                )
 				
 				if typeComparator.isEqual() {
 					return true
 				}
 			case .placement(includingYOffset: let includingYOffset):
 				let placementComparator: ToastPlacementComparator = ToastPlacementComparator(
-					lhs: lhsToast.config.layout.placement,
-					rhs: rhsToast.config.layout.placement
+                    lhs: lhsToastValues.placement,
+                    rhs: rhsToastValues.placement
 				)
 				
 				let isEqualPlacement: Bool = includingYOffset
@@ -86,8 +93,8 @@ struct ToastAttributesComparator {
 				}
 			case .sourceView:
 				let sourceComparator: ToastSourceViewComparator = ToastSourceViewComparator(
-					lhs: lhsToast.config.sourceView,
-					rhs: rhsToast.config.sourceView
+                    lhs: lhsToastValues.sourceView,
+					rhs: rhsToastValues.sourceView
 				)
 				
 				if sourceComparator.isEquals() {
@@ -98,4 +105,14 @@ struct ToastAttributesComparator {
 		
 		return false
 	}
+}
+
+enum ToastAttributesComparatorValuesConfigurator {
+    static func valuesForToast(_ toast: any CxjDisplayableToast) -> ToastAttributesComparator.ComparingValues {
+        .init(
+            typeId: toast.typeId,
+            placement: toast.config.layout.placement,
+            sourceView: toast.config.sourceView
+        )
+    }
 }
