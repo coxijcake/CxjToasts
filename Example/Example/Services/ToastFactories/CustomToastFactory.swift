@@ -53,7 +53,7 @@ extension CustomToastFactory {
 				keyboardHandling: .moveToastUpperKeyboard(additionalOffset: 10),
 				animations: animations(),
 				spamProtection: spamProtection(),
-				displayingSameAttributeToastBehaviour: displayingSameAttributeToastBehaviour()
+                coexistencePolicy: coexistencePolicy()
 			)
 		}
 		
@@ -125,7 +125,7 @@ extension CustomToastFactory {
 			.off
 		}
 		
-		private static func displayingSameAttributeToastBehaviour() -> ToastConfig.DisplayingBehaviour {
+        private static func coexistencePolicy() -> ToastConfig.ToastCoexistencePolicy {
 			.init(handling: .dismiss, comparisonCriteria: .init(rule: .or))
 		}
 		

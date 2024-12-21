@@ -51,7 +51,7 @@ struct ToastSpamValidator {
 			let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
 				lhsToast: displayingToast,
 				rhsToast: targetToast,
-				comparingAttributes: targetToast.config.displayingBehaviour.comparisonCriteria.attibutes
+				comparingAttributes: targetToast.config.coexistencePolicy.comparisonCriteria.attibutes
 			)
 			
 			if attributesComparator.isAllAttributesEqual() {
@@ -71,7 +71,7 @@ struct ToastSpamValidator {
 			let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
 				lhsToast: displayingToast,
 				rhsToast: targetToast,
-				comparingAttributes: targetToast.config.displayingBehaviour.comparisonCriteria.attibutes
+				comparingAttributes: targetToast.config.coexistencePolicy.comparisonCriteria.attibutes
 			)
 			
 			if attributesComparator.isOneOfAttributesEqual() {

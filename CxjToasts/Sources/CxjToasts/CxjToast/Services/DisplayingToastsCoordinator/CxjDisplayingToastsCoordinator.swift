@@ -25,7 +25,7 @@ enum CxjDisplayingToastsCoordinator {
 	) {
 		
 		let animatingAction: CxjVoidCompletion = {
-			switch targetToast.config.displayingBehaviour.action {
+            switch targetToast.config.coexistencePolicy.behaviour {
 			case .stack(let attributes):
 				let toastsToStack: [Toast] = linkedToastsToToast(
 					targetToast,
@@ -98,7 +98,7 @@ extension CxjDisplayingToastsCoordinator {
 	) {
 		let isTopPositionToast: Bool = index == 0
 		
-		switch toast.config.displayingBehaviour.action {
+		switch toast.config.coexistencePolicy.behaviour {
 		case .stack(attributes: let attributes):
 			if attributes.shouldStopTimerForStackedUnvisibleToasts {
 				updateTimerStateForToast(toast, isTopPosition: isTopPositionToast)
@@ -137,10 +137,10 @@ private extension CxjDisplayingToastsCoordinator {
 				let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
 					lhsToast: activeToast,
 					rhsToast: targetToast,
-					comparingAttributes: targetToast.config.displayingBehaviour.comparisonCriteria.attibutes
+					comparingAttributes: targetToast.config.coexistencePolicy.comparisonCriteria.attibutes
 				)
 				
-				switch targetToast.config.displayingBehaviour.comparisonCriteria.logicOperation {
+				switch targetToast.config.coexistencePolicy.comparisonCriteria.logicOperation {
 				case .or:
 					return attributesComparator.isOneOfAttributesEqual()
 				case .and:

@@ -18,7 +18,7 @@ public struct CxjToastConfiguration: Sendable {
 	public let animations: Animations
     public let hapticFeeback: CxjHapticFeedback?
 	public let spamProtection: SpamProtection
-	public let displayingBehaviour: DisplayingBehaviour
+	public let coexistencePolicy: ToastCoexistencePolicy
     
     public init(
 		typeId: String,
@@ -30,7 +30,7 @@ public struct CxjToastConfiguration: Sendable {
 		animations: Animations,
         hapticFeeback: CxjHapticFeedback? = nil,
 		spamProtection: SpamProtection,
-		displayingSameAttributeToastBehaviour: DisplayingBehaviour
+        coexistencePolicy: ToastCoexistencePolicy
     ) {
 		self.typeId = typeId
 		self.sourceView = sourceView
@@ -41,6 +41,6 @@ public struct CxjToastConfiguration: Sendable {
         self.animations = animations
         self.hapticFeeback = hapticFeeback
 		self.spamProtection = spamProtection
-		self.displayingBehaviour = displayingSameAttributeToastBehaviour
+		self.coexistencePolicy = coexistencePolicy
     }
 }

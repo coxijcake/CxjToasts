@@ -29,7 +29,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 				keyboardHandling: .moveToastUpperKeyboard(additionalOffset: 10),
 				animations: data.toast.animations,
 				spamProtection: data.toast.spamProtection,
-				displayingSameAttributeToastBehaviour: data.toast.displayingBehaviour
+                coexistencePolicy: data.toast.coexistencePolicy
 			)
 		}
 		

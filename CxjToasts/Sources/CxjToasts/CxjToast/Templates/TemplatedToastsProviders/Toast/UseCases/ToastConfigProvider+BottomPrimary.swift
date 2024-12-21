@@ -29,7 +29,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 				keyboardHandling: .ignore,
 				animations: animations(),
 				spamProtection: spamProtection(),
-				displayingSameAttributeToastBehaviour: displayingBehaviour()
+                coexistencePolicy: coexistencePolicy()
 			)
 		}
 		
@@ -99,7 +99,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 			.on(comparisonCriteria: .init(rule: .and))
 		}
 		
-		private func displayingBehaviour() -> Config.DisplayingBehaviour {
+		private func coexistencePolicy() -> Config.ToastCoexistencePolicy {
 			.init(
 				handling: .hide(attributes: .init(shouldStopTimerForHiddenToasts: false)),
 				comparisonCriteria: .init(rule: .and)

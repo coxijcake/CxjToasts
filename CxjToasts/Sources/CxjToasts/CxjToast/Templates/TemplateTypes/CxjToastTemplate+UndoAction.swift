@@ -38,20 +38,20 @@ extension CxjToastTemplate {
 			public let dismissMethods: Set<CxjToastConfiguration.DismissMethod>
 			public let animations: CxjToastConfiguration.Animations
 			public let spamProtection: CxjToastConfiguration.SpamProtection
-			public let displayingBehaviour: CxjToastConfiguration.DisplayingBehaviour
+			public let coexistencePolicy: CxjToastConfiguration.ToastCoexistencePolicy
 			
 			public init(
 				placement: CxjToastConfiguration.Layout.Placement,
 				dismissMethods: Set<CxjToastConfiguration.DismissMethod>,
 				animations: CxjToastConfiguration.Animations,
 				spamProtection: CxjToastConfiguration.SpamProtection,
-				displayingBehaviour: CxjToastConfiguration.DisplayingBehaviour
+                coexistencePolicy: CxjToastConfiguration.ToastCoexistencePolicy
 			) {
 				self.placement = placement
 				self.dismissMethods = dismissMethods
 				self.animations = animations
 				self.spamProtection = spamProtection
-				self.displayingBehaviour = displayingBehaviour
+				self.coexistencePolicy = coexistencePolicy
 			}
 		}
 		
