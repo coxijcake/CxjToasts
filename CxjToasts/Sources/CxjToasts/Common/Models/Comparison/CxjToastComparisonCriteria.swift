@@ -19,7 +19,7 @@ public struct CxjToastComparisonCriteria: Sendable {
 	let logicOperation: LogicOperation
 	
 	public init(
-		attibutes: Set<CxjToastComparisonAttribute> = CxjToastComparisonAttribute.recommened,
+		attibutes: Set<CxjToastComparisonAttribute>,
 		rule: LogicOperation
 	) {
 		self.attibutes = attibutes

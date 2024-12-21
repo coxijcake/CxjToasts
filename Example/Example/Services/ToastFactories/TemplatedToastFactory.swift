@@ -237,7 +237,7 @@ private extension TemplatedToastFactory {
 								shouldStopTimerForStackedUnvisibleToasts: true
 							)
 						),
-						comparisonCriteria: .init(rule: .and)
+                        comparisonCriteria: .init(attibutes: CxjToastComparisonAttribute.completeMatch, rule: .and)
 					)
 				),
 				toastView: .init(

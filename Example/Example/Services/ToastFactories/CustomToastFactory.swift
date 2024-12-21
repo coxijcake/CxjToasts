@@ -126,7 +126,7 @@ extension CustomToastFactory {
 		}
 		
         private static func coexistencePolicy() -> ToastConfig.ToastCoexistencePolicy {
-			.init(handling: .dismiss, comparisonCriteria: .init(rule: .or))
+            .init(handling: .dismiss, comparisonCriteria: .init(attibutes: CxjToastComparisonAttribute.completeMatch, rule: .or))
 		}
 		
 		//MARK: - ViewConfig

@@ -109,7 +109,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 		}
 		
         private func coexistencePolicy() -> Config.ToastCoexistencePolicy {
-			.init(handling: .dismiss, comparisonCriteria: .init(rule: .and))
+            .init(handling: .dismiss, comparisonCriteria: .init(attibutes: CxjToastComparisonAttribute.completeMatch, rule: .and))
 		}
 	}
 }

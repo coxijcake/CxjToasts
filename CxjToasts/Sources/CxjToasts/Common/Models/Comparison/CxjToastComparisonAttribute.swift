@@ -12,15 +12,15 @@ import Foundation
 /// These attributes define the properties of toasts that are compared
 /// to determine whether two toasts are considered as "matching."
 public enum CxjToastComparisonAttribute: Hashable, Sendable {
-    /// A set of recommended attributes for toast comparison.
+    /// A set of attributes used for complete toast comparison.
     ///
     /// Includes:
     /// - `type`
     /// - `placement(includingYOffset: true)`
     /// - `sourceView`
-	public static var recommened: Set<CxjToastComparisonAttribute> {
-		[.type, .placement(includingYOffset: true), .sourceView]
-	}
+    public static var completeMatch: Set<CxjToastComparisonAttribute> {
+        [.type, .placement(includingYOffset: true), .sourceView]
+    }
 	
     /// Compares the toast type id.
 	case type

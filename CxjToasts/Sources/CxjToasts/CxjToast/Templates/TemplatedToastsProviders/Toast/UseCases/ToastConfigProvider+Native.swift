@@ -98,7 +98,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 				handling: .stack(
 					attributes: .init(maxVisibleToasts: 5, shouldStopTimerForStackedUnvisibleToasts: false)
 				),
-				comparisonCriteria: .init(rule: .and)
+                comparisonCriteria: .init(attibutes: CxjToastComparisonAttribute.completeMatch, rule: .and)
 			)
 		}
 	}

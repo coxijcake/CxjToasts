@@ -95,14 +95,14 @@ extension CxjTemplatedToastConfigProviderFactory {
         
         private func spamProtection() -> Config.SpamProtection {
             .on(
-                comparisonCriteria: .init(rule: .and)
+                comparisonCriteria: .init(attibutes: CxjToastComparisonAttribute.completeMatch, rule: .and)
             )
         }
         
         private func coexistencePolicy() -> Config.ToastCoexistencePolicy {
             .init(
                 handling: .dismiss,
-                comparisonCriteria: .init(rule: .and)
+                comparisonCriteria: .init(attibutes: CxjToastComparisonAttribute.completeMatch, rule: .and)
             )
         }
     }

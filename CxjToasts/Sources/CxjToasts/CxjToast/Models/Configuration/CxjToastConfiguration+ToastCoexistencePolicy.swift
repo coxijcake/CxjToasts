@@ -47,7 +47,10 @@ extension CxjToastConfiguration.ToastCoexistencePolicy {
             /// Whether the timers for stacked but non-visible toasts should stop running.
             let shouldStopTimerForStackedUnvisibleToasts: Bool
             
-            public init(maxVisibleToasts: Int, shouldStopTimerForStackedUnvisibleToasts: Bool) {
+            public init(
+                maxVisibleToasts: Int,
+                shouldStopTimerForStackedUnvisibleToasts: Bool
+            ) {
                 self.maxVisibleToasts = maxVisibleToasts
                 self.shouldStopTimerForStackedUnvisibleToasts = shouldStopTimerForStackedUnvisibleToasts
             }
