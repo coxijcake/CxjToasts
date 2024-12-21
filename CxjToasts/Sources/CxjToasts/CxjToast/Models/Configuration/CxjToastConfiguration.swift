@@ -16,6 +16,7 @@ public struct CxjToastConfiguration: Sendable {
     public let dismissMethods: Set<DismissMethod>
 	public let keyboardHandling: KeyboardHandling
 	public let animations: Animations
+    public let hapticFeeback: CxjHapticFeedback?
 	public let spamProtection: SpamProtection
 	public let displayingBehaviour: DisplayingBehaviour
     
@@ -27,6 +28,7 @@ public struct CxjToastConfiguration: Sendable {
         dismissMethods: Set<DismissMethod>,
 		keyboardHandling: KeyboardHandling,
 		animations: Animations,
+        hapticFeeback: CxjHapticFeedback? = nil,
 		spamProtection: SpamProtection,
 		displayingSameAttributeToastBehaviour: DisplayingBehaviour
     ) {
@@ -37,6 +39,7 @@ public struct CxjToastConfiguration: Sendable {
         self.dismissMethods = dismissMethods
 		self.keyboardHandling = keyboardHandling
         self.animations = animations
+        self.hapticFeeback = hapticFeeback
 		self.spamProtection = spamProtection
 		self.displayingBehaviour = displayingSameAttributeToastBehaviour
     }

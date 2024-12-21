@@ -61,23 +61,37 @@ extension CxjToastsCoordinator {
 		SourceBackgroundActionConfigurator.configureActionForToast(toast)
 		
 		toast.dismisser.configureDismissMethods()
-		toast.presenter.present(animated: animated, keyboardState: keyboardDisplayingStateObserver.keyboardDisplayingState) { [weak self, weak toast] _ in
-			guard
-				let self,
-				let toast
-			else { return }
-			
-			CxjDisplayingToastsCoordinator.updateDismissMethodsFor(
-				displayingToasts: self.activeToasts,
-				linkedToToast: toast
-			)
-			
-			toast.displayingState = .presented
-			toast.dismisser.setupDimissMethods(state: .active)
-			
-			self.publisher.invoke { $0.didPresent(toast: toast) }
-		}
+        presentToast(toast, animated: animated)
+        
+        if let hapticFeedback = toast.config.hapticFeeback {
+            CxjToastHapticImpacter.impactFeedback(hapticFeedback)
+        }
 	}
+}
+
+//MARK: - Presenting
+private extension CxjToastsCoordinator {
+    func presentToast(_ toast: DisplayableToast, animated: Bool) {
+        toast.presenter.present(
+            animated: animated,
+            keyboardState: keyboardDisplayingStateObserver.keyboardDisplayingState
+        ) { [weak self, weak toast] _ in
+            guard
+                let self,
+                let toast
+            else { return }
+            
+            CxjDisplayingToastsCoordinator.updateDismissMethodsFor(
+                displayingToasts: self.activeToasts,
+                linkedToToast: toast
+            )
+            
+            toast.displayingState = .presented
+            toast.dismisser.setupDimissMethods(state: .active)
+            
+            self.publisher.invoke { $0.didPresent(toast: toast) }
+        }
+    }
 }
 
 //MARK: - Dismissing
