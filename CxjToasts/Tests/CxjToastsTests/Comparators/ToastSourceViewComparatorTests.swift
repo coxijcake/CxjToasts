@@ -10,10 +10,9 @@ import UIKit
 
 @testable import CxjToasts
 
-@MainActor
 final class ToastSourceViewComparatorTests {
     
-    @Test
+    @MainActor @Test
     func testIsEqualsWithIdenticalViews() throws {
         let view = UIView()
         let comparator = ToastSourceViewComparator(lhs: view, rhs: view)
@@ -21,7 +20,7 @@ final class ToastSourceViewComparatorTests {
         #expect(comparator.isEquals() == true)
     }
     
-    @Test
+    @MainActor @Test
     func testIsEqualsWithDifferentViews() throws {
         let view1 = UIView()
         let view2 = UIView()
@@ -30,7 +29,7 @@ final class ToastSourceViewComparatorTests {
         #expect(comparator.isEquals() == false)
     }
     
-    @Test
+    @MainActor @Test
     func testIsEqualsWithIdenticalFramesButDifferentInstances() throws {
         let view1 = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         let view2 = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -39,7 +38,7 @@ final class ToastSourceViewComparatorTests {
         #expect(comparator.isEquals() == false)
     }
     
-    @Test
+    @MainActor @Test
     func testIsEqualsWithSameInstanceInDifferentVariables() throws {
         let view = UIView()
         let anotherReferenceToView = view

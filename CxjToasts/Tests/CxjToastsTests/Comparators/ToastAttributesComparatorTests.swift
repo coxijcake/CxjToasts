@@ -10,10 +10,9 @@ import Testing
 
 @testable import CxjToasts
 
-@MainActor
 final class ToastAttributesComparatorTests {
 
-    @Test
+    @MainActor @Test
     func testIsAllAttributesEqualWithAllMatching() throws {
         let lhsValues = ToastAttributesComparator.ComparingValues(
             typeId: "unique_id",
@@ -32,7 +31,7 @@ final class ToastAttributesComparatorTests {
         #expect(comparator.isAllAttributesEqual() == true)
     }
 
-    @Test
+    @MainActor @Test
     func testIsAllAttributesEqualWithOneNonMatching() throws {
         let lhsValues = ToastAttributesComparator.ComparingValues(
             typeId: "id1",
@@ -55,7 +54,7 @@ final class ToastAttributesComparatorTests {
         #expect(comparator.isAllAttributesEqual() == false)
     }
 
-    @Test
+    @MainActor @Test
     func testIsOneOfAttributesEqualWithAtLeastOneMatching() throws {
         let lhsValues = ToastAttributesComparator.ComparingValues(
             typeId: "id1",
@@ -78,7 +77,7 @@ final class ToastAttributesComparatorTests {
         #expect(comparator.isOneOfAttributesEqual() == true)
     }
 
-    @Test
+    @MainActor @Test
     func testIsOneOfAttributesEqualWithNoneMatching() throws {
         let lhsValues = ToastAttributesComparator.ComparingValues(
             typeId: "id1",
