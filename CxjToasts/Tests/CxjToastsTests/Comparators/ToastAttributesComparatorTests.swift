@@ -11,89 +11,104 @@ import Testing
 @testable import CxjToasts
 
 final class ToastAttributesComparatorTests {
-
+    struct MockComparableToast: ComparableToast {
+        let typeId: String
+        let placement: Placement
+        let sourceView: UIView
+    }
+    
     @MainActor @Test
     func testIsAllAttributesEqualWithAllMatching() throws {
-        let lhsValues = ToastAttributesComparator.ComparingValues(
+        let sourceView = UIView()
+        
+        let lhsToast = MockComparableToast(
             typeId: "unique_id",
             placement: .center,
-            sourceView: UIView()
+            sourceView: sourceView
         )
         
-        let rhsValues = lhsValues
+        let rhsToast = lhsToast
         
         let comparator = ToastAttributesComparator(
-            lhsToastValues: lhsValues,
-            rhsToastValues: rhsValues,
+            lhsToast: lhsToast,
+            rhsToast: rhsToast,
             comparingAttributes: [.type, .placement(includingYOffset: true), .sourceView]
         )
         
         #expect(comparator.isAllAttributesEqual() == true)
     }
-
+    
     @MainActor @Test
     func testIsAllAttributesEqualWithOneNonMatching() throws {
-        let lhsValues = ToastAttributesComparator.ComparingValues(
+        let sourceView = UIView()
+        
+        let lhsToast = MockComparableToast(
             typeId: "id1",
             placement: .center,
-            sourceView: UIView()
+            sourceView: sourceView
         )
         
-        let rhsValues = ToastAttributesComparator.ComparingValues(
+        let rhsToast = MockComparableToast(
             typeId: "id2",
             placement: .center,
-            sourceView: lhsValues.sourceView
+            sourceView: sourceView
         )
         
         let comparator = ToastAttributesComparator(
-            lhsToastValues: lhsValues,
-            rhsToastValues: rhsValues,
+            lhsToast: lhsToast,
+            rhsToast: rhsToast,
             comparingAttributes: [.type, .placement(includingYOffset: true), .sourceView]
         )
         
         #expect(comparator.isAllAttributesEqual() == false)
     }
-
+    
     @MainActor @Test
     func testIsOneOfAttributesEqualWithAtLeastOneMatching() throws {
-        let lhsValues = ToastAttributesComparator.ComparingValues(
+        let lhsSourceView = UIView()
+        let rhsSourceView = UIView()
+        
+        let lhsToast = MockComparableToast(
             typeId: "id1",
             placement: .center,
-            sourceView: UIView()
+            sourceView: lhsSourceView
         )
         
-        let rhsValues = ToastAttributesComparator.ComparingValues(
+        let rhsToast = MockComparableToast(
             typeId: "id1",
             placement: .bottom(params: .init(offset: 0, includingSafeArea: false)),
-            sourceView: UIView()
+            sourceView: rhsSourceView
         )
         
         let comparator = ToastAttributesComparator(
-            lhsToastValues: lhsValues,
-            rhsToastValues: rhsValues,
+            lhsToast: lhsToast,
+            rhsToast: rhsToast,
             comparingAttributes: [.type, .placement(includingYOffset: false), .sourceView]
         )
         
         #expect(comparator.isOneOfAttributesEqual() == true)
     }
-
+    
     @MainActor @Test
     func testIsOneOfAttributesEqualWithNoneMatching() throws {
-        let lhsValues = ToastAttributesComparator.ComparingValues(
+        let lhsSourceView = UIView()
+        let rhsSourceView = UIView()
+        
+        let lhsToast = MockComparableToast(
             typeId: "id1",
             placement: .center,
-            sourceView: UIView()
+            sourceView: lhsSourceView
         )
         
-        let rhsValues = ToastAttributesComparator.ComparingValues(
+        let rhsToast = MockComparableToast(
             typeId: "id2",
             placement: .bottom(params: .init(offset: 0, includingSafeArea: false)),
-            sourceView: UIView()
+            sourceView: rhsSourceView
         )
         
         let comparator = ToastAttributesComparator(
-            lhsToastValues: lhsValues,
-            rhsToastValues: rhsValues,
+            lhsToast: lhsToast,
+            rhsToast: rhsToast,
             comparingAttributes: [.type, .placement(includingYOffset: false), .sourceView]
         )
         

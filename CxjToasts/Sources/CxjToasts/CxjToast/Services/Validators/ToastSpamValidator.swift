@@ -42,15 +42,15 @@ struct ToastSpamValidator {
 		}
 	}
 	
-	func validateForEqualAllAttributes(
+	private func validateForEqualAllAttributes(
 		_ attributes: Attributes,
 		toasts: [Toast],
 		withToast targetToast: Toast
 	) -> ValidationResult {
 		for displayingToast in displayingToasts {
 			let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
-                lhsToastValues: ToastAttributesComparatorValuesConfigurator.valuesForToast(displayingToast),
-                rhsToastValues: ToastAttributesComparatorValuesConfigurator.valuesForToast(targetToast),
+                lhsToast: displayingToast,
+                rhsToast: targetToast,
 				comparingAttributes: targetToast.config.coexistencePolicy.comparisonCriteria.attibutes
 			)
 			
@@ -62,15 +62,15 @@ struct ToastSpamValidator {
 		return .passed
 	}
 	
-	func validateForEqualOneOfAttributes(
+    private func validateForEqualOneOfAttributes(
 		_ attributes: Attributes,
 		toasts: [Toast],
 		withToast targetToast: Toast
 	) -> ValidationResult {
 		for displayingToast in displayingToasts {
 			let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
-                lhsToastValues: ToastAttributesComparatorValuesConfigurator.valuesForToast(displayingToast),
-                rhsToastValues: ToastAttributesComparatorValuesConfigurator.valuesForToast(targetToast),
+                lhsToast: displayingToast,
+                rhsToast: targetToast,
 				comparingAttributes: targetToast.config.coexistencePolicy.comparisonCriteria.attibutes
 			)
 			
@@ -82,7 +82,7 @@ struct ToastSpamValidator {
 		return .passed
 	}
 	
-	func isEqualByType(lhsToast: Toast, rhsToast: Toast) -> Bool {
+    private func isEqualByType(lhsToast: Toast, rhsToast: Toast) -> Bool {
         ToastTypeComparator(
             lhsToastTypeId: lhsToast.typeId,
             rhsToastTypeId: rhsToast.typeId
@@ -90,7 +90,7 @@ struct ToastSpamValidator {
         .isEqual()
 	}
 	
-	func isEqualByPlacement(lhsToast: Toast, rhsToast: Toast, includingYOffset: Bool) -> Bool {
+    private func isEqualByPlacement(lhsToast: Toast, rhsToast: Toast, includingYOffset: Bool) -> Bool {
 		let placementComparator: ToastPlacementComparator = ToastPlacementComparator(
 			lhs: lhsToast.config.layout.placement,
 			rhs: rhsToast.config.layout.placement
@@ -103,7 +103,7 @@ struct ToastSpamValidator {
 		}
 	}
 	
-	func isOnTheSameSourceView(lhsToast: Toast, rhsToast: Toast) -> Bool {
+    private func isOnTheSameSourceView(lhsToast: Toast, rhsToast: Toast) -> Bool {
 		ToastSourceViewComparator(
 			lhs: lhsToast.config.sourceView,
 			rhs: rhsToast.config.sourceView

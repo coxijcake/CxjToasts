@@ -135,8 +135,8 @@ private extension CxjDisplayingToastsCoordinator {
 				}
 				
 				let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
-                    lhsToastValues: ToastAttributesComparatorValuesConfigurator.valuesForToast(activeToast),
-                    rhsToastValues: ToastAttributesComparatorValuesConfigurator.valuesForToast(targetToast),
+                    lhsToast: activeToast,
+                    rhsToast: targetToast,
 					comparingAttributes: targetToast.config.coexistencePolicy.comparisonCriteria.attibutes
 				)
 				

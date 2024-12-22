@@ -42,7 +42,7 @@ final class ToastPlacementComparatorTests {
     }
     
     @Test
-    func testEdgeCasesForParams() throws {
+    func testCornerCasesForParams() throws {
         let topParams1 = Placement.top(params: .init(offset: 0, includingSafeArea: false))
         let topParams2 = Placement.top(params: .init(offset: 0, includingSafeArea: false))
         let topParams3 = Placement.top(params: .init(offset: 0, includingSafeArea: true))
