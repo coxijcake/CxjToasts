@@ -15,7 +15,7 @@ extension ToastContentNsLayoutConstraintConfigurator {
 
 @MainActor
 enum ToastContentNsLayoutConstraintConfigurator {
-    //MARK: - Configuration
+    //MARK: - Layout calculations
     static func constraintsForLayout(
         _ layout: CxjToastContentLayout,
         forView childView: UIView,
@@ -38,8 +38,8 @@ enum ToastContentNsLayoutConstraintConfigurator {
     }
 }
 
-//MARK: - Private calculations
-private extension ToastContentNsLayoutConstraintConfigurator {
+//MARK: - Fixed constraints calculations
+extension ToastContentNsLayoutConstraintConfigurator {
     static func fixedConstraintsWithInsets(
         _ insets: UIEdgeInsets,
         forView childView: UIView,
@@ -47,12 +47,15 @@ private extension ToastContentNsLayoutConstraintConfigurator {
     ) -> [NSLayoutConstraint] {
         return [
             childView.topAnchor.constraint(equalTo: parentView.topAnchor, constant: insets.top),
-            childView.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -insets.top),
+            childView.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -insets.bottom),
             childView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: insets.left),
             childView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -insets.right)
         ]
     }
-    
+}
+
+//MARK: - Anchored Constraints calculations
+extension ToastContentNsLayoutConstraintConfigurator {
     static func anchoredConstraintsWithAnchors(
         _ anchors: [Anchor],
         forView childView: UIView,
@@ -72,7 +75,10 @@ private extension ToastContentNsLayoutConstraintConfigurator {
         
         return result
     }
-    
+}
+
+//MARK: - Single anchored constraint calculations
+extension ToastContentNsLayoutConstraintConfigurator {
     static func anchoredConstraintWithAcnor(
         _ anchor: Anchor,
         forView childView: UIView,
@@ -115,7 +121,7 @@ private extension ToastContentNsLayoutConstraintConfigurator {
                 withValue: value,
                 equalToAnchor: parentView.centerYAnchor
             )
-        case .with(value: let value):
+        case .width(value: let value):
             return nsLayoutConstraintForNsLayoutDimension(
                 childView.widthAnchor,
                 withValue: value

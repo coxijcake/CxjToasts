@@ -19,7 +19,7 @@ extension CxjToastContentLayout {
         case left(value: ConstraintValue)
         case right(value: ConstraintValue)
         
-        case with(value: ConstraintValue)
+        case width(value: ConstraintValue)
         case height(value: ConstraintValue)
         
         case centerX(value: ConstraintValue)
