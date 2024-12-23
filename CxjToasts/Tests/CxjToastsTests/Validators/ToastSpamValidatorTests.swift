@@ -10,8 +10,9 @@ import Testing
 
 @testable import CxjToasts
 
+@MainActor
 final class ToastSpamValidatorTests {
-    // MARK: - Mock model
+    //MARK: - Types
     struct MockToast: SpamProtectableToast, ComparableToast {
         let spamProtection: SpamProtection
         let typeId: String
@@ -20,7 +21,7 @@ final class ToastSpamValidatorTests {
     }
 
     // MARK: - Tests
-    @MainActor @Test
+    @Test
     func testCouldBeDisplayedToastWithSpamProtectionOff() throws {
         let displayingToast: MockToast = MockToast(
             spamProtection: .off,
@@ -45,7 +46,7 @@ final class ToastSpamValidatorTests {
         #expect(validator.couldBeDisplayedToast(toastToDisplay) == true)
     }
 
-    @MainActor @Test
+    @Test
     func testCouldBeDisplayedToastWithNoMatchingAttributes() throws {
         let displayingToasts: [MockToast] = [
             MockToast(
@@ -74,7 +75,7 @@ final class ToastSpamValidatorTests {
         #expect(validator.couldBeDisplayedToast(toastToDisplay) == true)
     }
 
-    @MainActor @Test
+    @Test
     func testCouldBeDisplayedToastWithMatchingAttributesOrLogic() throws {
         let sourceView = UIView()
 
@@ -105,7 +106,7 @@ final class ToastSpamValidatorTests {
         #expect(validator.couldBeDisplayedToast(toastToDisplay) == false)
     }
 
-    @MainActor @Test
+    @Test
     func testCouldBeDisplayedToastWithMatchingAttributesAndLogic() throws {
         let displayingToast: MockToast = MockToast(
             spamProtection: .on(comparisonCriteria: .init(
@@ -133,7 +134,7 @@ final class ToastSpamValidatorTests {
         #expect(validator.couldBeDisplayedToast(toastToDisplay) == false)
     }
 
-    @MainActor @Test
+    @Test
     func testCouldBeDisplayedToastWithDifferentAttributeAndLogicAnd() throws {
         let displayingToast: MockToast = MockToast(
             spamProtection: .on(comparisonCriteria: .init(
@@ -161,7 +162,7 @@ final class ToastSpamValidatorTests {
         #expect(validator.couldBeDisplayedToast(toastToDisplay) == true)
     }
 
-    @MainActor @Test
+    @Test
     func testCouldBeDisplayedToastWithEmptyAttributesAndLogic() throws {
         let displayingToast: MockToast = MockToast(
             spamProtection: .on(comparisonCriteria: .init(
@@ -189,7 +190,7 @@ final class ToastSpamValidatorTests {
         #expect(validator.couldBeDisplayedToast(toastToDisplay) == false)
     }
     
-    @MainActor @Test
+    @Test
     func testCouldBeDisplayedToastWithEmptyAttributesOrLogic() throws {
         let displayingToast: MockToast = MockToast(
             spamProtection: .on(comparisonCriteria: .init(

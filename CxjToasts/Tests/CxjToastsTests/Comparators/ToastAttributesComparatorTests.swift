@@ -10,14 +10,17 @@ import Testing
 
 @testable import CxjToasts
 
+@MainActor
 final class ToastAttributesComparatorTests {
+    //MARK: - Types
     struct MockComparableToast: ComparableToast {
         let typeId: String
         let placement: Placement
         let sourceView: UIView
     }
     
-    @MainActor @Test
+    //MARK: - Tests
+    @Test
     func testIsAllAttributesEqualWithAllMatching() throws {
         let sourceView = UIView()
         
@@ -38,7 +41,7 @@ final class ToastAttributesComparatorTests {
         #expect(comparator.isAllAttributesEqual() == true)
     }
     
-    @MainActor @Test
+    @Test
     func testIsAllAttributesEqualWithOneNonMatching() throws {
         let sourceView = UIView()
         
@@ -63,7 +66,7 @@ final class ToastAttributesComparatorTests {
         #expect(comparator.isAllAttributesEqual() == false)
     }
     
-    @MainActor @Test
+    @Test
     func testIsOneOfAttributesEqualWithAtLeastOneMatching() throws {
         let lhsSourceView = UIView()
         let rhsSourceView = UIView()
@@ -89,7 +92,7 @@ final class ToastAttributesComparatorTests {
         #expect(comparator.isOneOfAttributesEqual() == true)
     }
     
-    @MainActor @Test
+    @Test
     func testIsOneOfAttributesEqualWithNoneMatching() throws {
         let lhsSourceView = UIView()
         let rhsSourceView = UIView()

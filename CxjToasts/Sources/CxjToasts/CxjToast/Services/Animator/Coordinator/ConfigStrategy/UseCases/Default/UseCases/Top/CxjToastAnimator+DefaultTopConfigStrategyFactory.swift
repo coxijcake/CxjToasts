@@ -21,7 +21,8 @@ extension CxjToastAnimator {
 			let sourceViewSafeAreaInsets: UIEdgeInsets = input.sourceViewData.safeAreaInsets
 			
 			//TODO: - Add to global toasts settings
-			let isSourceSafeAreaEqulWindowSafeArea: Bool = 
+            //TODO: - Add documentation for animation properties
+			let isSourceSafeAreaEqulWindowSafeArea: Bool =
 			(applicationSafeAreaInsets == sourceViewSafeAreaInsets)
 			&& includingSafeArea
 			

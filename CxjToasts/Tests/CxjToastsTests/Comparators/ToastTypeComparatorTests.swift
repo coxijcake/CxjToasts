@@ -11,7 +11,8 @@ import Testing
 @testable import CxjToasts
 
 final class ToastTypeComparatorTests {
-
+    
+    //MARK: - Tests
     @Test
     func testIsEqualWithSameToastTypeIds() throws {
         let comparator = ToastTypeComparator(lhsToastTypeId: "unique_type_id", rhsToastTypeId: "unique_type_id")

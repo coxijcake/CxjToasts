@@ -10,8 +10,10 @@ import Testing
 @testable import CxjToasts
 
 final class ToastPlacementComparatorTests {
+    //MARK: - Types
     typealias Placement = CxjToastConfiguration.Layout.Placement
     
+    //MARK: - Tests
     @Test
     func testIsEqualPlacementType() throws {
         let topWithParams1 = Placement.top(params: .init(offset: 10, includingSafeArea: true))

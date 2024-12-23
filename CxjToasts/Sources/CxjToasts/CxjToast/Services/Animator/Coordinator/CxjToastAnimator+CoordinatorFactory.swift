@@ -44,7 +44,8 @@ extension CxjToastAnimator {
 			let toastLayoutCalculator: ToastLayoutCalculator = ToastLayoutCalculator(
 				presentedStateProps: presentedStateAnimatingProperties,
 				dismissedStateProps: configStrategy.dismissedStateAnimatingProperties(),
-				toastSize: toastView.bounds.size
+                toastSize: toastView.bounds.size,
+                cornerRadiusProgressSmoothing: 0.3
 			)
 			
 			let sourceBackgroundLayoutCalculator: SourceBackgroundLayoutCalculator = SourceBackgroundLayoutCalculator(

@@ -11,9 +11,11 @@ import Testing
 
 @MainActor
 final class ToastContentNsLayoutConstraintConfiguratorTests {
+    //MARK: - Props
     private let parentView = UIView()
     private let childView = UIView()
 
+    //MARK: - Tests
     @Test
     func testConstraintsForLayoutWithFill() throws {
         let insets = UIEdgeInsets(top: 10, left: 15, bottom: 20, right: 25)
