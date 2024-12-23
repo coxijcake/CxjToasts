@@ -15,26 +15,30 @@ extension ToastSpamValidator {
 }
 
 struct ToastSpamValidator {
-	typealias Toast = any CxjDisplayableToast
+    typealias Toast = any SpamProtectableToast & ComparableToast
 	typealias Attributes = Set<CxjToastComparisonAttribute>
 	
 	let displayingToasts: [Toast]
 	
 	func couldBeDisplayedToast(_ toastToDisplay: Toast) -> Bool {
-		switch toastToDisplay.config.spamProtection {
+		switch toastToDisplay.spamProtection {
 		case .on(comparisonCriteria: let comparisonCriteria):
+            let comparingAttributes: Attributes = comparisonCriteria.attibutes
+            
 			switch comparisonCriteria.logicOperation {
 			case .or:
 				return validateForEqualOneOfAttributes(
 					comparisonCriteria.attibutes,
 					toasts: displayingToasts,
-					withToast: toastToDisplay
+                    withToast: toastToDisplay,
+                    comparingAttributes: comparingAttributes
 				) == .passed
 			case .and:
 				return validateForEqualAllAttributes(
 					comparisonCriteria.attibutes,
 					toasts: displayingToasts,
-					withToast: toastToDisplay
+					withToast: toastToDisplay,
+                    comparingAttributes: comparingAttributes
 				) == .passed
 			}
 		case .off:
@@ -45,13 +49,14 @@ struct ToastSpamValidator {
 	private func validateForEqualAllAttributes(
 		_ attributes: Attributes,
 		toasts: [Toast],
-		withToast targetToast: Toast
+		withToast targetToast: Toast,
+        comparingAttributes: Attributes
 	) -> ValidationResult {
 		for displayingToast in displayingToasts {
 			let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
                 lhsToast: displayingToast,
                 rhsToast: targetToast,
-				comparingAttributes: targetToast.config.coexistencePolicy.comparisonCriteria.attibutes
+                comparingAttributes: comparingAttributes
 			)
 			
 			if attributesComparator.isAllAttributesEqual() {
@@ -65,13 +70,14 @@ struct ToastSpamValidator {
     private func validateForEqualOneOfAttributes(
 		_ attributes: Attributes,
 		toasts: [Toast],
-		withToast targetToast: Toast
+		withToast targetToast: Toast,
+        comparingAttributes: Attributes
 	) -> ValidationResult {
 		for displayingToast in displayingToasts {
 			let attributesComparator: ToastAttributesComparator = ToastAttributesComparator(
                 lhsToast: displayingToast,
                 rhsToast: targetToast,
-				comparingAttributes: targetToast.config.coexistencePolicy.comparisonCriteria.attibutes
+                comparingAttributes: comparingAttributes
 			)
 			
 			if attributesComparator.isOneOfAttributesEqual() {
@@ -92,8 +98,8 @@ struct ToastSpamValidator {
 	
     private func isEqualByPlacement(lhsToast: Toast, rhsToast: Toast, includingYOffset: Bool) -> Bool {
 		let placementComparator: ToastPlacementComparator = ToastPlacementComparator(
-			lhs: lhsToast.config.layout.placement,
-			rhs: rhsToast.config.layout.placement
+			lhs: lhsToast.placement,
+			rhs: rhsToast.placement
 		)
 		
 		if includingYOffset {
@@ -105,8 +111,8 @@ struct ToastSpamValidator {
 	
     private func isOnTheSameSourceView(lhsToast: Toast, rhsToast: Toast) -> Bool {
 		ToastSourceViewComparator(
-			lhs: lhsToast.config.sourceView,
-			rhs: rhsToast.config.sourceView
+			lhs: lhsToast.sourceView,
+			rhs: rhsToast.sourceView
 		).isEquals()
 	}
 }

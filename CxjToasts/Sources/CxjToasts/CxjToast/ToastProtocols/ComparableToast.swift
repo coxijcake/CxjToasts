@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ComparableToast: Sendable {
+protocol ComparableToast {
     typealias Placement = CxjToastConfiguration.Layout.Placement
     
     var typeId: String { get }

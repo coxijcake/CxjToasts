@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol CxjDisplayableToast: CxjIdentifiableToast, ComparableToast, Sendable {
+protocol CxjDisplayableToast: CxjIdentifiableToast, ConfigableToast, Sendable {
 	var presenter: CxjToastPresentable { get }
 	var dismisser: CxjToastDismissable { get }
 	var view: CxjToastView { get }
@@ -18,10 +18,4 @@ protocol CxjDisplayableToast: CxjIdentifiableToast, ComparableToast, Sendable {
 	var displayingState: CxjToastDisplayingState { get set }
 	@MainActor
 	var isInteracting: Bool { get }
-}
-
-extension CxjDisplayableToast {
-    var typeId: String { config.typeId }
-    var placement: Placement { config.layout.placement }
-    var sourceView: UIView { config.sourceView }
 }
