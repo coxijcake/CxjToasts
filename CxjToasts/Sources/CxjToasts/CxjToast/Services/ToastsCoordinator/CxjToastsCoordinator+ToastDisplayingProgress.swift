@@ -1,5 +1,5 @@
 //
-//  CxjToastsCoordinator+ToastDisplayinhProgress.swift
+//  CxjToastsCoordinator+ToastDisplayingProgress.swift
 //  CxjToasts
 //
 //  Created by Nikita Begletskiy on 15/12/2024.
