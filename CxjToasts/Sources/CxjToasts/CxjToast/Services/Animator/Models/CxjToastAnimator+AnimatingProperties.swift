@@ -21,6 +21,8 @@ extension CxjToastAnimator {
 			let y: CGFloat
 			
 			static var initial: Translation { Translation(x: .zero, y: .zero) }
+            
+            var cgPoint: CGPoint { CGPoint(x: x, y: y) }
 		}
 		
 		struct CornerRadius {

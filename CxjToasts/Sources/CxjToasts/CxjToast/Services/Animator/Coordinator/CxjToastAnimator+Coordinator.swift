@@ -10,7 +10,7 @@ import Foundation
 extension CxjToastAnimator {
 	@MainActor
 	protocol Coordinator {
-        var dismissedStateYTranslation: CGFloat { get }
+        var dismissedStateTranslation: CGPoint { get }
         
 		func beforeDisplayingLayout(progress: ToastLayoutProgress)
 		func presentingLayout()

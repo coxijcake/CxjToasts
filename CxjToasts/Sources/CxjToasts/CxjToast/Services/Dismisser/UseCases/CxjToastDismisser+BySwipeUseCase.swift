@@ -35,13 +35,17 @@ extension CxjToastDismisser {
             return gesture
         }()
         
-        private lazy var dismissedStateYTranslation: CGFloat = {
-            max(abs(animator.dismissedStateYTranslation), toastView.bounds.size.height)
+        private lazy var dismissedStateTranslation: CGPoint = {
+            let animatorTranslation: CGPoint = animator.dismissedStateTranslation
+            let x: CGFloat = max(abs(animatorTranslation.x), toastView.bounds.size.width)
+            let y: CGFloat = max(abs(animatorTranslation.y), toastView.bounds.size.height)
+            
+            return CGPoint(x: x, y: y)
         }()
         
-        private var startViewY: CGFloat = 0
-        private var startGestureY: CGFloat = 0
-        private var currentY: CGFloat = .zero
+        private var startViewOrigin: CGFloat = 0
+        private var startGestureLocation: CGFloat = 0
+        private var currentOriginOffset: CGFloat = .zero
 		
 		//MARK: - Lifecycle
 		init(
@@ -77,20 +81,20 @@ extension CxjToastDismisser.DismissBySwipeUseCase: ToastDismissUseCase {
 	}
 }
 
-//MARK: - Private
+//MARK: - Setup
 private extension CxjToastDismisser.DismissBySwipeUseCase {
-	func activate() {
-		addGesture()
-	}
-	
-	func pause() {
-		
-	}
-	
-	func deactivate() {
-		removeGesture()
-	}
-	
+    func activate() {
+        addGesture()
+    }
+    
+    func pause() {
+        
+    }
+    
+    func deactivate() {
+        removeGesture()
+    }
+    
     func addGesture() {
         removeGesture()
         toastView.addGestureRecognizer(swipeGesture)
@@ -99,33 +103,25 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
     func removeGesture() {
         toastView.removeGestureRecognizer(swipeGesture)
     }
-    
-    @objc func handleToastSwipe(_ gesture: UIPanGestureRecognizer) {
+}
+
+//MARK: - Swipe handling
+private extension CxjToastDismisser.DismissBySwipeUseCase {
+    @objc
+    func handleToastSwipe(_ gesture: UIPanGestureRecognizer) {
         guard
             let toastSuperView: UIView = toastView.superview
         else { return }
         
         switch gesture.state {
         case .began:
-            startViewY = toastView.frame.origin.y
-            startGestureY = gesture.location(in: toastSuperView).y
+            setupSwipeBeganPropsForGesture(gesture, insideView: toastSuperView)
             delegate?.didStartInteractive(by: self)
         case .changed:
-            let delta = gesture.location(in: toastSuperView).y - startGestureY
-                        
-            guard
-                shouldApply(delta: delta, for: direction, with: placement)
-            else {
-                animator.dismissAction(progress: .zero, animated: true, completion: nil)
-                break
-            }
-            
-            currentY = startViewY + delta
-            let progressValue: CGFloat = draggedProgress()
-            let progress: ToastLayoutProgress = ToastLayoutProgress(value: progressValue)
-            
-            updateDislplayingToasts(animated: false, progress: progress.revertedValue)
-            animator.dismissAction(progress: progress.value, animated: false, completion: nil)
+            handleSwipeChangedWithGesture(
+                gesture,
+                insideView: toastSuperView
+            )
         case .ended:
             let ammountOfUserDragged = ammountOfUserDragged()
             let shouldDismissToast = ammountOfUserDragged > thresholdToDismiss
@@ -134,7 +130,7 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
                 delegate?.didFinish(useCase: self)
             } else {
                 animator.dismissAction(progress: .zero, animated: true) { [weak self] _ in
-					self?.updateDislplayingToasts(animated: true, progress: ToastLayoutProgress.max.value)
+                    self?.updateDislplayingToasts(animated: true, progress: ToastLayoutProgress.max.value)
                     self?.resume()
                 }
             }
@@ -146,44 +142,123 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
         }
     }
     
-    func ammountOfUserDragged() -> CGFloat {
-        abs(startViewY - currentY)
+    func setupSwipeBeganPropsForGesture(
+        _ gesture: UIPanGestureRecognizer,
+        insideView toastSuperView: UIView
+    ) {
+        switch direction {
+        case .top, .bottom:
+            setupVertycalySwipeBeganPropsForGesture(
+                gesture,
+                insideView: toastSuperView
+            )
+        case .left, .right:
+            setupHorizontalySwipeBeganPropsForGesture(
+                gesture,
+                insideView: toastSuperView
+            )
+        }
     }
     
-    func draggedProgress() -> CGFloat {
-        let ammountOfDragged: CGFloat = ammountOfUserDragged()
-        let destination: CGFloat = abs(dismissedStateYTranslation)
-        let progress: CGFloat = ammountOfDragged / destination
+    func setupHorizontalySwipeBeganPropsForGesture(
+        _ gesture: UIPanGestureRecognizer,
+        insideView toastSuperView: UIView
+    ) {
+        startViewOrigin = toastView.frame.origin.x
+        startGestureLocation = gesture.location(in: toastSuperView).x
+    }
+    
+    func setupVertycalySwipeBeganPropsForGesture(
+        _ gesture: UIPanGestureRecognizer,
+        insideView toastSuperView: UIView
+    ) {
+        startViewOrigin = toastView.frame.origin.y
+        startGestureLocation = gesture.location(in: toastSuperView).y
+    }
+    
+    func handleSwipeChangedWithGesture(
+        _ gesture: UIPanGestureRecognizer,
+        insideView toastSuperView: UIView
+    ) {
+        let delta: CGFloat = switch direction {
+        case .top, .bottom: gesture.location(in: toastSuperView).y - startGestureLocation
+        case .left, .right: gesture.location(in: toastSuperView).x - startGestureLocation
+        }
         
-        return progress
+        updateDuringInteractionGesture(
+            gesture,
+            insideView: toastSuperView,
+            withDelta: delta
+        )
+    }
+}
+
+//MARK: - Toast updates
+private extension CxjToastDismisser.DismissBySwipeUseCase {
+    func updateDuringInteractionGesture(
+        _ gesture: UIPanGestureRecognizer,
+        insideView toastSuperView: UIView,
+        withDelta delta: CGFloat
+    ) {
+        guard
+            shouldApply(delta: delta, for: direction, with: placement)
+        else {
+            animator.dismissAction(progress: .zero, animated: true, completion: nil)
+            return
+        }
+        
+        currentOriginOffset = startViewOrigin + delta
+        let progressValue: CGFloat = draggedProgress()
+        let progress: ToastLayoutProgress = ToastLayoutProgress(value: progressValue)
+        
+        updateDislplayingToasts(animated: false, progress: progress.revertedValue)
+        animator.dismissAction(progress: progress.value, animated: false, completion: nil)
     }
     
     func resume() {
         delegate?.didEndInteractive(by: self)
     }
     
+    func updateDislplayingToasts(animated: Bool, progress: CGFloat) {
+        let toastCoordinator: CxjToastsCoordinator = CxjToastsCoordinator.shared
+        guard let targetToast: any CxjDisplayableToast = toastCoordinator.first(withId: toastId) else { return }
+        
+        CxjDisplayingToastsCoordinator.updateLayoutFor(
+            displayingToasts: toastCoordinator.activeToasts,
+            linkedToToast: targetToast,
+            withProgress: progress,
+            animation: animated ? animator.dismissAnimation : .noAnimation,
+            completion: nil
+        )
+    }
+}
+
+//MARK: - Calculations
+private extension CxjToastDismisser.DismissBySwipeUseCase {
+    func ammountOfUserDragged() -> CGFloat {
+        abs(startViewOrigin - currentOriginOffset)
+    }
+    
+    func draggedProgress() -> CGFloat {
+        let destination: CGFloat = switch direction {
+        case .top, .bottom: dismissedStateTranslation.y
+        case .left, .right: dismissedStateTranslation.x
+        }
+        
+        let ammountOfDragged: CGFloat = ammountOfUserDragged()
+        let progress: CGFloat = ammountOfDragged / abs(destination)
+        
+        return progress
+    }
+    
     func shouldApply(
         delta: CGFloat,
         for direction: SwipeDirection,
         with placement: ToastPlacement
-    ) -> Bool {        
+    ) -> Bool {
         switch direction {
-        case .top: delta <= 0
-        case .bottom: delta >= 0
-        case .any: true
+        case .top, .left: delta <= 0
+        case .bottom, .right: delta >= 0
         }
-    }
-    
-    func updateDislplayingToasts(animated: Bool, progress: CGFloat) {
-		let toastCoordinator: CxjToastsCoordinator = CxjToastsCoordinator.shared
-		guard let targetToast: any CxjDisplayableToast = toastCoordinator.first(withId: toastId) else { return }
-		
-		CxjDisplayingToastsCoordinator.updateLayoutFor(
-			displayingToasts: toastCoordinator.activeToasts,
-			linkedToToast: targetToast,
-			withProgress: progress,
-			animation: animated ? animator.dismissAnimation : .noAnimation,
-			completion: nil
-		)
     }
 }

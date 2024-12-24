@@ -10,7 +10,7 @@ import Foundation
 extension CxjToastConfiguration {
 	public enum DismissMethod: Hashable, Equatable, Sendable {
 		public enum SwipeDirection: String, Hashable, Sendable {
-			case top, bottom, any
+			case top, bottom, left, right
 		}
 		
 		

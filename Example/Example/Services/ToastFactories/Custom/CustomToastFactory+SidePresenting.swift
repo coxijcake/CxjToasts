@@ -52,7 +52,7 @@ extension CustomToastFactory {
         
         private static func dismissMethods() -> Set<ToastConfig.DismissMethod> {
             [
-                .swipe(direction: .top),
+                .swipe(direction: .right),
                 .tap(actionCompletion: nil),
                 .automatic(time: 3.0)
             ]

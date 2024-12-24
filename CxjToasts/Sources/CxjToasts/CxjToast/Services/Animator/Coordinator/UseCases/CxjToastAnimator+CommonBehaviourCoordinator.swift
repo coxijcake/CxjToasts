@@ -21,6 +21,13 @@ extension CxjToastAnimator {
 				.propertiesFor(progress: .max)
 				.translation.y
         }()
+        
+        private(set) lazy var dismissedStateTranslation: CGPoint = {
+            toastLayoutCalculator
+                .propertiesFor(progress: .max)
+                .translation
+                .cgPoint
+        }()
 		
 		private var transitionAnimationDimmedView: UIView?
         

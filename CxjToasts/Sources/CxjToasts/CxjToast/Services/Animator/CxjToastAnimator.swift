@@ -95,8 +95,8 @@ extension CxjToastAnimator: CxjToastDismissAnimator {
 		config.animations.dismiss.animation
 	}
     
-    var dismissedStateYTranslation: CGFloat {
-		dismissCoordinator?.dismissedStateYTranslation ?? .zero
+    var dismissedStateTranslation: CGPoint {
+        dismissCoordinator?.dismissedStateTranslation ?? .zero
     }
 	
 	func dismissAction(
