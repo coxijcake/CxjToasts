@@ -21,6 +21,8 @@ struct SmoothProgressCalculator {
 	}
 	
 	func smoothedProgress() -> Value {
+        guard threshold != .zero else { return originalProgress }
+        
 		if originalProgress <= threshold {
 			return (originalProgress / threshold) * (threshold / 2)
 		} else {
