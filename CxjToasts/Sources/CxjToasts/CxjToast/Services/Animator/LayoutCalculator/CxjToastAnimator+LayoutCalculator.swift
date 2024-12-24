@@ -85,33 +85,33 @@ extension CxjToastAnimator {
 			
 			return Translation(x: xTranslation, y: yTranslation)
 		}
-		
-//		private func xTranslationFor(progress: Progress, scale: Scale) -> CGFloat {
-//			let xTranslation: CGFloat =
-//			dismissedStateProps.translation.x
-//			* progress.value
-//			
-//			return xTranslation
-//		}
         
         private func xTranslationFor(progress: Progress, scale: Scale) -> CGFloat {
+            let finalTranslationX: CGFloat = dismissedStateProps.translation.x
+            
+            guard finalTranslationX != .zero else { return .zero }
+            
             let toastScaledSizeDifference: CGFloat =
-                ((toastSize.width - (toastSize.width * scale.x)) / 2)
+            ((toastSize.width - (toastSize.width * scale.x)) / 2)
             
             let xTranslation: CGFloat =
-                dismissedStateProps.translation.x
-                * progress.value
-                - toastScaledSizeDifference
+            finalTranslationX
+            * progress.value
+            - toastScaledSizeDifference
             
             return xTranslation
         }
 		
 		private func yTranslationFor(progress: Progress, scale: Scale) -> CGFloat {
+            let finalTranslationY: CGFloat = dismissedStateProps.translation.y
+            
+            guard finalTranslationY != .zero else { return .zero }
+            
 			let toastScaledSizeDifference: CGFloat =
 			((toastSize.height - (toastSize.height * scale.y)) / 2)
 			
 			let yTranslation: CGFloat =
-			dismissedStateProps.translation.y
+            finalTranslationY
 			* progress.value
 			- toastScaledSizeDifference
 			
