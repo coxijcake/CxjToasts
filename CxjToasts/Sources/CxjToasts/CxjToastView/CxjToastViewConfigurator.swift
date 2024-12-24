@@ -24,6 +24,8 @@ enum CxjToastViewConfigurator {
 			backgroundView: backgroundView
         )
         
+        view.isUserInteractionEnabled = config.isUserInteractionEnabled
+        
         return view
     }
 }

@@ -22,7 +22,8 @@ extension CxjTemplatedToastViewConfigProviderFactory {
                 contentLayout: .fill(insets: .init(top: 10, left: 24, bottom: 10, right: 24)),
 				background: data.background,
 				shadow: shadow(),
-				corners: .fixed(value: 44, mask: .all)
+                corners: .fixed(value: 44, mask: .all),
+                isUserInteractionEnabled: true
 			)
 		}
 		

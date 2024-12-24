@@ -142,7 +142,8 @@ extension CustomToastFactory {
 					)
 				),
 				shadow: .disable,
-				corners: .fixed(value: 16, mask: .all)
+                corners: .fixed(value: 16, mask: .all),
+                isUserInteractionEnabled: true
 			)
 		}
 		

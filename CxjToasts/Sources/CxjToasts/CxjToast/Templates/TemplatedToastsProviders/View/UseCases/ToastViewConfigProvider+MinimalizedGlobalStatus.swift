@@ -27,7 +27,8 @@ extension CxjTemplatedToastViewConfigProviderFactory {
                 ]),
                 background: data.background,
                 shadow: .disable,
-                corners: .straight(mask: .none)
+                corners: .straight(mask: .none),
+                isUserInteractionEnabled: true
             )
         }
     }

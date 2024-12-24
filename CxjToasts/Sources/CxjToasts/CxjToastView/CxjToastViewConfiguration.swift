@@ -11,21 +11,24 @@ public struct CxjToastViewConfiguration {
 	public typealias Background = CxjBackground
     public typealias ContentLayout = CxjToastContentLayout
 	
-	public let background: Background
     public let contentLayout: ContentLayout
-	public let shadow: Shadow
-	public let corners: Corners
+    public let background: Background
+    public let shadow: Shadow
+    public let corners: Corners
+    public let isUserInteractionEnabled: Bool
 	
 	public init(
         contentLayout: ContentLayout,
 		background: Background,
 		shadow: Shadow,
-		corners: Corners
+		corners: Corners,
+        isUserInteractionEnabled: Bool
 	) {
         self.contentLayout = contentLayout
 		self.background = background
 		self.shadow = shadow
 		self.corners = corners
+        self.isUserInteractionEnabled = isUserInteractionEnabled
 	}
 }
 
