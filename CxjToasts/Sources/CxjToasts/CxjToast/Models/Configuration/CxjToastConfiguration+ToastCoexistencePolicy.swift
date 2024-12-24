@@ -41,16 +41,24 @@ extension CxjToastConfiguration.ToastCoexistencePolicy {
     /// stacking, hiding, or dismissing the toast.
     public enum Behavior: Sendable {
         public struct StackAttributes: Sendable {
+            public enum Direction: Sendable {
+                case top, bottom
+            }
+            
             /// Maximum number of toasts that can be visible simultaneously.
             let maxVisibleToasts: Int
             
             /// Whether the timers for stacked but non-visible toasts should stop running.
             let shouldStopTimerForStackedUnvisibleToasts: Bool
             
+            let direction: Direction
+            
             public init(
+                direction: Direction,
                 maxVisibleToasts: Int,
                 shouldStopTimerForStackedUnvisibleToasts: Bool
             ) {
+                self.direction = direction
                 self.maxVisibleToasts = maxVisibleToasts
                 self.shouldStopTimerForStackedUnvisibleToasts = shouldStopTimerForStackedUnvisibleToasts
             }

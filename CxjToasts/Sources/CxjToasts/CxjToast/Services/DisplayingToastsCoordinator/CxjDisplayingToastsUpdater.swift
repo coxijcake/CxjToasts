@@ -19,6 +19,15 @@ extension CxjDisplayingToastsUpdater {
         static let yOffset: CGFloat = 5.0
         static let scale: CGFloat = 0.02
     }
+    
+    enum StackDirection {
+        case top, bottom
+    }
+    
+    struct StackParameters {
+        let stackDirection: StackDirection
+        let maxVisibleToasts: Int
+    }
 }
 
 //MARK: - Toasts layout updating
@@ -27,7 +36,7 @@ enum CxjDisplayingToastsUpdater {
 	static func stackLayoutToasts(
 		toastsToStack: [Toast],
 		progress: CGFloat,
-		maxVisibleToasts: Int
+        parameters: StackParameters
 	) {
 		guard
 			!toastsToStack.contains(where: { $0.isInteracting })
@@ -38,14 +47,15 @@ enum CxjDisplayingToastsUpdater {
 		toastsToStack
 			.enumerated()
 			.forEach { index, toast in
-				let alpha: CGFloat = (index < maxVisibleToasts)
+                let alpha: CGFloat = (index < parameters.maxVisibleToasts)
 				? 1.0
 				: 0.0
 				
 				updateStackLayout(
 					toast: toast,
 					progress: progress,
-					atIndex: index,
+                    atIndex: index,
+                    direction: parameters.stackDirection,
 					alpha: alpha
 				)
 			}
@@ -73,6 +83,7 @@ private extension CxjDisplayingToastsUpdater {
 		toast: Toast,
 		progress: CGFloat,
 		atIndex index: Int,
+        direction: StackDirection,
 		alpha: CGFloat
 	) {
 		guard
@@ -85,7 +96,7 @@ private extension CxjDisplayingToastsUpdater {
 		let finalYOffset: CGFloat = yOffset(
 			for: index,
 			multiplier: Multipliers.yOffset,
-			onPlacement: placement
+            direction: direction
 		)
 		
 		let finalXScale: CGFloat = xScale(
@@ -126,11 +137,11 @@ private extension CxjDisplayingToastsUpdater {
     static func yOffset(
         for index: Int,
         multiplier: CGFloat,
-        onPlacement placement: Placement
+        direction: StackDirection
     ) -> CGFloat {
-        switch placement {
-        case .top, .center: multiplier * CGFloat(index)
-        case .bottom: -multiplier * CGFloat(index)
+        switch direction {
+        case .top: -multiplier * CGFloat(index)
+        case .bottom: multiplier * CGFloat(index)
         }
     }
     

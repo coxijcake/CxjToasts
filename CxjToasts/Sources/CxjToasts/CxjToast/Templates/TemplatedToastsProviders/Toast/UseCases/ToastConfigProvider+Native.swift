@@ -96,7 +96,11 @@ extension CxjTemplatedToastConfigProviderFactory {
 		private func coexistencePolicy() -> Config.ToastCoexistencePolicy {
 			.init(
 				handling: .stack(
-					attributes: .init(maxVisibleToasts: 5, shouldStopTimerForStackedUnvisibleToasts: false)
+                    attributes: .init(
+                        direction: .bottom,
+                        maxVisibleToasts: 5,
+                        shouldStopTimerForStackedUnvisibleToasts: false
+                    )
 				),
                 comparisonCriteria: .init(attibutes: CxjToastComparisonAttribute.completeMatch, rule: .and)
 			)

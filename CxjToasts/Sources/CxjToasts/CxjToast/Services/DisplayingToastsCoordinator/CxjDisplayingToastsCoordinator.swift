@@ -32,11 +32,19 @@ enum CxjDisplayingToastsCoordinator {
 					fromActiveToasts: displayingToasts,
 					includingTargetToast: true
 				)
+                
+                let stackDirection: CxjDisplayingToastsUpdater.StackDirection = switch attributes.direction {
+                case .top: .top
+                case .bottom: .bottom
+                }
 				
 				CxjDisplayingToastsUpdater.stackLayoutToasts(
 					toastsToStack: toastsToStack,
 					progress: progress,
-					maxVisibleToasts: attributes.maxVisibleToasts
+                    parameters: .init(
+                        stackDirection: stackDirection,
+                        maxVisibleToasts: attributes.maxVisibleToasts
+                    )
 				)
 			case .hide:
 				let toastsToAlphaUpdate: [Toast] = linkedToastsToToast(

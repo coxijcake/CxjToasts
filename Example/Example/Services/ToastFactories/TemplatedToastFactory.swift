@@ -233,7 +233,8 @@ private extension TemplatedToastFactory {
                     coexistencePolicy: .init(
 						handling: .stack(
 							attributes: .init(
-								maxVisibleToasts: 3,
+                                direction: .top,
+                                maxVisibleToasts: 3,
 								shouldStopTimerForStackedUnvisibleToasts: true
 							)
 						),
@@ -287,7 +288,13 @@ private extension TemplatedToastFactory {
 					),
 					spamProtection: .off,
                     coexistencePolicy: .init(
-						handling: .stack(attributes: .init(maxVisibleToasts: 3, shouldStopTimerForStackedUnvisibleToasts: true)),
+                        handling: .stack(
+                            attributes: .init(
+                                direction: .top,
+                                maxVisibleToasts: 3,
+                                shouldStopTimerForStackedUnvisibleToasts: true
+                            )
+                        ),
 						comparisonCriteria: .init(attibutes: [.sourceView, .placement(includingYOffset: true)], rule: .and)
 					)
 				),
