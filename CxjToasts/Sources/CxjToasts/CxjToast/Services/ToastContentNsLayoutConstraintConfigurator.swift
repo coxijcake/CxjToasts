@@ -47,8 +47,8 @@ extension ToastContentNsLayoutConstraintConfigurator {
     ) -> [NSLayoutConstraint] {
         return [
             childView.topAnchor.constraint(equalTo: parentView.topAnchor, constant: insets.top),
-            childView.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -insets.bottom),
             childView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: insets.left),
+            childView.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -insets.bottom),
             childView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -insets.right)
         ]
     }

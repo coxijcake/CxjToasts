@@ -30,8 +30,8 @@ final class ToastContentNsLayoutConstraintConfiguratorTests {
         #expect(constraints.count == 4)
 
         #expect(constraints[0].constant == insets.top)
-        #expect(constraints[1].constant == -insets.bottom)
-        #expect(constraints[2].constant == insets.left)
+        #expect(constraints[1].constant == insets.left)
+        #expect(constraints[2].constant == -insets.bottom)
         #expect(constraints[3].constant == -insets.right)
     }
 
@@ -66,8 +66,6 @@ final class ToastContentNsLayoutConstraintConfiguratorTests {
         #expect(constraints[2].relation == .equal)
     }
 
-    // MARK: - Tests for private methods
-
     @Test
     func testFixedConstraintsWithInsets() throws {
         let insets = UIEdgeInsets(top: 5, left: 10, bottom: 15, right: 20)
@@ -80,8 +78,8 @@ final class ToastContentNsLayoutConstraintConfiguratorTests {
         #expect(constraints.count == 4)
 
         #expect(constraints[0].constant == insets.top)
-        #expect(constraints[1].constant == -insets.bottom)
-        #expect(constraints[2].constant == insets.left)
+        #expect(constraints[1].constant == insets.left)
+        #expect(constraints[2].constant == -insets.bottom)
         #expect(constraints[3].constant == -insets.right)
     }
 
