@@ -19,7 +19,6 @@ extension TemplatedToastFactory {
                     theme: .colorized(color: .black.withAlphaComponent(0.65)),
                     interaction: .enabled(action: .init(touchEvent: .touchDown, handling: .dismissToast))
                 ),
-//                sourceBackground: nil,
                 icon: .init(icon: .init(resource: .closeIcon), fixedSize: .init(width: 40, height: 40)),
                 title: .init(
                     text: .plain(
