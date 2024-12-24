@@ -9,7 +9,8 @@ import Testing
 @testable import CxjToasts
 
 final class SmoothProgressCalculatorTests {
-
+    //MARK: - Tests
+    
     @Test
     func testSmoothedProgressAtMinimumOriginalProgress() throws {
         let calculator = SmoothProgressCalculator(originalProgress: 0.0, threshold: 0.5)
