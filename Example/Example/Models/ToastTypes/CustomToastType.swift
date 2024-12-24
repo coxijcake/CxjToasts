@@ -9,12 +9,8 @@ import Foundation
 
 enum CustomToastType: String, CaseIterable, ToastType  {
 	case bottomGradientedWithBlurredBackground
+    case sidePresentingToast
 	
 	var id: String { rawValue }
-	var title: String {
-		switch self {
-		case .bottomGradientedWithBlurredBackground:
-			"Bottom Gradiented content with blurred background"
-		}
-	}
+    var title: String { rawValue }
 }
