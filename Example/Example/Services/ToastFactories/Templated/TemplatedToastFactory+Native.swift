@@ -18,7 +18,7 @@ extension TemplatedToastFactory {
                 ),
                 subtitle: .plain(
                     string: "Connected",
-					attributes: .init(textColor: .fromFigmaRgb(r: 125, g: 114, b: 112), font: .systemFont(ofSize: 14, weight: .regular))
+					attributes: .init(textColor: .fromFigmaRgb(r: 125, g: 114, b: 112), font: .systemFont(ofSize: 14, weight: .semibold))
                 ),
 				icon: .init(icon: .airpodsTest.withRenderingMode(.alwaysTemplate), tintColor: .black, fixedSize: .init(width: 25, height: 25)),
 				background: .gradient(
