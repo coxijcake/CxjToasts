@@ -12,10 +12,11 @@ import UIKit
 public struct CxjAnimation {
 	public typealias Animations = (() -> Void)
 	public typealias Completion = ((Bool) -> Void)
+	public typealias Perform = (@escaping Animations, Completion?) -> Void
 	
-	public let perform: (@escaping Animations, Completion?) -> Void
+	public let perform: Perform
 	
-	public init(perform: @escaping (@escaping Animations, Completion?) -> Void) {
+	public init(perform: @escaping Perform) {
 		self.perform = perform
 	}
 }
