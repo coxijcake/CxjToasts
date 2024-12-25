@@ -79,6 +79,7 @@ extension CxjToastTemplate {
 		public let undoControl: UndoControl
 		public let toast: Toast
 		public let toastView: ToastView
+		public let hapticFeeback: CxjHapticFeedback?
 		
 		
 		public init(
@@ -89,7 +90,8 @@ extension CxjToastTemplate {
 			timingFeedback: TimingFeedback,
 			undoControl: UndoControl,
 			toast: Toast,
-			toastView: ToastView
+			toastView: ToastView,
+			hapticFeeback: CxjHapticFeedback?
 		) {
 			self.typeId = typeId
 			self.customSourceView = customSourceView
@@ -99,6 +101,7 @@ extension CxjToastTemplate {
 			self.undoControl = undoControl
 			self.toast = toast
 			self.toastView = toastView
+			self.hapticFeeback = hapticFeeback
 		}
 	}
 }

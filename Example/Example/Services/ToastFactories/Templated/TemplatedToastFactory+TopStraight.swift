@@ -28,7 +28,8 @@ extension TemplatedToastFactory {
                         opacity: 1.0,
                         radius: 4
                     )
-                )
+                ),
+				hapticFeeback: .uiImpact(style: .medium)
             )
         )
     }

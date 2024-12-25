@@ -32,7 +32,8 @@ extension TemplatedToastFactory {
                 ),
                 subtitle: nil,
                 background: .colorized(color: .white),
-                shadowColor: .black.withAlphaComponent(0.5)
+                shadowColor: .black.withAlphaComponent(0.5),
+				hapticFeeback: .uiImpact(style: .heavy)
             )
         )
     }

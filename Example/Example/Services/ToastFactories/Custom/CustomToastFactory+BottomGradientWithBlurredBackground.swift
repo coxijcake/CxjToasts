@@ -29,6 +29,7 @@ extension CustomToastFactory {
                 dismissMethods: dismissMethods(),
                 keyboardHandling: .moveToastUpperKeyboard(additionalOffset: 10),
                 animations: animations(),
+				hapticFeeback: .uiImpact(style: .heavy),
                 spamProtection: spamProtection(),
                 coexistencePolicy: coexistencePolicy()
             )
@@ -132,9 +133,9 @@ extension CustomToastFactory {
                         config: .title(
                             labelConfig: .init(
                                 text: .plain(
-                                    string: "Some test text ",
+                                    string: "Some test text",
                                     attributes: .init(
-                                        textColor: .black,
+										textColor: .white.withAlphaComponent(0.95),
                                         font: .systemFont(ofSize: 15, weight: .bold)
                                     )
                                 ),

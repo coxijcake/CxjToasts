@@ -28,7 +28,7 @@ public struct CxjToastConfiguration: Sendable {
         dismissMethods: Set<DismissMethod>,
 		keyboardHandling: KeyboardHandling,
 		animations: Animations,
-        hapticFeeback: CxjHapticFeedback? = nil,
+        hapticFeeback: CxjHapticFeedback?,
 		spamProtection: SpamProtection,
         coexistencePolicy: ToastCoexistencePolicy
     ) {

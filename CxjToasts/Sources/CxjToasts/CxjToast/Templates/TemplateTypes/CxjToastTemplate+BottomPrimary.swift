@@ -21,6 +21,7 @@ extension CxjToastTemplate {
 		let subtitle: Text?
 		let background: CxjToastViewConfiguration.Background
 		let shadowColor: UIColor?
+		let hapticFeeback: CxjHapticFeedback?
 		
 		public init(
 			typeId: String,
@@ -30,7 +31,8 @@ extension CxjToastTemplate {
 			title: Text,
 			subtitle: Text?,
 			background: CxjToastViewConfiguration.Background,
-			shadowColor: UIColor?
+			shadowColor: UIColor?,
+			hapticFeeback: CxjHapticFeedback?
 		) {
 			self.typeId = typeId
 			self.customSourceView = customSourceView
@@ -40,6 +42,7 @@ extension CxjToastTemplate {
 			self.subtitle = subtitle
 			self.background = background
 			self.shadowColor = shadowColor
+			self.hapticFeeback = hapticFeeback
 		}
 	}
 }

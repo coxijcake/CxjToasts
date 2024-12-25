@@ -23,7 +23,8 @@ extension TemplatedToastFactory {
                         font: .systemFont(ofSize: 13, weight: .semibold)
                     )
                 ),
-                background: .colorized(color: .init(red: 0.349, green: 0.8, blue: 0.298, alpha: 1.0)),
+				background: .colorized(color: .init(red: 0.349, green: 0.8, blue: 0.298, alpha: 1.0)),
+				hapticFeeback: .notification(type: .success),
                 dismissMethods: [
                     .automatic(time: 2.5),
                     .swipe(direction: .top),

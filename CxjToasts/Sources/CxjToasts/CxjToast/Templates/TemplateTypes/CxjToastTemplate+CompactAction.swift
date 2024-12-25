@@ -85,6 +85,7 @@ extension CxjToastTemplate {
 		public let content: Content
 		public let toast: Toast
 		public let toastView: ToastView
+		public let hapticFeeback: CxjHapticFeedback?
 
 		public init(
 			typeId: String,
@@ -92,7 +93,8 @@ extension CxjToastTemplate {
 			actionControl: ActionControl,
 			content: Content,
 			toast: Toast,
-			toastView: ToastView
+			toastView: ToastView,
+			hapticFeeback: CxjHapticFeedback?
 		) {
 			self.typeId = typeId
 			self.customSourceView = customSourceView
@@ -100,6 +102,7 @@ extension CxjToastTemplate {
 			self.content = content
 			self.toast = toast
 			self.toastView = toastView
+			self.hapticFeeback = hapticFeeback
 		}
 	}
 }

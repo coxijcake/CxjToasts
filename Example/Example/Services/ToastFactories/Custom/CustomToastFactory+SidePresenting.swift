@@ -29,6 +29,7 @@ extension CustomToastFactory {
                 dismissMethods: dismissMethods(),
                 keyboardHandling: .ignore,
                 animations: animations(sourceView: sourceView),
+				hapticFeeback: nil,
                 spamProtection: spamProtection(),
                 coexistencePolicy: coexistencePolicy()
             )

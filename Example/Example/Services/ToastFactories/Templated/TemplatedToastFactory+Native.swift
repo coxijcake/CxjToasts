@@ -22,7 +22,8 @@ extension TemplatedToastFactory {
                     attributes: .init(textColor: .black.withAlphaComponent(0.85), font: .systemFont(ofSize: 14, weight: .regular))
                 ),
                 icon: .init(resource: .closeIcon),
-                backgroundColor: .white
+                backgroundColor: .white,
+				hapticFeeback: nil
             )
         )
     }

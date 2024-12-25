@@ -19,6 +19,7 @@ extension CxjToastTemplate {
 		public let title: Title
         public let background: Background
         public let shadow: Shadow
+		public let hapticFeeback: CxjHapticFeedback?
         
 		public init(
 			typeId: String,
@@ -26,7 +27,8 @@ extension CxjToastTemplate {
 			icon: UIImage?,
 			title: Title,
 			background: Background,
-            shadow: Shadow
+            shadow: Shadow,
+			hapticFeeback: CxjHapticFeedback?
 		) {
 			self.typeId = typeId
 			self.customSourceView = customSourceView
@@ -34,6 +36,7 @@ extension CxjToastTemplate {
 			self.title = title
             self.background = background
             self.shadow = shadow
+			self.hapticFeeback = hapticFeeback
 		}
 	}
 }

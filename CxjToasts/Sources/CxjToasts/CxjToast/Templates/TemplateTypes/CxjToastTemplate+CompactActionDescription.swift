@@ -16,17 +16,20 @@ extension CxjToastTemplate {
         public let title: Title
         public let background: Background
         public let customSourceView: UIView?
+		public let hapticFeeback: CxjHapticFeedback?
         
         public init(
             typeId: String,
             title: Title,
             background: Background,
-            customSourceView: UIView?
+            customSourceView: UIView?,
+			hapticFeeback: CxjHapticFeedback?
         ) {
             self.typeId = typeId
             self.title = title
             self.background = background
             self.customSourceView = customSourceView
+			self.hapticFeeback = hapticFeeback
         }
     }
 }

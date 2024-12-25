@@ -28,6 +28,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 				dismissMethods: data.toast.dismissMethods,
 				keyboardHandling: .moveToastUpperKeyboard(additionalOffset: 10),
 				animations: data.toast.animations,
+				hapticFeeback: data.hapticFeeback,
 				spamProtection: data.toast.spamProtection,
                 coexistencePolicy: data.toast.coexistencePolicy
 			)

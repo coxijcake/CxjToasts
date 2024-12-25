@@ -18,6 +18,7 @@ extension CxjToastTemplate {
         public let icon: Icon?
         public let title: Title
         public let background: Background
+		public let hapticFeeback: CxjHapticFeedback?
         public let dismissMethods: DismissMethods
         
         public init(
@@ -25,12 +26,14 @@ extension CxjToastTemplate {
             icon: Icon?,
             title: Title,
             background: Background,
+			hapticFeeback: CxjHapticFeedback?,
             dismissMethods: DismissMethods
         ) {
             self.typeId = typeId
             self.icon = icon
             self.title = title
             self.background = background
+			self.hapticFeeback = hapticFeeback
             self.dismissMethods = dismissMethods
         }
     }

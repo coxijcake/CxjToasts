@@ -16,19 +16,22 @@ extension CxjToastTemplate {
 		let subtitle: Text?
 		let icon: UIImage?
 		let backgroundColor: UIColor
+		let hapticFeeback: CxjHapticFeedback?
 		
 		public init(
 			typeId: String,
 			title: Text,
 			subtitle: Text?,
 			icon: UIImage?,
-			backgroundColor: UIColor
+			backgroundColor: UIColor,
+			hapticFeeback: CxjHapticFeedback?
 		) {
 			self.typeId = typeId
 			self.title = title
 			self.subtitle = subtitle
 			self.icon = icon
 			self.backgroundColor = backgroundColor
+			self.hapticFeeback = hapticFeeback
 		}
 	}
 }

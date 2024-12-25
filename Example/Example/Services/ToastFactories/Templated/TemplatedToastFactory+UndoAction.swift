@@ -58,7 +58,8 @@ extension TemplatedToastFactory {
                     background: .colorized(color: .black.withAlphaComponent(0.9)),
                     shadow: .disable,
                     corners: .fixed(value: 12, mask: .all)
-                )
+                ),
+				hapticFeeback: .uiImpact(style: .medium)
             )
         )
     }

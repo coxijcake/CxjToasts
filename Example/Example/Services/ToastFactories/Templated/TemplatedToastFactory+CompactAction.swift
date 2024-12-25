@@ -77,7 +77,8 @@ extension TemplatedToastFactory {
                     background: .blurred(effect: .init(style: .dark)),
                     shadow: .disable,
                     corners: .fixed(value: 10, mask: .all)
-                )
+                ),
+				hapticFeeback: nil
             )
         )
     }

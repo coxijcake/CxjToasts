@@ -20,7 +20,8 @@ extension TemplatedToastFactory {
                     )
                 ),
                 background: .blurred(effect: .init(style: .dark)),
-                customSourceView: customSourceView
+                customSourceView: customSourceView,
+				hapticFeeback: .uiImpact(style: .soft)
             )
         )
     }
