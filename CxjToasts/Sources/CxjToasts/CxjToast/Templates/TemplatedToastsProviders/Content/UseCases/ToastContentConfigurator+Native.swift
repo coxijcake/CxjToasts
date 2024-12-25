@@ -25,7 +25,7 @@ extension CxjTemplatedToastContentConfiguratorFactory {
 					.textWithIcon(
 						iconConfig: .init(
 							layout: .init(iconPlacement: .left, paddingToContent: 10),
-							iconParams: .init(icon: icon, tintColor: nil, fixedSize: CGSize(width: 40, height: 40))
+							iconParams: icon
 						),
 						textConfig: textConfig
 					)

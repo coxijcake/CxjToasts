@@ -20,15 +20,8 @@ extension CxjTemplatedToastViewConfigProviderFactory {
 		func config() -> Config {
 			Config(
                 contentLayout: .fill(insets: .init(top: 10, left: 24, bottom: 10, right: 24)),
-				background: .colorized(color: data.backgroundColor),
-				shadow: .enable(
-					params: .init(
-						offset: .init(width: 0, height: 4),
-						color: .black.withAlphaComponent(0.5),
-						opacity: 1.0,
-						radius: 10
-					)
-				),
+				background: data.background,
+				shadow: data.shadow,
 				corners: .capsule(mask: .all),
                 isUserInteractionEnabled: true
 			)

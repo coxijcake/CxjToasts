@@ -46,6 +46,7 @@
 		84A15C792CE1FB5D00FCDAC5 /* ToastCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A15C782CE1FB5D00FCDAC5 /* ToastCell.xib */; };
 		84A15C7B2CE208DD00FCDAC5 /* ToastListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C7A2CE208DD00FCDAC5 /* ToastListFlowLayout.swift */; };
 		84A15C7E2CE20CBE00FCDAC5 /* BounceOnTouchUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A15C7D2CE20CBE00FCDAC5 /* BounceOnTouchUIButton.swift */; };
+		84A55A062D1C464700EECB3A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A55A052D1C464700EECB3A /* UIColor+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 		84A15C782CE1FB5D00FCDAC5 /* ToastCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToastCell.xib; sourceTree = "<group>"; };
 		84A15C7A2CE208DD00FCDAC5 /* ToastListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastListFlowLayout.swift; sourceTree = "<group>"; };
 		84A15C7D2CE20CBE00FCDAC5 /* BounceOnTouchUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceOnTouchUIButton.swift; sourceTree = "<group>"; };
+		84A55A052D1C464700EECB3A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 			children = (
 				84422BBC2CD9595F004F9306 /* UIApplication+Extensions.swift */,
 				84422BC32CD96AE2004F9306 /* UIViewController+Extensions.swift */,
+				84A55A052D1C464700EECB3A /* UIColor+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				845486FE2D1B012000A223F2 /* CustomToastFactory+SidePresenting.swift in Sources */,
 				84A15C4C2CDFDB0100FCDAC5 /* TemplatedToastsViewController.swift in Sources */,
 				845486F42D1AFF2900A223F2 /* TemplatedToastFactory+MinimalizedGlobalStatus.swift in Sources */,
+				84A55A062D1C464700EECB3A /* UIColor+Extensions.swift in Sources */,
 				84A15C4F2CDFDB0100FCDAC5 /* ToastPresenter.swift in Sources */,
 				845486F62D1AFF4400A223F2 /* TemplatedToastFactory+CompactActionDescription.swift in Sources */,
 				84A15C662CDFDB6D00FCDAC5 /* ToastsListDiffableDataSource.swift in Sources */,
