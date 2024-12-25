@@ -19,11 +19,11 @@ extension CxjToastAnimator {
 		//MARK: - Props
 		let input: Input
 		
-		private var alpha: ClampedAlpha
-		private var scale: ToastAnimatingProperties.Scale
-		private var translation: ToastAnimatingProperties.Translation
-		private var cornerRadius: ToastAnimatingProperties.CornerRadius
-		private var shadowOverlay: ToastAnimatingProperties.ShadowOverlay
+		private(set) var alpha: ClampedAlpha
+		private(set) var scale: ToastAnimatingProperties.Scale
+		private(set) var translation: ToastAnimatingProperties.Translation
+		private(set) var cornerRadius: ToastAnimatingProperties.CornerRadius
+		private(set) var shadowOverlay: ToastAnimatingProperties.ShadowOverlay
 		
 		//MARK: - Lifecycle
 		init(input: Input) {
