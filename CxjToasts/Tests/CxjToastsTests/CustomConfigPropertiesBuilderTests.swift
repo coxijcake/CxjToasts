@@ -11,7 +11,7 @@ import Testing
 @testable import CxjToasts
 
 @MainActor
-final class CustomConfigPropertiesBuilderTests {
+final class ToastAnimatorCustomConfigPropertiesBuilderTests {
 	typealias Builder = CxjToastAnimator.CustomConfigPropertiesBuilder
 	typealias Animations = Builder.Animations
 	typealias Input = Builder.Input
