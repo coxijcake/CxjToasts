@@ -92,7 +92,7 @@ extension CircularCountdownProgressBarView {
 //MARK: - Mask path calculation
 private extension CircularCountdownProgressBarView {
 	func maskPathInsideRect(_ maskRect: CGRect, lineWidth: CGFloat,  fillingProgress: CGFloat) -> UIBezierPath {
-		let radius = (maskRect.width - lineWidth) / 2
+		let radius = (maskRect.width + lineWidth) / 2
 		let center = CGPoint(x: maskRect.midX, y: maskRect.midY)
 		let startAngle = -CGFloat.pi / 2
 		let endAngle = startAngle + (2 * .pi * fillingProgress)
