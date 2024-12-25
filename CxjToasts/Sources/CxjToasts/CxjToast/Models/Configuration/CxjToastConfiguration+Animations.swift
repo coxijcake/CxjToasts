@@ -52,8 +52,14 @@ extension CxjToastConfiguration {
 				}
 				
 				public enum TranslationType: Sendable {
+					public enum HorizontalDirection: Sendable {
+						case left, right
+					}
+					
 					/// won't work for .center placement toast
 					case outOfSourceViewVerticaly
+
+					case outOfSourceViewHorizontaly(direction: HorizontalDirection)
 					case custom(value: Translation)
 				}
 								

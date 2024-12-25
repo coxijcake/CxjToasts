@@ -66,10 +66,14 @@ extension CxjToastAnimator {
 		}
 		
 		//MARK: - Translation
-		private func translationFor(translationType: Change.TranslationType) -> ToastAnimatingProperties.Translation {
+		private func translationFor(
+			translationType: Change.TranslationType
+		) -> ToastAnimatingProperties.Translation {
 			switch translationType {
 			case .outOfSourceViewVerticaly: 
 				return outOfSourceViewVerticalTranslation()
+			case .outOfSourceViewHorizontaly(direction: let direction):
+				return outOfSourceViewHorizontalyTranslationForDirection(direction)
 			case .custom(value: let value):
 				return ToastAnimatingProperties.Translation(x: value.x, y: value.y)
 			}
@@ -94,10 +98,7 @@ extension CxjToastAnimator {
 					y: -translationY
 				)
 			case .center:
-				return ToastAnimatingProperties.Translation(
-					x: tranlationX,
-					y: .zero
-				)
+				return .zero
 			case .bottom(let params):
 				let safeAreaInset: CGFloat = params.includingSafeArea
 				? input.sourceViewData.safeAreaInsets.bottom
@@ -112,6 +113,28 @@ extension CxjToastAnimator {
 					x: tranlationX,
 					y: translationY
 				)
+			}
+		}
+		
+		private func outOfSourceViewHorizontalyTranslationForDirection(
+			_ direction: Change.TranslationType.HorizontalDirection
+		) -> ToastAnimatingProperties.Translation {
+			let sourceViewWidth: CGFloat = input.sourceViewData.frame.size.width
+			let toastWidth: CGFloat = input.toastViewData.size.width
+			let sideOffset: CGFloat = (sourceViewWidth - toastWidth) / 2
+			let translationY: CGFloat = .zero
+			
+			switch direction {
+			case .left:
+				let safeAreaInset: CGFloat = input.sourceViewData.safeAreaInsets.left
+				let translationX: CGFloat = -(sideOffset + toastWidth + safeAreaInset)
+				
+				return .init(x: translationX, y: translationY)
+			case .right:
+				let safeAreaInset: CGFloat = input.sourceViewData.safeAreaInsets.right
+				let translationX: CGFloat = sideOffset + toastWidth + safeAreaInset
+				
+				return .init(x: translationX, y: translationY)
 			}
 		}
 		

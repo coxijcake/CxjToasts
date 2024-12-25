@@ -20,7 +20,7 @@ extension CxjToastAnimator {
 			let x: CGFloat
 			let y: CGFloat
 			
-			static var initial: Translation { Translation(x: .zero, y: .zero) }
+			static var zero: Translation { Translation(x: .zero, y: .zero) }
             
             var cgPoint: CGPoint { CGPoint(x: x, y: y) }
 		}

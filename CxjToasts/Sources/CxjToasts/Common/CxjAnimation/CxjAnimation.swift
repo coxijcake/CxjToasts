@@ -14,6 +14,10 @@ public struct CxjAnimation {
 	public typealias Completion = ((Bool) -> Void)
 	
 	public let perform: (@escaping Animations, Completion?) -> Void
+	
+	public init(perform: @escaping (@escaping Animations, Completion?) -> Void) {
+		self.perform = perform
+	}
 }
 
 //MARK: - Base Animations

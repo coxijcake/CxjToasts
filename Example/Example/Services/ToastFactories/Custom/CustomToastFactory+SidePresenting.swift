@@ -39,11 +39,11 @@ extension CustomToastFactory {
                 constraints: .init(
                     width: .init(
                         min: sourceView.bounds.size.width * 0.75,
-                        max: sourceView.bounds.size.width * 0.95
+                        max: sourceView.bounds.size.width * 0.75
                     ),
                     height: .init(
                         min: 40,
-                        max: 150
+                        max: 70
                     )
                 ),
                 placement: .top(params: .init(offset: 20, includingSafeArea: true))
@@ -67,12 +67,11 @@ extension CustomToastFactory {
         
         private static func presentAnimation(sourceView: UIView) -> ToastConfig.Animation {
             ToastConfig.Animation(
-                animation: .defaultSpring,
+				animation: .toastPresenting,
                 behaviour: .custom(
                     changes: [
-                        .translation(type: .custom(value: .init(x: -sourceView.bounds.size.width * 0.5, y: .zero))),
-                        .scale(value: .init(x: 0.5, y: 1.0)),
-                        .alpha(intensity: .zero)
+						.translation(type: .outOfSourceViewHorizontaly(direction: .left)),
+                        .scale(value: .init(x: 0.75, y: 1.0)),
                     ]
                 )
             )
@@ -80,12 +79,11 @@ extension CustomToastFactory {
         
         private static func dismissAnimation(sourceView: UIView) -> ToastConfig.Animation {
             ToastConfig.Animation(
-                animation: .defaultSpring,
+				animation: .toastDismissing,
                 behaviour: .custom(
                     changes: [
-                        .translation(type: .custom(value: .init(x: sourceView.bounds.size.width * 0.5, y: .zero))),
-                        .scale(value: .init(x: 0.5, y: 1.0)),
-                        .alpha(intensity: .zero)
+						.translation(type: .outOfSourceViewHorizontaly(direction: .right)),
+                        .scale(value: .init(x: 0.75, y: 1.0)),
                     ]
                 )
             )
@@ -98,7 +96,7 @@ extension CustomToastFactory {
         private static func coexistencePolicy() -> ToastConfig.ToastCoexistencePolicy {
             .init(
                 handling: .dismiss,
-                comparisonCriteria: .init(attibutes: CxjToastComparisonAttribute.completeMatch, rule: .or)
+				comparisonCriteria: .init(attibutes: CxjToastComparisonAttribute.completeMatch, rule: .and)
             )
         }
         
@@ -114,8 +112,8 @@ extension CustomToastFactory {
                             .black.withAlphaComponent(0.1)
                         ],
                         locations: [0, 0.5, 1],
-                        direction: .init(startPoint: .init(x: 0.1, y: 0.25),
-                                         endPoint: .init(x: 0.8, y: 0.75))
+                        direction: .init(startPoint: .init(x: 0.1, y: 0.45),
+                                         endPoint: .init(x: 0.9, y: 0.85))
                     )
                 ),
                 shadow: .disable,
@@ -146,4 +144,29 @@ extension CustomToastFactory {
             )
         }
     }
+}
+
+//MARK: - CxjAnimation extensions
+fileprivate extension CxjAnimation {
+	static let toastPresenting = CxjAnimation { (animations, completion) in
+		UIView.animate(
+			withDuration: 1.0,
+			delay: .zero,
+			usingSpringWithDamping: 0.95,
+			initialSpringVelocity: 13.0,
+			options: [.curveEaseOut, .allowUserInteraction, .beginFromCurrentState],
+			animations: animations,
+			completion: completion
+		)
+	}
+	
+	static let toastDismissing = CxjAnimation { (animations, completion) in
+		UIView.animate(
+			withDuration: 0.175,
+			delay: .zero,
+			options: [.curveEaseIn, .beginFromCurrentState],
+			animations: animations,
+			completion: completion
+		)
+	}
 }
