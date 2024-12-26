@@ -70,7 +70,16 @@ private extension CxjUndoActionToastContentView {
 				timingFeedbackView.widthAnchor.constraint(equalToConstant: 30),
 				timingFeedbackView.heightAnchor.constraint(equalToConstant: 30)
 			])
+			
+			timingFeedbackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+			timingFeedbackView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 		}
+		
+		undoButton.setContentHuggingPriority(.required, for: .horizontal)
+		undoButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+		
+		infoContentView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+		infoContentView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 		
 		[leadingStackView, undoButton]
 			.forEach { addArrangedSubview($0) }
@@ -83,7 +92,7 @@ private extension CxjUndoActionToastContentView {
 	
 	func configureLeadingStrackView() {
 		leadingStackView.axis = .horizontal
-		leadingStackView.distribution = .fillProportionally
+		leadingStackView.distribution = .fill
 		leadingStackView.alignment = .center
 		leadingStackView.spacing = 10
 	}
