@@ -28,15 +28,8 @@ extension CxjTemplatedToastViewConfigProviderFactory {
 		}
 		
 		func shadow() -> Config.Shadow {
-			if let shadowColor = data.shadowColor {
-				return .enable(
-					params: .init(
-						offset: .init(width: 0, height: 4),
-						color: shadowColor,
-						opacity: 1.0,
-						radius: 10
-					)
-				)
+			if let shadow = data.shadow {
+				return .enable(params: shadow)
 			} else {
 				return .disable
 			}

@@ -73,7 +73,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 		
 		private func dismissMethods() -> Set<Config.DismissMethod> {
 			[
-				.automatic(time: 3.0),
+				.automatic(time: 2.0),
 				.swipe(direction: .bottom)
 			]
 		}

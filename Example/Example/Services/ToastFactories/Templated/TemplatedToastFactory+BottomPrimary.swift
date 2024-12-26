@@ -15,15 +15,12 @@ extension TemplatedToastFactory {
             data: .init(
                 typeId: "template_toast_test_bottom_primary",
                 customSourceView: customSourceView,
-                sourceBackground: .init(
-                    theme: .colorized(color: .black.withAlphaComponent(0.65)),
-                    interaction: .enabled(action: .init(touchEvent: .touchDown, handling: .dismissToast))
-                ),
+				sourceBackground: nil,
                 icon: .init(icon: .init(resource: .closeIcon), fixedSize: .init(width: 40, height: 40)),
                 title: .init(
                     text: .plain(
-                        string: "owofmqwofmqowf qowfm qowfmq owfmqow fqowf m",
-                        attributes: .init(textColor: .black, font: .systemFont(ofSize: 21, weight: .bold))
+                        string: "Your data has been synced with the server",
+						attributes: .init(textColor: .black, font: .systemFont(ofSize: 21, weight: .bold))
                     ),
                     label: .init(
                         numberOfLines: 3,
@@ -31,8 +28,13 @@ extension TemplatedToastFactory {
                     )
                 ),
                 subtitle: nil,
-                background: .colorized(color: .white),
-                shadowColor: .black.withAlphaComponent(0.5),
+				background: .colorized(color: .white),
+				shadow: .init(
+					offset: .init(width: 0, height: 4),
+					color: .black.withAlphaComponent(0.5),
+					opacity: 1.0,
+					radius: 10
+				),
 				hapticFeeback: .uiImpact(style: .heavy)
             )
         )
