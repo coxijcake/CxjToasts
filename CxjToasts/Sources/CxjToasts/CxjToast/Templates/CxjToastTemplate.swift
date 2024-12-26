@@ -23,6 +23,6 @@ public enum CxjToastTemplate {
     case compactActionDescription(data: CompactActionDescriptionToastData)
     
     //MARK: - Action toasts
-	case compactAction(data: CompactActionToastData)
+	case actionableEventToast(data: ActionableEventToastData)
 	case undoAction(data: UndoActionToastData)
 }

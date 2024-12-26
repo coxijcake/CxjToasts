@@ -14,7 +14,7 @@ enum TemplatedToastType: String, CaseIterable, ToastType {
     case minimalizedGlobalStatus
     case compactActionDescription
     
-	case compactAction
+	case actionableEvent
 	case undoAction
 	
 	var id: String { rawValue }

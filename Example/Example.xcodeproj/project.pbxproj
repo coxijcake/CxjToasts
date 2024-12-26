@@ -24,7 +24,7 @@
 		845486F22D1AFF1400A223F2 /* TemplatedToastFactory+TopStraight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845486F12D1AFF1400A223F2 /* TemplatedToastFactory+TopStraight.swift */; };
 		845486F42D1AFF2900A223F2 /* TemplatedToastFactory+MinimalizedGlobalStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845486F32D1AFF2900A223F2 /* TemplatedToastFactory+MinimalizedGlobalStatus.swift */; };
 		845486F62D1AFF4400A223F2 /* TemplatedToastFactory+CompactActionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845486F52D1AFF4400A223F2 /* TemplatedToastFactory+CompactActionDescription.swift */; };
-		845486F82D1AFF7500A223F2 /* TemplatedToastFactory+CompactAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845486F72D1AFF7500A223F2 /* TemplatedToastFactory+CompactAction.swift */; };
+		845486F82D1AFF7500A223F2 /* TemplatedToastFactory+ActionableEventToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845486F72D1AFF7500A223F2 /* TemplatedToastFactory+ActionableEventToast.swift */; };
 		845486FA2D1AFFA900A223F2 /* TemplatedToastFactory+UndoAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845486F92D1AFFA900A223F2 /* TemplatedToastFactory+UndoAction.swift */; };
 		845486FC2D1B006B00A223F2 /* CustomToastFactory+BottomGradientWithBlurredBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845486FB2D1B006B00A223F2 /* CustomToastFactory+BottomGradientWithBlurredBackground.swift */; };
 		845486FE2D1B012000A223F2 /* CustomToastFactory+SidePresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845486FD2D1B012000A223F2 /* CustomToastFactory+SidePresenting.swift */; };
@@ -87,7 +87,7 @@
 		845486F12D1AFF1400A223F2 /* TemplatedToastFactory+TopStraight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemplatedToastFactory+TopStraight.swift"; sourceTree = "<group>"; };
 		845486F32D1AFF2900A223F2 /* TemplatedToastFactory+MinimalizedGlobalStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemplatedToastFactory+MinimalizedGlobalStatus.swift"; sourceTree = "<group>"; };
 		845486F52D1AFF4400A223F2 /* TemplatedToastFactory+CompactActionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemplatedToastFactory+CompactActionDescription.swift"; sourceTree = "<group>"; };
-		845486F72D1AFF7500A223F2 /* TemplatedToastFactory+CompactAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemplatedToastFactory+CompactAction.swift"; sourceTree = "<group>"; };
+		845486F72D1AFF7500A223F2 /* TemplatedToastFactory+ActionableEventToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemplatedToastFactory+ActionableEventToast.swift"; sourceTree = "<group>"; };
 		845486F92D1AFFA900A223F2 /* TemplatedToastFactory+UndoAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemplatedToastFactory+UndoAction.swift"; sourceTree = "<group>"; };
 		845486FB2D1B006B00A223F2 /* CustomToastFactory+BottomGradientWithBlurredBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomToastFactory+BottomGradientWithBlurredBackground.swift"; sourceTree = "<group>"; };
 		845486FD2D1B012000A223F2 /* CustomToastFactory+SidePresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomToastFactory+SidePresenting.swift"; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 			children = (
 				84A15C612CDFDB6900FCDAC5 /* TemplatedToastFactory.swift */,
 				845486F32D1AFF2900A223F2 /* TemplatedToastFactory+MinimalizedGlobalStatus.swift */,
-				845486F72D1AFF7500A223F2 /* TemplatedToastFactory+CompactAction.swift */,
+				845486F72D1AFF7500A223F2 /* TemplatedToastFactory+ActionableEventToast.swift */,
 				845486F92D1AFFA900A223F2 /* TemplatedToastFactory+UndoAction.swift */,
 				845486F52D1AFF4400A223F2 /* TemplatedToastFactory+CompactActionDescription.swift */,
 				845486EF2D1AFEF400A223F2 /* TemplatedToastFactory+BottomPrimary.swift */,
@@ -496,7 +496,7 @@
 				84422BC42CD96AE2004F9306 /* UIViewController+Extensions.swift in Sources */,
 				845486EE2D1AFE9800A223F2 /* TemplatedToastFactory+Native.swift in Sources */,
 				845486FC2D1B006B00A223F2 /* CustomToastFactory+BottomGradientWithBlurredBackground.swift in Sources */,
-				845486F82D1AFF7500A223F2 /* TemplatedToastFactory+CompactAction.swift in Sources */,
+				845486F82D1AFF7500A223F2 /* TemplatedToastFactory+ActionableEventToast.swift in Sources */,
 				84A15C242CDFDA5A00FCDAC5 /* CustomToastType.swift in Sources */,
 				845486FA2D1AFFA900A223F2 /* TemplatedToastFactory+UndoAction.swift in Sources */,
 				84A15C7B2CE208DD00FCDAC5 /* ToastListFlowLayout.swift in Sources */,

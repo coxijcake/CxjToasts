@@ -33,8 +33,8 @@ enum TemplatedToastFactory {
             return compactActionDescription(
                 customSourceView: customSourceView
             )
-		case .compactAction:
-			return compactActionToast(
+		case .actionableEvent:
+			return actionableEventToast(
 				customSourceView: customSourceView
 			)
 		case .undoAction:
