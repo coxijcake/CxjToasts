@@ -14,13 +14,28 @@ extension TemplatedToastFactory {
     ) -> ToastTemplate {
         .undoAction(
             data: .init(
-//                typeId: "template_toast_test_undo_action",
                 typeId: UUID().uuidString,
                 customSourceView: customSourceView,
-                title: .plain(string: "Undo this action", attributes: .init(textColor: .white.withAlphaComponent(0.85), font: .systemFont(ofSize: 14, weight: .semibold))),
+				title: .init(
+					text: .plain(
+						string: "Document was deleted",
+						attributes: .init(
+							textColor: .white,
+							font: .systemFont(ofSize: 16, weight: .medium)
+						)
+					),
+					label: .init(
+						numberOfLines: 1,
+						textAligment: .center,
+						minimumFontScaleFactor: 0.75
+					)
+				),
                 subtitle: nil,
                 timingFeedback: .numberWithProgress(
-                    numberParams: .init(numberColor: .white, font: .monospacedDigitSystemFont(ofSize: 14, weight: .bold)),
+					numberParams: .init(
+						numberColor: .white.withAlphaComponent(0.975),
+						font: .monospacedDigitSystemFont(ofSize: 14, weight: .bold)
+					),
                     progressParams: .init(lineWidth: 2, lineColor: .white)
                 ),
                 undoControl: .init(
@@ -31,7 +46,11 @@ extension TemplatedToastFactory {
                     },
                     type: .default(
                         config: .plain(
-                            config: .init(text: "Undo", textColor: .blue.withAlphaComponent(0.9), font: .systemFont(ofSize: 17, weight: .bold))
+							config: .init(
+								text: "Undo",
+								textColor: .fromFigmaRgb(r: 140, g: 206, b: 245),
+								font: .systemFont(ofSize: 17, weight: .light)
+							)
                         )
                     )
                 ),
@@ -39,8 +58,14 @@ extension TemplatedToastFactory {
                     placement: .bottom(params: .init(offset: 20, includingSafeArea: true)),
                     dismissMethods: [.swipe(direction: .bottom), .automatic(time: 5.0)],
                     animations: .init(
-                        present: .init(animation: .defaultSpring, behaviour: .default(includingNativeViews: [])),
-                        dismiss: .init(animation: .defaultSpring, behaviour: .default(includingNativeViews: []))
+						present: .init(
+							animation: .defaultSpring,
+							behaviour: .default(includingNativeViews: [])
+						),
+						dismiss: .init(
+							animation: .defaultSpring,
+							behaviour: .default(includingNativeViews: [])
+						)
                     ),
                     spamProtection: .off,
                     coexistencePolicy: .init(
@@ -51,7 +76,13 @@ extension TemplatedToastFactory {
                                 shouldStopTimerForStackedUnvisibleToasts: true
                             )
                         ),
-                        comparisonCriteria: .init(attibutes: [.sourceView, .placement(includingYOffset: true)], rule: .and)
+						comparisonCriteria: .init(
+							attibutes: [
+								.sourceView,
+								.placement(includingYOffset: true)
+							],
+							rule: .and
+						)
                     )
                 ),
                 toastView: .init(

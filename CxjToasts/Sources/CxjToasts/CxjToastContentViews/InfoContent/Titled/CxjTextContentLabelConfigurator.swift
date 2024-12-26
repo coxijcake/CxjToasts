@@ -16,6 +16,11 @@ enum CxjTextContentLabelConfigurator {
 		label.numberOfLines = labelConfig.label.numberOfLines
 		label.textAlignment = labelConfig.label.textAligment
 		
+		if let minimumFontScaleFactor = labelConfig.label.minimumFontScaleFactor {
+			label.minimumScaleFactor = minimumFontScaleFactor
+			label.adjustsFontSizeToFitWidth = true
+		}
+		
 		switch labelConfig.text {
 		case .plain(string: let string, attributes: let attributes):
 			label.text = string

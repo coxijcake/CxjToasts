@@ -8,14 +8,14 @@
 import UIKit
 
 public struct CxjUndoActionToastContentConfiguration {
-	public let title: Text
-	public let subtitle: Text?
+	public let title: Label
+	public let subtitle: Label?
 	public let unduControl: UndoControl
 	public let timingFeedback: TimingFeedback
 	
 	public init(
-		title: Text,
-		subtitle: Text?,
+		title: Label,
+		subtitle: Label?,
 		unduControl: UndoControl,
 		timingFeedback: TimingFeedback
 	) {
@@ -27,7 +27,7 @@ public struct CxjUndoActionToastContentConfiguration {
 }
 
 extension CxjUndoActionToastContentConfiguration {
-	public typealias Text = CxjTextConfiguration
+	public typealias Label = CxjLabelConfiguration
 	
 	public enum UndoControl {
 		public enum TitleConfig {

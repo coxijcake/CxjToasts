@@ -40,7 +40,7 @@ extension CxjTemplatedToastContentConfiguratorFactory {
 				return .withSubtitle(
 					titleLabelConfig: data.title,
 					subtitleLabelConfig: subtitle,
-					subtitleParams: .init(labelsPadding: 4)
+					subtitleParams: .init(labelsPadding: 26)
 				)
 			} else {
 				return .title(labelConfig: data.title)

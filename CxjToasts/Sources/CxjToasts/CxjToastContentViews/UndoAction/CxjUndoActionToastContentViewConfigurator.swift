@@ -26,11 +26,9 @@ enum CxjUndoActionToastContentViewConfigurator {
 	}
 	
 	private static func infoContentViewForConfig(_ config: Config) -> UIView {
-		let labelsAttributes = CxjLabelConfiguration.LabelAttributes(numberOfLines: 1, textAligment: .left)
-		let titleLabelConfig = CxjLabelConfiguration(text: config.title, label: labelsAttributes)
+		let titleLabelConfig = config.title
 		
-		if let subtitle = config.subtitle {
-			let subtitleLabelConfig = CxjLabelConfiguration(text: subtitle, label: labelsAttributes)
+		if let subtitleLabelConfig = config.subtitle {
 			return CxjToastTextContentViewConfigurator.viewWithConfig(
 				.withSubtitle(
 					titleLabelConfig: titleLabelConfig,

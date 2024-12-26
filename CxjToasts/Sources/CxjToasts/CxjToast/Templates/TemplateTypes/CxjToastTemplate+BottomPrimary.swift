@@ -9,8 +9,9 @@ import UIKit
 
 extension CxjToastTemplate {
 	public struct BottomPrimaryToastData {
-		public typealias Text = CxjLabelConfiguration
+		public typealias Label = CxjLabelConfiguration
 		public typealias Icon = CxjIconConfiguration
+		public typealias DismissMethods = Set<CxjToastConfiguration.DismissMethod>
 		public typealias SourceBackground = CxjToastConfiguration.SourceBackground
 		public typealias Shadow = CxjUIViewShadowParams
 		
@@ -18,10 +19,11 @@ extension CxjToastTemplate {
 		let customSourceView: UIView?
 		let sourceBackground: SourceBackground?
 		let icon: Icon?
-		let title: Text
-		let subtitle: Text?
+		let title: Label
+		let subtitle: Label?
 		let background: CxjToastViewConfiguration.Background
 		let shadow: Shadow?
+		let dismissMethods: DismissMethods
 		let hapticFeeback: CxjHapticFeedback?
 		
 		public init(
@@ -29,10 +31,11 @@ extension CxjToastTemplate {
 			customSourceView: UIView? = nil,
 			sourceBackground: SourceBackground?,
 			icon: Icon?,
-			title: Text,
-			subtitle: Text?,
+			title: Label,
+			subtitle: Label?,
 			background: CxjToastViewConfiguration.Background,
 			shadow: Shadow?,
+			dismissMethods: DismissMethods,
 			hapticFeeback: CxjHapticFeedback?
 		) {
 			self.typeId = typeId
@@ -43,6 +46,7 @@ extension CxjToastTemplate {
 			self.subtitle = subtitle
 			self.background = background
 			self.shadow = shadow
+			self.dismissMethods = dismissMethods
 			self.hapticFeeback = hapticFeeback
 		}
 	}

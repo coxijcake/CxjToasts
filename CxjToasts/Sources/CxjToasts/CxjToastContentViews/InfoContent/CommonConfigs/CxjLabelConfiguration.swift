@@ -21,10 +21,16 @@ extension CxjLabelConfiguration {
 	public struct LabelAttributes {
 		let numberOfLines: Int
 		let textAligment: NSTextAlignment
+		let minimumFontScaleFactor: CGFloat?
 		
-		public init(numberOfLines: Int, textAligment: NSTextAlignment) {
+		public init(
+			numberOfLines: Int,
+			textAligment: NSTextAlignment,
+			minimumFontScaleFactor: CGFloat? = nil
+		) {
 			self.numberOfLines = numberOfLines
 			self.textAligment = textAligment
+			self.minimumFontScaleFactor = minimumFontScaleFactor
 		}
 	}
 }

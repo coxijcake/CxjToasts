@@ -25,7 +25,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 				sourceView: sourceView,
 				sourceBackground: sourceBackgroundForData(data),
 				layout: layoutFor(sourceView: sourceView),
-				dismissMethods: dismissMethods(),
+				dismissMethods: data.dismissMethods,
 				keyboardHandling: .ignore,
 				animations: animations(),
 				hapticFeeback: data.hapticFeeback,
@@ -62,20 +62,12 @@ extension CxjTemplatedToastConfigProviderFactory {
 		private func heightConstraint() -> Config.Constraints.Values {
 			Config.Constraints.Values(
 				min: 145,
-				max: 200
+				max: 250
 			)
-			
 		}
 		
 		private func placement() -> Config.Layout.Placement {
 			.bottom(params: .init(offset: 12, includingSafeArea: true))
-		}
-		
-		private func dismissMethods() -> Set<Config.DismissMethod> {
-			[
-				.automatic(time: 2.0),
-				.swipe(direction: .bottom)
-			]
 		}
 		
 		private func animations() -> Config.Animations {

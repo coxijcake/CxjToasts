@@ -10,7 +10,7 @@ import UIKit
 extension CxjToastTemplate {
 	public struct UndoActionToastData {
 		public typealias TimingFeedback = CxjUndoActionToastContentConfiguration.TimingFeedback
-		public typealias Text = CxjTextConfiguration
+		public typealias Label = CxjLabelConfiguration
 		public typealias DefaultUndoControlTitleConfig = CxjUndoActionToastContentConfiguration.UndoControl.TitleConfig
 		
 		public enum UndoControlType {
@@ -73,20 +73,19 @@ extension CxjToastTemplate {
 		
 		public let typeId: String
 		public let customSourceView: UIView?
-		public let title: Text
-		public let subtitle: Text?
+		public let title: Label
+		public let subtitle: Label?
 		public let timingFeedback: TimingFeedback
 		public let undoControl: UndoControl
 		public let toast: Toast
 		public let toastView: ToastView
 		public let hapticFeeback: CxjHapticFeedback?
 		
-		
 		public init(
 			typeId: String,
 			customSourceView: UIView?,
-			title: Text,
-			subtitle: Text?,
+			title: Label,
+			subtitle: Label?,
 			timingFeedback: TimingFeedback,
 			undoControl: UndoControl,
 			toast: Toast,

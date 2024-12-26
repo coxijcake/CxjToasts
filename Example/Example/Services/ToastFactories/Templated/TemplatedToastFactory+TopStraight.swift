@@ -15,21 +15,21 @@ extension TemplatedToastFactory {
             data: .init(
                 typeId: "template_toast_test_top_straight",
                 customSourceView: customSourceView,
-                icon: .init(resource: .closeIcon),
+				icon: .init(resource: .successMessageIcon),
                 title: .plain(
-                    string: "Test straight toast title",
-                    attributes: .init(textColor: .label, font: .systemFont(ofSize: 18, weight: .medium))
+                    string: "Your message was sent",
+                    attributes: .init(textColor: .label, font: .systemFont(ofSize: 14, weight: .medium))
                 ),
-                background: .colorized(color: customSourceView?.backgroundColor?.withAlphaComponent(0.95) ?? .white),
+                background: .colorized(color: customSourceView?.backgroundColor ?? .white),
                 shadow: .enable(
                     params: .init(
-                        offset: .init(width: 0, height: 3),
-                        color: .black.withAlphaComponent(0.75),
+                        offset: .init(width: 0, height: 2),
+                        color: .black.withAlphaComponent(0.5),
                         opacity: 1.0,
-                        radius: 4
+                        radius: 2
                     )
                 ),
-				hapticFeeback: .uiImpact(style: .medium)
+				hapticFeeback: .notification(type: .success)
             )
         )
     }

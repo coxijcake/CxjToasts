@@ -65,7 +65,7 @@ private extension CxjToastTextContentView {
 	
 	func configureStackProps() {
 		axis = .vertical
-		distribution = .fillProportionally
+		distribution = .fill
 		alignment = .fill
 	}
 }

@@ -46,7 +46,7 @@ extension CxjTemplatedToastConfigProviderFactory {
 			
 			return .init(
 				width: .init(min: fixedWidth, max: fixedWidth),
-				height: .init(min: 48, max: 62)
+				height: .init(min: 48, max: 72)
 			)
 		}
 	}

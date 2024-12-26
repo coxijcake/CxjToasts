@@ -13,18 +13,20 @@ extension TemplatedToastFactory {
             data: .init(
                 typeId: "minimalized_global_status_test",
                 icon: .init(
-                    icon: .closeIcon,
+					icon: .wiFiConnectedIcon.withRenderingMode(.alwaysTemplate),
+					contentMode: .scaleToFill,
+					tintColor: .white,
                     fixedSize: .init(width: 20, height: 20)
                 ),
                 title: .plain(
-                    string: "No connection",
+                    string: "Internet Connection Restored",
                     attributes: .init(
                         textColor: .white,
                         font: .systemFont(ofSize: 13, weight: .semibold)
                     )
                 ),
 				background: .colorized(color: .init(red: 0.349, green: 0.8, blue: 0.298, alpha: 1.0)),
-				hapticFeeback: .notification(type: .success),
+				hapticFeeback: nil,
                 dismissMethods: [
                     .automatic(time: 2.5),
                     .swipe(direction: .top),
