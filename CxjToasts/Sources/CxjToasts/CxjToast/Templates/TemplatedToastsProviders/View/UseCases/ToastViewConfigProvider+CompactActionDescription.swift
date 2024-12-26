@@ -20,18 +20,19 @@ extension CxjTemplatedToastViewConfigProviderFactory {
         func config() -> Config {
             Config(
                 contentLayout: .fill(insets: .init(top: 12, left: 14, bottom: 12, right: 14)),
-                background: .colorized(color: .black),
-                shadow: .enable(
-                    params: .init(
-                        offset: .init(width: 0, height: 2),
-                        color: .black.withAlphaComponent(0.75),
-                        opacity: 1.0,
-                        radius: 6
-                    )
-                ),
+				background: data.background,
+				shadow: shadowForData(data.shadow),
                 corners: .fixed(value: 6, mask: .all),
                 isUserInteractionEnabled: true
             )
         }
+		
+		func shadowForData(_ data: Data.Shadow?) -> CxjToastViewConfiguration.Shadow {
+			if let shadowParams = data {
+				return .enable(params: shadowParams)
+			} else {
+				return .disable
+			}
+		}
     }
 }

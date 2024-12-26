@@ -19,7 +19,13 @@ extension TemplatedToastFactory {
                         font: .systemFont(ofSize: 12, weight: .semibold)
                     )
                 ),
-                background: .blurred(effect: .init(style: .dark)),
+				background: .colorized(color: .black.withAlphaComponent(0.9)),
+				shadow: .init(
+					offset: .init(width: 0, height: 2),
+					color: .black.withAlphaComponent(0.5),
+					opacity: 1.0,
+					radius: 2
+				),
                 customSourceView: customSourceView,
 				hapticFeeback: .uiImpact(style: .soft)
             )

@@ -11,10 +11,12 @@ extension CxjToastTemplate {
     public struct CompactActionDescriptionToastData {
         public typealias Title = CxjTextConfiguration
         public typealias Background = CxjToastViewConfiguration.Background
+		public typealias Shadow = CxjUIViewShadowParams
         
         public let typeId: String
         public let title: Title
         public let background: Background
+		public let shadow: Shadow?
         public let customSourceView: UIView?
 		public let hapticFeeback: CxjHapticFeedback?
         
@@ -22,6 +24,7 @@ extension CxjToastTemplate {
             typeId: String,
             title: Title,
             background: Background,
+			shadow: Shadow?,
             customSourceView: UIView?,
 			hapticFeeback: CxjHapticFeedback?
         ) {
@@ -29,6 +32,7 @@ extension CxjToastTemplate {
             self.title = title
             self.background = background
             self.customSourceView = customSourceView
+			self.shadow = shadow
 			self.hapticFeeback = hapticFeeback
         }
     }

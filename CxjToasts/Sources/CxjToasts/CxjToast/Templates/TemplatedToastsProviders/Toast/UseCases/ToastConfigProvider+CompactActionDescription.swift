@@ -75,7 +75,7 @@ extension CxjTemplatedToastConfigProviderFactory {
         
         private func animations() -> Config.Animations {
             let behaviour: Config.Animation.Behaviour = .custom(changes: [
-                .alpha(intensity: 0.25),
+				.alpha(intensity: .zero),
                 .scale(value: .init(x: 0.25, y: 0.25))
             ])
             
@@ -128,7 +128,7 @@ fileprivate extension CxjAnimation {
         UIView.animate(
             withDuration: 0.175,
             delay: .zero,
-            options: [.curveEaseIn, .beginFromCurrentState],
+			options: [.curveEaseIn, .beginFromCurrentState],
             animations: animations,
             completion: completion
         )
