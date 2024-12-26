@@ -11,6 +11,10 @@ extension CxjToastDismisser {
 	@MainActor
 	final class DismissBySwipeUseCase {
 		//MARK: - Types
+		enum Constants {
+			static let dismissThresholdProgress: CGFloat = 0.075
+		}
+		
 		typealias ToastView = CxjToastView
 		typealias Animator = CxjToastDismissAnimator
 		typealias SwipeDirection = CxjToastConfiguration.DismissMethod.SwipeDirection
@@ -23,9 +27,7 @@ extension CxjToastDismisser {
 		private let placement: ToastPlacement
 		private let animator: Animator
 		private weak var delegate: ToastDismissUseCaseDelegate?
-		
-        private let thresholdToDismiss = 10.0
-        
+		        
         private lazy var swipeGesture: UIPanGestureRecognizer = {
             let gesture: UIPanGestureRecognizer = UIPanGestureRecognizer(
                 target: self,
@@ -123,8 +125,7 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
                 insideView: toastSuperView
             )
         case .ended:
-            let ammountOfUserDragged = ammountOfUserDragged()
-            let shouldDismissToast = ammountOfUserDragged > thresholdToDismiss
+			let shouldDismissToast = shouldDismissToastForEndedGesture(gesture, insideView: toastSuperView)
             
             if shouldDismissToast {
                 delegate?.didFinish(useCase: self)
@@ -180,10 +181,14 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
         _ gesture: UIPanGestureRecognizer,
         insideView toastSuperView: UIView
     ) {
-        let delta: CGFloat = switch direction {
-        case .top, .bottom: gesture.location(in: toastSuperView).y - startGestureLocation
-        case .left, .right: gesture.location(in: toastSuperView).x - startGestureLocation
-        }
+		let delta: CGFloat = deltaForSwipeGesture(gesture, insideView: toastSuperView)
+		
+		guard
+			shouldApply(delta: delta, for: direction, with: placement)
+		else {
+			animator.dismissAction(progress: .zero, animated: true, completion: nil)
+			return
+		}
         
         updateDuringInteractionGesture(
             gesture,
@@ -200,13 +205,6 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
         insideView toastSuperView: UIView,
         withDelta delta: CGFloat
     ) {
-        guard
-            shouldApply(delta: delta, for: direction, with: placement)
-        else {
-            animator.dismissAction(progress: .zero, animated: true, completion: nil)
-            return
-        }
-        
         currentOriginOffset = startViewOrigin + delta
         let progressValue: CGFloat = draggedProgress()
         let progress: ToastLayoutProgress = ToastLayoutProgress(value: progressValue)
@@ -250,6 +248,15 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
         
         return progress
     }
+	
+	func deltaForSwipeGesture(_ gesture: UIPanGestureRecognizer, insideView toastSuperView: UIView) -> CGFloat {
+		switch direction {
+		case .top, .bottom:
+			gesture.location(in: toastSuperView).y - startGestureLocation
+		case .left, .right:
+			gesture.location(in: toastSuperView).x - startGestureLocation
+		}
+	}
     
     func shouldApply(
         delta: CGFloat,
@@ -261,4 +268,14 @@ private extension CxjToastDismisser.DismissBySwipeUseCase {
         case .bottom, .right: delta >= 0
         }
     }
+	
+	func shouldDismissToastForEndedGesture(_ gesture: UIPanGestureRecognizer, insideView toastSuperView: UIView) -> Bool {
+		let delta: CGFloat = deltaForSwipeGesture(gesture, insideView: toastSuperView)
+		
+		guard shouldApply(delta: delta, for: direction, with: placement) else { return false }
+		
+		let progressValue: CGFloat = draggedProgress()
+		
+		return progressValue >= Constants.dismissThresholdProgress
+	}
 }
