@@ -84,22 +84,21 @@ private extension CxjToastDismisser.DimissByTimeUseCase {
 	) {
 		removeTimer()
 		
-		dismissTimer = Timer.scheduledTimer(
-			withTimeInterval: timerUpdateInterval,
-			repeats: true,
-			block: { [weak self] timer in
-				guard let self else { return }
+		let timer = Timer(timeInterval: timerUpdateInterval, repeats: true) { [weak self] timer in
+			guard let self else { return }
+			
+			Task { @MainActor in
+				self.remainingTime = max(.zero, self.remainingTime - self.timerUpdateInterval)
+				self.delegate?.didUpdateRemainingDisplayingTime(self.remainingTime, initialDisplayingTime: displayingTime, by: self)
 				
-				Task { @MainActor in
-					self.remainingTime = max(.zero, self.remainingTime - self.timerUpdateInterval)
-					self.delegate?.didUpdateRemainingDisplayingTime(self.remainingTime, initialDisplayingTime: displayingTime, by: self)
-					
-					if remainingTime <= 0 {
-						self.delegate?.didFinish(useCase: self)
-					}
+				if remainingTime <= 0 {
+					self.delegate?.didFinish(useCase: self)
 				}
 			}
-		)
+		}
+		
+		RunLoop.current.add(timer, forMode: .common)
+		dismissTimer = timer
 	}
 	
 	func removeTimer() {
