@@ -121,6 +121,6 @@ Easily configure the toast content without requiring manual layout, by using pre
 ---
 
 ## Licence
-**CxjToasts** is available under the MIT licence. See the LICENCE for more info.
+**CxjToasts** is available under the MIT licence. See the [LICENCE](./LICENSE) for more info.
 
 
