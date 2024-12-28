@@ -66,8 +66,10 @@ Simply clone the repository and open the example project to see **CxjToasts** in
 
 ---
 
-### Toast Configuration
+## Toast Configuration
+The core structure for defining the behavior, appearance, and interaction of a toast. It provides a flexible API to customize animations, layout, dismissal methods, and more.
 
+### CxjToastConfiguration 
 | **Parameter**         | **Description**                                                                                                              |
 |-----------------------|----------------------------------------------------------------------------------------------------------------------------|
 | `typeId`             	| Unique identifier for the toast. Used for managing interactions, such as spam protection and coexistence policies.          |
@@ -83,8 +85,10 @@ Simply clone the repository and open the example project to see **CxjToasts** in
 
 ---
 
-### ToastViewConfiguration
+## View Configuration
+Defines the visual and structural properties of the toast’s view. This configuration ensures that the toast seamlessly integrates into your app’s design and functionality.
 
+### CxjToastViewConfiguration
 | **Parameter**            | **Description**                                                                                                  |
 |--------------------------|------------------------------------------------------------------------------------------------------------------|
 | `contentLayout`          | Determines how the content is laid out inside the toast view (e.g., fill with insets, specific constraints).     |
@@ -95,8 +99,7 @@ Simply clone the repository and open the example project to see **CxjToasts** in
 
 ---
 
-## CxjToastContentConfiguration
-
+## Content Configuration
 Easily configure the toast content without requiring manual layout, by using pre-defined templates or providing your own custom content view to display in the toast.
 
 ### CxjToastContentConfiguration
