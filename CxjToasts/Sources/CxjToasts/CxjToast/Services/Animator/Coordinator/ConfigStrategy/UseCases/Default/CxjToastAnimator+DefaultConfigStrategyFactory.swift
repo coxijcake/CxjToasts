@@ -12,14 +12,14 @@ extension CxjToastAnimator {
 	enum DefaultConfigStrategyFactory {
 		static func configStrategy(
 			placement: CxjToastConfiguration.Layout.Placement,
-			usingAnimationNativeViews: Set<CxjToastConfiguration.Animation.TopScreenFeature>,
+			adjustForTopFeatures: Set<CxjToastConfiguration.Animation.TopScreenFeature>,
 			input: ConfigStrategyCommonInput
 		) -> DefaultConfigStrategy {
 			switch placement {
 			case .top(let params):
 				DefaultTopConfigStrategyFactory.configStrategy(
 					input: input,
-					usingAnimationNativeViews: usingAnimationNativeViews,
+					adjustForTopFeatures: adjustForTopFeatures,
 					includingSafeArea: params.includingSafeArea,
 					verticalOffset: params.offset
 				)

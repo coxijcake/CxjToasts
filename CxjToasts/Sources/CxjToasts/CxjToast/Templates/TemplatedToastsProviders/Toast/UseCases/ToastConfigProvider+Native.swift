@@ -76,12 +76,12 @@ extension CxjTemplatedToastConfigProviderFactory {
 		private func animations() -> Config.Animations {
 			let present: Config.Animation = Config.Animation(
 				animation: .toastPresenting,
-				behaviour: .default(includingNativeViews: [.dynamicIsland])
+				behaviour: .default(adjustForTopFeatures: [.dynamicIsland])
 			)
 			
 			let dismiss: Config.Animation = Config.Animation(
 				animation: .toastDismissing,
-				behaviour: .default(includingNativeViews: [.dynamicIsland])
+				behaviour: .default(adjustForTopFeatures: [.dynamicIsland])
 			)
 			
 			return Config.Animations(

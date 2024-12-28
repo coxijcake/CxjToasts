@@ -60,11 +60,11 @@ extension TemplatedToastFactory {
                     animations: .init(
 						present: .init(
 							animation: .defaultSpring,
-							behaviour: .default(includingNativeViews: [])
+							behaviour: .default(adjustForTopFeatures: [])
 						),
 						dismiss: .init(
 							animation: .defaultSpring,
-							behaviour: .default(includingNativeViews: [])
+							behaviour: .default(adjustForTopFeatures: [])
 						)
                     ),
                     spamProtection: .off,

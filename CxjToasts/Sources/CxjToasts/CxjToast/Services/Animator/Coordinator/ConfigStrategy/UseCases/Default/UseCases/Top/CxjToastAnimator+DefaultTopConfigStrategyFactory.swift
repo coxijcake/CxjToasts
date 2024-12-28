@@ -13,7 +13,7 @@ extension CxjToastAnimator {
 	enum DefaultTopConfigStrategyFactory {
 		static func configStrategy(
 			input: ConfigStrategyCommonInput,
-			usingAnimationNativeViews: Set<CxjToastConfiguration.Animation.TopScreenFeature>,
+			adjustForTopFeatures: Set<CxjToastConfiguration.Animation.TopScreenFeature>,
 			includingSafeArea: Bool,
 			verticalOffset: CGFloat
 		) -> DefaultTopConfigStrategy {
@@ -25,14 +25,14 @@ extension CxjToastAnimator {
 			&& includingSafeArea
 			
 			return if isSourceSafeAreaEqulWindowSafeArea,
-					  usingAnimationNativeViews.contains(.dynamicIsland),
+					  adjustForTopFeatures.contains(.dynamicIsland),
 					  CxjDynamicIslandHelper.isDynamicIslandInDefaultPosition {
 				DefaultTopDynamicIslandConfigStrategy(
 					input: input,
 					verticalOffset: verticalOffset
 				)
 			} else if isSourceSafeAreaEqulWindowSafeArea,
-					  usingAnimationNativeViews.contains(.notch),
+					  adjustForTopFeatures.contains(.notch),
 					  CxjNotchHelper.isNotchInDefaultPosition {
 				DefaultTopNotchConfigStrategy(
 					input: input,

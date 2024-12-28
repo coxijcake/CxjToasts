@@ -29,10 +29,10 @@ extension CxjToastAnimator {
 			)
 			
 			return switch animation.behaviour {
-			case .default(includingNativeViews: let inculdedCustomViews):
+			case .default(adjustForTopFeatures: let adjustForTopFeatures):
 				DefaultConfigStrategyFactory.configStrategy(
 					placement: placement,
-					usingAnimationNativeViews: inculdedCustomViews,
+					adjustForTopFeatures: adjustForTopFeatures,
 					input: commonInput
 				)
 			case .custom(let changes):
