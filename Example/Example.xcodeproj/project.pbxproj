@@ -163,7 +163,7 @@
 			children = (
 				84A15C1D2CDFDA2D00FCDAC5 /* Models */,
 				84A15C602CDFDB5200FCDAC5 /* Services */,
-				84A15C682CDFDB6D00FCDAC5 /* Subviews */,
+				84A15C682CDFDB6D00FCDAC5 /* Views */,
 				84A15C3C2CDFDAEE00FCDAC5 /* Screens */,
 				84422BBB2CD95954004F9306 /* Extensions */,
 				8425F5B52C6DE8A00082226D /* AppDelegate.swift */,
@@ -302,13 +302,13 @@
 			path = DataSource;
 			sourceTree = "<group>";
 		};
-		84A15C682CDFDB6D00FCDAC5 /* Subviews */ = {
+		84A15C682CDFDB6D00FCDAC5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				84A15C7C2CE20B2000FCDAC5 /* ToastCell */,
 				84A15C7D2CE20CBE00FCDAC5 /* BounceOnTouchUIButton.swift */,
 			);
-			path = Subviews;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		84A15C6A2CDFDF4200FCDAC5 /* ToastPreview */ = {

@@ -18,7 +18,7 @@ extension TemplatedToastFactory {
 				icon: .init(resource: .successMessageIcon),
                 title: .plain(
                     string: "Your message was sent",
-                    attributes: .init(textColor: .label, font: .systemFont(ofSize: 14, weight: .medium))
+					attributes: .init(textColor: .black, font: .systemFont(ofSize: 14, weight: .medium))
                 ),
                 background: .colorized(color: customSourceView?.backgroundColor ?? .white),
                 shadow: .enable(
