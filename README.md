@@ -68,30 +68,30 @@ Simply clone the repository and open the example project to see **CxjToasts** in
 
 ### Toast Configuration
 
-| **Parameter**         | **Type**                                    | **Description**                                                                                                              |
-|-----------------------|--------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| `typeId`             | `String`                                  | Unique identifier for the toast. Used for managing interactions, such as spam protection and coexistence policies.          |
-| `sourceView`         | `UIView`                                  | The view associated with the toast. Often used for layout calculations or interactions.                                     |
-| `sourceBackground`   | `SourceBackground?`                       | Optional background configuration for the toast. Supports touch interactions and actions.                                   |
-| `layout`             | `Layout`                                  | Layout configuration for the toast, including `placement` and `constraints`.                                               |
-| `dismissMethods`     | `Set<DismissMethod>`                      | Defines how the toast can be dismissed, such as by swipe, tap, or automatic timeout.                                        |
-| `keyboardHandling`   | `KeyboardHandling`                        | Configures behavior when a keyboard is visible, such as moving the toast above it.                                         |
-| `animations`         | `Animations`                              | Animation settings for toast presentation and dismissal.                                                                    |
-| `hapticFeedback`     | `CxjHapticFeedback?`                      | Haptic feedback for the toast (e.g., success, error, or custom).                                                           |
-| `spamProtection`     | `SpamProtection`                          | Enables or disables spam protection and defines criteria for toast comparison.                                             |
-| `coexistencePolicy`  | `ToastCoexistencePolicy`                  | Defines how the toast interacts with others when a new toast is displayed.                                                 |
+| **Parameter**         | **Description**                                                                                                              |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------|
+| `typeId`             	| Unique identifier for the toast. Used for managing interactions, such as spam protection and coexistence policies.          |
+| `sourceView`         	| The view associated with the toast. Often used for layout calculations or interactions.                                     |
+| `sourceBackground`   	| Optional background configuration for the toast. Supports touch interactions and actions.                                   |
+| `layout`             	| Layout configuration for the toast, including `placement` and `constraints`.                                               |
+| `dismissMethods`     	| Defines how the toast can be dismissed, such as by swipe, tap, or automatic timeout.                                        |
+| `keyboardHandling`   	| Configures behavior when a keyboard is visible, such as moving the toast above it.                                         |
+| `animations`         	| Animation settings for toast presentation and dismissal.                                                                    |
+| `hapticFeedback`     	| Haptic feedback for the toast (e.g., success, error, or custom).                                                           |
+| `spamProtection`     	| Enables or disables spam protection and defines criteria for toast comparison.                                             |
+| `coexistencePolicy`  	| Defines how the toast interacts with others when a new toast is displayed.                                                 |
 
 ---
 
 ### ToastViewConfiguration
 
-| Parameter                | Type                  | Description                                                                                                  |
-|:-------------------------|:----------------------|:-------------------------------------------------------------------------------------------------------------|
-| contentLayout            | CxjToastContentLayout | Determines how the content is laid out inside the toast view (e.g., fill with insets, specific constraints). |
-| background               | CxjBackground         | Specifies the background style of the toast view, such as color, blur effect, gradient, or custom view.      |
-| shadow                   | Shadow                | Configures the shadow appearance for the toast view.                                                         |
-| corners                  | Corners               | Configures the corner style of the toast view, such as rounded or capsule.                                   |
-| isUserInteractionEnabled | Bool                  | Specifies whether user interactions with the toast view are enabled.                                         |
+| **Parameter**            | **Description**                                                                                                  |
+|--------------------------|------------------------------------------------------------------------------------------------------------------|
+| `contentLayout`          | Determines how the content is laid out inside the toast view (e.g., fill with insets, specific constraints).     |
+| `background`             | Specifies the background style of the toast view, such as color, blur effect, gradient, or custom view.          |
+| `shadow`                 | Configures the shadow appearance for the toast view.                                                             |
+| `corners`                | Configures the corner style of the toast view, such as rounded or capsule.                                       |
+| `isUserInteractionEnabled` | Specifies whether user interactions with the toast view are enabled.                                           |
 
 ---
 
