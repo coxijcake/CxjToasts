@@ -72,12 +72,7 @@ extension TemplatedToastFactory {
                     ),
                     spamProtection: .off,
                     coexistencePolicy: .init(
-                        handling: .stack(
-                            attributes: .init(
-                                direction: .top,
-                                maxVisibleToasts: 3,
-                                shouldStopTimerForStackedUnvisibleToasts: true
-                            )
+						handling: .hide(attributes: .init(shouldStopTimerForHiddenToasts: true)
                         ),
                         comparisonCriteria: .init(attibutes: CxjToastComparisonAttribute.completeMatch, rule: .and)
                     )
