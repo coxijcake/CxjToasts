@@ -72,7 +72,7 @@ The core structure for defining the behavior, appearance, and interaction of a t
 ### CxjToastConfiguration 
 | **Parameter**         | **Description**                                                                                                              |
 |-----------------------|----------------------------------------------------------------------------------------------------------------------------|
-| `typeId`             	| Unique identifier for the toast. Used for managing interactions, such as spam protection and coexistence policies.          |
+| `typeId`             	| Identifier for the toast, used to manage interactions such as spam protection and coexistence policies. It also allows for closing all toasts with a specific `typeId`. Note: `typeId` does not equal `CxjToast.id` and is not required to be unique.          |
 | `sourceView`         	| The view associated with the toast. Often used for layout calculations or interactions.                                     |
 | `sourceBackground`   	| Optional background configuration for the toast. Supports touch interactions and actions.                                   |
 | `layout`             	| Layout configuration for the toast, including `placement` and `constraints`.                                               |
