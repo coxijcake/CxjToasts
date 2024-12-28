@@ -13,15 +13,13 @@ extension CxjToastAnimator {
 	enum DefaultTopConfigStrategyFactory {
 		static func configStrategy(
 			input: ConfigStrategyCommonInput,
-			usingAnimationNativeViews: Set<CxjToastConfiguration.Animation.TopPlacementNativeView>,
+			usingAnimationNativeViews: Set<CxjToastConfiguration.Animation.TopScreenFeature>,
 			includingSafeArea: Bool,
 			verticalOffset: CGFloat
 		) -> DefaultTopConfigStrategy {
 			let applicationSafeAreaInsets: UIEdgeInsets = UIApplication.safeAreaInsets
 			let sourceViewSafeAreaInsets: UIEdgeInsets = input.sourceViewData.safeAreaInsets
 			
-			//TODO: - Add to global toasts settings
-            //TODO: - Add documentation for animation properties
 			let isSourceSafeAreaEqulWindowSafeArea: Bool =
 			(applicationSafeAreaInsets == sourceViewSafeAreaInsets)
 			&& includingSafeArea

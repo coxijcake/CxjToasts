@@ -12,7 +12,7 @@ extension CxjToastAnimator {
 	enum DefaultConfigStrategyFactory {
 		static func configStrategy(
 			placement: CxjToastConfiguration.Layout.Placement,
-			usingAnimationNativeViews: Set<CxjToastConfiguration.Animation.TopPlacementNativeView>,
+			usingAnimationNativeViews: Set<CxjToastConfiguration.Animation.TopScreenFeature>,
 			input: ConfigStrategyCommonInput
 		) -> DefaultConfigStrategy {
 			switch placement {

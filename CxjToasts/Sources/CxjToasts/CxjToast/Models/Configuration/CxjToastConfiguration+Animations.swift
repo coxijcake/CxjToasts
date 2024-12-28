@@ -23,7 +23,7 @@ extension CxjToastConfiguration {
 	}
 	
 	public struct Animation: Sendable {
-		public enum TopPlacementNativeView: Sendable {
+		public enum TopScreenFeature: Sendable {
 			case notch, dynamicIsland
 		}
 		
@@ -108,7 +108,17 @@ extension CxjToastConfiguration {
 				}
 			}
 			
-			case `default`(includingNativeViews: Set<TopPlacementNativeView>)
+			/// Represents a default placement configuration for top-positioned toasts.
+			///
+			/// - Parameter adjustForTopFeatures: Determines whether top screen features like `dynamicIsland` or `notch`
+			///   should be considered during animation calculations. These features will only be accounted for:
+			///   - If their safe area matches `UIApplication.shared.safeAreaInsets`.
+			///   - If the toast's `placement` is set to `.top`.
+			///
+			/// Use this configuration to ensure proper alignment and animation behavior for top-positioned toasts
+			/// on devices with screen features such as notches or Dynamic Island.
+			case `default`(adjustForTopFeatures: Set<TopScreenFeature>)
+			
 			case custom(changes: CustomBehaviourChanges)
 		}
 		
