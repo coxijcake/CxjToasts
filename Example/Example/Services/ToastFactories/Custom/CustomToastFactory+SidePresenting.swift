@@ -11,6 +11,8 @@ import CxjToasts
 extension CustomToastFactory {
     @MainActor
     enum SidePresentingToastDataConfigurator {
+		private static var isAutoRepeatOn: Bool = false
+		
         static func toastData(withSourceView sourceView: UIView) -> ToastData {
             ToastData(
                 config: config(withSourceView: sourceView),
@@ -125,24 +127,34 @@ extension CustomToastFactory {
         
         //MARK: - Content
         private static func contentView() -> CxjToastContentView {
-            CxjToastContentViewFactory.createContentViewWith(
-                config: .info(
-                    type: .text(
-                        config: .title(
-                            labelConfig: .init(
-                                text: .plain(
-                                    string: "Some test title",
-                                    attributes: .init(
-                                        textColor: .white,
-                                        font: .systemFont(ofSize: 15, weight: .bold)
-                                    )
-                                ),
-                                label: .init(numberOfLines: 1, textAligment: .center)
-                            )
-                        )
-                    )
-                )
-            )
+			let title: String = isAutoRepeatOn
+			? "Auto repeat off"
+			: "Auto repeat on"
+			
+			isAutoRepeatOn.toggle()
+			
+			return CxjToastContentViewFactory.createContentViewWith(
+				config: .info(
+					type: .text(
+						config: .title(
+							labelConfig: .init(
+								text: .plain(
+									string: title,
+									attributes: .init(
+										textColor: .white,
+										font: .systemFont(ofSize: 15, weight: .semibold)
+									)
+								),
+								label: .init(
+									numberOfLines: 1,
+									textAligment: .center,
+									minimumFontScaleFactor: 0.8
+								)
+							)
+						)
+					)
+				)
+			)
         }
     }
 }
