@@ -27,7 +27,7 @@ enum CxjIconWithTextToastContentViewConfigurator {
 		return view
 	}
 	
-	private static func iconImageViewWithParams(_ params: Config.IconParams) -> UIImageView {
+	private static func iconImageViewWithParams(_ params: CxjIconConfiguration) -> UIImageView {
 		let imageView: UIImageView = UIImageView(image: params.icon)
         imageView.contentMode = params.contentMode
 		imageView.clipsToBounds = true
