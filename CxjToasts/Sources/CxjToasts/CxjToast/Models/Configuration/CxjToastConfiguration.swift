@@ -7,9 +7,16 @@
 
 import UIKit
 
+/// Identifier for the toast, used to manage interactions such as spam protection
+/// and coexistence policies. This `typeId` can also be used to close all toasts
+/// with the same identifier.
+///
+/// - Note: `typeId` is not required to be unique and is distinct from `CxjToast.id`.
+public typealias CxjToastTypeid = String
+
 //MARK: - Configuration
 public struct CxjToastConfiguration: Sendable {
-	public let typeId: String
+	public let typeId: CxjToastTypeid
 	public let sourceView: UIView
 	public let sourceBackground: SourceBackground?
     public let layout: Layout
@@ -21,7 +28,7 @@ public struct CxjToastConfiguration: Sendable {
 	public let coexistencePolicy: ToastCoexistencePolicy
     
     public init(
-		typeId: String,
+		typeId: CxjToastTypeid,
 		sourceView: UIView,
 		sourceBackground: SourceBackground?,
         layout: Layout,

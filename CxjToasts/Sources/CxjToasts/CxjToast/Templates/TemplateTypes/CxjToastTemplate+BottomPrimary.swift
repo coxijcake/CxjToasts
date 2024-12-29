@@ -15,7 +15,7 @@ extension CxjToastTemplate {
 		public typealias SourceBackground = CxjToastConfiguration.SourceBackground
 		public typealias Shadow = CxjUIViewShadowParams
 		
-		let typeId: String
+		let typeId: CxjToastTypeid
 		let customSourceView: UIView?
 		let sourceBackground: SourceBackground?
 		let icon: Icon?
@@ -27,7 +27,7 @@ extension CxjToastTemplate {
 		let hapticFeeback: CxjHapticFeedback?
 		
 		public init(
-			typeId: String,
+			typeId: CxjToastTypeid,
 			customSourceView: UIView? = nil,
 			sourceBackground: SourceBackground?,
 			icon: Icon?,

@@ -142,7 +142,7 @@ extension CxjToastsCoordinator {
 		firstWith(id: id) as? T
 	}
 	
-	public func firstWith(typeId: String) -> IdentifiableToast? {
+	public func firstWith(typeId: CxjToastTypeid) -> IdentifiableToast? {
 		activeToasts.first(where: { $0.typeId == typeId })
 	}
 }

@@ -14,7 +14,7 @@ extension CxjToastTemplate {
         public typealias Background = CxjToastViewConfiguration.Background
         public typealias DismissMethods = Set<CxjToastConfiguration.DismissMethod>
         
-        public let typeId: String
+        public let typeId: CxjToastTypeid
         public let icon: Icon?
         public let title: Title
         public let background: Background
@@ -22,7 +22,7 @@ extension CxjToastTemplate {
         public let dismissMethods: DismissMethods
         
         public init(
-            typeId: String,
+            typeId: CxjToastTypeid,
             icon: Icon?,
             title: Title,
             background: Background,

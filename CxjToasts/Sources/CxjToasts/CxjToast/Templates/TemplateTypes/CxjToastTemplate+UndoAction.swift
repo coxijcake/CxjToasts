@@ -71,7 +71,7 @@ extension CxjToastTemplate {
 			}
 		}
 		
-		public let typeId: String
+		public let typeId: CxjToastTypeid
 		public let customSourceView: UIView?
 		public let title: Label
 		public let subtitle: Label?
@@ -82,7 +82,7 @@ extension CxjToastTemplate {
 		public let hapticFeeback: CxjHapticFeedback?
 		
 		public init(
-			typeId: String,
+			typeId: CxjToastTypeid,
 			customSourceView: UIView?,
 			title: Label,
 			subtitle: Label?,

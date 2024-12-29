@@ -10,7 +10,7 @@ import UIKit
 protocol ComparableToast {
     typealias Placement = CxjToastConfiguration.Layout.Placement
     
-    var typeId: String { get }
+	var typeId: CxjToastTypeid { get }
     var placement: Placement { get }
     var sourceView: UIView { get }
 }

@@ -14,7 +14,7 @@ import Testing
 final class ToastAttributesComparatorTests {
     //MARK: - Types
     struct MockComparableToast: ComparableToast {
-        let typeId: String
+        let typeId: CxjToastTypeid
         let placement: Placement
         let sourceView: UIView
     }

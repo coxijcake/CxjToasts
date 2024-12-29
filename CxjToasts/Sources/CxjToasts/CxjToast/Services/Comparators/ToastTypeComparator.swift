@@ -8,10 +8,8 @@
 import Foundation
 
 struct ToastTypeComparator {
-    typealias ToastTypeId = String
-	
-	let lhsToastTypeId: ToastTypeId
-	let rhsToastTypeId: ToastTypeId
+	let lhsToastTypeId: CxjToastTypeid
+	let rhsToastTypeId: CxjToastTypeid
 	
 	func isEqual() -> Bool {
         lhsToastTypeId == rhsToastTypeId

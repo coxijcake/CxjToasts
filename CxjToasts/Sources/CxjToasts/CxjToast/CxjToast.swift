@@ -48,7 +48,7 @@ final class CxjToast: CxjDisplayableToast, Sendable {
 
 //MARK: - Public common
 extension CxjToast {
-	var typeId: String { config.typeId }
+	var typeId: CxjToastTypeid { config.typeId }
 	
 	@MainActor
 	var isInteracting: Bool {

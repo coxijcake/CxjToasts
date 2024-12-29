@@ -13,7 +13,7 @@ extension CxjToastTemplate {
         public typealias Background = CxjToastViewConfiguration.Background
         public typealias Shadow = CxjToastViewConfiguration.Shadow
 		
-		public let typeId: String
+		public let typeId: CxjToastTypeid
 		public let customSourceView: UIView?
 		public let icon: UIImage?
 		public let title: Title
@@ -22,7 +22,7 @@ extension CxjToastTemplate {
 		public let hapticFeeback: CxjHapticFeedback?
         
 		public init(
-			typeId: String,
+			typeId: CxjToastTypeid,
 			customSourceView: UIView?,
 			icon: UIImage?,
 			title: Title,

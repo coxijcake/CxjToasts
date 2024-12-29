@@ -15,7 +15,7 @@ final class ToastSpamValidatorTests {
     //MARK: - Types
     struct MockToast: SpamProtectableToast, ComparableToast {
         let spamProtection: SpamProtection
-        let typeId: String
+        let typeId: CxjToastTypeid
         let placement: Placement
         let sourceView: UIView
     }
