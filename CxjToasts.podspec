@@ -25,7 +25,8 @@ CxjToasts is a library for iOS that simplifies the creation and management of to
   s.ios.deployment_target = '14.0'
 
   # Source files path
-  s.source_files = 'CxjToasts/Sources/**/*.swift'
+  # s.source_files = 'CxjToasts/Sources/**/*.swift'
+  s.source_files = 'Sources/**/*.{swift}'
 
   # Framework dependencies
   s.frameworks = ['UIKit']
