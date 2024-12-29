@@ -50,8 +50,8 @@ public struct CxjToastViewConfiguration {
 }
 
 public extension CxjToastViewConfiguration {
-	public typealias Background = CxjBackground
-	public typealias ContentLayout = CxjToastContentLayout
+	typealias Background = CxjBackground
+	typealias ContentLayout = CxjToastContentLayout
 	
 	//MARK: - Shadow
 	/// Configuration for enabling or disabling shadows on the toast view.
