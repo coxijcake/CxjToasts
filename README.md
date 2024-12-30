@@ -20,6 +20,19 @@ Effortless toast presentation with various interaction behaviors between display
 
 ---
 
+## Swift Version Support
+
+CxjToasts supports Swift versions 4, 5, and **6**, ensuring compatibility with the minimum version required for App Store submissions as well as newer Swift versions.
+
+You can find the most up-to-date information about Swift version support for CxjToasts on [Swift Package Index](https://swiftpackageindex.com/coxijcake/CxjToasts):
+
+[![Swift Versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fcoxijcake%2FCxjToasts%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/coxijcake/CxjToasts)
+
+## Privacy
+
+CxjToasts does not collect any data. This notice is provided to assist you in completing [App Privacy Details](https://developer.apple.com/app-store/app-privacy-details/). 
+Additionally, [privacy manifest](https://github.com/coxijcake/CxjToasts/blob/main/Sources/PrivacyInfo.xcprivacy) was included to be integrated into your app if needed.
+
 ## Installation
 
 ### Swift Package Manager
@@ -50,7 +63,7 @@ The example project demonstrates:
 
 Simply clone the repository and open the example project to see **CxjToasts** in action.
 
-[Click here to view the example project.](https://github.com/coxijcake/CxjToasts/tree/develop/Example)
+[Click here to view the example project.](https://github.com/coxijcake/CxjToastsExample)
 
 ---
 
@@ -60,7 +73,7 @@ Simply clone the repository and open the example project to see **CxjToasts** in
 <table>
   <tr>
     <td>
-	<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/native.gif" alt="Animated GIF" />
+		<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/native.gif" alt="Animated GIF" />
     </td>
     <td>
       	<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/undo.gif" alt="Animated GIF" />
@@ -69,21 +82,21 @@ Simply clone the repository and open the example project to see **CxjToasts** in
      	<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/bottom_primary.gif" alt="Animated GIF" />
     </td>
     <td>
-      <img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/global_status.gif" alt="Animated GIF" />
+      	<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/global_status.gif" alt="Animated GIF" />
     </td>
   </tr>
   <tr>
     <td>
-      <img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/side_presenting.gif" alt="Animated GIF" />
+      	<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/side_presenting.gif" alt="Animated GIF" />
     </td>
     <td>
-      <img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/action_event.gif" alt="Animated GIF" />
+      	<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/action_event.gif" alt="Animated GIF" />
     </td>
     <td>
-      <img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/compact_action_description.gif" alt="Animated GIF" />
+     	<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/compact_action_description.gif" alt="Animated GIF" />
     </td>
     <td>
-      <img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/top_straight.gif" alt="Animated GIF" />
+      	<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/top_straight.gif" alt="Animated GIF" />
     </td>
   </tr>
 </table>
