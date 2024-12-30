@@ -22,8 +22,6 @@ Effortless toast presentation with various interaction behaviors between display
 
 ## Swift Version Support
 
-CxjToasts supports Swift versions 4, 5, and **6**, ensuring compatibility with the minimum version required for App Store submissions as well as newer Swift versions.
-
 You can find the most up-to-date information about Swift version support for CxjToasts on [Swift Package Index](https://swiftpackageindex.com/coxijcake/CxjToasts):
 
 [![Swift Versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fcoxijcake%2FCxjToasts%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/coxijcake/CxjToasts)
