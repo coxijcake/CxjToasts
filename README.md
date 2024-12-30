@@ -28,6 +28,11 @@ You can find the most up-to-date information about Swift version support for Cxj
 
 [![Swift Versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fcoxijcake%2FCxjToasts%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/coxijcake/CxjToasts)
 
+## Privacy
+
+CxjToasts does not collect any data. This notice is provided to assist you in completing [App Privacy Details](https://developer.apple.com/app-store/app-privacy-details/). 
+Additionally, [privacy manifest](https://github.com/coxijcake/CxjToasts/blob/main/Sources/PrivacyInfo.xcprivacy) was included to be integrated into your app if needed.
+
 ## Installation
 
 ### Swift Package Manager
