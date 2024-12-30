@@ -87,11 +87,13 @@ private extension CxjToastDismisser.DimissByTimeUseCase {
 		let timer = Timer(timeInterval: timerUpdateInterval, repeats: true) { [weak self] timer in
 			guard let self else { return }
 			
-			Task { @MainActor in
+			Task { @MainActor [weak self] in
+				guard let self = self else { return }
+				
 				self.remainingTime = max(.zero, self.remainingTime - self.timerUpdateInterval)
 				self.delegate?.didUpdateRemainingDisplayingTime(self.remainingTime, initialDisplayingTime: displayingTime, by: self)
 				
-				if remainingTime <= 0 {
+				if self.remainingTime <= 0 {
 					self.delegate?.didFinish(useCase: self)
 				}
 			}
