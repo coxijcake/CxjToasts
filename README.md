@@ -20,51 +20,6 @@ Effortless toast presentation with various interaction behaviors between display
 
 ---
 
-## Swift Version Support
-
-You can find the most up-to-date information about Swift version support for CxjToasts on [Swift Package Index](https://swiftpackageindex.com/coxijcake/CxjToasts):
-
-[![Swift Versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fcoxijcake%2FCxjToasts%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/coxijcake/CxjToasts)
-
-## Privacy
-
-CxjToasts does not collect any data. This notice is provided to assist you in completing [App Privacy Details](https://developer.apple.com/app-store/app-privacy-details/). 
-Additionally, [privacy manifest](https://github.com/coxijcake/CxjToasts/blob/main/Sources/PrivacyInfo.xcprivacy) was included to be integrated into your app if needed.
-
-## Installation
-
-### Swift Package Manager
-You can use The Swift Package Manager to install Toast-Swift by adding the description to your Package.swift file:
-```swift
-dependencies: [
-	.package(url: "https://github.com/coxijcake/CxjToasts", from: "1.0.4")
-]
-```
-
-### CocoaPods
-```swift
-pod "CxjToasts"
-```
-
----
-
-
-## Example Project
-
-To explore the full functionality of **CxjToasts**, check out the example project available in this repository. 
-
-The example project demonstrates:
-- **Predefined templates** for various toast types.
-- **Customization options** for titles, icons, backgrounds, and more.
-- **Dynamic animations** and interaction policies.
-- **Live examples** of toast stacking, hiding, and interaction coordination.
-
-Simply clone the repository and open the example project to see **CxjToasts** in action.
-
-[Click here to view the example project.](https://github.com/coxijcake/CxjToastsExample)
-
----
-
 ## Video Examples of Toast Usage
 
 ### This section demonstrates various examples of toast usage through videos. Each video showcases a specific type of toast behavior or interaction.
@@ -99,6 +54,50 @@ Simply clone the repository and open the example project to see **CxjToasts** in
   </tr>
 </table>
 
+
+---
+
+## Example Project
+
+To explore the full functionality of **CxjToasts**, check out the example project available in this repository. 
+
+The example project demonstrates:
+- **Predefined templates** for various toast types.
+- **Customization options** for titles, icons, backgrounds, and more.
+- **Dynamic animations** and interaction policies.
+- **Live examples** of toast stacking, hiding, and interaction coordination.
+
+Simply clone the repository and open the example project to see **CxjToasts** in action.
+
+[Click here to view the example project.](https://github.com/coxijcake/CxjToastsExample)
+
+---
+
+## Swift Version Support
+
+You can find the most up-to-date information about Swift version support for CxjToasts on [Swift Package Index](https://swiftpackageindex.com/coxijcake/CxjToasts):
+
+[![Swift Versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fcoxijcake%2FCxjToasts%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/coxijcake/CxjToasts)
+
+## Privacy
+
+CxjToasts does not collect any data. This notice is provided to assist you in completing [App Privacy Details](https://developer.apple.com/app-store/app-privacy-details/). 
+Additionally, [privacy manifest](https://github.com/coxijcake/CxjToasts/blob/main/Sources/PrivacyInfo.xcprivacy) was included to be integrated into your app if needed.
+
+## Installation
+
+### Swift Package Manager
+You can use The Swift Package Manager to install Toast-Swift by adding the description to your Package.swift file:
+```swift
+dependencies: [
+	.package(url: "https://github.com/coxijcake/CxjToasts", from: "1.0.4")
+]
+```
+
+### CocoaPods
+```swift
+pod "CxjToasts"
+```
 
 ---
 
