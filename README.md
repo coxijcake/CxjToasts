@@ -2,7 +2,7 @@
 
 Effortless toast presentation with various interaction behaviors between displayed toasts. CxjToasts provides an intuitive and highly customizable solution for managing toast notifications in your iOS app.
 
-![ToastsPreview](https://github.com/user-attachments/assets/dc4a3c33-74c9-481b-9013-69db66cc03a1)
+![Static Image](https://github.com/coxijcake/CxjToastsExample/blob/main/Assets/ToastsPreview.png)
 
 ---
 
