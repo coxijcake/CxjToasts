@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CxjToasts'
-  s.version          = '1.0.0'
+  s.version          = '1.0.3'
   s.summary          = 'A flexible library for displaying customizable toasts.'
 
   s.description = <<-DESC
@@ -18,14 +18,14 @@ CxjToasts is a library for iOS that simplifies the creation and management of to
 
   s.homepage         = 'https://github.com/coxijcake/CxjToasts'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { '<Mikita Biahletski>' => '<mikita.biahletski@gmail.com>' }
+  s.author           = { 'Mikita Biahletski' => 'mikita.biahletski@gmail.com' }
   s.source           = { :git => 'https://github.com/coxijcake/CxjToasts.git', :tag => s.version.to_s } 
 
   s.swift_version = '6.0'
   s.ios.deployment_target = '14.0'
 
   # Source files path
-  s.source_files = 'CxjToasts/Sources/**/*.swift'
+  s.source_files = 'Sources/**/*.swift'
 
   # Module name
   s.module_name = 'CxjToasts'
