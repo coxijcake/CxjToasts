@@ -2,7 +2,7 @@
 
 Effortless toast presentation with various interaction behaviors between displayed toasts. CxjToasts provides an intuitive and highly customizable solution for managing toast notifications in your iOS app.
 
-<img src="assets/toasts.png">
+![ToastsPreview](https://github.com/user-attachments/assets/dc4a3c33-74c9-481b-9013-69db66cc03a1)
 
 ---
 
@@ -57,12 +57,37 @@ Simply clone the repository and open the example project to see **CxjToasts** in
 ## Video Examples of Toast Usage
 
 ### This section demonstrates various examples of toast usage through videos. Each video showcases a specific type of toast behavior or interaction.
+<table>
+  <tr>
+    <td>
+	<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/native.gif" alt="Animated GIF" />
+    </td>
+    <td>
+      	<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/undo.gif" alt="Animated GIF" />
+    </td>
+    <td>
+     	<img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/bottom_primary.gif" alt="Animated GIF" />
+    </td>
+    <td>
+      <img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/global_status.gif" alt="Animated GIF" />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/side_presenting.gif" alt="Animated GIF" />
+    </td>
+    <td>
+      <img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/action_event.gif" alt="Animated GIF" />
+    </td>
+    <td>
+      <img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/compact_action_description.gif" alt="Animated GIF" />
+    </td>
+    <td>
+      <img src="https://raw.githubusercontent.com/coxijcake/CxjToastsExample/main/Assets/top_straight.gif" alt="Animated GIF" />
+    </td>
+  </tr>
+</table>
 
-| Example 1         | Example 2         | Example 3         | Example 4         |
-|--------------------|-------------------|-------------------|-------------------|
-| ![Toast Type 1](assets/native.mov) | ![Toast Type 2](assets/undo.mov) | ![Toast Type 3](assets/bottom_primary.mov) | ![Toast Type 4](assets/global_status.mov) |
-| Example 5         | Example 6         | Example 7         | Example 8         |
-| ![Toast Type 5](assets/side_presenting.mov) | ![Toast Type 6](assets/action_event.mov) | ![Toast Type 7](assets/compact_action_description.mov) | ![Toast Type 8](assets/top_straight.mov) |
 
 ---
 
