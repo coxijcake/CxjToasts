@@ -6,6 +6,27 @@ Effortless toast presentation with various interaction behaviors between display
 
 ---
 
+# Table of Contents
+- [Introduction](#cxjtoasts)
+- [Features](#features)
+- [Video Examples of Toast Usage](#video-examples-of-toast-usage)
+- [Example Project](#example-project)
+- [Swift Version Support](#swift-version-support)
+- [Privacy](#privacy)
+- [Installation](#installation)
+  - [Swift Package Manager](#swift-package-manager)
+  - [CocoaPods](#cocoapods)
+- [How to Show a Toast](#how-to-show-a-toast)
+  - [Public API](#public-api)
+  - [Toast Types](#toast-types)
+  - [Custom Toast Configuration](#custom-toast-configuration)
+- [Toast Configuration](#toast-configuration)
+- [View Configuration](#view-configuration)
+- [Content Configuration](#content-configuration)
+- [License](#licence)
+
+---
+
 ## Features
 - **Predefined Templates**: Ready-to-use toast designs for common scenarios.
 - **Customizable Toasts**: Tailor toasts to match your app's unique style.
