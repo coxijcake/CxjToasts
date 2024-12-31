@@ -105,13 +105,14 @@ You can find the most up-to-date information about Swift version support for Cxj
 CxjToasts does not collect any data. This notice is provided to assist you in completing [App Privacy Details](https://developer.apple.com/app-store/app-privacy-details/). 
 Additionally, [privacy manifest](https://github.com/coxijcake/CxjToasts/blob/main/Sources/PrivacyInfo.xcprivacy) was included to be integrated into your app if needed.
 
+
 ## Installation
 
 ### Swift Package Manager
-You can use The Swift Package Manager to install Toast-Swift by adding the description to your Package.swift file:
+You can use The Swift Package Manager to install CxjToasts by adding the description to your Package.swift file:
 ```swift
 dependencies: [
-	.package(url: "https://github.com/coxijcake/CxjToasts", from: "1.0.4")
+    .package(url: "https://github.com/coxijcake/CxjToasts", from: "1.0.4")
 ]
 ```
 
@@ -120,7 +121,10 @@ dependencies: [
 pod "CxjToasts"
 ```
 
----
+After installation, import the library into your project with:
+```swift
+import CxjToasts
+```
 
 ## How to Show a Toast
 
