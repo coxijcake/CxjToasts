@@ -101,6 +101,46 @@ pod "CxjToasts"
 
 ---
 
+## How to Show a Toast
+
+To display a toast, use the `showToast` method of the `CxjToastsCoordinator` singleton. This method allows specifying the toast type and whether the toast should appear with an animation.
+
+### Public API
+
+#### `showToast(type:animated:)`
+This is the primary method for displaying toasts.
+
+- **type**: The type of toast to display. It can be either:
+  - `templated(template: CxjToastTemplate)`: Use predefined templates for common toast types like success, error, or info.
+  - `custom(data: CxjToastType.CustomToastData)`: Provide custom configurations, view settings, and content for a fully customizable toast.
+- **animated**: Specifies whether the toast should appear with animation. Defaults to `true`.
+
+---
+
+### Toast Types
+
+#### `CxjToastType`
+
+The `CxjToastType` enum defines the type of toast to display and has the following cases:
+
+1. **Templated Toasts**: Use predefined templates for common toast use cases.
+2. **Custom Toasts**: Create custom toasts by providing specific configuration, view settings, and content.
+
+---
+
+### Custom Toast Configuration
+
+For custom toasts, you need to create a `CxjToastType.CustomToastData` object.
+
+#### `CustomToastData` Structure
+
+- **config**: A `CxjToastConfiguration` object that defines toast behavior, such as duration.
+- **viewConfig**: A `CxjToastViewConfiguration` object that defines visual properties, such as background color and corner radius.
+- **content**: A custom view conforming to `CxjToastContentView` that defines the actual content displayed in the toast.
+
+---
+
+
 ## Toast Configuration
 The core structure for defining the behavior, appearance, and interaction of a toast. It provides a flexible API to customize animations, layout, dismissal methods, and more.
 
