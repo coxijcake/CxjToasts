@@ -112,7 +112,7 @@ Additionally, [privacy manifest](https://github.com/coxijcake/CxjToasts/blob/mai
 You can use The Swift Package Manager to install CxjToasts by adding the description to your Package.swift file:
 ```swift
 dependencies: [
-    .package(url: "https://github.com/coxijcake/CxjToasts", from: "1.0.7")
+    .package(url: "https://github.com/coxijcake/CxjToasts", from: "1.0.8")
 ]
 ```
 
