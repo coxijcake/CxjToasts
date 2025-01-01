@@ -5,6 +5,8 @@
 //  Created by Nikita Begletskiy on 24/12/2024.
 //
 
+#if canImport(Testing)
+
 import Testing
 @testable import CxjToasts
 
@@ -73,3 +75,5 @@ final class SmoothProgressCalculatorTests {
         #expect(result == Float(expected))
     }
 }
+
+#endif

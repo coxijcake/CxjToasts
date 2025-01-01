@@ -5,6 +5,8 @@
 //  Created by Nikita Begletskiy on 21/12/2024.
 //
 
+#if canImport(Testing)
+
 import Testing
 import UIKit
 
@@ -49,3 +51,5 @@ final class ToastSourceViewComparatorTests {
         #expect(comparator.isEquals() == true)
     }
 }
+
+#endif

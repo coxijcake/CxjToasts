@@ -5,6 +5,8 @@
 //  Created by Nikita Begletskiy on 21/12/2024.
 //
 
+#if canImport(Testing)
+
 import Foundation
 import Testing
 
@@ -25,3 +27,5 @@ final class ToastTypeComparatorTests {
         #expect(comparator.isEqual() == false)
     }
 }
+
+#endif

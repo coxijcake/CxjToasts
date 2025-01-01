@@ -5,6 +5,8 @@
 //  Created by Nikita Begletskiy on 25/12/2024.
 //
 
+#if canImport(Testing)
+
 import UIKit
 import Testing
 
@@ -121,3 +123,5 @@ final class ToastAnimatorCustomConfigPropertiesBuilderTests {
 		#expect(cornerRadius.constraint == .none)
 	}
 }
+
+#endif

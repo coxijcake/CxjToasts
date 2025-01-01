@@ -5,6 +5,8 @@
 //  Created by Nikita Begletskiy on 21/12/2024.
 //
 
+#if canImport(Testing)
+
 import Testing
 
 @testable import CxjToasts
@@ -66,3 +68,5 @@ final class ToastPlacementComparatorTests {
         #expect(ToastPlacementComparator(lhs: bottomParams1, rhs: bottomParams2).isFullyEqauls() == false)
     }
 }
+
+#endif

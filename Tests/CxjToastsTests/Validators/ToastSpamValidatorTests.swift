@@ -5,6 +5,8 @@
 //  Created by Nikita Begletskiy on 22/12/2024.
 //
 
+#if canImport(Testing)
+
 import UIKit
 import Testing
 
@@ -218,3 +220,5 @@ final class ToastSpamValidatorTests {
         #expect(validator.couldBeDisplayedToast(toastToDisplay) == true)
     }
 }
+
+#endif

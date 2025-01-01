@@ -4,6 +4,7 @@
 //
 //  Created by Nikita Begletskiy on 23/12/2024.
 //
+#if canImport(Testing)
 
 import UIKit
 import Testing
@@ -93,3 +94,5 @@ final class SourceBackgroundLayoutCalculatorTests {
         #expect(resultProperties.alpha.value == expectedAlpha)
     }
 }
+
+#endif

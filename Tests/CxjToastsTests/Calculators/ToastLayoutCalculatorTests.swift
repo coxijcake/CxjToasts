@@ -5,6 +5,8 @@
 //  Created by Nikita Begletskiy on 23/12/2024.
 //
 
+#if canImport(Testing)
+
 import UIKit
 import Testing
 @testable import CxjToasts
@@ -206,3 +208,5 @@ final class ToastLayoutCalculatorTests {
         }
     }
 }
+
+#endif
