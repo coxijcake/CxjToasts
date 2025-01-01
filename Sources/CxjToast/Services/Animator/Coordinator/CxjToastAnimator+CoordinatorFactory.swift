@@ -16,7 +16,7 @@ extension CxjToastAnimator {
 			animation: ConfigAnimation,
 			layoutData: LayoutData,
 			placement: Placement
-		) -> Coordinator {
+		) -> CxjToastAnimationCoordinator {
 			let presentedStateAnimatingProperties: ToastAnimatingProperties =  ToastAnimatingProperties(
 				alpha: .init(value: toastView.alpha),
 				scale: .initial,
@@ -33,7 +33,7 @@ extension CxjToastAnimator {
 				alpha: .min
 			)
 			
-			let configStrategy: ConfigStrategy = ConfigStrategyFactory
+			let configStrategy: CxjToastAnimationPropertiesConfigStrategy = ConfigStrategyFactory
 				.configStrategyFor(
 					animation: animation,
 					placement: placement,

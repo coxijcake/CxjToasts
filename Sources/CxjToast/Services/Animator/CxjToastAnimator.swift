@@ -9,6 +9,7 @@ import UIKit
 
 //MARK: - Types
 extension CxjToastAnimator {
+	typealias Coordinator = CxjToastAnimationCoordinator
     typealias ToastView = CxjToastView
 	typealias SourceBackground = CxjToastSourceBackground
     typealias ToastConfig = CxjToastConfiguration
@@ -17,7 +18,6 @@ extension CxjToastAnimator {
 	typealias AnimationBehaviour = Animations.Behaviour
     typealias AnimationsAction = CxjAnimation.Animations
     typealias AnimationsCompletion = CxjAnimation.Completion
-	
 	typealias ConfigAnimation = ToastConfig.Animation
 	
 	struct LayoutData {

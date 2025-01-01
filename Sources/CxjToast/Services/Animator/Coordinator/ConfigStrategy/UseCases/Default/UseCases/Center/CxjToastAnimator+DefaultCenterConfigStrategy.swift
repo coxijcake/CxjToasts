@@ -8,7 +8,7 @@
 import Foundation
 
 extension CxjToastAnimator {
-	struct DefaultCenterConfigStrategy: DefaultConfigStrategy {
+	struct DefaultCenterConfigStrategy: CxjToastAnimationPropertiesConfigStrategy {
 		let input: ConfigStrategyCommonInput
 		
 		func dismissedStateAnimatingProperties() -> ToastAnimatingProperties {

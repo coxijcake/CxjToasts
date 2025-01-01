@@ -8,7 +8,7 @@
 import Foundation
 
 extension CxjToastAnimator {
-	struct DefaultTopDynamicIslandConfigStrategy: DefaultTopConfigStrategy {
+	struct DefaultTopDynamicIslandConfigStrategy: CxjToastAnimationPropertiesConfigStrategy {
 		let input: ConfigStrategyCommonInput
 		let verticalOffset: CGFloat
 		

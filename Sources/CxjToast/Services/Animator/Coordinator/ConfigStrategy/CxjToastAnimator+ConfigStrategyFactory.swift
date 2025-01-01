@@ -15,7 +15,7 @@ extension CxjToastAnimator {
 			placement: Placement,
 			layoutData: LayoutData,
 			presentedStateAnimatingProperties: ToastAnimatingProperties
-		) -> ConfigStrategy {
+		) -> CxjToastAnimationPropertiesConfigStrategy {
 			let commonInput: ConfigStrategyCommonInput = ConfigStrategyCommonInput(
 				presentedStateAnimatingProperties: presentedStateAnimatingProperties,
 				toastViewData: CxjToastAnimator.ConfigStrategyCommonInput.ToastViewData(

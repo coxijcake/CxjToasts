@@ -9,7 +9,7 @@ import Foundation
 import UIKit.UIView
 
 extension CxjToastAnimator {
-	struct DefaultTopNotchConfigStrategy: DefaultTopConfigStrategy {
+	struct DefaultTopNotchConfigStrategy: CxjToastAnimationPropertiesConfigStrategy {
 		let input: ConfigStrategyCommonInput
 		let verticalOffset: CGFloat
 		

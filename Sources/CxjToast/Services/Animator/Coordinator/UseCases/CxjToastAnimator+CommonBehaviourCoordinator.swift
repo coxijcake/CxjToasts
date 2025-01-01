@@ -9,7 +9,7 @@ import UIKit
 
 extension CxjToastAnimator {
 	@MainActor
-	final class CommonBehaviourCoordinator: Coordinator {
+	final class CommonBehaviourCoordinator: CxjToastAnimationCoordinator {
         //MARK: - Props
         private let toastView: ToastView
 		private let sourceBackground: SourceBackground?

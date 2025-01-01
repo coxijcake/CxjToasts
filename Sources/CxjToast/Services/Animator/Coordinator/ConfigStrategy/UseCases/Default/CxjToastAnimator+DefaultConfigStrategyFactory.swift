@@ -14,7 +14,7 @@ extension CxjToastAnimator {
 			placement: CxjToastConfiguration.Layout.Placement,
 			adjustForTopFeatures: Set<CxjToastConfiguration.Animation.TopScreenFeature>,
 			input: ConfigStrategyCommonInput
-		) -> DefaultConfigStrategy {
+		) -> CxjToastAnimationPropertiesConfigStrategy {
 			switch placement {
 			case .top(let params):
 				DefaultTopConfigStrategyFactory.configStrategy(

@@ -16,7 +16,7 @@ extension CxjToastAnimator {
 			adjustForTopFeatures: Set<CxjToastConfiguration.Animation.TopScreenFeature>,
 			includingSafeArea: Bool,
 			verticalOffset: CGFloat
-		) -> DefaultTopConfigStrategy {
+		) -> CxjToastAnimationPropertiesConfigStrategy {
 			let applicationSafeAreaInsets: UIEdgeInsets = UIApplication.safeAreaInsets
 			let sourceViewSafeAreaInsets: UIEdgeInsets = input.sourceViewData.safeAreaInsets
 			

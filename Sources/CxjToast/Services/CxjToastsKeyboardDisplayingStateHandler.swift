@@ -8,11 +8,9 @@
 import UIKit
 
 //MARK: - DataSource
-extension CxjToastsKeyboardDisplayingStateHandler {
-	@MainActor
-	protocol DataSource: AnyObject {
-		func displayingToastsForObserver(_ observer: CxjToastsKeyboardDisplayingStateHandler) -> [any CxjDisplayableToast]
-	}
+@MainActor
+protocol CxjToastsKeyboardDisplayingStateHandlerDataSource: AnyObject {
+	func displayingToastsForObserver(_ observer: CxjToastsKeyboardDisplayingStateHandler) -> [any CxjDisplayableToast]
 }
 
 //MARK: - Types
@@ -33,6 +31,7 @@ enum CxjKeyboardDisplayingState {
 
 @MainActor
 final class CxjToastsKeyboardDisplayingStateHandler {
+	typealias DataSource = CxjToastsKeyboardDisplayingStateHandlerDataSource
 	typealias KeyboardInfo = CxjKeyboardDisplayingState.DisplayingData
 	
 	private(set) var keyboardDisplayingState: CxjKeyboardDisplayingState = .hiden

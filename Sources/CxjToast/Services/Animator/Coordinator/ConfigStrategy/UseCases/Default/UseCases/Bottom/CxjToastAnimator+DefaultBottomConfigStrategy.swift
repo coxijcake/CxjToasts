@@ -9,7 +9,7 @@ import Foundation
 import UIKit.UIView
 
 extension CxjToastAnimator {
-	struct DefaultBottomConfigStrategy: DefaultConfigStrategy {
+	struct DefaultBottomConfigStrategy: CxjToastAnimationPropertiesConfigStrategy {
 		let input: ConfigStrategyCommonInput
 		let includingSafeArea: Bool
 		let verticalOffset: CGFloat
