@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CxjToasts'
-  s.version          = '1.0.7'
+  s.version          = '1.0.8'
   s.summary          = 'A flexible library for displaying customizable toasts.'
 
   s.description = <<-DESC
